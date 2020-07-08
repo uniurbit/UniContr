@@ -1,0 +1,438 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-riquadro-wrapper *ngIf="items">    
+      <app-list-item label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ items.nome | uppercase }} {{ items.cognome | uppercase }}</span></app-list-item>    
+      <app-list-item label="{{ '00_int2' | translate }}" value="{{ items.insegnamento | uppercase }}"></app-list-item>
+      <app-list-item label="{{ '00_int3' | translate }}" value="{{ items.aa }} / {{ tools.annoAccademico(items.aa) }}"></app-list-item>
+      <app-list-item label="{{ '00_int5' | translate }}">DAL GIORNO {{ items.data_ini_contr | date: 'dd-MM-yyyy' }} AL GIORNO {{ items.data_fine_contr | toDateObj | date: 'dd-MM-yyyy' }} <span *ngIf="items.ciclo">({{items.ciclo | uppercase}})</span></app-list-item>
+      <app-list-item label="{{ '00_int4' | translate }}" value="{{ tools.naturaRapporto(items.natura_rapporto) }}"></app-list-item>
+      <app-list-item label="{{ '00_int6' | translate }}" value="{{ tools.tipoConferimento(items.motivo_atto) }}"></app-list-item> 
+  </app-riquadro-wrapper>
+
+  <div *ngxPermissionsOnly="['OP_APPROVAZIONE_AMM', 'OP_APPROVAZIONE_ECONOMICA', 'SUPER-ADMIN']">
+    <app-collapse-riquadro-wrapper [options]="{ title:'summary_damm' | translate }" *ngIf="datiCont" >
+      <app-list-item label="{{ 'summary_id_cop' | translate }}" value="{{ items.coper_id }}"></app-list-item> 
+      <app-list-item label="{{ 'summary_id_dg' | translate }}" value="{{ datiCont.id_dg }}"></app-list-item>
+      <app-list-item label="{{ 'summary_num_rate' | translate }}" value="{{ datiCont.num_rate }}"></app-list-item>
+      <app-list-item *ngIf="datiCont?.datibase?.stato_dg" label="{{ 'summary_stato' | translate }}" value="{{ datiCont.datibase.stato_dg | translate }}"></app-list-item>
+
+      <h6 class="mt-1" *ngIf="datiCont?.compensi?.length > 0">Compensi</h6>
+      <table class="table table-sm mb-0" *ngIf="datiCont?.compensi?.length == 0">
+        <tr class="table-warning mp-1">Nessun compenso registrato</tr>
+      </table>     
+      <table class="table table-sm ml-2 mt-1" *ngIf="datiCont?.compensi?.length > 0">
+        <thead>
+          <tr class="row  mr-1">
+            <td class="col-sm-2">ID DG</td>
+            <td class="col-sm-2">Data inserimento</td> 
+            <td class="col-sm-2">Stato</td> 
+            <td class="col-sm-4">ID DG Ordinativi emessi</td>            
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row mr-1" *ngFor="let compenso of datiCont.compensi">
+            <td class="col-sm-2">{{ compenso.id_dg }}</td>
+            <td class="col-sm-2">{{ compenso.dt_ins | date : 'dd-MM-yyyy' }}</td>
+            <td class="col-sm-2">{{ compenso.datibase.stato_dg | translate }}</td>
+            <td class="col-sm-4" [ngClass]="{ 'bg-warning': compenso.ordinativi.length == 0}">{{ compenso.ordinativi.length > 0 ? getOrdinativi(compenso) : 'Nessun ordinativo emesso' }}</td> 
+          </tr>
+        </tbody>  
+      </table>  
+    
+    </app-collapse-riquadro-wrapper>
+  </div>
+
+  <!-- Stato di avanzamento -->
+  <app-collapse-riquadro-wrapper [options]="{ title:'summary_sda' | translate }" *ngIf="items">    
+    <table class="table table-borderless mb-0">
+      <thead>
+        <tr>
+          <th style="width: 70px;"></th>
+          <th>DESCRIZIONE</th>
+          <th>STATO</th>
+          <th>ATTORE</th>
+          <th>DATA / ORA</th>
+        </tr>
+      </thead>
+      
+      <!-- Modulistica precontrattuale -->
+      <tr [className]="items.flag_submit === 0 ? 'table-warning' : 'table-success'">
+        <td>
+          <!-- <button type="button" class="btn btn-outline-secondary" (click)="goto.gotoP1(items.insegn_id)" title="{{ 'summary_title1' | translate }}">  -->
+          <span class="oi oi-file iconic pl-2 pb-1 m-1"></span>
+          <!-- </button> -->
+        </td>
+        <td>{{ 'summary_mpr' | translate }}</td>
+        <td>
+          <span *ngIf="items.flag_submit === 0">{{ 'summary_txt1' | translate }}</span>
+          <span *ngIf="items.flag_submit === 1">{{ 'summary_txt2' | translate }}</span>
+        </td>
+        <td>{{ items.nome | titlecase }} {{ items.cognome | titlecase }}</td>
+        <td>{{ items.date_submit }}</td>      
+        <td></td>
+      </tr>    
+
+      <!-- Validazione modulistica precontrattuale Ufficio Amm.ne e Reclutamento Personale Docente title="{{ 'summary_title3' | translate }}"-->
+      <tr *ngIf="isCompilato()" [className]="items.flag_upd === 0 ? isRevisioneAmministrativa() ? 'table-danger' : 'table-warning' : 'table-success'">
+        <td>
+          <!-- <button type="button" class="btn btn-outline-secondary border-0" disabled="true"></button>  -->
+           <span *ngIf="items.flag_upd === 0" class="oi oi-thumb-up iconic pl-2 pb-1 m-1"></span>
+           <span *ngIf="items.flag_upd === 1" class="oi oi-check iconic  pl-2 pb-1 m-1"></span>
+        </td>
+        <td>{{ 'summary_val' | translate }}</td>
+        <td>
+          <span *ngIf="items.flag_upd === 0">{{ summaryTxt5_amministrativa() }}</span>
+          <span *ngIf="items.flag_upd === 1">{{ 'summary_txt6' | translate }}</span>
+        </td>
+        <td>{{ 'summary_upd' | translate }}</td>
+        <td>{{ items.date_upd }}</td>
+        <td>
+          <ng-container *ngxPermissionsOnly="['OP_APPROVAZIONE_AMM','SUPER-ADMIN']">
+            <button *ngIf="items.flag_upd == 1  && !isFirmato()" type="button" class="btn btn-sm btn-danger rounded m-1" 
+              title="{{ 'summary_annulla' | translate }} {{ 'summary_val' | translate }}" (click)="annullaAmm()">
+                {{ 'summary_annulla' | translate }} 
+            </button>
+          </ng-container>
+        </td>
+      </tr>
+
+      <!-- Validazione modulistica precontrattuale Ufficio Trattamenti Economici e Previdenziali -->
+      <tr *ngIf="isValidatoAmm()"  [className]="items.flag_amm === 0 ? isRevisioneEconomica() ? 'table-danger' : 'table-warning' : 'table-success'">
+        <td>
+          <!-- <button type="button" class="btn btn-outline-secondary" title="{{ 'summary_title4' | translate }}">  -->
+            <span class="align-middle" *ngIf="items.flag_amm === 0" class="oi oi-thumb-up iconic  pl-2 pb-1 m-1"></span>
+            <span class="align-middle" *ngIf="items.flag_amm === 1" class="oi oi-check iconic  pl-2 pb-1 m-1"></span>
+          <!-- </button> -->
+        </td>
+        <td>{{ 'summary_val' | translate }}</td>
+        <td>
+          <span *ngIf="items.flag_amm === 0">{{ summaryTxt5_economica() }}</span>
+          <span *ngIf="items.flag_amm === 1">{{ 'summary_txt6' | translate }}</span>
+        </td>
+        <td>{{ 'summary_amm' | translate }}</td>
+        <td>{{ items.date_amm }}</td>
+        <td>
+          <ng-container *ngxPermissionsOnly="['OP_APPROVAZIONE_ECONOMICA','SUPER-ADMIN']">
+            <button *ngIf="items.flag_amm && !isFirmato()" type="button" class="btn btn-sm btn-danger rounded m-1" 
+              title="{{ 'summary_annulla' | translate }} {{ 'summary_val' | translate }}" (click)="annullaEconomica()">
+              {{ 'summary_annulla' | translate }} 
+            </button>
+          </ng-container>
+        </td>
+      </tr>
+
+      <!-- Presa visione e accettazione contratto -->
+      <tr *ngIf="isValidatoEconomica()" [className]="items.flag_accept === 0 ? 'table-warning' : 'table-success'">
+        <td> 
+          <!-- <button type="button" class="btn btn-outline-secondary" title="{{ 'summary_title5' | translate }}">  -->
+            <span  *ngIf="items.flag_accept === 0" class="oi oi-thumb-up iconic  pl-2 pb-1 m-1"></span>
+            <span  *ngIf="items.flag_accept === 1" class="oi oi-check iconic  pl-2 pb-1 m-1"></span>
+          <!-- </button> -->
+        </td>
+        <td>{{ 'summary_acpt' | translate }}</td>
+        <td>
+          <span *ngIf="items.flag_accept === 0">{{ 'summary_txt7' | translate }}</span>
+          <span *ngIf="items.flag_accept === 1">{{ 'summary_txt8' | translate }}</span>
+        </td>
+        <td>
+          <span *ngIf="items.flag_accept === 0">{{ 'summary_txt9' | translate }}</span>
+          <span *ngIf="items.flag_accept === 1">{{ items.nome | titlecase }} {{ items.cognome | titlecase }}</span>
+        </td>
+        <td>{{ items.date_accept }}</td>
+        <td></td>
+      </tr>
+
+      <tr *ngIf="isAccettato()" [className]="items.stato === 0 ? 'table-warning' : 'table-success'">
+        <td> 
+          <!-- <button type="button" class="btn btn-outline-secondary" title="{{ 'summary_title5' | translate }}">  -->
+            <span  *ngIf="items.stato === 0" class="oi oi-thumb-up iconic  pl-2 pb-1 m-1"></span>
+            <span  *ngIf="items.stato === 1" class="oi oi-check iconic  pl-2 pb-1 m-1"></span>
+          <!-- </button> -->
+        </td>
+        <td>{{ 'summary_firma' | translate }}</td>
+        <td>
+          <span *ngIf="items.stato === 0">{{ 'summary_inattesafirma' | translate }}</span>
+          <span *ngIf="items.stato === 1">{{ 'summary_firmato' | translate }}</span>
+        </td>
+        <td>{{ 'summary_segr' | translate }}</td>
+        <td> </td>
+        <td></td>
+      </tr>
+      
+      <tr *ngIf="isRinuncia()" [className]="'table-danger'">
+        <td> 
+            <span class="oi oi-circle-x iconic  pl-2 pb-1 m-1"></span>            
+        </td>
+        <td>{{ 'summary_rinuncia' | translate }}</td>
+        <td>Rinunciato</td>
+        <td>{{ 'summary_dipartimentale' | translate }}</td>
+        <td>{{items.date_flag_no_compenso}}</td>
+        <td>
+          <ng-container *ngxPermissionsOnly="['OP_DIPARTIMENTALE','SUPER-ADMIN']">
+            <button *ngIf="isRinuncia()" type="button" class="btn btn-sm btn-danger rounded m-1" 
+              title="{{ 'summary_annulla' | translate }} {{ 'summary_rinuncia' | translate }}" (click)="annullaRinuncia()">
+              {{ 'summary_annulla' | translate }} 
+            </button>
+          </ng-container>
+        </td>
+      </tr>
+
+      <tr *ngIf="isAnnullato()" [className]="'table-danger'">
+        <td> 
+            <span class="oi oi-circle-x iconic  pl-2 pb-1 m-1"></span>            
+        </td>
+        <td>{{items.motivazione}}</td>
+        <td>{{(items.tipo_annullamento == 'REVOC') ? 'Revoca' : 'Rinuncia'}}</td>
+        <td>{{ 'summary_dipartimentale' | translate }}</td>
+        <td>{{items.date_annullamento}}</td>
+        <td></td>
+      </tr>
+
+   
+
+    </table>
+  </app-collapse-riquadro-wrapper>
+
+  <!--Allegati-->
+  <app-collapse-riquadro-wrapper [options]="{ title:'a1_docum' | translate}"  *ngIf="isCompilato()" >     
+    <table>
+      <tr>
+        <td style="width: 30px; padding-left: 10px;">
+          <span class="oi oi-paperclip iconic"></span>
+        </td>
+        <td>
+          <a href="javascript:void(0)" *ngIf="items.flag_accept === 0" (click)="previewcontratto()" title="">
+            <span *ngIf="!isValidatoEconomica()">{{ 'summary_txt3' | translate }} </span>
+            <span *ngIf="isValidatoEconomica()">{{ 'summary_txt3_contratto' | translate }}</span>
+          </a>
+          <a href="javascript:void(0)" *ngIf="items.flag_accept === 1" (click)="downloadContrattoFirma()" title="">
+            <span *ngIf="isFirmato()">{{ 'summary_txt4_firmato' | translate }}</span>
+            <span *ngIf="items.stato == 0 || items.stato == 2">{{ 'summary_txt4' | translate }}</span>
+          </a>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="width: 30px; padding-left: 10px;">
+          <span class="oi oi-paperclip iconic"></span>
+        </td>
+        <td>
+          <a href="javascript:void(0)" (click)="downloadCV('DOC_CV')" title="">{{ 'a1_cv' | translate }}</a>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="width: 30px; padding-left: 10px;">
+          <span class="oi oi-paperclip iconic"></span>
+        </td>
+        <td>
+          <a href="javascript:void(0)" (click)="generatePdf(items,'CONFL_INT_TRASP')" title="">{{ 'b1_txt16' | translate }}</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td style="width: 30px; padding-left: 10px;">
+          <span class="oi oi-paperclip iconic"></span>
+        </td>
+        <td>
+          <a href="javascript:void(0)" (click)="generatePdf(items,'CONFL_INT')" title="">{{ 'b1_txt17' | translate }}</a>
+        </td>
+      </tr>
+
+      <tr  *ngxPermissionsOnly="['OP_APPROVAZIONE_ECONOMICA','SUPER-ADMIN']">
+        <td style="width: 30px; padding-left: 10px;">
+          <span class="oi oi-paperclip iconic"></span>
+        </td>
+        <td>
+          <a href="javascript:void(0)" (click)="downloadModulisticaPrecontr()" title="">{{ 'summary_txt12_modulistica' | translate }}</a>
+        </td>
+      </tr>
+      
+    </table>  
+  </app-collapse-riquadro-wrapper>
+
+  <!--variazione residenza -->
+  <ng-container *ngxPermissionsOnly="['OP_APPROVAZIONE_ECONOMICA','OP_APPROVAZIONE_AMM','OP_DIPARTIMENTALE','SUPER-ADMIN']">
+    <app-collapse-riquadro-wrapper [options]="{title:'Variazione dati'}" *ngIf="items && (items.anangraficaaudit.length > 0 || items.a2modalitapagamentoaudit.length > 0)">    
+      <ng-container *ngIf="items.anangraficaaudit.length > 0 ">      
+        <h6>Anagrafica (Residenza, Domicilio fiscale)</h6>
+        <table class="table table-sm">
+          <thead>
+            <tr class="row ml-1 mr-1">
+              <th class="col-sm-3">Campo</th>
+              <th class="col-sm-3">Da</th>
+              <th class="col-sm-4">A</th>
+              <th class="text-center col-sm-2">Data modifica</th>          
+            </tr>
+          </thead>
+            <tbody>
+              <tr class="row ml-1 mr-1" *ngFor="let item of items.anangraficaaudit">
+                <td class="col-sm-3 text-truncate" title="{{ item.field_name | translate }}">{{ item.field_name | translate }}</td>
+                <td class="col-sm-3">{{ item.old_value }}</td>            
+                <td class="col-sm-4">{{ item.new_value }}</td>           
+                <td class="text-center col-sm-2">{{ item.created_at }}</td>                       
+              </tr>
+            </tbody>   
+        </table>        
+      </ng-container>
+      <ng-container *ngIf="items.a2modalitapagamentoaudit.length > 0 ">
+      <h6>Pagamento</h6>
+      <table class="table table-sm">
+        <thead>
+          <tr class="row ml-1 mr-1">
+            <th class="col-sm-2">Campo</th>
+            <th class="col-sm-4">Da</th>
+            <th class="col-sm-4">A</th>
+            <th class="text-center col-sm-2">Data modifica</th>          
+          </tr>
+        </thead>
+          <tbody>
+            <tr class="row ml-1 mr-1" *ngFor="let item of items.a2modalitapagamentoaudit">
+              <td class="col-sm-2">{{ item.field_name | translate }}</td>
+              <td class="col-sm-4">{{ item.old_value }}</td>            
+              <td class="col-sm-4">{{ item.new_value }}</td>           
+              <td class="text-center col-sm-2">{{ item.created_at }}</td>                       
+            </tr>
+          </tbody>   
+      </table>
+      </ng-container>
+    </app-collapse-riquadro-wrapper>
+  </ng-container>
+
+  <!--richiesta modifica precontrattuale -->
+  <ng-container *ngxPermissionsOnly="['OP_APPROVAZIONE_ECONOMICA','OP_APPROVAZIONE_AMM','OP_DIPARTIMENTALE','SUPER-ADMIN']">
+    <app-collapse-riquadro-wrapper [options]="{title:'Richiesta modifica/integrazioni modulistica precontrattuale'}" *ngIf="items && items.richiesta">                
+        <table class="table table-sm">
+            <tbody>
+              <tr class="d-flex ml-1 mr-1">
+                <th class="col-sm-1" scope="row">Data</th>
+                <td class="col-sm-11">{{ items.richiesta.created_at }}</td>                                         
+              </tr>
+              <tr class="d-flex  ml-1 mr-1">
+                <th class="col-sm-1" scope="row">Mittente</th>
+                <td class="col-sm-11">{{ items.richiesta?.user?.name }}</td>                                         
+              </tr>
+              <tr class="d-flex ml-1 mr-1">
+                <th class="col-sm-1" scope="row">Richiesta</th>
+                <td class="col-sm-11">{{ items.richiesta.corpo_testo }}</td>                                         
+              </tr>
+            </tbody>   
+        </table>            
+    </app-collapse-riquadro-wrapper>
+  </ng-container>
+
+  <!--Menu story process-->
+  <app-collapse-riquadro-wrapper [options]="{ title:'summary_story' | translate}" *ngIf="items">
+    <table class="table table-borderless mb-0">
+      <tr>
+        <td style="width: 70px;">
+          <button type="button" class="btn btn-outline-secondary rounded" title="{{ 'summary_title6' | translate }}" (click)="goto.emaillist(items.insegn_id)"> 
+            <span class="oi oi-monitor iconic"></span>
+          </button>
+        </td>
+        <td>{{ 'summary_txt10' | translate }}</td>
+      </tr>
+
+      <tr>
+        <td>
+          <button type="button" class="btn btn-outline-secondary rounded" title="{{ 'summary_title7' | translate }}" (click)="goto.story(items.insegn_id)"> 
+            <span class="oi oi-graph iconic"></span>
+          </button>
+        </td>
+        <td>{{ 'summary_txt11' | translate }}</td>
+      </tr>
+    </table>
+  </app-collapse-riquadro-wrapper> 
+
+  <!--Finestra di input gestione annullamento-->
+  <app-riquadro-wrapper *ngIf="gestioneannulamento && !isAnnullato()">    
+    <h5>{{ (model.tipo_annullamento == 'REVOC' ? 'summary_gestione_annulamento_revoca' : 'summary_gestione_annulamento_rinuncia') | translate }}</h5>
+    <form [formGroup]="form" *ngIf="items">        
+      <formly-form [model]="model" [fields]="fields" [form]="form" [options]="options"></formly-form>
+    </form> 
+    <div class="form-footer text-right">
+      <button class="btn btn-sm btn-danger rounded m-1" (click)="annullaContratto()" [disabled]="form.invalid" 
+        title="{{ (model.tipo_annullamento == 'REVOC' ? 'summary_annullacontratto_revoca' : 'summary_annullacontratto_rinuncia') | translate }}">{{ (model.tipo_annullamento == 'REVOC' ? 'summary_annullacontratto_revoca' : 'summary_annullacontratto_rinuncia') | translate }}</button>
+    </div>
+  </app-riquadro-wrapper>  
+
+  <!--Finestra di invio email-->
+  <app-riquadro-wrapper *ngIf="gestioneinformazioni">    
+    <h5>{{ 'summary_informazioni' | translate }}</h5>
+    <form [formGroup]="form" *ngIf="items">        
+      <formly-form [model]="model" [fields]="fields2" [form]="form" [options]="options"></formly-form>
+    </form> 
+    <div class="form-footer text-right">
+      <button class="btn btn-sm btn-danger rounded m-1" (click)="sendInfoEmail()" [disabled]="form.invalid" title="{{ 'summary_sendemail' | translate }}">{{ 'summary_sendemail' | translate }}</button>
+    </div>
+  </app-riquadro-wrapper>
+</div>
+
+<div class="text-right">
+<div class="btn-group  mr-2 mb-1" *ngIf="items">
+  <ng-container *ngIf="!isRinuncia() && !isAnnullato()" >
+    <button type="button" class="btn btn-outline-secondary rounded mr-1" *ngxPermissionsOnly="['OP_DIPARTIMENTALE','SUPER-ADMIN']" (click)="rinunciaCompenso()">
+      <span class="oi oi-euro iconic"></span> 
+      <span class="ml-2">Rinuncia compenso</span>
+    </button>  
+  </ng-container>
+
+  <ng-container *ngIf="!isAnnullato()">
+    <button type="button" class="btn btn-outline-secondary rounded mr-1" (click)="toggleGestioneannulamento('REVOC')" *ngxPermissionsOnly="['OP_DIPARTIMENTALE','SUPER-ADMIN']" 
+      data-toggle="button" aria-pressed="false" autocomplete="off" >
+      <span class="oi oi-ban iconic"></span> 
+      <span class="ml-2">Revoca</span>
+    </button>  
+  </ng-container>
+
+  <ng-container *ngIf="!isAnnullato()">
+    <button type="button" class="btn btn-outline-secondary rounded mr-1" (click)="toggleGestioneannulamento('RINU')" *ngxPermissionsOnly="['OP_DIPARTIMENTALE','SUPER-ADMIN']" 
+      data-toggle="button" aria-pressed="false" autocomplete="off" >
+      <span class="oi oi-ban iconic"></span> 
+      <span class="ml-2">Rinuncia</span>
+    </button>  
+  </ng-container>
+
+  <div *ngIf="items.flag_submit === 1 && !isValidatoEconomica() && !isAnnullato()">
+    <button type="button" class="btn btn-outline-secondary rounded mr-1" (click)="toggleGestioneInformazioni()" *ngxPermissionsOnly="['OP_APPROVAZIONE_AMM', 'OP_APPROVAZIONE_ECONOMICA', 'SUPER-ADMIN']" title="{{ 'summary_infoemail' | translate }}">
+      <span class="oi oi-chat iconic"></span> 
+      <span class="ml-2">Richiesta informazioni</span>
+    </button>
+  </div>
+  <!-- *ngIf="isStepCompilazione()" isStepValidazioneAmm isStepValidazioneEconomica isStepPresaVisione isAccettato-->
+  
+  <button type="button" class="btn btn-outline-secondary rounded mr-1"  *ngxPermissionsOnly="['OP_DIPARTIMENTALE','OP_DOCENTE','OP_APPROVAZIONE_AMM','OP_APPROVAZIONE_ECONOMICA','SUPER-ADMIN']" (click)="goto.gotoP1(items.insegn_id)">
+    <span class="oi oi-file iconic"></span> 
+    <span class="ml-2">Vai alla modulistica</span>
+  </button>
+
+  <ng-container *ngIf="isStepValidazioneAmm() && !isAnnullato()" >
+    <button type="button" class="btn btn-outline-secondary rounded mr-1" *ngxPermissionsOnly="['OP_APPROVAZIONE_AMM','SUPER-ADMIN']" (click)="validazioneAmm()" title="{{ 'summary_title3' | translate }}">
+      <span class="oi oi-thumb-up iconic"></span> 
+      <span class="ml-2">{{ 'summary_valida' | translate }}</span>
+    </button> 
+  </ng-container>
+
+  <ng-container *ngIf="isStepValidazioneEconomica() && !isAnnullato()">
+    <button type="button" class="btn btn-outline-secondary rounded mr-1"  *ngxPermissionsOnly="['OP_APPROVAZIONE_ECONOMICA','SUPER-ADMIN']"
+      (click)="validazioneEconomica()" title="{{ 'summary_title4' | translate }}">
+      <span class="oi oi-thumb-up iconic"></span>
+      <span class="ml-2">{{ 'summary_valida' | translate }}</span>
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="isStepPresaVisione() && !isAnnullato()" >   
+    <button type="button" [ngClass]="(visualizzatoContratto)? 'btn btn-outline-secondary rounded mr-2' : 'btn btn-warning rounded mr-2'" *ngxPermissionsOnly="['OP_DOCENTE','SUPER-ADMIN']" (click)="previewcontratto()"
+      title="{{ 'summary_title2' | translate }}">
+      <span class="oi oi-document iconic"></span>
+      <span class="ml-2">Visualizza contratto</span>
+    </button>
+    <button type="button" [disabled]='!visualizzatoContratto'  [ngClass]="(!visualizzatoContratto)? 'btn btn-outline-secondary rounded mr-2' : 'btn btn-warning rounded mr-2'" *ngxPermissionsOnly="['OP_DOCENTE','SUPER-ADMIN']" 
+      title="{{ 'summary_title5' | translate }}" (click)="presaVisione()">
+      <span class="oi oi-thumb-up iconic"></span>
+      <span class="ml-2">Presa visione</span>
+    </button>
+  </ng-container>
+
+</div>
+</div>  

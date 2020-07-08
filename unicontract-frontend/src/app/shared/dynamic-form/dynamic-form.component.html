@@ -1,0 +1,30 @@
+<div [formGroup]="form" class="form-group">
+  <label [attr.for]="control.key"  class="control-label active">{{control.label}}</label>
+  <div [ngSwitch]="control.controlType">
+    <!--Textbox-->
+    <input  class="form-control" *ngSwitchCase="'textbox'" [formControlName]="control.key"
+            [id]="control.key" type="text"  
+            [ngClass]="{'is-invalid': form.controls[control.key].invalid && (form.controls[control.key].dirty|| form.controls[control.key].touched)}">
+
+    <!--Combo-->
+    <select  class="form-control" [id]="control.key" *ngSwitchCase="'dropdown'" [formControlName]="control.key" 
+    [ngClass]="{'is-invalid': form.controls[control.key].invalid && (form.controls[control.key].dirty || form.controls[control.key].touched)}">
+      <option *ngFor="let opt of control.options" [value]="opt.key">{{opt.value}}</option>
+    </select>
+
+    <!--Datapicker  placeholder="dd-mm-yyyy"-->
+    <div class="input-group"  *ngSwitchCase="'datepicker'">
+      <input class="form-control" [formControlName]="control.key" [id]="control.key" [displayMonths]="displayMonths" [navigation]="navigation"
+          [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers" ngbDatepicker="" #d="ngbDatepicker" 
+          [ngClass]="{'is-invalid': form.controls[control.key].invalid && (form.controls[control.key].dirty || form.controls[control.key].touched)}">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+            <img src="assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+          </button>
+      </div>
+    </div>    
+  </div> 
+
+  <app-show-errors [control]="form.controls[control.key]"></app-show-errors>  
+  <!-- <div class="errorMessage" *ngIf="!isValid">{{control.label}} is required</div> -->
+</div>

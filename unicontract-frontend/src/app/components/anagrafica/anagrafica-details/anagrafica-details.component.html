@@ -1,0 +1,16 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="item">
+  <app-riquadro-wrapper>  
+    <app-list-item label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ resp.nome | uppercase }} {{ resp.cognome | uppercase }}</span></app-list-item>            
+  </app-riquadro-wrapper>
+    
+  <form [formGroup]="formAnagrafica" >      
+    <formly-form  [model]="item" [fields]="fieldsAnagrafica" [form]="formAnagrafica" [options]="optionsAnagrafica">      
+    </formly-form> 
+  </form>
+ 
+  <app-salva-annulla-button [isNew]="!update" [fields]="fieldsAnagrafica" [formRef]="formAnagrafica" (valid)="saveAnagr(formAnagrafica.value, item.a1_anagrafica_id)"></app-salva-annulla-button>
+ 
+</div>
+
+

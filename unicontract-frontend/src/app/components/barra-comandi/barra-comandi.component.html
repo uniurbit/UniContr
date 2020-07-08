@@ -1,0 +1,72 @@
+<ng-container *ngxPermissionsOnly="['OP_DOCENTE','SUPER-ADMIN']">
+ <button *ngIf="type && type!='P1' &&!isBlocked()" class="btn btn-outline-secondary rounded mr-1" [disabled]="disabledUpdate()" (click)="update()" >
+    <span class="oi oi-pencil iconic"  title="{{ 'btn_upd_title' | translate }}"></span>
+  </button>
+</ng-container>
+  <button class="btn btn-outline-secondary rounded mr-2" (click)="goto.summary(item.insegn_id)" >
+    <span class="oi oi-list-rich iconic"  title="{{ 'btn_smm_title' | translate }}"></span>
+  </button>
+  
+
+  <ng-container *ngxPermissionsOnly="['OP_APPROVAZIONE_AMM','OP_APPROVAZIONE_ECONOMICA','SUPER-ADMIN']">
+    <button *ngIf="!item?.validazioni?.flag_submit && isDisabled('P1')" class="btn btn-outline-secondary rounded mr-1"  (click)="sendEmail.emit()" >
+      <span class="oi oi-envelope-closed iconic"  title="{{ 'btn_email_title' | translate }}"></span>    
+    </button>
+  </ng-container>
+
+  <ng-container  *ngxPermissionsOnly="['OP_DIPARTIMENTALE','SUPER-ADMIN']">
+    <button type="button" class="btn btn-outline-secondary rounded mr-1" *ngIf="isDisabled('P1')" (click)="updateInsegnamento.emit(item.insegn_id)">
+      <span class="oi oi-reload iconic"  title="{{ 'btn_refresh' | translate }}"></span>
+    </button>
+  </ng-container>
+
+  <!--P1-->
+  <button class="{{ getClassName('P1') }}" [disabled]="isDisabled('P1')" (click)="goto.gotoP1(item.insegn_id)" title="{{ 'btn_p1_title' | translate }}">{{ 'btn_p1' | translate }}</button>
+  <!--P2-->
+  <button type="button" class="{{ getClassName('P2') }}" [disabled]="isDisabled('P2')"  
+    *ngIf="item.p2_natura_rapporto_id !== 0" (click)="goto.gotoP2(item.p2_natura_rapporto_id)" title="{{ 'btn_p2_title' | translate }}" >{{ 'btn_p2' | translate }}</button>
+  <!--A1-->
+  <button type="button" class="{{ getClassName('A1') }}"  [disabled]="isDisabled('A1')" 
+    *ngIf="item.a1_anagrafica_id !== 0" (click)="goto.gotoA1(item.a1_anagrafica_id)" title="{{ 'btn_a1_title' | translate }}" >{{ 'btn_a1' | translate }}</button>     
+  <!--A2-->
+  <button type="button"  class="{{ getClassName('A2') }}"  [disabled]="isDisabled('A2')" 
+    *ngIf="item.a2_mod_pagamento_id !== 0" (click)="goto.gotoA2(item.a2_mod_pagamento_id)" >
+      <span  title="{{ 'btn_a2_title' | translate }}">{{ 'btn_a2' | translate }}</span>        
+  </button>    
+  <!--B1-->
+  <button type="button" class="{{ getClassName('B1') }}" [disabled]="isDisabled('B1')" 
+    *ngIf="item.b1_confl_interessi_id !== 0"  (click)="goto.gotoB1(item.b1_confl_interessi_id)" title="{{ 'btn_b1_title' | translate }}">{{ 'btn_b1' | translate }}</button>
+  <!--B2-->
+  <button type="button" class="{{ getClassName('B2') }}" [disabled]="isDisabled('B2')" *ngIf="item.b2_incompatibilita_id !== 0" (click)="goto.gotoB2(item.b2_incompatibilita_id)" title="{{ 'btn_b2_title' | translate }}">{{ 'btn_b2' | translate }}</button>   
+  <!--B3-->
+  <button type="button" class="{{ getClassName('B3') + ' btn-warning' }}" *ngIf="!isDisabled('B3') && goto.attivaPulsanteB3(item)" (click)="goto.switchB3(item.insegn_id, item.b3_rapp_studio_univ_id)" title="{{ 'btn_b3_title' | translate }}">{{ 'btn_b3' | translate }}</button>
+  <button type="button" class="{{ getClassName('B3') }}" [disabled]="isDisabled('B3')" *ngIf="item.b3_rapp_studio_univ_id !== 0 && item.flag_rapp_studio_univ == 1" (click)="goto.gotoB3(item.b3_rapp_studio_univ_id)" title="{{ 'btn_b3_title' | translate }}">{{ 'btn_b3' | translate }}</button>
+  <!--B4-->
+  <button type="button" class="{{ getClassName('B4') + ' btn-warning' }}" *ngIf="!isDisabled('B4') && goto.attivaPulsanteB4(item)" (click)="goto.switchB4(item.insegn_id, item.b4_rapp_pubbl_amm_id)" title="{{ 'btn_b4_title' | translate }}">{{ 'btn_b4' | translate }}</button>
+  <button type="button" class="{{ getClassName('B4') }}" [disabled]="isDisabled('B4')" *ngIf="item.b4_rapp_pubbl_amm_id !== 0 && item.flag_dipend_pubbl_amm == 1" (click)="goto.gotoB4(item.b4_rapp_pubbl_amm_id)" title="{{ 'btn_b4_title' | translate }}">{{ 'btn_b4' | translate }}</button>
+  <!--B5-->
+  <button type="button" class="{{ getClassName('B5') + ' btn-warning' }}" *ngIf="!isDisabled('B5') && goto.attivaPulsanteB5(item)" (click)="goto.switchB5(item.insegn_id, item.b5_stato_pensionam_id)" title="{{ 'btn_b5_title' | translate }}">{{ 'btn_b5' | translate }}</button>
+  <button type="button" class="{{ getClassName('B5') }}" [disabled]="isDisabled('B5')" *ngIf="item.b5_stato_pensionam_id !== 0 && item.flag_titolare_pensione == 1" (click)="goto.gotoB5(item.b5_stato_pensionam_id)" title="{{ 'btn_b5_title' | translate }}">{{ 'btn_b5' | translate }}</button>
+  <!--B6-->
+  <button type="button" class="{{ getClassName('B6') }}" [disabled]="isDisabled('B6')" *ngIf="item.b6_trattamento_dati_id !== 0" (click)="goto.gotoB6(item.b6_trattamento_dati_id)" title="{{ 'btn_b6_title' | translate }}">{{ 'btn_b6' | translate }}</button>
+
+  <!--C-->
+  <button type="button" class="{{ getClassName('C') }}" [disabled]="isDisabled('C')" *ngIf="item.natura_rapporto === 'PRPR' && item.c_prestaz_profess_id !== 0" (click)="goto.gotoC(item.c_prestaz_profess_id)" title="{{ 'btn_c_title' | translate }}">{{ 'btn_c' | translate }}</button>
+  <!--D1-->
+  <button type="button" class="{{ getClassName('D1') }}" [disabled]="isDisabled('D1')" *ngIf="item.natura_rapporto === 'COCOCO' && item.d1_inps_id !== 0" (click)="goto.gotoD1(item.d1_inps_id)" title="{{ 'btn_d1_title' | translate }}">{{ 'btn_d1' | translate }}</button>
+  <!--D2-->
+  <button type="button" class="{{ getClassName('D2') }}" [disabled]="isDisabled('D2')" *ngIf="item.natura_rapporto === 'COCOCO' && item.d2_inail_id !== 0" (click)="goto.gotoD2(item.d2_inail_id)" title="{{ 'btn_d2_title' | translate }}">{{ 'btn_d2' | translate }}</button>
+  <!--D3-->
+  <button type="button" class="{{ getClassName('D3') }}" [disabled]="isDisabled('D3')" *ngIf="item.natura_rapporto === 'COCOCO' && item.d3_tributari_id !== 0" (click)="goto.gotoD3(item.d3_tributari_id)" title="{{ 'btn_d3_title' | translate }}">{{ 'btn_d3' | translate }}</button>
+  <!--D4-->
+  <button type="button" class="{{ getClassName('D4') }}" [disabled]="isDisabled('D4')" *ngIf="item.natura_rapporto === 'COCOCO' && item.d4_fiscali_id !== 0" (click)="goto.gotoD4(item.d4_fiscali_id)" title="{{ 'btn_d4_title' | translate }}">{{ 'btn_d4' | translate }}</button>
+  <!--D5-->
+  <button type="button" class="{{ getClassName('D5') }}" [disabled]="isDisabled('D5')" *ngIf="item.natura_rapporto === 'COCOCO' && item.d5_fiscali_resid_estero_id !== 0" (click)="goto.gotoD5(item.d5_fiscali_resid_estero_id)" title="{{ 'btn_d5_title' | translate }}">{{ 'btn_d5' | translate }}</button>
+  <!--D6-->
+  <button type="button" class="{{ getClassName('D6') }}" [disabled]="isDisabled('D6')" *ngIf="item.natura_rapporto === 'COCOCO' && item.d6_detraz_fam_carico_id !== 0" (click)="goto.gotoD6(item.d6_detraz_fam_carico_id)" title="{{ 'btn_d6_title' | translate }}">{{ 'btn_d6' | translate }}</button>
+  <!--E-->
+  <button type="button" class="{{ getClassName('E') }}" [disabled]="isDisabled('E')" *ngIf="item.natura_rapporto === 'PLAO' && item.e_autonomo_occasionale_id !== 0" (click)="goto.gotoE(item.e_autonomo_occasionale_id)" title="{{ 'btn_e_title' | translate }}">{{ 'btn_e' | translate }}</button>  
+  
+  <ng-container *ngxPermissionsOnly="['OP_DOCENTE','SUPER-ADMIN']">
+  <app-prosegui-button *ngIf="item" [item]="item" [type]="type"></app-prosegui-button>
+  </ng-container> 

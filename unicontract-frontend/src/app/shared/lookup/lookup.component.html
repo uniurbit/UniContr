@@ -1,0 +1,35 @@
+
+<div class="modal-header">
+ 
+  
+  <h4 class="modal-title" id="modal-basic-title">Ricerca</h4>
+
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    
+  <div *ngIf="enableNew" class="btn-toolbar mb-4" role="toolbar">
+      <div class="btn-group btn-group-sm">  
+        <button class="btn btn-outline-primary border-0 rounded-0" (click)="onNew($event)">
+          <span class="oi oi-document"></span>
+          <span class="ml-2">Nuovo</span>
+        </button>  
+      </div>
+  </div> 
+
+  <app-query-builder [rules]="rules" [metadata]="researchMetadata" (find)="onFind($event)"></app-query-builder>
+  
+  <ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+  <h4>Risultati</h4>
+  <form [formGroup]="form">
+    <formly-form [model]="model" [fields]="resultMetadata" [form]="form">
+
+    </formly-form>
+  </form>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" [disabled]="selected!.length == 0"  (click)="close()">Scegli</button>
+</div>

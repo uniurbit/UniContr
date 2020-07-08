@@ -1,0 +1,22 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items" >
+  <app-intestazione [item]="items"></app-intestazione>  
+    
+  <form [formGroup]="formAttch">
+    <app-riquadro-wrapper>      
+      <formly-form  [model]="model" [fields]="fields" [form]="formAttch" [options]="options"></formly-form>
+    </app-riquadro-wrapper>
+
+    <app-riquadro-wrapper>
+      <formly-form  [model]="model" [fields]="fields2" [form]="formAttch" [options]="options"></formly-form>
+    </app-riquadro-wrapper>
+    
+    <app-riquadro-wrapper>
+      <formly-form  [model]="model" [fields]="fields3" [form]="formAttch" [options]="options"></formly-form>
+      <p style="text-align: justify; font-size: 11px;">{{ 'b4_txt28' | translate }}</p>
+    </app-riquadro-wrapper>
+  </form>
+  
+  <app-salva-annulla-button [isNew]="!update" [fields]="fields" [formRef]="formAttch" (valid)="saveData(items.b4_rapp_pubbl_amm_id)"></app-salva-annulla-button>
+   
+</div>

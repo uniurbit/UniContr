@@ -1,0 +1,27 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" >    
+  <app-riquadro-wrapper *ngIf="items">
+    <app-list-item label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ items.nome | uppercase }} {{ items.cognome | uppercase }}</span></app-list-item>            
+    <app-list-item label="{{ '00_int2' | translate }}" value="{{ items.insegnamento | uppercase }}"></app-list-item>
+    <app-list-item label="{{ '00_int10' | translate }}" value="{{ items.cdl | uppercase }}"></app-list-item>
+    <app-list-item label="{{ '00_int3' | translate }}" value="{{ items.aa }} / {{ tools.annoAccademico(items.aa) }}"></app-list-item>
+    <app-list-item label="{{ '00_int15' | translate }}" value="{{ tools.tipoContratto(items.tipo_contratto) }}"></app-list-item>         
+    <app-list-item label="{{ '00_int6' | translate }}" value="{{ tools.tipoConferimento(items.motivo_atto) }}"></app-list-item>    
+  </app-riquadro-wrapper>
+
+  <form [formGroup]="formAttch"  *ngIf="items">
+    <app-riquadro-wrapper>
+      <h5>{{ 'p2_title1' | translate }}</h5>
+      <formly-form [model]="model" [fields]="fields1" [form]="formAttch" [options]="options"></formly-form>
+    </app-riquadro-wrapper>
+
+    <app-riquadro-wrapper>
+      <h5>{{ 'p2_title2' | translate }}</h5>
+      <formly-form [model]="model" [fields]="fields2" [form]="formAttch" [options]="options"></formly-form>
+    </app-riquadro-wrapper>
+  </form>
+
+  <app-salva-annulla-button [isNew]="!update" [fields]="fields1" [formRef]="formAttch" (valid)="saveData(items.p2_natura_rapporto_id)"></app-salva-annulla-button>  
+
+  
+</div>

@@ -1,0 +1,43 @@
+<div class="card" style="margin-bottom: 0px; padding: 0px">
+        <!-- *ngIf="messageService.messages.length" -->
+        <h5 class="card-header">
+                Area messaggi <span *ngIf="length > 0" class="badge badge-primary badge-pill">{{length}}</span>
+                <button class="btn btn-sm btn-link float-right" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+                        aria-controls="collapseMessage">
+                        <span *ngIf="isCollapsed" class="oi oi-chevron-top"></span>
+                        <span *ngIf="!isCollapsed" class="oi oi-chevron-bottom"></span>
+                </button>
+        </h5>
+        <div id="collapseMessage" [ngbCollapse]="isCollapsed">
+                <div class="card-body">
+                        <ul class="list-group list-group-flush" style="max-height: 100px;overflow-y: auto;">
+                                <li *ngFor="let inframessage of messages | async" (click)="onSelect(inframessage, content)" class="list-group-item {{ cssClass(inframessage) }}" style="height: 30px; padding: 3px 10px;">
+                                <span>{{inframessage.message}}</span>
+                                </li>
+                        </ul>
+                </div>
+        </div>
+        <!-- <div class="card-body"  style="max-height: 100px;overflow-y: scroll;">    
+                <div *ngFor='let inframessage of messageService.messages' class="{{ cssClass(inframessage) }}" > {{inframessage.message}} 
+                </div>
+        </div>           -->
+</div>
+
+<ng-template #content let-c="close">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Dettagli errore</h4>
+          <button type="button" class="close" aria-label="Close" (click)="c('Close click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>        
+        <div class="modal-body">
+                <form [formGroup]="form">
+                        <formly-form [model]="model" [fields]="fields" [form]="form">
+
+                        </formly-form>
+                </form>
+        </div>
+        <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+        </div>
+</ng-template>

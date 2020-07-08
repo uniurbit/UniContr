@@ -1,0 +1,29 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="item">
+  <app-intestazione *ngIf="item" [item]="item" [dettagli]="true"></app-intestazione>  
+
+  <app-riquadro-wrapper>
+    <h5>{{ 'a2_title1' | translate }}</h5>
+    <div class="row">
+      <span style="padding: 3px 15px 0 15px;" class="oi oi-check iconic"></span>
+      <div>{{ paymentModality(item.modality) | uppercase }}</div>
+    </div>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="item.modality === 'ACIC'">
+    <h5>{{ 'a2_title2' | translate }}</h5>
+    <app-list-item label="{{ 'a2_label7' | translate }}" value="{{ ccType(item.tipologia_conto_corrente)  | uppercase  }}"> </app-list-item>
+    <app-list-item label="{{ 'a2_label2' | translate }}" value="{{ item.iban | uppercase }}"> </app-list-item>  
+    <app-list-item label="{{ 'a2_label1' | translate }}" value="{{ item.intestazione | uppercase }}"> </app-list-item>   
+    <app-list-item label="{{ 'a2_label3' | translate }}" value="{{ item.denominazione | uppercase }}"> </app-list-item>
+    <app-list-item *ngIf="item.luogo" label="{{ 'a2_label4' | translate }}" value="{{ item.luogo | uppercase }}"> </app-list-item>
+    <app-list-item *ngIf="item.bic" label="{{ 'a2_label5' | translate  }}" value="{{ item.bic | uppercase }}"> </app-list-item>
+    <app-list-item *ngIf="item.aba" label="{{ 'a2_label6' | translate }}" value="{{ item.aba | uppercase }}"> </app-list-item>
+  </app-riquadro-wrapper>
+
+  <div class="form-footer text-right" >  
+    <app-barra-comandi *ngIf="item" [item]="item" [type]="'A2'"></app-barra-comandi>
+    
+    <app-termina-button [item]="item" *ngIf="item.validazioni.flag_submit === 0 && tools.termina(item) === true" (update)="isLoadingChange($event)"></app-termina-button>
+  </div>
+</div>

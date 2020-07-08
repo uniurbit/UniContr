@@ -1,0 +1,16 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items"></app-intestazione>  
+
+  <app-riquadro-wrapper>
+    <p style="margin-bottom: 0px; text-align: justify;">{{ 'd1_premessa' | translate }}</p>
+  </app-riquadro-wrapper>
+
+  <form [formGroup]="formAttch"  *ngIf="items">
+    <formly-form [model]="model" [fields]="fields" [form]="formAttch" [options]="options"></formly-form>
+  </form>
+
+  <app-salva-annulla-button [isNew]="!update" [fields]="fields" [formRef]="formAttch" (valid)="saveData(items.d1_inps_id)"></app-salva-annulla-button>  
+
+  
+</div>

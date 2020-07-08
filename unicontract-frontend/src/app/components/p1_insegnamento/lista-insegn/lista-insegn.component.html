@@ -1,0 +1,15 @@
+<table class="table table-striped"> 
+  <thead>
+  <tr>
+    <th style="width: 5%; text-align: center; padding: 7px;">#</th>
+    <th style="width: 15%; padding: 7px;">{{ '00_int16' | translate }}</th> 
+    <th style="width: 15%; padding: 7px;">{{ '00_int1' | translate }}</th>
+    <th style="padding: 7px;">{{ '00_int2' | translate }}</th>
+    <th style="width: 10%; text-align: center; padding: 7px;">&nbsp;</th>
+  </tr>
+</thead>
+  <tr app-insegnamento *ngFor="let insegn of insegnamenti | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize" [insegn-data] = "insegn" (onSelectedInsegn) = onSelectedInsegn($event)></tr>
+</table>
+<div *ngIf="totalItems > pageSize">
+  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalItems" [(page)]="page" [pageSize]="pageSize" ></ngb-pagination>
+</div>

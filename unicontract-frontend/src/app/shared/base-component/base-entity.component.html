@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    <ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+    <h4 *ngIf="title">{{title}}</h4>
+
+    <div class="btn-toolbar mb-4 text-right" role="toolbar">
+        <div class="btn-group">
+            <button *ngIf="activeNew" class="btn btn-outline-primary rounded-lg" (click)="onNew()" >              
+                <span class="oi oi-document"></span>
+                <span class="ml-2">Nuovo</span>
+            </button> 
+            <button class="btn btn-outline-primary rounded-lg ml-1" [disabled]="!form.valid || !form.dirty" (click)="onSubmit()"  *ngxPermissionsOnly="['ADMIN','SUPER-ADMIN']">
+                <span class="oi oi-arrow-top"></span>
+                <span class="ml-2">Aggiorna</span>
+            </button>
+            <button *ngIf="isReloadable" class="btn btn-outline-primary rounded-lg ml-1" (click)="onReload()" [disabled]="!form.dirty">
+                <span class="oi oi-reload iconic" title="reload" aria-hidden="true"></span>
+                <span class="ml-2">Ricarica</span>
+            </button>
+            <button *ngIf="researchPath" class="btn btn-outline-primary rounded-lg ml-1" (click)="onResearch()">
+                <span class="oi oi-magnifying-glass"></span>
+                <span class="ml-2">Ricerca</span>
+            </button>
+            <button *ngIf="isRemovable && activeNew" class="btn btn-outline-primary rounded-lg ml-1" (click)="onRemove()">
+                <span class="oi oi-trash"></span>  
+                <span class="ml-2">Rimuovi</span>
+            </button>
+        </div>
+        <div class="btn-group">
+            <button *ngIf="returnUrl || locationBack" class="btn btn-outline-primary rounded-lg ml-1" (click)="onBack()">
+                <span class="oi oi-arrow-left"></span>
+                <span class="ml-2">Ritorna</span>
+            </button>
+        </div>
+    </div>
+    
+
+    <form [formGroup]="form">
+        <formly-form [model]="model" [fields]="fields" [form]="form" [options]="options">
+
+        </formly-form>
+    </form>
+</div>

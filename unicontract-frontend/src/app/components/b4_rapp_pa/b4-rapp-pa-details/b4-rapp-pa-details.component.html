@@ -1,0 +1,117 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items" >
+  <app-intestazione *ngIf="items" [item]="items" [dettagli]="true"></app-intestazione>  
+
+  <app-riquadro-wrapper *ngIf="items">
+    <h5>{{ 'b4_txt22' | translate }}</h5>
+    <div *ngFor="let item of items.pubblamm">
+      <div *ngIf="items.tipo_rapporto === 'TIND'" class="row">
+        <div class="col">
+          {{ 'b4_txt1b' | translate }} {{ item.denominazione_pa }} {{ 'b4_txt2' | translate }} {{ 'b4_txt5' | translate }} {{ tempo(item.tempo_pieno) }}
+          <span *ngIf="item.tempo_pieno === 0">({{ item.percentuale }} %).</span>
+        </div>
+      </div>
+      <div *ngIf="items.tipo_rapporto === 'TDET'" class="row">
+          <div class="col">
+            {{ 'b4_txt1b' | translate }} {{ item.denominazione_pa }} {{ 'b4_txt3' | translate }} {{ 'b4_txt23' | translate }} {{ item.dal_giorno }} {{ 'b4_txt24' | translate }} {{ item.al_giorno }} {{ 'b4_txt5' | translate }} {{ tempo(item.tempo_pieno) }}
+            <span *ngIf="item.tempo_pieno === 0">({{ item.percentuale }} %).</span>
+          </div>
+      </div>
+      <div *ngIf="items.tipo_rapporto === 'ASP'" class="row" >
+        <div class="col">
+          {{ 'b4_txt1b' | translate }} {{ item.denominazione_pa }} {{ 'b4_txt4' | translate }} {{ 'b4_txt25' | translate }} {{ item.dal_giorno }}.
+        </div>
+      </div>
+
+    
+      <!-- ANAGRAFE DELLE PRESTAZIONI -->
+      <div class="row">
+        <div class="col">{{ 'b4_txt9' | translate }}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">{{ 'b4_txt10' | translate }}:</div>
+        <div>{{ item.denominazione_pa }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">{{ 'b4_txt11' | translate }}:</div>
+        <div>{{ item.cod_fisc_pa }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">{{ 'b4_txt12' | translate }}:</div>
+        <div>{{ item.piva_pa }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">{{ 'b4_txt13' | translate }}:</div>
+        <div>{{ item.indirizzo_pa }}, {{ item.num_civico_pa }} - {{ item.cap_pa }} {{ item.comune_pa}} ({{ item.provincia_pa }})</div>
+      </div>
+      <div class="row" *ngIf="item.num_telefono_pa">
+        <div class="col-md-2">{{ 'b4_txt18' | translate }}:</div>
+        <div>{{ item.num_telefono_pa }}</div>
+      </div>
+      <div class="row" *ngIf="item.num_fax_pa">
+        <div class="col-md-2">{{ 'b4_txt19' | translate }}:</div>
+        <div>{{ item.num_fax_pa }}</div>
+      </div>
+      <div class="row" *ngIf="item.email_pa">
+        <div class="col-md-2">{{ 'b4_txt20' | translate }}:</div>
+        <div>{{ item.email_pa }}</div>
+      </div>
+      <div class="row" *ngIf="item.pec_pa">
+        <div class="col-md-2">{{ 'b4_txt21' | translate }}:</div>
+        <div>{{ item.pec_pa }}</div>
+      </div>
+
+      <div *ngIf="items.pubblamm.length > 1">
+        <hr>
+      </div>
+    </div>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="items">
+    <div class="row">
+      <div class="col">
+          {{ 'b4_txt6' | translate}}
+      </div>
+    </div>
+
+    <div class="row">      
+      <div class="col" *ngIf="items.attivita_professionale === 0">
+          <span class="oi oi-check iconic ml-1 mr-2"></span>non {{ 'b4_txt7' | translate }}
+      </div>
+      <div class="col" *ngIf="items.attivita_professionale === 1">
+          <span class="oi oi-check iconic ml-1 mr-2"></span>{{ 'b4_txt7b' | translate }} {{ items.descrizione_attivita }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col" *ngIf="items.iscrizione_albo === 0">
+          <span class="oi oi-check iconic ml-1 mr-2"></span>non {{ 'b4_txt8' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }}
+      </div>
+      <div class="col" *ngIf="items.iscrizione_albo === 1">
+          <span class="oi oi-check iconic ml-1 mr-2"></span>{{ 'b4_txt8b' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }} {{ items.descrizione_albo }}
+      </div>
+    </div>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="items && items.attachments && items.attachments.length > 0">
+    <h5>{{ 'b4_txt26' | translate }}</h5>            
+      <table class="row" *ngFor="let attach of items.attachments; first as isFirst" >          
+        <tr>
+          <td style="width: 30px; padding-left: 10px;">
+            <span class="oi oi-paperclip iconic"></span>
+          </td>
+          <td>
+            <a href="javascript:void(0)" (click)="download(attach.id)" title="">{{ 'b4_download_autorizzazione' | translate }}</a>
+          </td>
+        </tr>
+      </table>                 
+  </app-riquadro-wrapper>
+
+  <div class="form-footer text-right" *ngIf="items"> 
+    <app-barra-comandi *ngIf="items" [item]="items" [type]="'B4'"></app-barra-comandi>
+    
+    
+    <app-termina-button [item]="items" *ngIf="items.validazioni.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items"></app-intestazione>  
+
+  <form [formGroup]="formAttch"  *ngIf="items">
+    <app-riquadro-wrapper>
+      <p class="mb-0">{{ 'd4_premessa' | translate }}</p>
+    </app-riquadro-wrapper>
+    <app-riquadro-wrapper>
+      <formly-form [model]="model" [fields]="fields1" [form]="formAttch" [options]="options"></formly-form>
+    </app-riquadro-wrapper>
+    <app-riquadro-wrapper>
+      <formly-form [model]="model" [fields]="fields2" [form]="formAttch" [options]="options"></formly-form>
+    </app-riquadro-wrapper>
+    <app-riquadro-wrapper>
+      <formly-form [model]="model" [fields]="fields3" [form]="formAttch" [options]="options"></formly-form>
+    </app-riquadro-wrapper>
+    <app-riquadro-wrapper *ngIf="valido_21_2020()">
+      <formly-form [model]="model" [fields]="fields4" [form]="formAttch" [options]="options"></formly-form>
+    </app-riquadro-wrapper>
+  </form>
+
+  <app-salva-annulla-button [isNew]="!update" [fields]="fields" [formRef]="formAttch" (valid)="saveData(items.d4_fiscali_id)"></app-salva-annulla-button>  
+
+</div>

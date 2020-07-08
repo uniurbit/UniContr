@@ -1,0 +1,25 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items" [dettagli]="true"></app-intestazione> 
+
+  <app-riquadro-wrapper *ngIf="items">
+    <h5>{{ 'd2_title2' | translate }}</h5>
+    <p class="mb-0">{{ 'd2_txt1' | translate }}</p>
+    <div class="row">
+      <div class="col">
+        <span class="oi oi-check iconic pl-1 pr-2"></span>
+          <span *ngIf="items.posizione_previdenziale === 'INAIL7'">{{ 'd2_txt2' | translate }}<br>{{ 'd2_sub_txt1' | translate }}</span>
+          <span *ngIf="items.posizione_previdenziale === 'INAIL10'">{{ 'd2_txt3' | translate }}<br>{{ 'd2_sub_txt2' | translate }}</span>
+          <span *ngIf="items.posizione_previdenziale === 'INAIL4'">{{ 'd2_txt4' | translate }}<br>{{ 'd2_sub_txt3' | translate }}</span>
+          <span *ngIf="items.posizione_previdenziale === 'NOINAIL'">{{ 'd2_txt5' | translate }}</span>                
+      </div>
+    </div>
+  </app-riquadro-wrapper>
+
+  <div class="form-footer text-right"> 
+    <app-barra-comandi *ngIf="items" [item]="items" [type]="'D2'"></app-barra-comandi>  
+        
+    <app-termina-button [item]="items" *ngIf="items.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>
+  </div>
+
+</div>

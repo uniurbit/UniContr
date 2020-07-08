@@ -1,0 +1,28 @@
+
+<app-header-navigation></app-header-navigation>
+
+<h4>SEI IN HOME COMPONENT</h4>
+<div class="container-fluid pt-5">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-lg-2" style="border-right: 1px solid rgba(0, 0, 0, 0.1)">
+      <!--compare quando il menu laterale è collassato-->
+      <div class="d-lg-none d-flex py-2 px-4 align-items-center text-body sidebar-collapsed" (click)="sidebarCollapsed = !sidebarCollapsed" role="button">
+        <span class="mr-auto">Menu</span>
+        <button class="btn btn-link p-0" aria-controls="doc-nav" [attr.aria-expanded]="!sidebarCollapsed" aria-label="Toggle documentation navigation">
+        <svg class="align-middle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false">
+        <title>Menu</title>
+        <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path>
+        </svg>
+        </button>
+      </div>
+        <!-- menu laterale -->
+        <!-- <app-side-nav id="doc-nav" [ngbCollapse]="sidebarCollapsed" [entries]="navs" class="d-lg-block py-2 collpase sidebar"></app-side-nav> -->
+    </div>
+    <div  class="col-12 col-lg-10">
+      <div class="mt-2" style="padding-bottom: 100px;">
+        <router-outlet></router-outlet>
+      </div>      
+      <app-message></app-message>      
+    </div>
+  </div>    
+</div>

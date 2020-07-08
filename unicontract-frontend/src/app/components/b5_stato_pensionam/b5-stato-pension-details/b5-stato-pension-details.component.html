@@ -1,0 +1,51 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items" [dettagli]="true"></app-intestazione>  
+
+  <div class="border border-primary rounded p-2 mb-2" >
+    <div class="row">
+      <div class="col">{{ 'b5_txt1' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }}</div>
+    </div>
+    <div *ngIf="items.status === 'PNDA'" class="row">
+      <div class="col">
+        <span class="oi oi-check iconic pl-1 pr-2"></span>
+        {{ 'b5_txt2' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }}.
+      </div>
+    </div>
+    <div *ngIf="items.status === 'CSPA'" class="row">
+      <div class="col">
+        <span class="oi oi-check iconic pl-1 pr-2"></span>
+        {{ 'b5_txt3' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }}.
+      </div>
+    </div>
+    <div *ngIf="items.status === 'CVPA'" class="row">
+      <div class="col">
+        <span class="oi oi-check iconic pl-1 pr-2"></span>
+        {{ 'b5_txt4' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }}.
+      </div>
+    </div>
+    <div *ngIf="items.status === 'RURL'" class="row">
+      <div class="col">
+        <span class="oi oi-check iconic pl-1 pr-2"></span>
+        {{ 'b5_txt5' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }}.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">{{ 'b5_txt6' | translate }}</div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span class="oi oi-check iconic pl-1 pr-2"></span>
+        <span *ngIf="items.flag_rapp_collab_universita === 0">non </span>
+        {{ 'b5_txt7' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="form-footer text-right" *ngIf="items" > 
+    <app-barra-comandi *ngIf="items" [item]="items" [type]="'B5'"></app-barra-comandi>  
+
+    
+    <app-termina-button [item]="items" *ngIf="items.validazioni.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>
+  </div>
+</div>

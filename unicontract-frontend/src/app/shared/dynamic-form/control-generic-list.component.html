@@ -1,0 +1,30 @@
+<div [formGroup]="form">
+  <h5>{{ control.label }}</h5>
+
+  <div class="btn-toolbar mb-4" role="toolbar">
+    <div class="btn-group">
+      <button type="button" class="btn btn-outline-primary" (click)="add()">
+        <span class="oi oi-plus"></span>
+        <span class="ml-2">Aggiungi</span>
+      </button>
+      <button type="button" class="btn btn-outline-primary" [disabled]="!form.valid">
+        <span class="oi oi-trash"></span>
+        <span class="ml-2">Rimuovi</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead> </thead>
+      <tbody formArrayName="{{ control.key }}">
+        <!-- commentato per errore compilazione -->
+        <!-- <tr *ngFor="let item of form.get(control.key).controls; let i = index;" [formGroupName]="i">
+          <ng-container *ngTemplateOutlet="itemTemplate; context: {item: item, controls: controls} ">
+          </ng-container>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
+
+</div>

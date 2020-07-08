@@ -1,0 +1,37 @@
+export interface AnagraficaInterface {
+    matricola: string;
+    cognome: string;
+    nome: string;
+    stato_civ?: string;
+    sesso: string;
+    data_nasc: string;
+    loc_nasc: string;
+    naz_nasc: string;
+    ds_nazi: string;
+    nazionalita: string;
+    cod_fisc: string;
+    cod_fis_estero: string;
+    ind_res: string;
+    civico_res: string;
+    cap_res: string;
+    comune_res: string;
+    prov_res: string;
+    nazi_res: string;
+    tel_res: string;
+    ind_rif: string;
+    civico_rif: string;
+    cap_rif: string;
+    comune_rif: string;
+    prov_rif: string;
+    nazi_rif: string;
+    tel_rif: string;
+    ind_fis: string;
+    civico_fis: string;
+    cap_fis: string;
+    comune_fis: string;
+    prov_fis: string;
+    nazi_fis: string;
+    ds_onorifico: string;
+    e_mail: string;
+    e_mail_privata: string;
+}

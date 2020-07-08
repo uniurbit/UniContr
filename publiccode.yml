@@ -1,0 +1,64 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+categories:
+  - data-collection
+  - document-management
+description:
+  it:
+    features:
+      - 'Gestione delle precontrattuali: inserimento, modifica e validazione '
+      - Storico precontrattuali
+      - 'Dashboard uffici '
+      - Generazione contratto
+      - 'Nofiche uffici e docenti '
+    genericName: UniContr è una applicazione web
+    longDescription: >
+      ## PROCEDURALIZZAZIONE E DEMATERIALIZZAZIONE DEI CONTRATTI DI DOCENZA
+
+
+      UniContr è un deposito unico, completo e autoritativo di tutti i dati
+      relativi agli incarichi didattici conferiti sia ai collaboratori esterni
+      che a PTA e CEL, attraverso una procedura controllata che eviti incoerenze
+      tra i dati nonché inserimenti molteplici degli stessi.
+
+
+      UniContr permette di seguire le fasi di gestione di una precontrattuale in
+      termini di: inserimento, modifica e validazione dei dati, generazione del
+      contratto, messa alla firma del contratto da parte del Rettore e visualizzazione 
+      delle informazioni sullo stato di avanzamento.
+    shortDescription: >-
+      UniContr è una applicazione web per la proceduralizzazione e
+      dematerializzazione dei contratti di docenza
+developmentStatus: beta
+it:
+  conforme:
+    gdpr: false
+    lineeGuidaDesign: true
+    misureMinimeSicurezza: true
+    modelloInteroperabilita: true
+  countryExtensionVersion: '0.2'
+  piattaforme:
+    anpr: false
+    cie: false
+    pagopa: false
+    spid: false
+legal:
+  license: MIT
+localisation:
+  availableLanguages:
+    - it
+  localisationReady: false
+maintenance:
+  contacts:
+    - email: enrico.oliva@uniurb.it
+      name: Enrico Oliva
+  type: internal
+name: UniContr
+platforms:
+  - web
+releaseDate: '2020-08-01'
+softwareType: standalone/web
+url: 'https://github.com/enricouniurb/UniContr'

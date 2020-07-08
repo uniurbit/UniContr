@@ -1,0 +1,43 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '4px' }"></ngx-loading>
+
+<h4 *ngIf="title">Ricerca {{title}}</h4>
+
+<div *ngIf="enableNew" class="btn-toolbar mb-2" role="toolbar">
+    <div class="btn-group">  
+      <button class="btn btn-outline-primary rounded-lg" type="button" (click)="onNew($event)">
+        <span class="oi oi-document"></span>
+        <span class="ml-2">Nuovo</span>
+      </button>  
+    </div>
+</div>  
+<!--[0].fieldArray.fieldGroup-->
+<app-query-builder [rules]="rules" [metadata]="fieldsRow" [builderoptions]="builderoptions" (find)="onFind($event)" ></app-query-builder>
+
+<form *ngIf="resultMetadata" [formGroup]="form" >
+<formly-form [model]="model" [fields]="resultMetadata" [form]="form">  
+</formly-form> 
+</form>
+<div class="row align-items-center">
+    <!--
+    <div class="col-md-8">
+      <h4 class="mb-0">Risultati</h4>
+    </div>
+    -->
+    <div class="col">
+      <div *ngIf="enabledExport" class="btn-group float-right pl-2" role="group">  
+        <button type="button"  [disabled]="model.data.length==0" class="btn btn-outline-primary rounded-lg " (click)="onExport()">
+          <span class="oi oi-document"></span>
+          <span class="ml-2">Scarica CSV</span>
+        </button>  
+      </div>
+    </div>
+  </div>
+
+
+<ng-template #seleziona ngx-datatable-cell-template let-row="row" let-rowIndex="rowIndex" let-value="value" >
+  <button type="button" class="btn btn-outline-primary" (click)="rowSelection(row)">Seleziona</button>  
+</ng-template>  
+
+<ng-template #tooltip let-row="row" let-value="value" let-i="index">
+  <span title="{{ value+'_tooltip' | translate}}"> {{ value | translate }} </span>
+</ng-template>

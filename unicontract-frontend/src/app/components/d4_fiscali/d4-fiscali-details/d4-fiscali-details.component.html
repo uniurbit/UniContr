@@ -1,0 +1,73 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items" [dettagli]="true"></app-intestazione>  
+
+  <app-riquadro-wrapper *ngIf="items">
+    <p class="mb-0">{{ 'd4_premessa' | translate }}</p>
+    <div class="row">
+      <div class="col">
+        <span class="oi oi-check iconic pl-1 pr-2"></span>
+        {{ 'd4_txt1b' | translate }} {{ items.percentuale_aliquota_irpef }} %
+      </div>
+    </div> 
+
+    <div class="row" *ngIf="items.flag_detrazioni === 1">
+      <div class="col">
+        <span class="oi oi-check iconic pl-1 pr-2"></span>
+         {{ 'd4_txt3' | translate  : {'anno': items.data_fine_contr | toDateObj | date: 'yyyy'}  }} {{ 'd4_txt4' | translate }} 
+        <span *ngIf="items.detrazioni === 'RCC'">{{ 'd4_txt5' | translate }}</span>
+        <span *ngIf="items.detrazioni === 'RCD'">{{ 'd4_txt6' | translate }} pari ad € {{ items.reddito }}</span>
+      </div>
+    </div> 
+
+    <div class="row" *ngIf="items.flag_detrazioni === 0">
+      <div class="col">
+        <span class="oi oi-minus iconic pl-1 pr-2"></span>
+          {{ 'd4_txt2' | translate }}        
+      </div>
+    </div>
+
+    <div class="row" *ngIf="items.flag_bonus_renzi != null &&  items.flag_bonus_renzi === 1">
+      <div class="col">
+        <span class="oi oi-check iconic pl-1 pr-2"></span>
+        {{ 'd4_txt7b' | translate : {'anno': items.data_fine_contr | toDateObj | date: 'yyyy'} }} 
+      </div>
+    </div> 
+
+    <div class="row" *ngIf="items.flag_bonus_renzi != null && items.flag_bonus_renzi === 0">
+      <div class="col">
+        <span class="oi oi-minus iconic pl-1 pr-2"></span>
+          non {{ 'd4_txt7' | translate }}        
+      </div>
+    </div>
+    
+    <div class="row" *ngIf="items.flag_detrazioni_21_2020 != null && items.flag_detrazioni_21_2020 === 1">
+      <div class="col">
+        <span class="oi oi-check iconic pl-1 pr-2"></span>
+         {{ 'd4_intest4' | translate }} - 
+        <span *ngIf="items.detrazioni_21_2020 === 'TI21'">{{ 'd4_txt7_ti21' | translate }}</span>
+        <span *ngIf="items.detrazioni_21_2020 === 'D21'">{{ 'd4_txt8_d21' | translate }}, reddito stimato {{ items.reddito_21_2020 | currency: '€' }}</span>
+      </div>
+    </div> 
+
+    <div class="row" *ngIf="items.flag_detrazioni_21_2020 != null && items.flag_detrazioni_21_2020 === 0">
+      <div class="col">
+        <span class="oi oi-minus iconic pl-1 pr-2"></span>
+          non {{ 'd4_intest4' | translate }}      
+      </div>
+    </div>
+  </app-riquadro-wrapper>
+
+
+  <app-riquadro-wrapper *ngIf="items.detrazioni === 'RCD'">
+    <h5>{{ 'd4_nota8' | translate }}</h5>
+    <p>{{ 'd4_nota2' | translate }}</p>
+  </app-riquadro-wrapper>
+
+  <div class="form-footer text-right"> 
+    <app-barra-comandi *ngIf="items" [item]="items" [type]="'D4'"></app-barra-comandi>  
+          
+    <app-termina-button [item]="items" *ngIf="items.validazioni.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>
+  </div>
+
+</div>

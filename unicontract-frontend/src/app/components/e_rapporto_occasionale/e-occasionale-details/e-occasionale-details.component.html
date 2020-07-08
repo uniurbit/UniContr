@@ -1,0 +1,49 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items" [dettagli]="true"></app-intestazione>  
+
+  <app-riquadro-wrapper *ngIf="items">
+    <p class="mb-0 text-justify">{{ 'e_premessa1' | translate }}</p>
+    <div class="row">
+      <div class="col">         
+        <span class="oi oi-check iconic pl-1 pr-2"></span>
+        <span *ngIf="items.cod_limite_reddito === 'NASL'">{{ 'e_txt1' | translate }}</span>
+        <span *ngIf="items.cod_limite_reddito === 'AGR'">{{ 'e_txt2' | translate }}</span>
+        <span *ngIf="items.cod_limite_reddito === 'ASLR'">{{ 'e_txt4' | translate }}</span>                           
+      </div>
+    </div>
+
+    <div *ngIf="items.cod_limite_reddito === 'ASLR'">
+        <p class="mb-0 text-justify">{{ 'e_premessa2' | translate }}</p>
+      <div class="row" >        
+        <div class="col">         
+          <span class="oi oi-check iconic pl-1 pr-2"></span>
+          <span *ngIf="items.gestione_separata === 1">{{ 'e_txt5_bis' | translate }} {{ 'cassa'+items.cod_cassa_previdenziale | translate }}</span>
+          <span *ngIf="items.gestione_separata === 2">{{ 'e_txt6' | translate }}</span>
+          <span *ngIf="items.gestione_separata === 3">{{ 'e_txt7' | translate }}</span>   
+          <span *ngIf="items.gestione_separata === 4">{{ 'e_txt8' | translate }}</span>   
+          <span *ngIf="items.gestione_separata === 5">{{ 'e_txt9' | translate }}</span>   
+          <span *ngIf="items.gestione_separata === 6">{{ 'e_txt10' | translate }}</span>                           
+        </div>
+      </div>
+    </div>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper>
+    <h5>{{ 'e_int3' | translate }}</h5>
+    <p class="mb-0 text-justify">{{ 'e_note' | translate }}</p>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="items.flag_submit === 0">
+    <p class="mb-0 text-center text-info" >{{ 'end1' | translate }} <br> {{ 'end2' | translate }} <br> {{ 'end3' | translate }}</p>
+  </app-riquadro-wrapper>
+
+
+  <div class="form-footer text-right"> 
+    <app-barra-comandi *ngIf="items" [item]="items" [type]="'E'"></app-barra-comandi> 
+  
+    <app-termina-button [item]="items" *ngIf="items.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>
+    <!-- <button type="button" class="btn btn-outline-secondary rounded mr-1" *ngIf="items.flag_submit === 0" (click)="termina(items.insegn_id)" title="{{ 'btn_end_title' | translate }}" >{{ 'btn_end' | translate }}</button> -->
+  </div>
+
+</div>

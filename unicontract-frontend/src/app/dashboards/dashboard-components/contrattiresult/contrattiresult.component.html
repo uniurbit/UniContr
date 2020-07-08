@@ -1,0 +1,45 @@
+
+
+  <ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '4px' }"></ngx-loading>
+  <form [formGroup]="form" >
+  <formly-form [model]="model" [fields]="resultMetadata" [form]="form">
+    
+  </formly-form> 
+  </form>
+
+  <ng-template #detailRow
+    let-row="row"
+    let-expanded="expanded"
+    ngx-datatable-row-detail-template>
+
+    <!-- Esempio di uso tabella di riga di dettaglio
+    <ngx-datatable #mydatatable class="bootstrap" [headerHeight]="20" [limit]="5" [columnMode]="'standard'" [footerHeight]="0" [rowHeight]="'auto'" [rows]="row.aziende">
+      <ngx-datatable-column name="Codice azienda" [width]="200" prop="id"></ngx-datatable-column>
+      <ngx-datatable-column name="Denominazione" [width]="400" prop="denominazione"></ngx-datatable-column>
+    </ngx-datatable> -->
+
+  <div *ngFor="let azienda of row.aziende" style="padding-left: 35px" class="m-t-5">
+    <div><strong>Azienda</strong></div>        
+    <div class="container-fluid">
+      <div class="row">
+          <label class="control-label mr-1">Codice:</label>
+          <div class="mr-2">{{ azienda.id }} </div>
+          <label class="control-label mr-1">Denominazione:</label>
+          <div class=" mr-1">{{ azienda.denominazione }} </div>
+      </div>
+    </div>
+    <!--<div>{{ azienda.id }}, {{ azienda.denominazione }}</div>-->
+  </div>
+
+  </ng-template>
+ 
+  <ng-template #converter ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" >
+      <span [ngSwitch]="value">                        
+          <span *ngSwitchCase="'TO'">Titolo oneroso</span>                        
+          <span *ngSwitchCase="'TG'">Titolo gratuito</span> 
+      </span>
+  </ng-template>  
+
+  <ng-template #tooltip let-row="row" let-value="value" let-i="index">
+    <span title="{{ value+'_tooltip' | translate}}"> {{ value | translate }} </span>
+  </ng-template>

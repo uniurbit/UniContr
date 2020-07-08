@@ -1,0 +1,96 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items" [dettagli]="true"></app-intestazione>  
+
+  <app-riquadro-wrapper>
+    <p class="mb-0 text-justify">{{ 'c_premessa' | translate }}</p>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="items">
+    <p class="mb-0 text-justify">{{ 'c_txt3' | translate }}</p>
+    <div class="row">
+      <div class="col">
+          <span class="oi oi-check iconic pl-1 pr-2"></span>
+          {{ 'c_txt4' | translate }}
+          <div *ngIf="items.tipologia === 0; then thenBlock1 else elseBlock1"></div>
+          <ng-template #thenBlock1>individuale</ng-template>
+          <ng-template #elseBlock1>studio associato</ng-template>          
+          n. {{ items.piva }} {{ 'c_txt4b' | translate }} {{ items.intestazione }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">        
+        <div *ngIf="items.flag_albo === 0; then thenBlock2 else elseBlock2"></div>
+        <ng-template #thenBlock2>
+          <span class="oi oi-minus iconic pl-1 pr-2"></span>
+          {{ 'c_txt5b' | translate }}
+        </ng-template>
+        <ng-template #elseBlock2>
+          <span class="oi oi-check iconic pl-1 pr-2"></span>
+          {{ 'c_txt5' | translate }} {{ items.denominazione_albo }} {{ 'c_txt5c' | translate }} {{ items.provincia_albo }} {{ 'c_txt5d' | translate }} {{ items.num_iscrizione_albo }} {{ 'c_txt5e' | translate }} {{ items.data_iscrizione_albo }}
+        </ng-template>          
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">        
+        <div *ngIf="items.flag_cassa === 0; then thenBlock3 else elseBlock3"></div>
+        <ng-template #thenBlock3>
+          <span class="oi oi-minus iconic pl-1 pr-2"></span>
+          {{ 'c_txt7' | translate }}
+        </ng-template>
+        <ng-template #elseBlock3>
+          <span class="oi oi-check iconic pl-1 pr-2"></span>
+          {{ 'c_txt6' | translate }} {{ items.denominazione_cassa }} 
+          <div *ngIf="!!items.contributo_cassa; then thenBlock4 else elseBlock4"></div>
+          <ng-template #thenBlock4>{{ 'c_txt6c' | translate }}</ng-template>
+          <ng-template #elseBlock4>{{ 'c_txt6b' | translate }}</ng-template>           
+        </ng-template>          
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">        
+        <div *ngIf="items.flag_rivalsa === 0; then thenBlock5 else elseBlock5"></div>
+        <ng-template #thenBlock5>
+          <span class="oi oi-minus iconic pl-1 pr-2"></span>
+          {{ 'c_txt8b' | translate }}
+        </ng-template>
+        <ng-template #elseBlock5>
+          <span class="oi oi-check iconic pl-1 pr-2"></span>
+          {{ 'c_txt8' | translate }}      
+        </ng-template>          
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">        
+        <div *ngIf="items.flag_regime_fiscale === 0; then thenBlock6 else elseBlock6"></div>
+        <ng-template #thenBlock6>
+          <span class="oi oi-minus iconic pl-1 pr-2"></span>
+          {{ 'c_txt9b' | translate }}
+        </ng-template>
+        <ng-template #elseBlock6>
+          <span class="oi oi-check iconic pl-1 pr-2"></span>
+          {{ 'c_txt9' | translate }}      
+        </ng-template>          
+      </div>
+    </div>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper>
+    <p class="mb-0 text-justify">{{ 'c_txt10' | translate }}</p>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="items.flag_submit === 0">
+    <p class="mb-0 text-center text-info" >{{ 'end1' | translate }} <br> {{ 'end2' | translate }} <br> {{ 'end3' | translate }}</p>
+  </app-riquadro-wrapper>
+
+  <div class="form-footer text-right"> 
+    <app-barra-comandi *ngIf="items" [item]="items" [type]="'C'"></app-barra-comandi>  
+     
+    <app-termina-button [item]="items" *ngIf="items.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>
+    <!-- <button type="button" class="btn btn-outline-secondary rounded mr-1" *ngIf="items.flag_submit === 0" (click)="termina(items.insegn_id)" title="{{ 'btn_end_title' | translate }}" >{{ 'btn_end' | translate }}</button> -->
+  </div>
+</div>

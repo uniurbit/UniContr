@@ -1,0 +1,37 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items" [dettagli]="true"></app-intestazione>  
+
+  <app-riquadro-wrapper *ngIf="items">
+    <p class="mb-0">{{ 'd5_premessa' | translate }}</p>
+    <div class="row">
+      <div class="col">
+        <span class="oi oi-check iconic pl-1 pr-2"></span>
+        <span >{{ 'd5_txt1' | translate }}</span>
+      </div>
+    </div>
+
+    <p class="mb-0 pl-4 text-justify" *ngIf="items.flag_convenzione_bilaterale === 1">- {{ 'd5_txt2' | translate }}</p>
+    <p class="mb-0 pl-4 text-justify" *ngIf="items.flag_convenzione_bilaterale === 0">- {{ 'd5_txt3' | translate }}</p>
+
+    <div class="row">
+      <div class="col">
+        <span class="oi oi-check iconic pl-1 pr-2"></span>
+        <span *ngIf="items.flag_gestione_separata === 1">{{ 'd5_txt7' | translate }}</span>
+        <span *ngIf="items.flag_gestione_separata === 0">{{ 'd5_txt8' | translate }}</span>
+      </div>
+    </div>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="items">
+    <h5>{{ 'd5_nota' | translate }}</h5>
+      <p class="mb-0">{{ 'd5_txt4' | translate }} <br> {{ 'd5_txt5' | translate }} <br> {{ 'd5_txt6' | translate }}</p>
+  </app-riquadro-wrapper>
+
+  <div class="form-footer text-right"> 
+    <app-barra-comandi *ngIf="items" [item]="items" [type]="'D5'"></app-barra-comandi>  
+        
+    <app-termina-button [item]="items" *ngIf="items.validazioni.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>
+  </div>
+
+</div>

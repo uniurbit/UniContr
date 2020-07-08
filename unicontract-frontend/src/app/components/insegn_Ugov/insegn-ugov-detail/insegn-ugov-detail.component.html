@@ -1,0 +1,74 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+
+
+<div class="container-fluid" *ngIf="item">
+  <app-riquadro-wrapper>
+    <h5>{{ 'p1_title1' | translate }}</h5>
+    <app-list-item label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ item.nome | uppercase }} {{ item.cognome | uppercase }}</span></app-list-item>            
+
+    <app-list-item label="{{ '00_int2' | translate }}" value="{{ item.af_gen_des }}"></app-list-item>
+    <app-list-item label="{{ '00_int7' | translate }}" value="{{ item.sett_des | uppercase }} ({{ item.sett_cod }})"></app-list-item>
+    <app-list-item label="{{ '00_int8' | translate }}" value="{{ item.coper_peso }} CFU / {{ item.ore }} ore"></app-list-item>
+    <app-list-item label="{{ '00_int9' | translate }}" value="{{ item.dip_des | uppercase }}"></app-list-item>
+    <app-list-item label="{{ '00_int10' | translate }}" value="{{ item.nome_cds | uppercase }}"></app-list-item>
+
+    <app-list-item *ngIf="item?.aa_off_id" label="{{ '00_int3' | translate }}" value="{{ item.aa_off_id }} / {{ tools.annoAccademico(item.aa_off_id) }}"></app-list-item>    
+    <app-list-item label="{{ '00_int5' | translate }}">DAL GIORNO {{ item.data_ini_contratto  }} AL GIORNO {{ item.data_fine_contratto }} <span *ngIf="item.ciclo">({{item.ciclo | uppercase}})</span></app-list-item>
+    <app-list-item label="{{ '00_int11' | translate }}" value="{{ item.compenso | mycurrency }}"></app-list-item>
+    
+    <hr>
+
+    <app-list-item label="{{ '00_int12' | translate }}" value="{{ datoMancante(item.tipo_atto_des) | uppercase }} NUM. {{ datoMancante(item.numero) }} DEL {{ datoMancante(item.data) | toDateObj | date: 'dd-MM-yyyy'}}"></app-list-item>   
+    <app-list-item label="{{ '00_int13' | translate }}" value="{{ datoMancante(item.tipo_emitt_des) | uppercase }}"></app-list-item>
+    <app-list-item label="{{ '00_int14' | translate }}" value="{{ datoMancante(tools.tipoConferimento(item.motivo_atto_cod)) }}"></app-list-item>
+    
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper>
+    <h5>{{ 'p1_title2' | translate }}</h5>
+    <app-list-item label="{{ '00_int15' | translate }}" value="{{ tools.tipoContratto(item.tipo_coper_cod) }}"></app-list-item>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="item.motivo_atto_cod == 'CONF_INC'">
+    <h5>Storico</h5>
+    <p>Il presente insegnamento è stato già precedentemente attribuito a <b>{{ item.nome | titlecase }} {{ item.cognome | titlecase }}</b> {{item.contatore_insegnamenti}} volte.</p>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="checkEmail(item.email, item.e_mail, item.e_mail_privata) === false">
+    <h5 style="color: red">ATTENZIONE</h5>
+    <p style="color: red" class="mb-0">Al collaboratore non è associato un indirizzo email istituzionale. Pertanto, non è possibile procedere con l'operazione di importazione dell'insegnamento.</p>
+  </app-riquadro-wrapper>
+
+  <form class="form" #f="ngForm" >
+    <input type="hidden" name="coper_id" [(ngModel)]="item.coper_id" >
+    <input type="hidden" name="ruolo" [(ngModel)]="item.ruolo_doc_cod">
+    <input type="hidden" name="insegnamento" [(ngModel)]="item.af_gen_des">
+    <input type="hidden" name="settore" [(ngModel)]="item.sett_des">
+    <input type="hidden" name="cod_settore" [(ngModel)]="item.sett_cod">
+    <input type="hidden" name="cfu" [(ngModel)]="item.coper_peso">
+    <input type="hidden" name="ore" [(ngModel)]="item.ore">
+    <input type="hidden" name="cdl" [(ngModel)]="item.nome_cds">
+    <input type="hidden" name="data_ini_contr" [(ngModel)]="item.data_ini_contratto">
+    <input type="hidden" name="data_fine_contr" [(ngModel)]="item.data_fine_contratto">
+    <input type="hidden" name="ciclo" [(ngModel)]="item.des_tipo_ciclo">
+    <input type="hidden" name="aa" [(ngModel)]="item.aa_off_id">
+    <input type="hidden" name="dipartimento" [(ngModel)]="item.dip_des">
+    <input type="hidden" name="compenso" [(ngModel)]="item.compenso">
+    <input type="hidden" name="tipo_contratto" [(ngModel)]="item.tipo_coper_cod">
+    <input type="hidden" name="tipo_atto" [(ngModel)]="item.tipo_atto_des">
+    <input type="hidden" name="emittente" [(ngModel)]="item.tipo_emitt_des">
+    <input type="hidden" name="motivo_atto" [(ngModel)]="item.motivo_atto_cod">
+    <input type="hidden" name="num_delibera" [(ngModel)]="item.numero">
+    <input type="hidden" name="data_delibera" [(ngModel)]="item.data">
+    <input type="hidden" name="cod_insegnamento" [(ngModel)]="item.af_gen_cod">    
+    <input type="hidden" name="dip_cod" [(ngModel)]="item.dip_cod">    
+
+    <div class="form-footer text-right">
+      <button *ngIf="checkEmail(item.email, item.e_mail, item.e_mail_privata)" class="btn btn-outline-secondary rounded mr-1" (click)="saveIns(f.value, item.nome, item.cognome, item.cod_fis, item.id_ab, email(item.email, item.e_mail, item.e_mail_privata))" title="IMPORTA IL PRESENTE INSEGNAMENTO">IMPORTA</button>
+    </div>
+    
+  </form>
+
+</div>
+
+

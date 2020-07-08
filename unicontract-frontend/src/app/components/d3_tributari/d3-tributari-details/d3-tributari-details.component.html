@@ -1,0 +1,48 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items" [dettagli]="true"></app-intestazione> 
+
+  <app-riquadro-wrapper *ngIf="items">
+    <h5>{{ 'd3_intest' | translate }}</h5>
+    <p class="mb-0">{{ 'd3_txt1' | translate }}</p>
+    <div class="row">
+      <div class="col">
+        <span class="oi oi-check iconic pl-1 pr-2"></span>
+          <span *ngIf="items.flag_percepito === 0">{{ 'd3_txt2' | translate }}</span>
+          <span *ngIf="items.flag_percepito === 1">{{ 'd3_txt3' | translate }}</span>
+              <span *ngIf="items.flag_limite_percepito === 0"> {{ 'd3_txt4' | translate }}</span>
+              <span *ngIf="items.flag_limite_percepito === 1"> {{ 'd3_txt5' | translate }}</span>          
+      </div>      
+    </div>
+    <br>
+    <table class="table table-sm" *ngIf="items.flag_limite_percepito === 1" >
+      <thead>
+        <tr>
+          <th>Denominazione ente</th>
+          <th>Natura incarico / rapporto</th>
+          <th class="text-center">Dal giorno</th>
+          <th class="text-center">Al giorno</th>
+          <th class="text-center">Importo totale</th>
+          <th class="text-center">Importo annuo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items.enti">
+          <td>{{ item.ente }}</td>
+          <td>{{ item.rapporto }}</td>
+          <td class="text-center">{{ item.dal_giorno }}</td>
+          <td class="text-center">{{ item.al_giorno }}</td>
+          <td class="text-center">€ {{ item.importo_totale }}</td>
+          <td class="text-center">€ {{ item.importo_annuo }}</td>
+        </tr>
+      </tbody>          
+    </table>    
+  </app-riquadro-wrapper>
+
+  <div class="form-footer text-right"> 
+    <app-barra-comandi *ngIf="items" [item]="items" [type]="'D3'"></app-barra-comandi>   
+        
+    <app-termina-button [item]="items" *ngIf="items.validazioni.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>
+  </div>
+
+</div>

@@ -1,0 +1,20 @@
+.icon-top {
+    border: solid 1px #d1d1d1; 
+    border-radius: 3px; 
+    padding: 5px 9px 5px 9px;
+    margin-top: 5px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.icon-top:hover {
+    background-color: #ebebeb;
+}
+
+.icon_info {
+    position: absolute; 
+    right: 30px; 
+    margin-top:-10px; 
+    border-style: none;
+    background-color: transparent;
+}

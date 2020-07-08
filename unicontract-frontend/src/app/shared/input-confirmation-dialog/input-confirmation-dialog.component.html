@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ title }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div *ngIf="message" class="modal-body">
+    {{ message }}
+  </div>
+  <div *ngIf="messageHtml" class="m-3">  
+    <div [innerHTML]="messageHtml">                           
+    </div>    
+  </div> 
+  <form class="m-3" [formGroup]="form" *ngIf="model">        
+    <formly-form [model]="model" [fields]="fields" [form]="form" [options]="options"></formly-form>
+  </form>  
+  <div class="modal-footer">   
+    <button *ngIf="btnOkText" type="button" class="btn btn-primary"  [disabled]="form.invalid" (click)="accept()">{{ btnOkText }}</button>
+    <button *ngIf="btnCancelText" type="button" class="btn btn-danger" (click)="decline()">{{ btnCancelText }}</button>
+  </div>

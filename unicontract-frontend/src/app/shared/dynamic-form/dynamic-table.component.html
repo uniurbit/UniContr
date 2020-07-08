@@ -1,0 +1,63 @@
+<div class="btn-toolbar mb-4" role="toolbar">
+    <div class="btn-group">    
+        <button type="button" class="btn btn-outline-primary" (click)="add()"  >              
+            <span class="oi oi-plus"></span>
+            <span class="ml-2">Aggiungi</span>
+        </button>    
+        <button type="button" class="btn btn-outline-primary" [disabled]="selected.length == 0" (click)="remove()"  >              
+            <span class="oi oi-trash"></span>  
+            <span class="ml-2">Rimuovi</span>
+        </button>
+    </div>
+</div>
+
+
+<div [formGroup]="form">
+<div formArrayName="assignments">
+<ngx-datatable #table  class="bootstrap" 
+    [rows]="datarows" 
+    [columns]="columns"
+    [columnMode]="columnMode"
+    [rowHeight]="rowHeight"   
+    [headerHeight]="headerHeight"      
+    [footerHeight]="footerHeight"
+    [limit]="limit"  
+    [scrollbarH]="scrollbarH"      
+    [reorderable]="reorderable"    
+    [externalSorting]="true"
+    [selected]="selected"
+    [selectionType]="'single'"
+    (sort)="onSort($event)"
+    (select)='onSelect($event)'>     
+
+    <ng-template #textcolumn ngx-datatable-cell-template let-rowIndex="rowIndex" 
+        let-value="value" let-row="row" let-column="column" let-sort="sortFn" let-sortDir="sortDir" > 
+        <!-- {{value}} per debug -->                                  
+        <div [formGroupName]="rowIndex">          
+            <input autofocus class="form-control"  [formControlName]="column.prop"   
+                type="text" [ngClass]="getCellClass(rowIndex,column)">                      
+        </div>        
+        <app-show-errors [control]="getControl(rowIndex,column)"></app-show-errors>             
+    </ng-template> 
+
+    <!--placeholder="dd-mm-yyyy"-->
+    <ng-template  #datecolumn ngx-datatable-cell-template let-rowIndex="rowIndex" 
+        let-value="value" let-row="row" let-column="column" let-sort="sortFn" let-sortDir="sortDir" >                              
+    <div class="input-group" [formGroupName]="rowIndex">
+        <input class="form-control" container='body' [formControlName]="column.prop"  [displayMonths]="displayMonths" 
+            [navigation]="navigation"
+            [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers" placement="top" ngbDatepicker #d="ngbDatepicker" 
+            [ngClass]="getCellClass(rowIndex,column)">
+        
+        <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+            <img src="assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+        </button>
+        </div>
+    </div>    
+    <app-show-errors [control]="getControl(rowIndex,column)"></app-show-errors>             
+    </ng-template>      
+
+</ngx-datatable>
+</div>  
+</div>

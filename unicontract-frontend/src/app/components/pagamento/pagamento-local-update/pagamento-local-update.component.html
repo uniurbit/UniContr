@@ -1,0 +1,14 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="pagamento" >    
+  <app-intestazione *ngIf="pagamento" [item]="pagamento"></app-intestazione>  
+  
+    <input type="hidden" name="tipologia_conto_corrente" [(ngModel)]="pagamento.tipologia_conto_corrente" />
+  
+    <form [formGroup]="form" >      
+      <formly-form  [model]="pagamento" [fields]="fields" [form]="form" [options]="options">      
+      </formly-form> 
+    </form>
+
+    <app-salva-annulla-button [isNew]="!update" [fields]="fields" [formRef]="form" (valid)="updateA2(form.value, pagamento.a2_mod_pagamento_id)"></app-salva-annulla-button>  
+
+  </div>

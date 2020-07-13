@@ -29,6 +29,10 @@
           <span class="oi oi-document"></span>
           <span class="ml-2">Scarica CSV</span>
         </button>  
+        <button type="button"  [disabled]="model.data.length==0" class="ml-2 btn btn-outline-primary rounded-lg " title="Scarica file per Excel" (click)="onExportXLS()">
+          <span class="oi oi-document"></span>
+          <span class="ml-2">Scarica XLS</span>
+        </button>
       </div>
     </div>
   </div>

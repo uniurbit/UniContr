@@ -106,7 +106,7 @@
     "summary_id_cop": "ID Copertura didattica",
     "summary_id_dg": "ID DG Contratto",
     "summary_num_rate": "Numero rate",
-    "summary_stato": "Stato",
+    "summary_stato": "Stato contabile",
     
     "B": "Bozza",
     "C": "Completo",
@@ -560,14 +560,15 @@
     "26121" : "DISTUM",
     "26080" : "DiSPeA",
     "26124" : "DISCUI",
+    "49025" : "DISCUI",
   
     "27605_tooltip" : "Dipartimento di Scienze Biomolecolari (DISB)",
     "4504_tooltip" : "Dipartimento di Economia, Società, Politica (DESP)", 
     "4499_tooltip" : "Dipartimento di Giurisprudenza (DiGiur)",
     "26121_tooltip" : "Dipartimento di Studi Umanistici (DISTUM)",
     "26080_tooltip" : "Dipartimento di Scienze Pure e Applicate (DiSPeA)",
-    "26124_tooltip" : "Dipartimento di Scienze della Comunicazione, Studi Umanistici e Internazionali (DISCUI)",
-  
+    "26124_tooltip" : "Dipartimento di Scienze della Comunicazione, Studi Umanistici e Internazionali: Storia, Culture, Lingue, Letterature, Arti, Media (DISCUI)",
+    "49025_tooltip" : "Dipartimento di Scienze della Comunicazione, Studi Umanistici e Internazionali (DISCUI)",
 
     "005019" : "DISB",
     "004424" : "DESP",

@@ -675,10 +675,21 @@ class PrecontrattualeController extends Controller
 
     public function export(Request $request){
         //prendi i parametri 
-        $findparam = $this->queryparameter($request);          
+        $findparam = $this->queryparameter($request);                  
+        $findparam['includes'] = 'insegnamento,user,validazioni,p2naturarapporto,d1inps,d4fiscali,d2inail,d6familiari'; 
+
         return (new PrecontrattualeExport($request,$findparam))->download('precontrattuali.csv', \Maatwebsite\Excel\Excel::CSV,  [
             'Content-Type' => 'text/csv',
+            'Content-Encoding' => 'UTF-8'
         ]);        
+    }
+
+    public function exportxls(Request $request){
+        //prendi i parametri 
+        $findparam = $this->queryparameter($request);                  
+        $findparam['includes'] = 'insegnamento,user,validazioni,p2naturarapporto,d1inps,d4fiscali,d2inail,d6familiari'; 
+
+        return (new PrecontrattualeExport($request,$findparam))->download('precontrattuali.xlsx');     
     }
 
     public function query(Request $request){ 

@@ -16,6 +16,7 @@ export interface ServiceBase {
 export interface ServiceQuery extends ServiceBase {    
     query(filters: any): Observable<any>;
     export(filters: any): Observable<any>;
+    exportxls(filters: any): Observable<any>;
 }
 export interface IQueryMetadata extends ServiceBase {    
   getQueryMetadata(): FormlyFieldConfig[];

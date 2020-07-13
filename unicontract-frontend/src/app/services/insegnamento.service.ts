@@ -79,6 +79,9 @@ export class InsegnamentoService extends CoreSevice implements ServiceQuery {
   getMetadata(): FormlyFieldConfig[] {
     throw new Error('Method not implemented.');
   }
+  exportxls(filters: any): Observable<any> {
+    throw new Error("Method not implemented.");
+  }
 
 
 }

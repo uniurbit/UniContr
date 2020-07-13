@@ -69,7 +69,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
           { key: '005019', value: this.translateService.instant('005019_disb') },
           { key: '004919', value: this.translateService.instant('004919_dispea')},
           { key: '004419', value: this.translateService.instant('004419_digiur') },
-        //   { key: '004940', value: this.translateService.instant('004940_discui') },
+          { key: '004940', value: this.translateService.instant('004940_discui') },
           { key: '005579', value: this.translateService.instant('005579_discui') },
           { key: '004939', value: this.translateService.instant('004939_distum') },
           { key: '004424', value: this.translateService.instant('004424_desp') }
@@ -232,7 +232,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
           { name: 'Dipartimento', prop: 'id_uo_aff', cellTemplate: this.tooltipCellTemplate, width: 100, maxWidth: 100 }, //"27605"
           { name: 'Anno', prop: 'datibase.anno_rif', width: 70, maxWidth: 70 },                    
           { name: 'Descrizione', prop: 'datibase.ds_dg', width: 450 },
-          { name: 'Stato', prop: 'datibase.stato_dg', pipe: this.translate, width: 80, maxWidth: 80 },
+          { name: 'Stato contabile', prop: 'datibase.stato_dg', pipe: this.translate, width: 80, maxWidth: 80 },
           { name: 'Num. rate', prop: 'num_rate', pipe: this.translate, width: 80, maxWidth: 80 },          
           { name: 'Compensi', prop: 'statocompensi', minWidth: 100, maxWidth: 150  },
           { name: 'Ordinativi', prop: 'statoordinativi', minWidth: 150 },

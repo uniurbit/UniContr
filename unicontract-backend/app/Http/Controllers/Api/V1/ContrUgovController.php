@@ -37,6 +37,17 @@ class ContrUgovController extends Controller
         ]);        
     }
 
+    public function exportxls(Request $request){
+        //prendi i parametri 
+        $response = $this->queryparameter($request);
+        $findparam = $response["findparam"];
+        $precontrs = $response["precontrs"];
+                
+        return (new ContrUgovExport($request,$findparam, $precontrs))->download('daticontabili.xlsx');
+    }
+
+
+
     public function queryparameter(Request $request){   
         //ID_SIADI non nullo tutti i contratti sono di tipo  CONTRATTO_A_PERSONALE
         //ANNO_REF indica l'anno di riferimento 

@@ -18,7 +18,7 @@ abstract class DGUgov extends Model
 
         static::addGlobalScope('datibase', function($builder) {
             $builder->with(['datibase'])->whereHas('datibase', function ($query) {
-                $query->where('nome_tipo_dg','=',static::getNomeTipoDgValue());
+                $query->where('nome_tipo_dg','=',static::getNomeTipoDgValue())->where('stato_dg','!=','A');
             });
         });
     }

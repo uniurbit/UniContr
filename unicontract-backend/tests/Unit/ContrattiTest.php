@@ -375,6 +375,51 @@ class ContrattiTest extends TestCase
     }
 
 
+    // ./vendor/bin/phpunit  --testsuite Unit --filter test_exportXLS
+    public function test_exportXLS(){
+        $user = User::where('email','enrico.oliva@uniurb.it')->first();
+        $this->actingAs($user);
+
+        //IMPORT INSEGNAMENTO DOCENTE
+        $repo = new PrecontrattualeRepository($this->app);
+        $service = new PrecontrattualeService($repo);
+
+        $controller  = new PrecontrattualeController($repo,$service);
+
+        //costruzione query 
+        $request = new \Illuminate\Http\Request();
+        $request->setMethod('POST');        
+        $rules = json_decode('{"rules":[
+            {
+                "field":"insegnamento.aa",
+                "operator":"=",
+                "value":"2019",
+                "fixcondition":true,
+                "type":"select"
+            }
+        ],"limit":1000,"sessionId":null,"page":null}',true);
+        $request->json()->replace($rules);
+
+        $findparam = new \App\FindParameter($request->json()->all());  
+        $findparam->includes = 'insegnamento,user,validazioni,p2naturarapporto,d1inps,d4fiscali,d2inail'; 
+        //controllo numero di record restituiti 
+        $collection = UtilService::alldata(new Precontrattuale, $request, $findparam);
+        $total = $controller->query($request)->total();
+        $this->assertGreaterThanOrEqual($collection->count(), $total);
+
+        //prendi i parametri 
+        //$findparam = $controller->queryparameter($request);          
+        //(new PrecontrattualeExport($request,$findparam))->store('precontrattuali.xls');
+
+        //esportazione csv
+        $response = $controller->exportxls($request);
+        $this->assertEquals("attachment; filename=precontrattuali.xlsx", $response->headers->get('content-disposition'));
+
+    }
+
+
+
+
     //./vendor/bin/phpunit  --testsuite Unit --filter testGenerazioneReport
     public function testGenerazioneReport() { 
 

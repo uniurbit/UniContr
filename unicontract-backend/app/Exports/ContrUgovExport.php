@@ -73,7 +73,7 @@ class ContrUgovExport implements FromCollection, WithMapping, WithHeadings
             $cont->precontr->user->nome ? $cont->precontr->user->nome : '',
             $cont->precontr->insegnamento->data_fine_contr ? $cont->precontr->insegnamento->data_fine_contr : '',
 
-            $cont->id_uo_aff ? $cont->id_uo_aff : '',
+            $cont->id_uo_aff ? __('global.'.$cont->id_uo_aff) : '',
             
             $cont->datibase ? $cont->datibase->anno_rif: '',
             $cont->datibase ? $cont->datibase->ds_dg: '',
@@ -99,7 +99,7 @@ class ContrUgovExport implements FromCollection, WithMapping, WithHeadings
             'Anno',
             'Descrizione',
 
-            'Stato',
+            'Stato contabile',
             'Num. rate',
             'Compensi',
             'Ordinativi',

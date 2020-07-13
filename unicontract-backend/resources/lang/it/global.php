@@ -177,6 +177,11 @@ return [
     "d2_sub_txt2"=>"Posizione assicurativa 90211454/03: Istruttori sportivi.",
     "d2_sub_txt3"=>"Posizione assicurativa 11475145/26: Personale che per lo svolgimento delle proprie mansioni fa uso diretto di videoterminali e macchine da ufficio; personale addetto a centri di elaborazione dati, a centralini telefonici, a sportelli informatizzati, a registratori di cassa, e simili.",
 
+    "INAIL7" => '5,9 ‰',
+    "INAIL10" => '10,26 ‰',
+    "INAIL4" => '4,75 ‰',
+    "NOINAIL" => 'no',
+
     "d3_title"=>"Quadro D.3 - Dichiarazione ai fini tributari",
     "d3_intest"=>"Dati tributari",
     "d3_txt1"=>"Ai sensi dell'art. 23-ter del D.Lgs. 201/2000, dell'art. 1, comma 471, della Legge 147/2013 e dell'art. 13 del D.Lgs. 66/2014, si dichiara di:",
@@ -287,5 +292,13 @@ return [
     "DIGIUR" =>	"Dipartimento di Giurisprudenza (DiGiur)",
     "DISCUI" =>   "Dipartimento di Scienze della Comunicazione, Studi Umanistici e Internazionali (DISCUI)",
     "DISTUM" =>	"Dipartimento di Studi Umanistici (DISTUM)",
-    "DESP" =>	"Dipartimento di Economia, Società, Politica (DESP)"
+    "DESP" =>	"Dipartimento di Economia, Società, Politica (DESP)",
+
+    "27605"=> "DISB",
+    "4504"=> "DESP",  
+    "4499"=> "DiGiur",
+    "26121"=> "DISTUM",
+    "26080"=> "DiSPeA",
+    "26124"=> "DISCUI",
+    "49025"=> "DISCUI"
 ];

@@ -227,8 +227,24 @@ export class BaseResearchComponent implements OnInit {
       this.service.export(this.querymodel).subscribe(file => {
         this.isLoading = false;
 
-        const blob = new Blob([file]);
+        const blob =  new Blob([file]);
         saveAs(blob, 'download.csv');
+
+      },
+        e => {  this.isLoading = false; console.log(e); }
+      );
+    }
+  }
+
+  onExportXLS(){
+     // richiamare export dal service
+     if (this.model.data.length > 0) {
+      this.isLoading = true;
+      this.service.exportxls(this.querymodel).subscribe(file => {
+        this.isLoading = false;
+
+        const blob =  new Blob([file]);
+        saveAs(blob, 'download.xlsx');
 
       },
         e => {  this.isLoading = false; console.log(e); }

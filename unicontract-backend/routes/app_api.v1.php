@@ -77,6 +77,7 @@ Route::group(['middleware' => ['cors','auth:api','log'], 'namespace'=>'Api\V1'],
     //CONTR UGOV
     Route::post('contrugov/query','ContrUgovController@query');    
     Route::post('contrugov/export','ContrUgovController@export');   
+    Route::post('contrugov/exportxls','ContrUgovController@exportxls');  
 
     // P.1 INSEGNAMENTO    
     Route::get('insegnamenti/{id}', 'InsegnamentiController@show');
@@ -111,6 +112,7 @@ Route::group(['middleware' => ['cors','auth:api','log'], 'namespace'=>'Api\V1'],
     Route::post('precontrattuale/rinunciacompenso','PrecontrattualeController@rinunciaCompenso');   
     Route::post('precontrattuale/annullarinuncia','PrecontrattualeController@annullaRinuncia');  
     Route::post('precontrattuale/export','PrecontrattualeController@export'); 
+    Route::post('precontrattuale/exportxls','PrecontrattualeController@exportxls'); 
     Route::post('precontrattuale/updateinsegnamentofromugov', 'PrecontrattualeController@updateInsegnamentoFromUgov'); 
     
     // QUADRO RIEPILOGATIVO

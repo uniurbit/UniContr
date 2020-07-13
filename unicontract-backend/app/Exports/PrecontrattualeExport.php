@@ -49,6 +49,7 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             $precontr->anagrafica ? (($precontr->anagrafica->comune_nascita != null) ? $precontr->anagrafica->comune_nascita :'') : '',
 
             $precontr->p2naturarapporto ? ($precontr->p2naturarapporto->flag_titolare_pensione == 1 ? 'si' : 'no') : '',
+            $precontr->p2naturarapporto ? ($precontr->p2naturarapporto->flag_dipend_pubbl_amm == 1 ? 'si' : 'no') : '',
 
             $precontr->insegnamento ? $precontr->insegnamento->insegnamento: '',
             $precontr->insegnamento ? $precontr->insegnamento->settore: '',
@@ -65,11 +66,41 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             $this->tipoConferimento($precontr->insegnamento->motivo_atto),
             $precontr->insegnamento ? $precontr->insegnamento->num_delibera: '',
             $precontr->insegnamento ? $precontr->insegnamento->data_delibera: '',
-            $precontr->currentState           
+
+            $precontr->a2modalitapagamento && $precontr->a2modalitapagamento->modality == 'ACIC' ? 
+                $precontr->a2modalitapagamento->iban : '',
+
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d1inps 
+                ? ($precontr->d1inps->flag_gestione_separata == 0 ? 'no' : 'si') : '',
+
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d1inps 
+                ? ($precontr->d1inps->flag_misura_ridotta == 0 ? 'no' : 'si') : '',
+
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d1inps 
+                && !is_null($precontr->d1inps->cassa_gestioni_previdenziali) 
+                && !empty($precontr->d1inps->cassa_gestioni_previdenziali)
+                    ? __('global.cassa'.$precontr->d1inps->cassa_gestioni_previdenziali) : '',
+
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d2inail
+                ?  __('global.'.$precontr->d2inail->posizione_previdenziale) : '', 
+
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d4fiscali 
+                ?  $precontr->d4fiscali->percentuale_aliquota_irpef.' %': '', 
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d4fiscali 
+                ?  ($precontr->d4fiscali->flag_detrazioni == 0 ? 'no' : 'si') : '',
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d4fiscali && !is_null($precontr->d4fiscali->flag_bonus_renzi) 
+                ?  ($precontr->d4fiscali->flag_bonus_renzi == 0 ? 'no' : 'si') : '',
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d6familiari
+                ?  ($precontr->d6familiari->flag_richiesta_detrazioni == 0 ? 'no' : 'si') : '',
+
+            $precontr->currentState,         
+            
+            $precontr->flag_no_compenso == 0 ? '' : 'si'
         ];
     }
 
     public function headings(): array
+
     {
         return [
             '#',
@@ -83,6 +114,7 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             'Data nascita',
             'Luogo nascita',
             'Stato pensionamento',
+            'Dipendente di P.A.',
             'Insegnamento',
             'Epigrafe S.S.D.',
             'Codice S.S.D.',
@@ -98,7 +130,20 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             'Motivo atto',
             'Num. Delibera',
             'Data delibera',
+
+            'IBAN',
+
+            'Gestione separata',
+            'INPS ridotta',
+            'Cassa',
+            'Inail',
+            'Aliquota IRPEF',
+            'Detrazioni',
+            'Bonus Renzi',
+            'Detrazioni familiari',
+
             'Stato corrente',
+            'Rinuncia al compenso'
         ];
     }
 

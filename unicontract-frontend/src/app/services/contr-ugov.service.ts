@@ -56,10 +56,20 @@ export class ContrUgovService  extends CoreSevice implements ServiceQuery  {
       );
   }
 
+  exportxls(model): Observable<any> {
+    return this.http
+      .post(this._baseURL + `/exportxls`, model, { responseType: 'blob'}).pipe(
+        tap(sub => this.messageService.info('Export effettuato con successo')),
+        catchError(this.handleError('export'))
+      );
+  }
+
   getById(id: any): Observable<any> {
     throw new Error('Method not implemented.');
   }
   getMetadata(): FormlyFieldConfig[] {
     throw new Error('Method not implemented.');
   }
+ 
+
 }

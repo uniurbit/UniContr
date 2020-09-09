@@ -3,62 +3,97 @@
 # More info at https://github.com/italia/publiccode.yml
 
 publiccodeYmlVersion: '0.2'
+name: UniContr
+releaseDate: '2019-12-20'
+url: 'https://github.com/uniurbit/UniContr'
+landingURL: 'https://github.com/uniurbit/UniContr'
+developmentStatus: stable
+softwareType: standalone/web
+roadmap: 'https://github.com/uniurbit/UniContr/issues'
+platforms:
+  - linux
+  - web
+usedBy:
+  - 'https://www.uniurb.it'
 categories:
-  - data-collection
-  - document-management
+  - employee-management
+dependsOn:
+  open:
+    - name: MariaDB
+    - name: php
+softwareVersion: '2.0'
+maintenance:
+  type: internal
+  contacts:
+    - name: Marco Cappellacci
+      email: marco.cappellacci@uniurb.it
+      affiliation: UniUrb
+    - name: Enrico Oliva
+      email: enrico.oliva@uniurb.it
+      affiliation: unical.it
+legal:
+  license: AGPL-3.0-only
+  mainCopyrightOwner: Università degli Studi di Urbino Carlo Bo
+intendedAudience:
+  scope:
+    - employment
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - it
+it:
+  countryExtensionVersion: '0.2'
+  conforme:
+    gdpr: true
+    misureMinimeSicurezza: true
+  riuso:
+    codiceIPA: usucb
 description:
   it:
     features:
-      - 'Gestione delle precontrattuali: inserimento, modifica e validazione '
-      - Storico precontrattuali
-      - 'Dashboard uffici '
-      - Generazione contratto
-      - 'Nofiche uffici e docenti '
-    genericName: UniContr è una applicazione web
-    longDescription: >
-      ## PROCEDURALIZZAZIONE E DEMATERIALIZZAZIONE DEI CONTRATTI DI DOCENZA
-
-
-      UniContr è un deposito unico, completo e autoritativo di tutti i dati
-      relativi agli incarichi didattici conferiti sia ai collaboratori esterni
-      che a PTA e CEL, attraverso una procedura controllata che eviti incoerenze
-      tra i dati nonché inserimenti molteplici degli stessi.
-
-
-      UniContr permette di seguire le fasi di gestione di una precontrattuale in
-      termini di: inserimento, modifica e validazione dei dati, generazione del
-      contratto, messa alla firma del contratto da parte del Rettore e visualizzazione 
-      delle informazioni sullo stato di avanzamento.
+      - Protocollazione automatizzata
+      - SSO SAML2
+      - Integrazione con U-Gov
+      - Integrazione con Titulus
+    documentation: 'https://github.com/uniurbit/UniContr/blob/master/UniContr.pdf'
+    genericName: applicazione web
     shortDescription: >-
-      UniContr è una applicazione web per la proceduralizzazione e
-      dematerializzazione dei contratti di docenza
-developmentStatus: beta
-it:
-  conforme:
-    gdpr: false
-    lineeGuidaDesign: true
-    misureMinimeSicurezza: true
-    modelloInteroperabilita: true
-  countryExtensionVersion: '0.2'
-  piattaforme:
-    anpr: false
-    cie: false
-    pagopa: false
-    spid: false
-legal:
-  license: MIT
-localisation:
-  availableLanguages:
-    - it
-  localisationReady: false
-maintenance:
-  contacts:
-    - email: enrico.oliva@uniurb.it
-      name: Enrico Oliva
-  type: internal
-name: UniContr
-platforms:
-  - web
-releaseDate: '2020-08-01'
-softwareType: standalone/web
-url: 'https://github.com/enricouniurb/UniContr'
+      Applicazione web per la proceduralizzazione e dematerializzazione dei
+      contratti di docenza.
+    longDescription: >
+      Cosa Fa UniContr?
+
+
+      - Permette al docente a contratto di compilare telematicamente la
+      modulistica precontrattuale.
+
+      - Permette agli uffici competenti di validare telematicamente la
+      modulistica precontrattuale.
+
+      - Genera automaticamente il contratto incrociando tipo di didattica: 
+
+
+
+      1. titolarità ufficiale;
+
+      2. didattica integrativa;
+
+      3. supporto alla didattica;
+
+
+      e natura del rapporto:
+
+
+      1. prestazione professionale;
+
+      2. collaborazione di natura autonoma;
+
+      3. prestazione di lavoro autonomo occasionale;
+
+      4. rapporto assimilato a lavoro dipendente;
+
+      5. prestazione a titolo gratuito.
+
+
+
+      - Permette al docente di accettare telematicamente il contratto.

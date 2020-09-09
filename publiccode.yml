@@ -30,7 +30,7 @@ maintenance:
       affiliation: UniUrb
     - name: Enrico Oliva
       email: enrico.oliva@uniurb.it
-      affiliation: unical.it
+      affiliation: UniUrb
 legal:
   license: AGPL-3.0-only
   mainCopyrightOwner: Università degli Studi di Urbino Carlo Bo

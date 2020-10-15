@@ -59,8 +59,7 @@ description:
     documentation: 'https://github.com/uniurbit/UniContr/blob/master/UniContr.pdf'
     genericName: applicazione web
     shortDescription: >-
-      Applicazione web per la proceduralizzazione e dematerializzazione dei
-      contratti di docenza.
+      Applicazione web per la proceduralizzazione e la dematerializzazione dei contratti di docenza negli atenei.
     longDescription: >
       Cosa Fa UniContr?
 

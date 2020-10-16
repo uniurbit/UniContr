@@ -67,10 +67,10 @@ class ContrUgovExport implements FromCollection, WithMapping, WithHeadings
 
         return [
             $cont->datibase ? $cont->datibase->id_dg : '',
-            $cont->id_siadi ? $cont->id_siadi : '',
-
+           
             $cont->precontr->user->cognome ? $cont->precontr->user->cognome : '',
             $cont->precontr->user->nome ? $cont->precontr->user->nome : '',
+            $cont->precontr->insegnamento->data_ini_contr ? $cont->precontr->insegnamento->data_ini_contr : '',
             $cont->precontr->insegnamento->data_fine_contr ? $cont->precontr->insegnamento->data_fine_contr : '',
 
             $cont->id_uo_aff ? __('global.'.$cont->id_uo_aff) : '',
@@ -83,6 +83,8 @@ class ContrUgovExport implements FromCollection, WithMapping, WithHeadings
             
             $cont->statocompensi ? $cont->statocompensi : '',
             $cont->statoordinativi ? $cont->statoordinativi : '',
+
+            $cont->id_siadi ? $cont->id_siadi : '',
            
         ];
     }
@@ -91,9 +93,9 @@ class ContrUgovExport implements FromCollection, WithMapping, WithHeadings
     {
         return [
             'Id dg',
-            'Copertura',
             'Cognome',
             'Nome',
+            'Data inizio contratto',
             'Data fine contratto',
             'Dipartimento',
             'Anno',
@@ -103,6 +105,7 @@ class ContrUgovExport implements FromCollection, WithMapping, WithHeadings
             'Num. rate',
             'Compensi',
             'Ordinativi',
+            'Copertura',
         ];
     }
 

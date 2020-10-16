@@ -5,6 +5,7 @@ import { TableColumn } from '@swimlane/ngx-datatable';
 import { Router } from '@angular/router';
 import { Page, PagedData } from '../lookup/page';
 import { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } from 'constants';
+import { NgbStringAdapter } from 'src/app/NgbStringAdapter';
 
 @Component({
   selector: 'app-tablelookup-type',
@@ -64,6 +65,8 @@ export class TableLookupTypeComponent extends FieldArrayType {
 
   @ViewChild('table') table: any;
   @ViewChild('expaderdetailcolumn') public expaderdetailcolumn: TemplateRef<any>;     
+
+  adapter = new NgbStringAdapter();   
 
   constructor(private differs: KeyValueDiffers) {    
     super();          
@@ -155,19 +158,28 @@ export class TableLookupTypeComponent extends FieldArrayType {
   }
 
   onSort(event) {
-    const sort = event.sorts[0];
-    this.model.sort((a , b) => {   
-        const valuea = this.getDescendantProp(a,sort.prop);
-        const valueb = this.getDescendantProp(b,sort.prop);
-        if (valuea != null && valueb != null){             
-          if (typeof valuea ===  "number"){
-              return ((valuea>valueb ? 1 : valuea<valueb ? -1 : 0) * (sort.dir === 'desc' ? -1 : 1));  
-          }    
-          return (valuea.localeCompare(valueb) * (sort.dir === 'desc' ? -1 : 1));    
-        }
-    });          
+    if (this.to.onSort){
+      this.to.onSort(event);
+    }else{
+      const sort = event.sorts[0];      
 
-    this.formControl.patchValue(this.model);   
+      this.table.rows.sort((a , b) => {   
+          const valuea = this.getDescendantProp(a,sort.prop);
+          const valueb = this.getDescendantProp(b,sort.prop);
+          if (valuea != null && valueb != null){             
+            if (typeof valuea ===  "number"){
+                return ((valuea>valueb ? 1 : valuea<valueb ? -1 : 0) * (sort.dir === 'desc' ? -1 : 1));  
+            } else if (event.column.type  && event.column.type == "date"){
+              const da = this.adapter.fromModel(valuea);
+              const db = this.adapter.fromModel(valueb);
+              return (<any>new Date(da.year,da.month-1,da.day) - <any>new Date(db.year,db.month-1,db.day)) * (sort.dir === 'desc' ? -1 : 1);
+            }    
+            return (valuea.localeCompare(valueb) * (sort.dir === 'desc' ? -1 : 1));    
+          }
+      });        
+    }
+
+    this.table.offset = this.to.page.pageNumber; 
   }
 
   onSelect({ selected }) {

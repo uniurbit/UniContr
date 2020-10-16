@@ -86,7 +86,7 @@ class LoginListener
             $laravelUser = \App\User::where('cf', $userData['cf'])->first();
             if ($laravelUser !== null ){
                 //aggiornare email 
-                if (Str::contains($userData['email'],'@uniurb.it')){   
+                if (Str::contains(strtolower($userData['email']),'@uniurb.it')){   
                     $laravelUser->email = $userData['email'];
                     $laravelUser->save();  
                     Log::info('Aggiornata email laravel user [' . $laravelUser->name . ']'); 

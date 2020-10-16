@@ -53,6 +53,31 @@ export class UserComponent extends BaseEntityComponent {
       fieldGroupClassName: 'row',
       fieldGroup: [
         {
+          key: 'nome',
+          type: 'input',
+          className: 'col-md-6',
+          templateOptions: {
+            label: 'Nome',
+            required: true,
+            // disabled: true
+          }
+        },
+        {
+          key: 'cognome',
+          type: 'input',
+          className: 'col-md-6',
+          templateOptions: {
+            label: 'Cognome',
+            required: true,
+            // disabled: true
+          }
+        },       
+      ]
+    },
+    {
+      fieldGroupClassName: 'row',
+      fieldGroup: [
+        {
           key: 'v_ie_ru_personale_id_ab',
           type: 'input',
           className: 'col-md-3',
@@ -70,6 +95,17 @@ export class UserComponent extends BaseEntityComponent {
             label: 'Data di blocco utente',
             // disabled: true
           }
+        },
+        {
+          key: 'cf',
+          type: 'input',
+          className: 'col-md-6',
+          templateOptions: {            
+            required: true,
+            translate: true,
+            label: 'a1_label5',
+            pattern: /^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$/
+          },
         },
       ]
     },

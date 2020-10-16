@@ -47,6 +47,19 @@
     <app-list-item  *ngIf="item.email" label="{{ 'a1_email' | translate }}" value="{{ item.email }}"> </app-list-item>
     <app-list-item  *ngIf="item.email_privata" label="{{ 'a1_emailp' | translate }}" value="{{ item.email_privata | lowercase }}"> </app-list-item>  
     
+    
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="item.flag_lavoratrici_madri != null &&  item.flag_lavoratrici_madri === 1">
+    <h5>{{ 'a1_title8' | translate }}</h5>
+    <div class="row" *ngIf="item.flag_lavoratrici_madri != null &&  item.flag_lavoratrici_madri === 1">
+      <div class="col-md-auto">
+        <span class="oi oi-check iconic pl-1"></span>
+      </div>
+      <div class="col">
+        {{ 'a1_label24' | translate }}, disponibili presso <a href="https://www.uniurb.it/ateneo/utilita/salute-e-sicurezza/informazione-ai-lavoratori" target="_blank">https://www.uniurb.it/ateneo/utilita/salute-e-sicurezza/informazione-ai-lavoratori</a>
+      </div>
+    </div> 
   </app-riquadro-wrapper>
 
   <app-riquadro-wrapper>   

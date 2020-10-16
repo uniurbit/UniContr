@@ -9,7 +9,7 @@
     <!-- ============================================================== -->
     <header class="topbar" [attr.data-navbarbg]="options.navbarbg">
         <nav class="navbar top-navbar navbar-expand-md" [ngClass]="(options.navbarbg=='skin6')?'navbar-light':'navbar-dark'">
-            <div class="navbar-header" [ngClass]="(expandLogo)?'expand-logo':''" [attr.data-logobg]="options.logobg">
+            <div class="navbar-header" [ngClass]="(expandLogo)?'expand-logo':''" [attr.data-logobg]="options.logobg" [class.bg-success]="isDebug()" >
                 <!-- This is for the sidebar toggle which is visible on mobile only -->
                 <a (click)="showMobileMenu = !showMobileMenu" class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
                     <i [ngClass]="(showMobileMenu)?'ti-close':'ti-menu'"></i>
@@ -49,7 +49,7 @@
             <!-- ============================================================== -->
             <!-- End Logo -->
             <!-- ============================================================== -->
-            <div class="navbar-collapse collapse" id="navbarSupportedContent" [attr.data-navbarbg]="options.navbarbg" [ngbCollapse]="!isCollapsed">
+            <div class="navbar-collapse collapse" id="navbarSupportedContent" [attr.data-navbarbg]="options.navbarbg" [ngbCollapse]="!isCollapsed" [class.bg-success]="isDebug()">
                 <app-header-navigation (toggleSidebar)="toggleSidebarType()" class="w-100"></app-header-navigation>
             </div>
         </nav>
@@ -75,7 +75,7 @@
         <!-- ============================================================== -->
         <!-- Container fluid  -->
         <!-- ============================================================== -->
-        <div class="container-fluid">
+        <div class="container-fluid" >
             <!-- ============================================================== -->
             <!-- Start Page Content -->
             <!-- ============================================================== -->

@@ -122,6 +122,6 @@ La revoca del consenso può essere esercitata solo per i trattamenti opzionali.
 Settore del Personale <br>   
 Ufficio Amministrazione e reclutamento personale docente<br>
 Via Puccinotti, 25 - 61029 Urbino (PU)<br>
-Tel. +39 0722 305476 / 401 / 402 / 403 / 418 / 446 / 481 Fax +39 0722 305477<br>
+Tel. +39 0722 305476 / 401 / 402 / 404 / 418 / 446 / 481 Fax +39 0722 305477<br>
 amministrazione.reclutamento.pdoc@uniurb.it - www.uniurb.it<br>
 </p>

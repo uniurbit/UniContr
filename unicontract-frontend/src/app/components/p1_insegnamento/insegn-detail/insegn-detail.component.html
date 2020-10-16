@@ -9,7 +9,7 @@
     </div>   
     <app-list-item label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ item.nome | uppercase }} {{ item.cognome | uppercase }}</span></app-list-item>    
     <app-list-item label="{{ '00_int2' | translate }}" value="{{ item.insegnamento | uppercase }}"></app-list-item>
-    <app-list-item label="{{ '00_int7' | translate }}" value="{{ item.settore | uppercase }} ({{ item.cod_settore | uppercase }})"></app-list-item>
+    <app-list-item label="{{ '00_int7' | translate }}" value="{{ item.settore | replace:';':',' | uppercase }} ({{ item.cod_settore | replace:';':',' | uppercase }})"></app-list-item>
     <app-list-item label="{{ '00_int8' | translate }}" value="{{ item.cfu }} CFU / {{ item.ore }} ORE"></app-list-item>
     <app-list-item label="{{ '00_int9' | translate }}" value="{{ item.dipartimento | uppercase}}"></app-list-item>
     <app-list-item label="{{ '00_int10' | translate }}" value="{{ item.cdl | uppercase }}"></app-list-item>

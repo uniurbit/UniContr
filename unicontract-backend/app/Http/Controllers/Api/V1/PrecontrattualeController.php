@@ -81,7 +81,7 @@ class PrecontrattualeController extends Controller
         $data = [];
         $message = '';
    
-            $precontr = Precontrattuale::where('insegn_id', $insegn_id); 
+            $precontr = Precontrattuale::withoutGlobalScopes()->where('insegn_id', $insegn_id); 
             $postData = $request->except('id', '_method');
             $success = $precontr->update($postData);
             $data = $precontr;
@@ -116,7 +116,24 @@ class PrecontrattualeController extends Controller
         //leggere da ugov insegnamento ...
         $insegnamentoUgov = InsegnamUgov::where('COPER_ID', $precontr->insegnamento->coper_id)            
             ->first(['coper_id', 'tipo_coper_cod', 'data_ini_contratto', 'data_fine_contratto', 
-                'coper_peso', 'ore', 'compenso', 'motivo_atto_cod', 'tipo_atto_des', 'tipo_emitt_des', 'numero', 'data']);  
+                'coper_peso', 'ore', 'compenso', 'motivo_atto_cod', 'tipo_atto_des', 'tipo_emitt_des', 
+                'numero', 'data', 'des_tipo_ciclo', 'sett_des', 'sett_cod','af_radice_id']);  
+
+
+
+        //verificare la data di conferimento
+        if (!$insegnamentoUgov->motivo_atto_cod){                
+            $message = 'Insegnamento non aggiornabile: motivo atto non inserito';
+            $success = false;            
+            return compact('data', 'message', 'success');
+        }
+
+        //verificare la data di conferimento
+        if (!$insegnamentoUgov->data){                
+            $message = 'Insegnamento non aggiornabile: data conferimento non inserita';
+            $success = false;            
+            return compact('data', 'message', 'success');
+        }
 
         if ($insegnamentoUgov->data_ini_contratto > $insegnamentoUgov->data_fine_contratto){
             $message = 'Insegnamento non aggiornabile: data di fine insegnamento antecedente alla data di inizio';
@@ -185,8 +202,22 @@ class PrecontrattualeController extends Controller
             
             $validatedData = $request->validate([
                 'insegnamento.data_ini_contr' => 'required | date', 
-                'insegnamento.data_fine_contr' => 'required | date' 
+                'insegnamento.data_fine_contr' => 'required | date'               
             ]);
+
+            //verificare motivo atto
+            if (!$request->insegnamento['motivo_atto']){                
+                $message = 'Insegnamento non importabile: motivo atto non inserito';
+                $success = false;            
+                return compact('data', 'message', 'success');
+            }
+
+            //verificare la data di conferimento
+            if (!$request->insegnamento['data_delibera']){                
+                $message = 'Insegnamento non importabile: data conferimento non inserita';
+                $success = false;            
+                return compact('data', 'message', 'success');
+            }
 
             //verificare chi le dati inizio fine assegnamento siano 
             if ($request->insegnamento['data_ini_contr'] && $request->insegnamento['data_fine_contr']){                
@@ -209,7 +240,7 @@ class PrecontrattualeController extends Controller
             }
 
             //verificare che al docente sia associata una email istituzionale        
-            if ($request->docente['email'] && !Str::contains($request->docente['email'],'@uniurb.it')){
+            if ($request->docente['email'] && !Str::contains(strtolower($request->docente['email']),'@uniurb.it')){
                 $data = null;
                 $message = 'Insegnamento non importabile: al docente '.$request->docente['name'].' non è associata una email istituzionale';
                 $success = false;            
@@ -696,7 +727,8 @@ class PrecontrattualeController extends Controller
         $findparam = $this->queryparameter($request);
 
         $queryBuilder = new QueryBuilder(new Precontrattuale, $request, $findparam);
-                
+        $queryBuilder->alias = ['precontr.id'];
+        
         return $queryBuilder->build()->paginate();            
     }
 

@@ -39,8 +39,8 @@ export class B4RappPaDetailsComponent extends BaseComponent {
     );
   }
 
-  tempo(value: number) {
-    if (value === 0) {
+  tempo(value) {
+    if (value == 0) {
       return 'parziale';
     } else {
       return 'pieno';

@@ -57,7 +57,7 @@ class EmailService implements ApplicationService
     public static function sendEmailContratto($insegn_id, $document, $documentName){
                 
         $pre = PrecontrattualePerGenerazione::with(['anagrafica','user','insegnamento','titulusref'])->where('insegn_id',$insegn_id)->first();         
-        if ($pre && $pre->user->email &&  Str::contains($pre->user->email,'@uniurb.it')){         
+        if ($pre && $pre->user->email &&  Str::contains(strtolower($pre->user->email),'@uniurb.it')){         
 
             $email = new ContrattoEmail($pre,$document,$documentName);        
             
@@ -108,7 +108,7 @@ class EmailService implements ApplicationService
 
     public static function sendEmailAPP_Validazione($pre){
         
-        if ($pre && $pre->user->email &&  Str::contains($pre->user->email,'@uniurb.it')){         
+        if ($pre && $pre->user->email &&  Str::contains(strtolower($pre->user->email),'@uniurb.it')){         
 
             $email = new ValidateEmail($pre);        
             
@@ -129,7 +129,7 @@ class EmailService implements ApplicationService
     }
 
     public static function sendEmailRCP($pre){
-        if ($pre && $pre->user->email &&  Str::contains($pre->user->email,'@uniurb.it')){   
+        if ($pre && $pre->user->email &&  Str::contains(strtolower($pre->user->email),'@uniurb.it')){   
 
             $email = new FirstEmail($pre);
             
@@ -175,7 +175,7 @@ class EmailService implements ApplicationService
 
     public static function sendEmailInfo($insegn_id, $entity){
         $pre = PrecontrattualePerGenerazione::with(['anagrafica','user','insegnamento'])->where('insegn_id',$insegn_id)->first();   
-        if ($pre && $pre->user->email &&  Str::contains($pre->user->email,'@uniurb.it')){   
+        if ($pre && $pre->user->email &&  Str::contains(strtolower($pre->user->email),'@uniurb.it')){   
 
             $email = new InfoEmail($pre, $entity);
             

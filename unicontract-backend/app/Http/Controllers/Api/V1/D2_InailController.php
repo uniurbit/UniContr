@@ -121,6 +121,7 @@ class D2_InailController extends Controller
                                                 'p2_natura_rapporto.flag_titolare_pensione',
                                                 'p2_natura_rapporto.natura_rapporto',
                                                 'a1_anagrafica.provincia_residenza',
+                                                'a1_anagrafica.provincia_fiscale',
                                                 'a1_anagrafica.sesso']);
 
             $pre = Precontrattuale::with(['validazioni'])->where('d2_inail_id', $id)->first();                                                        

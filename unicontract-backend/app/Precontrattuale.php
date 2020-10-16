@@ -64,6 +64,20 @@ class Precontrattuale extends Model {
         'tipo_annullamento'
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope('total', function ($builder) {
+            $builder 
+            ->join('users as user', 'precontr.docente_id', '=', 'user.v_ie_ru_personale_id_ab')
+            ->select([
+                'user.nome',
+                'user.cognome',
+                'precontr.*'
+            ]);
+        });
+    }
+
     protected $appends = ['currentState'];
 
     //In your example, if A has a b_id column, then A belongsTo B.
@@ -284,6 +298,16 @@ class Precontrattuale extends Model {
         }        
     }
 
+    public function  isBlockedAmministrativa()
+    {        
+        if ($this->stato == 1 || $this->isAnnullata()){
+            return true;
+        }else{
+            return $this->validazioni->isBlockedAmministrativa();
+        }        
+    }
+  
+
 
 
     //per compatibilità query
@@ -393,7 +417,7 @@ class Precontrattuale extends Model {
               $this->d2_inail_id !== 0 &&
               $this->d3_tributari_id !== 0 &&
               $this->d4_fiscali_id !== 0 &&
-              (($this->anagrafica->provincia_residenza === 'EE' && $this->d5_fiscali_resid_estero_id !== 0) || $this->anagrafica->provincia_residenza !== 'EE') &&
+              (($this->anagrafica->provincia_fiscale === 'EE' && $this->d5_fiscali_resid_estero_id !== 0) || $this->anagrafica->provincia_fiscale !== 'EE') &&
               $this->d6_detraz_fam_carico_id !== 0) {
               return true;
             }

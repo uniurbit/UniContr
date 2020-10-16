@@ -32,7 +32,9 @@ class UtilService {
     }
 
     private static function query($modelinstance, Request $request, $findparam){        
-        return (new QueryBuilder($modelinstance, $request, $findparam))->build()->paginate();        
+        $queryBuilder = new QueryBuilder($modelinstance, $request, $findparam);
+        $queryBuilder->alias = ['precontr.id'];
+        return $queryBuilder->build()->paginate();        
     }
 
     public static function tipoConferimento($value) {

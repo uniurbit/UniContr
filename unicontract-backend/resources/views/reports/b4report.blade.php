@@ -36,13 +36,13 @@
     @endif
 
     @if($pre->b4rapportopa->tipo_rapporto == 'TIND')
-    <div>{{ __('global.b4_txt1b')  }} {{$item->denominazione_pa }} {{__('global.b4_txt2')  }} {{__('global.b4_txt5')  }} {{ $pre->b4rapportopa->tempoPienoToString() }}@if($item->tempo_pieno === 0) ({{$item->percentuale }} %). @else. @endif
+    <div>{{ __('global.b4_txt1b')  }} {{$item->denominazione_pa }} {{__('global.b4_txt2')  }} {{__('global.b4_txt5')  }} {{ $pre->b4rapportopa->tempoPienoToString() }}@if($pre->b4rapportopa->tempo_pieno === 0) ({{$item->percentuale }} %). @else. @endif
     </div>
     @endif
 
     @if($pre->b4rapportopa->tipo_rapporto == 'TDET')
     <div>{{__('global.b4_txt1b')  }} {{$item->denominazione_pa }} {{__('global.b4_txt3')  }} {{__('global.b4_txt23') }} {{$item->dal_giorno }} {{__('global.b4_txt24') }} {{$item->al_giorno }} {{__('global.b4_txt5')  }} {{ $pre->b4rapportopa->tempoPienoToString() }}
-    @if($item->tempo_pieno == 0) ({{$item->percentuale }} %) @endif
+    @if($pre->b4rapportopa->tempo_pieno == 0) ({{$item->percentuale }} %) @endif
     </div>
     @endif
     

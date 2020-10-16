@@ -124,6 +124,7 @@ class A2ModalitaPagamentoController extends Controller
             ->where('a2_mod_pagamento.id', $id)->first(['users.nome',
                                                         'users.cognome',
                                                         'a1_anagrafica.provincia_residenza',
+                                                        'a1_anagrafica.provincia_fiscale',
                                                         'a2_mod_pagamento.*',
                                                         'a2_mod_pagamento.created_at AS createdDate',
                                                         'precontr.*',
@@ -175,7 +176,7 @@ class A2ModalitaPagamentoController extends Controller
         $data = [];
         $message = '';
 
-        if (Precontrattuale::with(['validazioni'])->where('a2_mod_pagamento_id', $id)->first()->isBlocked()){
+        if (Precontrattuale::with(['validazioni'])->where('a2_mod_pagamento_id', $id)->first()->isBlockedAmministrativa()){
             $data = [];
             $message = trans('global.aggiornamento_non_consentito');
             $success = false;

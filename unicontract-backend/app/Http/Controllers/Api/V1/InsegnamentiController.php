@@ -121,6 +121,7 @@ class InsegnamentiController extends Controller
                                                       'p2_natura_rapporto.flag_titolare_pensione',
                                                       'p2_natura_rapporto.natura_rapporto',
                                                       'a1_anagrafica.provincia_residenza',
+                                                      'a1_anagrafica.provincia_fiscale',
                                                       'precontr.*']);
 
             $pre = Precontrattuale::with(['sendemailsrcp'])->where('insegn_id', $id)->first();                                                       
@@ -260,9 +261,9 @@ class InsegnamentiController extends Controller
         }
 
 
-        if ($pre && $pre->user->email && !Str::contains($pre->user->email,'@uniurb.it')){
+        if ($pre && $pre->user->email && !Str::contains(strtolower($pre->user->email),'@uniurb.it')){
             $email = $pre->user->anagraficaugov()->first()->e_mail;                 
-            if ($email && Str::contains($email,'@uniurb.it')){
+            if ($email && Str::contains(strtolower($email),'@uniurb.it')){
                 //aggiornare email utente 
                 $pre->user->email = $email;
                 $pre->user->save();                

@@ -1,12 +1,12 @@
 <ng-container *ngxPermissionsOnly="['OP_DOCENTE','SUPER-ADMIN']">
  <button *ngIf="type && type!='P1' &&!isBlocked()" class="btn btn-outline-secondary rounded mr-1" [disabled]="disabledUpdate()" (click)="update()" >
-    <span class="oi oi-pencil iconic"  title="{{ 'btn_upd_title' | translate }}"></span>
+    <span class="oi oi-pencil iconic"  title="{{ 'btn_edita_title' | translate }}"></span>
+    <span class="ml-2">{{ 'btn_edita' | translate }}</span>
   </button>
 </ng-container>
   <button class="btn btn-outline-secondary rounded mr-2" (click)="goto.summary(item.insegn_id)" >
     <span class="oi oi-list-rich iconic"  title="{{ 'btn_smm_title' | translate }}"></span>
   </button>
-  
 
   <ng-container *ngxPermissionsOnly="['OP_APPROVAZIONE_AMM','OP_APPROVAZIONE_ECONOMICA','SUPER-ADMIN']">
     <button *ngIf="!item?.validazioni?.flag_submit && isDisabled('P1')" class="btn btn-outline-secondary rounded mr-1"  (click)="sendEmail.emit()" >
@@ -61,7 +61,8 @@
   <!--D4-->
   <button type="button" class="{{ getClassName('D4') }}" [disabled]="isDisabled('D4')" *ngIf="item.natura_rapporto === 'COCOCO' && item.d4_fiscali_id !== 0" (click)="goto.gotoD4(item.d4_fiscali_id)" title="{{ 'btn_d4_title' | translate }}">{{ 'btn_d4' | translate }}</button>
   <!--D5-->
-  <button type="button" class="{{ getClassName('D5') }}" [disabled]="isDisabled('D5')" *ngIf="item.natura_rapporto === 'COCOCO' && item.d5_fiscali_resid_estero_id !== 0" (click)="goto.gotoD5(item.d5_fiscali_resid_estero_id)" title="{{ 'btn_d5_title' | translate }}">{{ 'btn_d5' | translate }}</button>
+  <button type="button" class="{{ getClassName('D5') + ' btn-warning' }}" *ngIf="!isDisabled('D5') && goto.attivaPulsanteD5(item)" (click)="goto.switchD5(item.insegn_id, item.d5_fiscali_resid_estero_id)" title="{{ 'btn_d5_title' | translate }}">{{ 'btn_d5' | translate }}</button>
+  <button type="button" class="{{ getClassName('D5') }}" [disabled]="isDisabled('D5')" *ngIf="item.natura_rapporto === 'COCOCO' && item.d5_fiscali_resid_estero_id !== 0 && item.provincia_fiscale == 'EE'" (click)="goto.gotoD5(item.d5_fiscali_resid_estero_id)" title="{{ 'btn_d5_title' | translate }}">{{ 'btn_d5' | translate }}</button>
   <!--D6-->
   <button type="button" class="{{ getClassName('D6') }}" [disabled]="isDisabled('D6')" *ngIf="item.natura_rapporto === 'COCOCO' && item.d6_detraz_fam_carico_id !== 0" (click)="goto.gotoD6(item.d6_detraz_fam_carico_id)" title="{{ 'btn_d6_title' | translate }}">{{ 'btn_d6' | translate }}</button>
   <!--E-->

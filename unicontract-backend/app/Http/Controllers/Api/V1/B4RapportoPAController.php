@@ -117,7 +117,8 @@ class B4RapportoPAController extends Controller
                                                           'p2_natura_rapporto.flag_titolare_pensione',
                                                           'p2_natura_rapporto.natura_rapporto',
                                                           'a1_anagrafica.sesso',
-                                                          'a1_anagrafica.provincia_residenza']);
+                                                          'a1_anagrafica.provincia_residenza',
+                                                          'a1_anagrafica.provincia_fiscale']);
 
             $b4rel = B4RapportoPA::with(['pubblamm'])->where('id',$id)->first();
             $datiRapportoPA['pubblamm'] = $b4rel->pubblamm;
@@ -156,7 +157,7 @@ class B4RapportoPAController extends Controller
             abort(403, trans('global.utente_non_autorizzato'));
         }        
 
-        if (Precontrattuale::with(['validazioni'])->where('b4_rapp_pubbl_amm_id', $id)->first()->isBlocked()){
+        if (Precontrattuale::with(['validazioni'])->where('b4_rapp_pubbl_amm_id', $id)->first()->isBlockedAmministrativa()){
             $data = [];
             $message = trans('global.aggiornamento_non_consentito');
             $success = false;

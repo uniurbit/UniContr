@@ -71,16 +71,18 @@ class User extends Authenticatable implements JWTSubject
     {        
         $dips = [];
         if (!$this->hasPermissionTo('search all contratti')){         
-            $uo = $this->unitaorganizzativa();
-            if ($uo){
-                if ($uo->isPlesso()){
-                    $dips  = $uo->dipartimenti();
-                }else if ($uo->isDipartimento()){
-                    $dips = [$uo->uo];
+            if ($this->hasRole('op_dipartimentale')){
+                $uo = $this->unitaorganizzativa();
+                if ($uo){
+                    if ($uo->isPlesso()){
+                        $dips  = $uo->dipartimenti();
+                    }else if ($uo->isDipartimento()){
+                        $dips = [$uo->uo];
+                    }
                 }
-            }
+            }            
         }else{
-            $dips = UnitaOrganizzativa::allDipartimenti();
+             $dips = UnitaOrganizzativa::allDipartimenti();
         }
 
         return [
@@ -93,7 +95,7 @@ class User extends Authenticatable implements JWTSubject
                                 }),
         ];
     }
-
+    
     public function getIntendedUrl(){
         if (App::environment('local')) {
             return config('unidem.client_url'); //'http://localhost:4200';
@@ -102,7 +104,7 @@ class User extends Authenticatable implements JWTSubject
     }
     
 
- /**
+    /**
      * Set attribute to date format
      * @param $input
      */

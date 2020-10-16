@@ -62,7 +62,7 @@ class PrecontrattualeService implements ApplicationService
 
     public static function getDatiIntestazione($insegn_id){
         
-        $queryBuilder = Precontrattuale::leftJoin('users', function($join) {
+        $queryBuilder = Precontrattuale::withoutGlobalScopes()->leftJoin('users', function($join) {
             $join->on('users.v_ie_ru_personale_id_ab', '=', 'precontr.docente_id');
         })
         ->leftJoin('p1_insegnamento', function($join) {
@@ -232,6 +232,7 @@ class PrecontrattualeService implements ApplicationService
         $mapping = MappingUfficio::where('unitaorganizzativa_uo', $unitaorganizzativa_uo)->first();
         $doc->addCC($mapping->descrizione_uff, "tutti"); 
 
+        $doc->addRifEst($pre->user->name);
         // <postit cod_operatore="" operatore="UniContract" data="'.date( 'Ymd' ).'" ora="'.date( 'H:i:s' ).'">CONTRATTO DI INSEGNAMENTO SOTTOSCRITTO CON FIRMA ELETTRONICA DA '.$firstname.' '.$lastname.' 
         //IN DATA '.$dataSottoscrizione.' - '.$insegnamento.' - A.A. '.$aa.' DAL GIORNO '.date_format(date_create($dalGiorno), 'd/m/Y').' 
         //AL GIORNO '.date_format(date_create($alGiorno), 'd/m/Y').'</postit>
@@ -269,7 +270,7 @@ class PrecontrattualeService implements ApplicationService
         ]);     
       
         TitulusExtraDoc::addPersona($extra,[
-            'codice_fiscale' => 'DLLSFN67A21G224J',
+            'codice_fiscale' => $pre->user->cf,
             'cognome' =>$pre->user->cognome,
             'nome' => $pre->user->nome,
             'data_nascita' => $pre->anagrafica->provincia_nascita,

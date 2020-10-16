@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\InsegnamUgovController;
 use App\Service\UtilService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class Insegnamenti extends Model {
     /**
@@ -160,6 +161,32 @@ class Insegnamenti extends Model {
         $this->ore = $insegnamentoUgov->ore;
         $this->tipo_atto = $insegnamentoUgov->tipo_atto_des;
         $this->tipo_contratto = $insegnamentoUgov->tipo_coper_cod;
+        $this->ciclo = $insegnamentoUgov->des_tipo_ciclo;
+        $this->settore = $insegnamentoUgov->sett_des;
+        $this->cod_settore = $insegnamentoUgov->sett_cod;
+
+        // <input type="hidden" name="coper_id" [(ngModel)]="item.coper_id" >
+        // <input type="hidden" name="ruolo" [(ngModel)]="item.ruolo_doc_cod">
+        // <input type="hidden" name="insegnamento" [(ngModel)]="item.af_gen_des">
+        // <input type="hidden" name="settore" [(ngModel)]="item.sett_des">
+        // <input type="hidden" name="cod_settore" [(ngModel)]="item.sett_cod">
+        // <input type="hidden" name="cfu" [(ngModel)]="item.coper_peso">
+        // <input type="hidden" name="ore" [(ngModel)]="item.ore">
+        // <input type="hidden" name="cdl" [(ngModel)]="item.nome_cds">
+        // <input type="hidden" name="data_ini_contr" [(ngModel)]="item.data_ini_contratto">
+        // <input type="hidden" name="data_fine_contr" [(ngModel)]="item.data_fine_contratto">
+        // <input type="hidden" name="ciclo" [(ngModel)]="item.des_tipo_ciclo">
+        // <input type="hidden" name="aa" [(ngModel)]="item.aa_off_id">
+        // <input type="hidden" name="dipartimento" [(ngModel)]="item.dip_des">
+        // <input type="hidden" name="compenso" [(ngModel)]="item.compenso">
+        // <input type="hidden" name="tipo_contratto" [(ngModel)]="item.tipo_coper_cod">
+        // <input type="hidden" name="tipo_atto" [(ngModel)]="item.tipo_atto_des">
+        // <input type="hidden" name="emittente" [(ngModel)]="item.tipo_emitt_des">
+        // <input type="hidden" name="motivo_atto" [(ngModel)]="item.motivo_atto_cod">
+        // <input type="hidden" name="num_delibera" [(ngModel)]="item.numero">
+        // <input type="hidden" name="data_delibera" [(ngModel)]="item.data">
+        // <input type="hidden" name="cod_insegnamento" [(ngModel)]="item.af_gen_cod">    
+        // <input type="hidden" name="dip_cod" [(ngModel)]="item.dip_cod">
     }
 
 
@@ -226,12 +253,24 @@ class Insegnamenti extends Model {
         return $ruolo;         
     }
 
-    public function settoreToString(){
-        if($this->cod_settore != 'NN') {
+    public function settoreToString(){          
+              
+        if($this->cod_settore != 'NN') {         
+            if (Str::contains($this->cod_settore,';') && Str::contains($this->settore,';')){
+                //plurale 
+                $cod = explode('; ', $this->cod_settore);
+                $sett = explode('; ', mb_strtolower($this->settore, 'UTF-8'));
+
+                $result = array_map(function (...$arrays) {
+                    return $arrays[0].' - '.ucfirst($arrays[1]);
+                }, $cod, $sett);
+
+                return ' (settori scientifico-disciplinari '.join(', ',$result).')';     
+            }
             return ' (settore scientifico-disciplinare '.$this->cod_settore." - ".ucfirst(mb_strtolower($this->settore, 'UTF-8')).')';
-        } else {
-            return  "";
-        }
+        } 
+        return  "";
+        
     }
 
     public function cfuToString(){
@@ -334,10 +373,15 @@ class Insegnamenti extends Model {
 
 
     public function giorniDeliberaAOggi(){
-        $datetime1 = Carbon::createFromFormat('Y-m-d', $this->attributes['data_delibera']);
-        $datetime2 = Carbon::now();
-        $diff_in_days  = $datetime1->diffInDays($datetime2);
-        return $diff_in_days; 
+        if ($this->attributes['data_delibera']){
+            $datetime1 = Carbon::createFromFormat('Y-m-d', $this->attributes['data_delibera']);
+            $datetime2 = Carbon::now();
+            $diff_in_days  = $datetime1->diffInDays($datetime2);
+            return $diff_in_days;
+        }else{
+            return '';
+        }
+ 
         //$days = $interval->format('%a');//now do whatever you like with $days
     }
 

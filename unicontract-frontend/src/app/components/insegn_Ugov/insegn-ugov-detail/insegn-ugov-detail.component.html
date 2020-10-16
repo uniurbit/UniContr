@@ -7,7 +7,7 @@
     <app-list-item label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ item.nome | uppercase }} {{ item.cognome | uppercase }}</span></app-list-item>            
 
     <app-list-item label="{{ '00_int2' | translate }}" value="{{ item.af_gen_des }}"></app-list-item>
-    <app-list-item label="{{ '00_int7' | translate }}" value="{{ item.sett_des | uppercase }} ({{ item.sett_cod }})"></app-list-item>
+    <app-list-item label="{{ '00_int7' | translate }}" value="{{ item.sett_des | replace:';':',' | uppercase }} ({{ item.sett_cod | replace:';':','}})"></app-list-item>
     <app-list-item label="{{ '00_int8' | translate }}" value="{{ item.coper_peso }} CFU / {{ item.ore }} ore"></app-list-item>
     <app-list-item label="{{ '00_int9' | translate }}" value="{{ item.dip_des | uppercase }}"></app-list-item>
     <app-list-item label="{{ '00_int10' | translate }}" value="{{ item.nome_cds | uppercase }}"></app-list-item>

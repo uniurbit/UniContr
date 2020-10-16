@@ -7,14 +7,14 @@
     <div *ngFor="let item of items.pubblamm">
       <div *ngIf="items.tipo_rapporto === 'TIND'" class="row">
         <div class="col">
-          {{ 'b4_txt1b' | translate }} {{ item.denominazione_pa }} {{ 'b4_txt2' | translate }} {{ 'b4_txt5' | translate }} {{ tempo(item.tempo_pieno) }}
-          <span *ngIf="item.tempo_pieno === 0">({{ item.percentuale }} %).</span>
+          {{ 'b4_txt1b' | translate }} {{ item.denominazione_pa }} {{ 'b4_txt2' | translate }} {{ 'b4_txt5' | translate }} {{ tempo(items.tempo_pieno) }}
+          <span *ngIf="items.tempo_pieno == 0">({{ item.percentuale }} %).</span>
         </div>
       </div>
       <div *ngIf="items.tipo_rapporto === 'TDET'" class="row">
           <div class="col">
-            {{ 'b4_txt1b' | translate }} {{ item.denominazione_pa }} {{ 'b4_txt3' | translate }} {{ 'b4_txt23' | translate }} {{ item.dal_giorno }} {{ 'b4_txt24' | translate }} {{ item.al_giorno }} {{ 'b4_txt5' | translate }} {{ tempo(item.tempo_pieno) }}
-            <span *ngIf="item.tempo_pieno === 0">({{ item.percentuale }} %).</span>
+            {{ 'b4_txt1b' | translate }} {{ item.denominazione_pa }} {{ 'b4_txt3' | translate }} {{ 'b4_txt23' | translate }} {{ item.dal_giorno }} {{ 'b4_txt24' | translate }} {{ item.al_giorno }} {{ 'b4_txt5' | translate }} {{ tempo(items.tempo_pieno) }}
+            <span *ngIf="items.tempo_pieno == 0">({{ item.percentuale }} %).</span>
           </div>
       </div>
       <div *ngIf="items.tipo_rapporto === 'ASP'" class="row" >

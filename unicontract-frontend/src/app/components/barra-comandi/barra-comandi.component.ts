@@ -92,6 +92,12 @@ export class BarraComandiComponent implements OnInit {
     if (this.item.stato == 2 || this.item.stato==3){
       return true;
     }else if (this.item.validazioni) {
+     
+      //moduli bloccati dalla validazione amministrativa
+      if (this.isValidatoAmm() && ['A1','A2', 'P2', 'B1', 'B2', 'B3','B4', 'B5', 'B6'].includes(this.type)){
+        return true;
+      }
+
       return this.item.validazioni.blocked;
     } else {
       console.log('ASSENTI dati di validazione');
@@ -105,6 +111,19 @@ export class BarraComandiComponent implements OnInit {
     console.log(id);
     this.router.navigate([path, this.item[id], {upd: 'on'}]);
 
+  }
+
+  // stati
+  isCompilato() {
+    return this.item.validazioni.flag_submit === 1;
+  }
+
+  isValidatoAmm() {
+    return this.item.validazioni.flag_upd === 1 && this.isCompilato();
+  }
+
+  isValidatoEconomica() {
+    return this.item.validazioni.flag_amm === 1 && this.isValidatoAmm();
   }
 
 }

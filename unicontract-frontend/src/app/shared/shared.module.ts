@@ -94,6 +94,7 @@ import { MyDiffdatePipe } from './pipe/custom.diffdatepipe';
 import { ViewListComponent } from './view-list/view-list.component';
 import { ListItemComponent } from './view-list/list-item/list-item.component';
 import { ToDateObjPipe } from './pipe/todateobj.pipe';
+import { ReplacePipe } from './pipe/replace.pipe';
 
 
 
@@ -353,6 +354,7 @@ export const customCurrencyMaskConfig = {
     BaseComponent,
     RiquadroWrapperComponent,
     TranslateSelectPipe,    
+    ReplacePipe,
     CollapseRiquadroWrapperComponent,
     InputConfirmationDialogComponent,
     ViewListComponent,
@@ -401,6 +403,7 @@ export const customCurrencyMaskConfig = {
     BaseComponent,
     RiquadroWrapperComponent,    
     TranslateSelectPipe,
+    ReplacePipe,
     FormlyRiquadroWrapperComponent,
     CollapseRiquadroWrapperComponent,
     InputConfirmationDialogComponent,

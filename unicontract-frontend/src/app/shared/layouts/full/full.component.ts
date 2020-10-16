@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AppConstants } from 'src/app/app-constants';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-full-layout',
@@ -142,5 +143,9 @@ export class FullComponent implements OnInit, OnDestroy {
 
   get documentationUrl() {
     return AppConstants.documentationURL;
+  }
+
+  isDebug() {
+    return !environment.production
   }
 }

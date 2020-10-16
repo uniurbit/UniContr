@@ -89,7 +89,7 @@
   <br>MODULO DEI DATI TRIBUTARI, PREVIDENZIALI E FISCALI</h4>    
 
   <p class="normal">
-    Nominativo: {{ $pre->user->nameTutorString() }}<br>
+   Cognome e nome: {{$pre->user->cognome}} {{$pre->user->nome}}<br>
     Insegnamento: {{ $pre->insegnamentoDescr }}<br>
     Corso di Laurea: {{$pre->cdl}}<br>
     Anno Accademico: {{$pre->aa}}<br>
@@ -135,7 +135,7 @@
     Titolo di studio: {{ __('global.'.$pre->anagrafica->titolo_studio ) }}<br>
     Residenza:  {{$pre->anagrafica->datiResidenzaReport()}}<br>
     @if($pre->anagrafica->datiDomicilioFiscaleReport())
-    Domicilio fiscale: {{$pre->anagrafica->datiDomicilioFiscaleReport()}} <br>            
+    Residenza fiscale: {{$pre->anagrafica->datiDomicilioFiscaleReport()}} <br>            
     @endif
     <hr>
     <b>RECAPITI</b><br>

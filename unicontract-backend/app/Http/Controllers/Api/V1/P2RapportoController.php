@@ -85,6 +85,7 @@ class P2RapportoController extends Controller
                                                   'p2_natura_rapporto.created_at AS createdDate',
                                                   'p1_insegnamento.*',
                                                   'a1_anagrafica.provincia_residenza',
+                                                  'a1_anagrafica.provincia_fiscale',
                                                   'precontr.*']);
             
             $pre = Precontrattuale::with(['validazioni'])->where('p2_natura_rapporto_id', $id)->first();                                                        
@@ -108,6 +109,14 @@ class P2RapportoController extends Controller
         if (!Auth::user()->hasPermissionTo('compila precontrattuale')) {
             abort(403, trans('global.utente_non_autorizzato'));
         } 
+
+        if (Precontrattuale::with(['validazioni'])->where('p2_natura_rapporto_id', $id)->first()->isBlockedAmministrativa()){
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito');
+            $success = false;
+            return compact('data', 'message', 'success');   
+        }  
+
         
         $data = [];
         $message = '';

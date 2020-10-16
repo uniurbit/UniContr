@@ -103,7 +103,8 @@ class B3RappStudioUniversController extends Controller
             })
             ->where('b3_rapp_studio_univ.id', $id)->first(['users.nome',
                                                           'users.cognome', 
-                                                          'a1_anagrafica.provincia_residenza',
+                                                           'a1_anagrafica.provincia_residenza',
+                                                          'a1_anagrafica.provincia_fiscale',
                                                           'b3_rapp_studio_univ.flag_rapporto_universita',                                                          
                                                           'b3_rapp_studio_univ.created_at AS submitDate',
                                                           'precontr.*',
@@ -149,7 +150,7 @@ class B3RappStudioUniversController extends Controller
             abort(403, trans('global.utente_non_autorizzato'));
         }        
 
-        if (Precontrattuale::with(['validazioni'])->where('b3_rapp_studio_univ_id', $id)->first()->isBlocked()){
+        if (Precontrattuale::with(['validazioni'])->where('b3_rapp_studio_univ_id', $id)->first()->isBlockedAmministrativa()){
             $data = [];
             $message = trans('global.aggiornamento_non_consentito');
             $success = false;

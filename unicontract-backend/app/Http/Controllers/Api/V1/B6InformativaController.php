@@ -99,6 +99,7 @@ class B6InformativaController extends Controller
                                                           'p2_natura_rapporto.flag_titolare_pensione',
                                                           'p2_natura_rapporto.natura_rapporto',
                                                           'a1_anagrafica.provincia_residenza',
+                                                          'a1_anagrafica.provincia_fiscale',
                                                           'a1_anagrafica.sesso']);
 
 
@@ -137,7 +138,7 @@ class B6InformativaController extends Controller
         $datiInformativa = [];
         $message = '';
 
-        if (Precontrattuale::with(['validazioni'])->where('b6_trattamento_dati_id', $id)->first()->isBlocked()){
+        if (Precontrattuale::with(['validazioni'])->where('b6_trattamento_dati_id', $id)->first()->isBlockedAmministrativa()){
             $data = [];
             $message = trans('global.aggiornamento_non_consentito');
             $success = false;

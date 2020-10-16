@@ -32,6 +32,7 @@ class QueryBuilder
     protected $wheres = [];
 
     protected $withwheres = [];
+    //protected $withOrderBy = [];
 
     protected $orderBy = [];
     protected $limit;
@@ -45,6 +46,8 @@ class QueryBuilder
     protected $appends = [];
     protected $query;
     protected $result;
+
+    public $alias = [];
 
     public function __construct() 
     { 
@@ -136,9 +139,13 @@ class QueryBuilder
 
         $constantParameters = $this->constantParameters;
         array_map([$this, 'prepareConstant'], $constantParameters);
+
         if ($this->hasIncludes() && $this->hasRelationColumns()) {
             $this->fixRelationColumns();
         }
+        // if ($this->hasIncludes() &&  (count($this->withOrderBy) > 0)) {
+        //     $this->fixOrderByRelationColumns();
+        // }
         return $this;
     }
 
@@ -153,7 +160,6 @@ class QueryBuilder
         // 'columns',
         // 'includes',
         // 'appends'
-
 
         if (!$this->findParameter->hasQueryParameter($parameter)) {
             return;
@@ -190,6 +196,7 @@ class QueryBuilder
         $where->field = $column;
         $this->withwheres[$key][] = $where;
     }
+
     private function appendRelationColumn($keyAndColumn)
     {
         list($key, $column) = explode('.', $keyAndColumn);
@@ -236,7 +243,44 @@ class QueryBuilder
             'column' => $column,
             'direction' => $direction
         ];
+
+        // if ($this->isRelationColumn($column)){
+        //     list($key, $column) = explode('.', $column);
+        //     $this->withOrderBy[$key][] =  [
+        //        'column' => $column,
+        //        'direction' => $direction
+        //     ];
+        // }else{
+        //     $this->orderBy[] = [
+        //         'column' => $column,
+        //         'direction' => $direction
+        //     ];
+        // }
     }
+
+    // private function fixOrderByRelationColumns()
+    // {
+    //     $keys = array_keys($this->withOrderBy);
+    //     $callback = [$this, 'fixOrderByRelationColumn'];
+    //     array_map($callback, $keys, $this->withOrderBy);
+    // }
+    // private function fixOrderByRelationColumn($key, $columns)
+    // {
+    //     $index = array_search($key, $this->includes);
+    //     //elimino  il contenuto se fosse già presente
+    //     unset($this->includes[$index]);        
+    //     $this->includes[$key] = $this->closureOrderByRelationColumns($columns, array_key_exists($key, $this->withOrderBy) ? $this->withOrderBy[$key] : []);
+    // }
+    // private function closureOrderByRelationColumns($columns, $order)
+    // {
+    //     return function ($q) use ($columns, $order) {           
+    //         if ($order != null){
+    //             $q->orderBy($order[0]['column'], $order[0]['direction']);
+    //         }
+    //     };
+    // }
+
+
     private function setGroupBy($groups)
     {
         $this->groupBy = array_filter(explode(',', $groups));
@@ -251,7 +295,7 @@ class QueryBuilder
         array_map([$this, 'setWhere'], $parameters->rules);
     }
     private function setWhere($where){
-        if ($this->isRelationColumn($where->field)){
+        if ($this->isRelationColumn($where->field) && !(in_array($where->field, $this->alias) )){
             return $this->appendRelationColumnCondition($where);
         }else{
             $this->wheres[] = $where;
@@ -390,8 +434,12 @@ class QueryBuilder
         extract($order);
         /** @var string $column */
         /** @var string $direction */
+        //if (!$this->isRelationColumn($column)){
         $this->query->orderBy($column, $direction);
+        //}
     }
+
+
     private function applyCustomFilter($key, $operator, $value, $type = 'Basic')
     {
         $callback = [$this, $this->customFilterName($key)];

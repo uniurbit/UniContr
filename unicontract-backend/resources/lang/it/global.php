@@ -146,7 +146,7 @@ return [
     "d1_premessa"=>"Ai sensi dell'art. 2, comma 26, della Legge 335/1995, del Decreto Legge 81/2015, del Decreto Legge 75/2017 e della Legge 205/2017, si dichiara di:",
     "d1_txt1"=>"essere esclusi dall'obbligo contributivo INPS Gestione Separata, INPGI Gestione Separata, in quanto:",
     "d1_txt1not"=>"non essere esclusi dall'obbligo contributivo INPS Gestione Separata",
-    "d1_txt2"=>"si è superato per il corrente anno solare il massimale di reddito annuo imponibile di € 102.543,00 (massimale contributivo INPS)",
+    "d1_txt2"=>"si è superato per il corrente anno solare il massimale di reddito annuo imponibile di € 103.055,00  (massimale contributivo INPS)",
     "d1_txt3"=>"alla data del 1° aprile 1996 o del 30 giugno 1996 si erano già compiuti 65 anni di età e ci si è avvalsi della facoltà di non iscriversi alla Gestione Separata (ex art. 4, comma 1, lettera a, del D.M. 282/1996)",
     "d1_txt4"=>"alla data del 1° aprile 1996 o del 30 giugno 1996 si erano già compiuti 60 anni di età e ci si è avvalsi della facoltà, al compimento del 65° anno, di richiedere la cancellazione dalla Gestione Separata INPS pur proseguendo nell'attività lavorativa (ex art. 4, comma 1, lettera b, del D.M. 282/1996)",
     "d1_txt5"=>"essere iscritti alla Gestione Separata:",
@@ -219,7 +219,7 @@ return [
     "d4_nota7"=>"- l'aliquota IRPEF del 43% riguarda i contribuenti con un reddito superiore a € 75.000,00",
     "d4_nota8"=>"Nota informativa",
 
-    "d4_intest4" => "applicare misure per la riduzione della pressione fiscale L. 21/2020",
+    "d4_intest4" => "applicare le detrazioni fiscali previste dal D.L. 5 febbraio 2020, n. 3 convertito con modificazioni dalla L. 2 aprile 2020, n. 21.",
     "d4_txt9_detrazioni_21"=> "Misure per la riduzione della pressione fiscale L. 21/2020",
     "d4_txt7_ti21"=> "Trattamento integrativo L. 21/2020",
     "d4_txt8_d21"=> "Detrazione L. 21/2020",

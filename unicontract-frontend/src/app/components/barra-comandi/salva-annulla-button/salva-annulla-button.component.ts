@@ -9,11 +9,12 @@ import ControlUtils from 'src/app/shared/dynamic-form/control-utils';
   selector: 'app-salva-annulla-button',
   template: `
   <div class="form-footer text-right" *ngIf="formRef">
-    <button *ngIf="!isNew" class="btn btn-outline-secondary rounded mr-1"  
-      (click)="annulla()" title="{{ 'btn_annulla_title' | translate }}" >{{ 'btn_annulla' | translate }}</button>        
-    <button class="btn btn-outline-secondary rounded mr-1"  [disabled]="disabled()" 
-      (click)="handleClick()" title="{{ caption+'_title' | translate }}" >{{ caption | translate }}</button>  
-      
+    <ng-container *ngxPermissionsOnly="['OP_DOCENTE','SUPER-ADMIN']">
+      <button *ngIf="!isNew" class="btn btn-outline-secondary rounded mr-1"  
+        (click)="annulla()" title="{{ 'btn_annulla_title' | translate }}" >{{ 'btn_annulla' | translate }}</button>        
+      <button class="btn btn-outline-secondary rounded mr-1"  [disabled]="disabled()" 
+        (click)="handleClick()" title="{{ caption+'_title' | translate }}" >{{ caption | translate }}</button>  
+    </ng-container>
   </div>
   `,
   styleUrls: [],

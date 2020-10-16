@@ -30,7 +30,7 @@ class D6_DetrazioniFamiliariController extends Controller
         $datiPrecontrattuale = [];
         $message = '';
     
-            $queryBuilder = Precontrattuale::leftJoin('users', function($join) {
+            $queryBuilder = Precontrattuale::withoutGlobalScopes()->leftJoin('users', function($join) {
                 $join->on('users.v_ie_ru_personale_id_ab', '=', 'precontr.docente_id');
             })
             ->leftJoin('p1_insegnamento', function($join) {
@@ -38,6 +38,9 @@ class D6_DetrazioniFamiliariController extends Controller
             })
             ->leftJoin('a1_anagrafica', function($join) {
                 $join->on('a1_anagrafica.id', '=', 'precontr.a1_anagrafica_id');
+            })
+            ->leftJoin('d4_fiscali', function($join) {
+                $join->on('d4_fiscali.id', '=', 'precontr.d4_fiscali_id');
             })
             ->where('precontr.insegn_id', $id);
             $datiPrecontrattuale = $queryBuilder->first(
@@ -49,7 +52,9 @@ class D6_DetrazioniFamiliariController extends Controller
                  'p1_insegnamento.aa',
                  'p1_insegnamento.data_ini_contr',
                  'p1_insegnamento.data_fine_contr',
-                 'a1_anagrafica.sesso'
+                 'a1_anagrafica.sesso',
+                 'd4_fiscali.flag_detrazioni',
+                 'a1_anagrafica.provincia_fiscale',
                  ]);
 
             $copy = D6_detrazioni_familiari::with(['familiari'])->whereHas('precontrattuale', function ($query) use($datiPrecontrattuale) {
@@ -126,6 +131,9 @@ class D6_DetrazioniFamiliariController extends Controller
             ->leftJoin('a1_anagrafica', function($join) {
                 $join->on('a1_anagrafica.id', '=', 'precontr.a1_anagrafica_id');
             })
+            ->leftJoin('d4_fiscali', function($join) {
+                $join->on('d4_fiscali.id', '=', 'precontr.d4_fiscali_id');
+            })
             ->leftJoin('users', function($join) {
                 $join->on('users.v_ie_ru_personale_id_ab', '=', 'precontr.docente_id');
             })
@@ -141,7 +149,8 @@ class D6_DetrazioniFamiliariController extends Controller
                                                 'p2_natura_rapporto.flag_dipend_pubbl_amm',
                                                 'p2_natura_rapporto.flag_titolare_pensione',
                                                 'p2_natura_rapporto.natura_rapporto',
-                                                'a1_anagrafica.sesso']);
+                                                'a1_anagrafica.sesso',
+                                                'd4_fiscali.flag_detrazioni']);
 
             $d6rel = D6_detrazioni_familiari::with(['familiari'])->where('id',$id)->first();
             $datiFamiliari['familiari'] = $d6rel->familiari;

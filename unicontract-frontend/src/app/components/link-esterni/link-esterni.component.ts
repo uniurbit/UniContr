@@ -38,22 +38,22 @@ export class LinkEsterniComponent implements OnInit {
 
   routeLgUgovDidattica() {
     this.isLoading = true;
-    this.pdfSrc = location.origin + environment.baseHref + '/assets/documents/lgocd_ugov_didattica.pdf';
+    this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/lgocd_ugov_didattica.pdf';
   }
 
   routeLgUgovCompensi() {
     this.isLoading = true;
-    this.pdfSrc = location.origin + environment.baseHref + '/assets/documents/lgocd_ugov_compensi.pdf';
+    this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/lgocd_ugov_compensi.pdf';
   }
 
   routePrecontrEditabile() {
     this.isLoading = true;
-    this.pdfSrc = location.origin + environment.baseHref + '/assets/documents/precontr_editabile.pdf';
+    this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/precontr_editabile.pdf';
   }
 
   routeCompilazione() {
     this.isLoading = true;
-    this.pdfSrc = location.origin + environment.baseHref + '/assets/documents/compilazione-modulistica.pdf';
+    this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/compilazione-modulistica.pdf';
   }
 
 

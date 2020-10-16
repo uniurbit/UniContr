@@ -37,6 +37,17 @@ class Documento extends ModelBase
         $this->rootElementAttributes = new DocumentoAttributi;
     }
 
+    public function addRifEst($nominativo){
+        $rif_esterno = new Rif('rif_esterno');   
+        $rif_esterno->nome = $nominativo;     
+
+        if (isset($this->attributes['rif_esterni']) && is_array($this->attributes['rif_esterni'])){
+            $this->attributes['rif_esterni'] = array_merge($this->attributes['rif_esterni'],array($rif_esterno));
+        }else{
+            $this->attributes['rif_esterni'] = array($rif_esterno);
+        }      
+    }
+
     public function addRifInt($nome_uff, $nome_persona, $diritto, $cod_uff=NULL){
         $rif_interno = new Rif('rif_interno');   
         $rif_interno->rootElementAttributes->diritto =  $diritto;       

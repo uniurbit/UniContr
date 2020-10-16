@@ -64,7 +64,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
 
   originalValue: any; // solo in stato nuovo
   resp: Anagrafica;
-  item: AnagraficaLocal;
+  item: AnagraficaLocal = null;
 
   private precontr: Upda1;
   idins: number;
@@ -178,11 +178,13 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               type: 'input',
               className: 'col-md-6',
               templateOptions: {
+                minLength: 2,
                 maxLength: 16,
                 required: true,
                 translate: true,
                 label: 'a1_label6',
-                pattern: /^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$/
+                pattern: /^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]|[E]{2}|[0-9]{9}$/,
+                description: "Inserire EE per codici fiscali esteri"
               },
               expressionProperties: {
                 'templateOptions.required': (model: any, formState: any, field: FormlyFieldConfig) => {
@@ -327,7 +329,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
         },
       ],
     },
-    // domicilio fiscale
+    // residenza fiscale
     {
       wrappers: ['riquadro'],
       templateOptions: {
@@ -401,7 +403,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
                 label: 'a1_label13',
               },
             },
-            // data variazione del domicilio fiscale
+            // data variazione del residenza fiscale
             {
               key: 'data_variazione_dom_fiscale',
               type: 'date',
@@ -584,6 +586,50 @@ export class AnagraficaDetailsComponent extends BaseComponent {
         }
       ]
     },
+    // tutela lavoratrici madri
+    {
+      wrappers: ['riquadro'],
+      templateOptions: {
+        title: this.translateService.instant('a1_title8')
+      },
+      fieldGroup: [
+        {
+          fieldGroupClassName: 'row',
+          fieldGroup: [
+            {
+              key: 'flag_lavoratrici_madri',
+              type: 'checkbox',             
+              className: 'col-auto',
+              defaultValue: false,             
+              
+              templateOptions: {
+                indeterminate: false,
+                required: true,                
+                translate: true,
+                label: 'a1_label24'
+              },
+              validators: {
+                flag_true: {
+                  expression: ctrl => ctrl.value ? true : false,
+               }
+               
+              },
+            },
+          ]
+        },
+        {
+          template: '<span class="form-text">La documentazione e la normativa vigente sono dispobili presso <a href="https://www.uniurb.it/ateneo/utilita/salute-e-sicurezza/informazione-ai-lavoratori" target="_blank">https://www.uniurb.it/ateneo/utilita/salute-e-sicurezza/informazione-ai-lavoratori </a></span>',
+          className: 'pb-1'
+        }
+       
+      ],
+      hideExpression: (model: any, formState: any) => {
+        if (!(model.sesso === 'F')) {
+          return true;
+        }
+        return false;
+      },
+    },
     // allegati
     {
       wrappers: ['riquadro'],
@@ -635,12 +681,24 @@ export class AnagraficaDetailsComponent extends BaseComponent {
                   templateOptions: {
                     label: 'Curriculum Vitae',
                     type: 'input',
+                    readonly: true,
                     placeholder: 'Carica il documento . . . ',
                     description: 'N.B. Il Curriculum Vitae da caricare deve essere in formato PDF e privo di dati sensibili. Dimensione massima 2MB.',
                     accept: 'application/pdf',
                     maxLength: 255,
                     required: true,
                     onSelected: (selFile, field) => { this.onSelectCurrentFile(selFile, field); }
+                  },
+                  validators: {
+                    maxsize: {
+                      expression: (c,f) => (f.model._filesize && f.model._filesize > 2720000) ? false : true,
+                      message: (error, field) => `La dimensione del file eccede la dimensione massima consentita `,
+                    },
+                    filetype: {
+                      expression: (c,f) => (c.value ? (c.value.endsWith('.pdf') ? true : false) :true),
+                      message: (error, field) => `Il formato file richiesto è PDF`,
+                    }
+
                   },
                 },
 
@@ -690,6 +748,8 @@ export class AnagraficaDetailsComponent extends BaseComponent {
         },
       ]
     }
+
+       
   ];
 
   constructor(private route: ActivatedRoute,
@@ -849,9 +909,12 @@ export class AnagraficaDetailsComponent extends BaseComponent {
     const currentAttachment = field.formControl.parent.value;
     if (currentSelFile == null) {
       // caso di cancellazione
+      field.model._filesize = null;
       currentAttachment.filevalue = null;
       return;
     }
+    field.model._filesize = currentSelFile.size;
+    field.formControl.updateValueAndValidity();
 
     this.isLoading = true;
     currentAttachment.model_type = 'user';

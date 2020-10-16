@@ -21,7 +21,7 @@ class D4_FiscaliController extends Controller
         $datiPrecontrattuale = [];
         $message = '';
         
-            $queryBuilder = Precontrattuale::leftJoin('users', function($join) {
+            $queryBuilder = Precontrattuale::withoutGlobalScopes()->leftJoin('users', function($join) {
                 $join->on('users.v_ie_ru_personale_id_ab', '=', 'precontr.docente_id');
             })
             ->leftJoin('p1_insegnamento', function($join) {
@@ -44,6 +44,7 @@ class D4_FiscaliController extends Controller
                  'p1_insegnamento.data_ini_contr',
                  'p1_insegnamento.data_fine_contr',
                  'a1_anagrafica.sesso',
+                 'a1_anagrafica.provincia_fiscale',
                  'd1_inps.flag_misura_ridotta'
                  ]);
             
@@ -128,6 +129,9 @@ class D4_FiscaliController extends Controller
             ->leftJoin('d1_inps', function($join) {
                 $join->on('d1_inps.id', '=', 'precontr.d1_inps_id');
             })
+            ->leftJoin('d6_detraz_fam_carico', function($join) {
+                $join->on('d6_detraz_fam_carico.id', '=', 'precontr.d6_detraz_fam_carico_id');
+            })
             ->leftJoin('users', function($join) {
                 $join->on('users.v_ie_ru_personale_id_ab', '=', 'precontr.docente_id');
             })
@@ -146,7 +150,8 @@ class D4_FiscaliController extends Controller
                                                 'p2_natura_rapporto.natura_rapporto',
                                                 'a1_anagrafica.sesso',
                                                 'a1_anagrafica.provincia_residenza',
-                                                'd1_inps.flag_misura_ridotta']);
+                                                'd1_inps.flag_misura_ridotta',
+                                                'd6_detraz_fam_carico.flag_richiesta_detrazioni']);
             
             $pre = Precontrattuale::with(['validazioni'])->where('d4_fiscali_id', $id)->first();                                                        
             $datiFiscali['validazioni'] = $pre->validazioni;
@@ -195,8 +200,8 @@ class D4_FiscaliController extends Controller
             $postData = $request->except('id', '_method');
             $success = $dati->update($postData);
             $datiFiscali = $dati;
-
-            $precontr  = $dati->precontrattuale()->first();
+            
+            $precontr  = $dati->precontrattuale()->first();            
             $precontr->storyprocess()->save(
                 PrecontrattualeService::createStoryProcess('Modello D.4: Modifica dati modello Richiesta ai fini fiscali', 
                 $precontr->insegn_id)

@@ -103,15 +103,15 @@ export class InsegnUgovDetailComponent extends BaseComponent {
   checkEmail(email: string, e_mail: string, e_mail_privata: string) {
     let value = false;
     if (email !== null) {
-      if (email.includes('@uniurb.it')) {
+      if (email.toLowerCase().includes('@uniurb.it')) {
         value = true;
       }
     } else if (e_mail !== null) {
-      if (e_mail.includes('@uniurb.it')) {
+      if (e_mail.toLowerCase().includes('@uniurb.it')) {
         value = true;
       }
     } else if (e_mail_privata !== null) {
-      if (e_mail_privata.includes('@uniurb.it')) {
+      if (e_mail_privata.toLowerCase().includes('@uniurb.it')) {
         value = true;
       }
     } else {
@@ -143,7 +143,7 @@ export class InsegnUgovDetailComponent extends BaseComponent {
           nome: tcp.transform(nome),
           cognome: tcp.transform(cognome),
           cf: cf,
-          email: email,
+          email: email.toLowerCase(),
           v_ie_ru_personale_id_ab: id_ab,
           password: null,
         }

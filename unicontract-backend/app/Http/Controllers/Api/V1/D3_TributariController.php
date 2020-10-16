@@ -126,6 +126,7 @@ class D3_TributariController extends Controller
                                                 'p2_natura_rapporto.flag_titolare_pensione',
                                                 'p2_natura_rapporto.natura_rapporto',
                                                 'a1_anagrafica.provincia_residenza',
+                                                'a1_anagrafica.provincia_fiscale',
                                                 'a1_anagrafica.sesso']);
 
             $d3rel = D3_tributari::with(['enti'])->where('id',$id)->first();

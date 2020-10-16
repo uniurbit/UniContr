@@ -50,7 +50,7 @@ export class DatepickerTypeComponent extends FieldType {
 
   ngOnInit() {        
     if (!isNaN(Date.parse(this.formControl.value))) {
-      this.formControl.setValue(this.datePipe.transform(this.formControl.value, 'dd-MM-yyyy'));       
+      //this.formControl.setValue(this.datePipe.transform(this.formControl.value, 'dd-MM-yyyy'));       
     }
   }
 

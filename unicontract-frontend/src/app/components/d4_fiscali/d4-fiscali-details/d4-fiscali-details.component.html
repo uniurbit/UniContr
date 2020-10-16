@@ -44,9 +44,10 @@
     <div class="row" *ngIf="items.flag_detrazioni_21_2020 != null && items.flag_detrazioni_21_2020 === 1">
       <div class="col">
         <span class="oi oi-check iconic pl-1 pr-2"></span>
-         {{ 'd4_intest4' | translate }} - 
+         {{ 'd4_intest4b' | translate : {'anno': items.data_fine_contr | toDateObj | date: 'yyyy'} }} 
+         <!-- -   
         <span *ngIf="items.detrazioni_21_2020 === 'TI21'">{{ 'd4_txt7_ti21' | translate }}</span>
-        <span *ngIf="items.detrazioni_21_2020 === 'D21'">{{ 'd4_txt8_d21' | translate }}, reddito stimato {{ items.reddito_21_2020 | currency: '€' }}</span>
+        <span *ngIf="items.detrazioni_21_2020 === 'D21'">{{ 'd4_txt8_d21' | translate }}, reddito stimato {{ items.reddito_21_2020 | currency: '€' }}</span> -->
       </div>
     </div> 
 

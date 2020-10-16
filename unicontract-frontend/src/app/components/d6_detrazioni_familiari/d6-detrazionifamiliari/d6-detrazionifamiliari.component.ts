@@ -143,7 +143,11 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
     }
   ];
 
+  //deve essere abilitato solo se nel riquadro d4 flag_detrazioni è true 
   fields: FormlyFieldConfig[] = [
+    {
+      template: '<h5>' + this.translateService.instant('d6_intest') + '</h5>',
+    },
     {
       fieldGroupClassName: 'row',
       fieldGroup: [
@@ -152,6 +156,9 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
           key: 'flag_richiesta_detrazioni',
           className: 'custom-switch pl-4 pr-2 pt-1',
           defaultValue: false,
+          validation: {
+            show: true,
+          }, 
           templateOptions: {
             change: (field, $event) => {
               if (field.model.flag_richiesta_detrazioni === false || field.model.flag_richiesta_detrazioni === 0) {
@@ -163,19 +170,37 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
           expressionProperties: {
             'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_richiesta_detrazioni === false || model.flag_richiesta_detrazioni === 0) {
-                return 'NO';
+                return 'NO '+ this.translateService.instant('d6_intest2');
               } else {
-                return 'SI';
+                return 'SÌ '+ this.translateService.instant('d6_intest2');
               }
             }
-          }
-        },
-        {
-          template: '<h5>' + this.translateService.instant('d6_intest') + '</h5>',
-          className: 'col-auto  pt-1'
+            // 'templateOptions.disabled': (model: any, formState: any, field: FormlyFieldConfig) => {
+            //   if (this.items.flag_detrazioni == 0 || this.items.flag_detrazioni == false)
+            //     return true;
+                
+            //   return false;              
+            // }
+          },
+            //validazione 
+          validators: {
+            compatibility_detr6: { 
+              expression: ctrl => {
+                //il valore è vero
+                // e la richiesta detrazioni è falsa
+                if (ctrl.value && (this.items.flag_detrazioni == 0 || this.items.flag_detrazioni == false))
+                  return false;
+                return true;
+              },
+              message: (error, field: FormlyFieldConfig) => {
+                return 'Scelta non compatibile con riquadro D4 "'+this.translateService.instant('d4_intest2')+'" a NO'    
+             }
+            }
+          },
         },
       ]
     },
+    //coniuge
     {
       fieldGroupClassName: 'row',
       fieldGroup: [
@@ -183,34 +208,37 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
           key: 'flag_coniuge_carico',
           type: 'checkbox',
           defaultValue: false,
-          className: 'col-md-12',
+          className: 'col-md-10',
           templateOptions: {
             translate: true,
             label: 'd6_txt1',
           },
+          hideExpression: (model, formstate) => {
+            return (!this.model.flag_richiesta_detrazioni);
+          }
         },
       ],
-      hideExpression: (model, formstate) => {
-        return (!this.model.flag_richiesta_detrazioni);
-      }
     },
+
+    //dal_giorno
     {
       fieldGroupClassName: 'row',
       fieldGroup: [
         {
           key: 'dal_giorno',
           type: 'date',
-          className: 'col-md-3',
+          className: 'col-md-6',
           templateOptions: {
             required: true,
             translate: true,
             label: 'd6_label1',
           },
+          hideExpression: (model, formstate) => {
+            return (!this.model.flag_coniuge_carico || !this.model.flag_richiesta_detrazioni );
+          }
         },
       ],
-      hideExpression: (model, formstate) => {
-        return (!this.model.flag_coniuge_carico || !this.model.flag_richiesta_detrazioni );
-      }
+     
     },
 
     // ELENCO FAMILIARI

@@ -40,7 +40,10 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             $precontr->insegnamento ? $precontr->insegnamento->aa : '',
             $precontr->insegnamento ? $precontr->insegnamento->data_ini_contr : '',
             $precontr->insegnamento ? $precontr->insegnamento->data_fine_contr: '',
-            $precontr->user ? $precontr->user->name: '',
+            
+            $precontr->user ? $precontr->user->cognome: '',
+            $precontr->user ? $precontr->user->nome: '',
+
             $precontr->user ? $precontr->user->cf: '',
             $precontr->user ? $precontr->user->email: '',
             
@@ -107,7 +110,10 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             'Anno Offerta Formativa',
             'Data inizio',
             'Data fine',
-            'Nominativo',
+            
+            'Cognome',
+            'Nome',
+
             'Codice Fiscale',
             'Email',
             'Sesso',

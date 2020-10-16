@@ -108,7 +108,8 @@ class C_PrestazProfesController extends Controller
                                                           'p2_natura_rapporto.flag_dipend_pubbl_amm',
                                                           'p2_natura_rapporto.flag_titolare_pensione',
                                                           'p2_natura_rapporto.natura_rapporto',
-                                                          'a1_anagrafica.sesso']);
+                                                          'a1_anagrafica.sesso',
+                                                          'a1_anagrafica.provincia_fiscale']);
                                                           
             $pre = Precontrattuale::with(['validazioni'])->where('c_prestaz_profess_id', $id)->first();                                                        
             $datiPIva['validazioni'] = $pre->validazioni;

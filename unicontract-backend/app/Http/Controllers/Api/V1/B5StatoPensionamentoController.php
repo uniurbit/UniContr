@@ -21,7 +21,7 @@ class B5StatoPensionamentoController extends Controller
         $datiPrecontrattuale = [];
         $message = '';
      
-            $queryBuilder = Precontrattuale::leftJoin('users', function($join) {
+            $queryBuilder = Precontrattuale::withoutGlobalScopes()->leftJoin('users', function($join) {
                 $join->on('users.v_ie_ru_personale_id_ab', '=', 'precontr.docente_id');
             })
             ->leftJoin('p1_insegnamento', function($join) {
@@ -136,7 +136,8 @@ class B5StatoPensionamentoController extends Controller
                                                           'p2_natura_rapporto.flag_dipend_pubbl_amm',
                                                           'p2_natura_rapporto.flag_titolare_pensione',
                                                           'p2_natura_rapporto.natura_rapporto',
-                                                          'a1_anagrafica.provincia_residenza',
+                                                          'a1_anagrafica.provincia_residenza',                                
+                                                          'a1_anagrafica.provincia_fiscale',  
                                                           'a1_anagrafica.sesso']);
 
             $pre = Precontrattuale::with(['validazioni'])->where('b5_stato_pensionam_id', $id)->first();                                                        
@@ -174,7 +175,7 @@ class B5StatoPensionamentoController extends Controller
         $datiStatoPensionam = [];
         $message = '';
 
-        if (Precontrattuale::with(['validazioni'])->where('b5_stato_pensionam_id', $id)->first()->isBlocked()){
+        if (Precontrattuale::with(['validazioni'])->where('b5_stato_pensionam_id', $id)->first()->isBlockedAmministrativa()){
             $data = [];
             $message = trans('global.aggiornamento_non_consentito');
             $success = false;

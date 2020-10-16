@@ -44,7 +44,8 @@ class Anagrafica extends Model
         'telefono_ufficio',
         'fax',
         'email',
-        'email_privata'
+        'email_privata',
+        'flag_lavoratrici_madri'
     ];
 
     protected $appends = ['createdDate'];

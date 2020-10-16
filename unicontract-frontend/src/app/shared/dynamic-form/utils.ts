@@ -70,7 +70,7 @@ export function evalStringExpression(expression: string, argNames: string[]) {
   export function annoAccademicoCorrente(): string {
     let date = new Date();
     //(now()->month <= 10) ? now()->year-1 : now()->year //anno accademico
-    return (date.getMonth() <= 10 ? date.getFullYear() - 1 : date.getFullYear()).toString();
+    return (date.getMonth() <= 5 ? date.getFullYear() - 1 : date.getFullYear()).toString();
   }
 
   /**

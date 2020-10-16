@@ -20,6 +20,13 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
 
   fieldsRow: FormlyFieldConfig[] = [
     {
+      key: 'precontr.id',
+      type: 'number',
+      templateOptions: {
+        label: 'Codice',        
+      }
+    },
+    {
       key: 'insegnamento.aa',
       type: 'select',
       templateOptions: {
@@ -347,8 +354,8 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
           { name: '#', prop: 'id', width: 80, maxWidth: 100 },
           { name: 'Copertura', prop: 'insegnamento.coper_id', width: 100, maxWidth: 100 },
           { name: 'Dipartimento', prop: 'insegnamento.dip_cod', cellTemplate: this.tooltipCellTemplate, width: 100, maxWidth: 150 },
-          { name: 'Inizio', prop: 'insegnamento.data_ini_contr', width: 100, maxWidth: 150 },
-          { name: 'Fine', prop: 'insegnamento.data_fine_contr', width: 100, maxWidth: 150 },
+          { name: 'Inizio', prop: 'insegnamento.data_ini_contr', width: 100, maxWidth: 150, type: 'date' },
+          { name: 'Fine', prop: 'insegnamento.data_fine_contr', width: 100, maxWidth: 150, type: 'date' },
           { name: 'Cognome', prop: 'user.cognome', width: 150, maxWidth: 150 },
           { name: 'Nome', prop: 'user.nome', width: 150, maxWidth: 150 },
           { name: 'Insegnamento', prop: 'insegnamento.insegnamento', width: 450 },

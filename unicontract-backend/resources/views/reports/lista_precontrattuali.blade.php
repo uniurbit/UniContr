@@ -79,7 +79,7 @@ Data del documento: {{ Carbon\Carbon::now()->format(config('unidem.date_format_c
                 <td style="width: 7%; text-align: center;">{{$pre->aa}}</td>                
                 <td style="width: 7%; text-align: center;">{{$pre->insegnamento->dataInizioPeriodo()}}</td>                
                 <td style="width: 7%; text-align: center;">{{$pre->insegnamento->dataFinePeriodo()}}</td>
-                <td style="width: 7%; text-align: center;">{{$pre->insegnamento->dataDelibera()}}</td>
+                <td style="width: 7%; text-align: center;">{{$pre->insegnamento->dataDelibera() ? $pre->insegnamento->dataDelibera() : "DATO MANCANTE"}}</td>
                 <td style="width: 6%; text-align: center;">{{ $pre->insegnamento->giorniDeliberaAOggi() }}</td>
                 <td style="width: 9%; text-align: center;">  {!!nl2br(e($pre->currentStateReport()))!!}</td>
             </tr>

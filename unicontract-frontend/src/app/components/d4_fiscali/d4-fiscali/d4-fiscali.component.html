@@ -12,7 +12,7 @@
     <app-riquadro-wrapper>
       <formly-form [model]="model" [fields]="fields2" [form]="formAttch" [options]="options"></formly-form>
     </app-riquadro-wrapper>
-    <app-riquadro-wrapper>
+    <app-riquadro-wrapper *ngIf="valido_bonus_renzi()">
       <formly-form [model]="model" [fields]="fields3" [form]="formAttch" [options]="options"></formly-form>
     </app-riquadro-wrapper>
     <app-riquadro-wrapper *ngIf="valido_21_2020()">

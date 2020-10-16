@@ -48,7 +48,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
   translate: MyTranslatePipe;
   datePipe = new DatePipe('it-IT');
 
-  fieldsRow: FormlyFieldConfig[] = [
+  fieldsRow: FormlyFieldConfig[] = [    
     {
       key: 'AA_OFF_ID',
       type: 'select',
@@ -199,8 +199,8 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
           { name: 'Dipartimento', prop: 'dip_cod', wrapper: 'value', cellTemplate: this.tooltipCellTemplate, width: 50, maxWidth: 120 },
           { name: 'Cognome', prop: 'cognome', pipe: new TitleCasePipe(), width: 100, maxWidth: 100 },
           { name: 'Nome', prop: 'nome', pipe: new TitleCasePipe(), width: 100, maxWidth: 100 },          
-          { name: 'Inizio', prop: 'data_ini_contratto',  wrapper: 'value', width: 80, maxWidth: 150},
-          { name: 'Fine', prop: 'data_fine_contratto', wrapper: 'value',  width: 80, maxWidth: 150},
+          { name: 'Inizio', prop: 'data_ini_contratto',  wrapper: 'value', width: 80, maxWidth: 150, type: 'date'},
+          { name: 'Fine', prop: 'data_fine_contratto', wrapper: 'value',  width: 80, maxWidth: 150, type: 'date'},
           { name: 'Insegnamento', prop: 'af_gen_des', wrapper: 'value', minWidth:400, width: 400},
           { name: 'Motivo Atto', prop: 'motivo_atto_cod', wrapper: 'value', pipe: this.translate, minWidth: 100, maxWidth: 150},
           { name: '', prop: 'coper_id',  minWidth: 120, cellTemplate: this.seleziona },

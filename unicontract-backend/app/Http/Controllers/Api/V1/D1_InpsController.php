@@ -121,6 +121,7 @@ class D1_InpsController extends Controller
                                                 'p2_natura_rapporto.flag_titolare_pensione',
                                                 'p2_natura_rapporto.natura_rapporto',
                                                 'a1_anagrafica.provincia_residenza',
+                                                'a1_anagrafica.provincia_fiscale',
                                                 'a1_anagrafica.sesso']);
 
             $datiInps['attachments'] = D1_Inps::where('id','=', $id)->first()->attachments()->get();  

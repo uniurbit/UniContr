@@ -6,8 +6,6 @@
     <app-riquadro-wrapper>
       <formly-form [model]="model" [fields]="fields" [form]="formAttch" [options]="options"></formly-form>
     </app-riquadro-wrapper>
-    
-
   </form>
 
   <app-salva-annulla-button [isNew]="!update" [fields]="fields" [formRef]="formAttch" (valid)="saveData(items.d6_detraz_fam_carico_id)"></app-salva-annulla-button>  

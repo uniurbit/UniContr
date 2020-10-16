@@ -109,7 +109,7 @@ class UserController extends Controller
             'roles' => 'required'
             //'password'=>'required|min:6|confirmed'
         ]);
-        $input = $request->only(['name', 'email', 'password', 'v_ie_ru_personale_id_ab','blocked_date']); 
+        $input = $request->only(['name', 'email', 'password', 'v_ie_ru_personale_id_ab','blocked_date','nome','cognome','cf']); 
         $user->fill($input)->save();
 
         if($request->roles <> ''){

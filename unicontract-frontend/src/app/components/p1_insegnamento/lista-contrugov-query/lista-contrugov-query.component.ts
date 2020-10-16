@@ -228,14 +228,15 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
           { name: 'Copertura', prop: 'id_siadi', width: 100, maxWidth: 100 },
           { name: 'Cognome', prop: 'precontr.user.cognome', width: 120, maxWidth: 150 },
           { name: 'Nome', prop: 'precontr.user.nome', width: 120, maxWidth: 150 },
-          { name: 'Data fine contratto', prop: 'precontr.insegnamento.data_fine_contr', width: 100, maxWidth: 150 },
+          { name: 'Data inizio', prop: 'precontr.insegnamento.data_ini_contr', width: 100, maxWidth: 150, type: 'date' },
+          { name: 'Data fine', prop: 'precontr.insegnamento.data_fine_contr', width: 100, maxWidth: 150, type: 'date' },
           { name: 'Dipartimento', prop: 'id_uo_aff', cellTemplate: this.tooltipCellTemplate, width: 100, maxWidth: 100 }, //"27605"
           { name: 'Anno', prop: 'datibase.anno_rif', width: 70, maxWidth: 70 },                    
           { name: 'Descrizione', prop: 'datibase.ds_dg', width: 450 },
           { name: 'Stato contabile', prop: 'datibase.stato_dg', pipe: this.translate, width: 80, maxWidth: 80 },
           { name: 'Num. rate', prop: 'num_rate', pipe: this.translate, width: 80, maxWidth: 80 },          
           { name: 'Compensi', prop: 'statocompensi', minWidth: 100, maxWidth: 150  },
-          { name: 'Ordinativi', prop: 'statoordinativi', minWidth: 150 },
+          { name: 'Ordinativi', prop: 'statoordinativi', minWidth: 150 },        
         ]
       },
       fieldArray: {

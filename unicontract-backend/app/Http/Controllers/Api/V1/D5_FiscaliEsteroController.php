@@ -21,7 +21,7 @@ class D5_FiscaliEsteroController extends Controller
         $datiPrecontrattuale = [];
         $message = '';
       
-            $queryBuilder = Precontrattuale::leftJoin('users', function($join) {
+            $queryBuilder = Precontrattuale::withoutGlobalScopes()->leftJoin('users', function($join) {
                 $join->on('users.v_ie_ru_personale_id_ab', '=', 'precontr.docente_id');
             })
             ->leftJoin('p1_insegnamento', function($join) {
@@ -40,7 +40,8 @@ class D5_FiscaliEsteroController extends Controller
                  'p1_insegnamento.aa',
                  'p1_insegnamento.data_ini_contr',
                  'p1_insegnamento.data_fine_contr',
-                 'a1_anagrafica.sesso'
+                 'a1_anagrafica.sesso',
+                 'a1_anagrafica.provincia_fiscale',
                  ]);
 
             $copy = D5_fiscali_estero::whereHas('precontrattuale', function ($query) use($datiPrecontrattuale) {
@@ -136,6 +137,7 @@ class D5_FiscaliEsteroController extends Controller
                                                 'p2_natura_rapporto.flag_titolare_pensione',
                                                 'p2_natura_rapporto.natura_rapporto',
                                                 'a1_anagrafica.provincia_residenza',
+                                                'a1_anagrafica.provincia_fiscale',
                                                 'a1_anagrafica.sesso']);
 
             $pre = Precontrattuale::with(['validazioni'])->where('d5_fiscali_resid_estero_id', $id)->first();                                                        

@@ -30,7 +30,7 @@ export class InsegnamTools {
         data.d2_inail_id !== 0 &&
         data.d3_tributari_id !== 0 &&
         data.d4_fiscali_id !== 0 &&
-        ((data.provincia_residenza === 'EE' && data.d5_fiscali_resid_estero_id !== 0) || data.provincia_residenza !== 'EE') &&
+        ((data.provincia_fiscale === 'EE' && data.d5_fiscali_resid_estero_id !== 0) || data.provincia_fiscale !== 'EE') &&
         data.d6_detraz_fam_carico_id !== 0) {
         return true;
       }

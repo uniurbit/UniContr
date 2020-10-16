@@ -25,7 +25,7 @@ export class DashboardDipartimentiComponent implements OnInit {
       { field: "stato", operator: "=", value: 0, type: "" }   
     ];     
     this.querycontrattidacompletare.orderBy = ['insegnamento.data_delibera','asc'];
-    this.columnsCompletare = [ { name: 'Giorni dal conf.', prop: 'insegnamento.data_delibera', pipe: new MyDiffdatePipe(), minWidth: 100 } ];
+    this.columnsCompletare = [ { name: 'Giorni dal conf.', prop: 'insegnamento.data_delibera', pipe: new MyDiffdatePipe(), minWidth: 100, sortable: false } ];
 
     this.querycontrattiDaPrendereVisione.rules =  [
         { field: "validazioni.flag_submit", operator: "=", value: 1, type: "" },

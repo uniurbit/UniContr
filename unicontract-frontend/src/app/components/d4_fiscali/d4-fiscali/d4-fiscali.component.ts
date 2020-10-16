@@ -88,7 +88,11 @@ export class D4FiscaliComponent extends BaseComponent {
     }
   ];
 
+  //detrazioni 
   fields2: FormlyFieldConfig[] = [
+    {
+      template: '<h5>' + this.translateService.instant('d4_intest2_1') + '</h5>',
+    },
     {
       fieldGroupClassName: 'row',
       fieldGroup: [
@@ -100,29 +104,53 @@ export class D4FiscaliComponent extends BaseComponent {
           templateOptions: {
             change: (field, $event) => {
               if (field.model.flag_detrazioni === false || field.model.flag_detrazioni === 0) {
-                this.model.detrazioni = null;
-                this.model.reddito = null;
+                //field.model.detrazioni = null;
+                //field.model.reddito = null;
+
+                if (field.model.flag_bonus_renzi != null){
+                  field.form.get('flag_bonus_renzi').setValue(0);                  
+                } 
+                if (field.model.flag_detrazioni_21_2020 != null){
+                  field.form.get('flag_detrazioni_21_2020').setValue(0);
+                } 
+
               }
             }
           },
           expressionProperties: {
             'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_detrazioni === false || model.flag_detrazioni === 0) {
-                return 'NO';
+                return 'NO '+this.translateService.instant('d4_intest2');
               } else {
-                return 'SÌ';
+                return 'SÌ '+this.translateService.instant('d4_intest2');
               }
             }
+          },
+
+         //validazione SOLO su modifica e con il riquadro D6 compilato fare questa validazione 
+         validators: {
+          compatibility_detr: ctrl => {
+            //sono in aggiornamento
+            //il valore è falso
+            // e la richiesta detrazioni familiari è vera
+            if (this.update && 
+                !ctrl.value && 
+                (this.items.flag_richiesta_detrazioni === true || this.items.flag_richiesta_detrazioni === 1))
+              return false;
+            return true;
           }
+        },
+        validation: {
+          show: true,
+          messages: {
+            compatibility_detr: 'Scelta non compatibile con riquadro D6 "'+this.translateService.instant('d6_intest2')+'" a SÌ',
+          }
+        }, 
           
         },
-        {
-          template: '<h5>' + this.translateService.instant('d4_intest2') + '</h5>',
-          className: 'col-auto  pt-1'
-        }
+
       ]
     },
-
     {
       fieldGroup: [
         {
@@ -159,7 +187,7 @@ export class D4FiscaliComponent extends BaseComponent {
         },
       ],
       hideExpression: (model, formstate) => {
-        return (this.model.detrazioni !== 'RCD');
+        return (this.model.detrazioni !== 'RCD' || (this.model.flag_detrazioni === 0 || this.model.flag_detrazioni === false));
       }
     },
     {
@@ -177,7 +205,11 @@ export class D4FiscaliComponent extends BaseComponent {
   ];
 
   //bonus renzi valido per contratti che prima del 30/06/2020
+  //validazione a si solo se flag_detrazioni è a true
   fields3: FormlyFieldConfig[] = [
+    {
+      template: '<h5>' + this.translateService.instant('d4_intest3_1') + '</h5>',
+    },
     {
       fieldGroupClassName: 'row',
       fieldGroup: [
@@ -185,8 +217,8 @@ export class D4FiscaliComponent extends BaseComponent {
           type: 'checkbox',
           key: 'flag_bonus_renzi',
           className: 'custom-switch pl-4 pr-2 pt-1',
-          defaultValue: false,
-          templateOptions: {
+          defaultValue: false,       
+          templateOptions: {            
           },
           hooks: {
             onInit(field) {
@@ -199,17 +231,33 @@ export class D4FiscaliComponent extends BaseComponent {
           expressionProperties: {
             'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_bonus_renzi === false || model.flag_bonus_renzi === 0) {
-                return 'NO';
+                return 'NO '+ this.translateService.instant('d4_intest3');
               } else {
-                return 'SÌ';
-              }
+                return 'SÌ '+this.translateService.instant('d4_intest3');
+              }              
+            },
+            //se flag_detrazioni === false il controllo deve essere disabilitato sul NO
+            // 'templateOptions.disabled': (model: any, formState: any, field: FormlyFieldConfig) => {
+            //   if (model.flag_detrazioni === false || model.flag_detrazioni === 0)
+            //     return true;
+            //   return false;
+            // }
+          },
+          //validazione SOLO su modifica flag_detrazioni == 1
+          validators: {
+            compatibility_detr: ctrl => {
+              if (ctrl.value && (ctrl.parent.get('flag_detrazioni').value === false ||ctrl.parent.get('flag_detrazioni').value === 0))
+                return false;
+              return true;
             }
-          }
+          },
+          validation: {
+            show: true,
+            messages: {
+              compatibility_detr: 'Scelta non compatibile con "'+this.translateService.instant('d4_intest2')+'" a NO',
+            }
+          }, 
         },
-        {
-          template: '<h5>' + this.translateService.instant('d4_intest3') + '</h5>',
-          className: 'col-auto  pt-1'
-        }
       ]
     },
     {
@@ -228,6 +276,9 @@ export class D4FiscaliComponent extends BaseComponent {
 
   //valido per contratti che iniziano dopo il 1/7/2020
   fields4: FormlyFieldConfig[] = [
+    {
+      template: '<h5>' + this.translateService.instant('d4_intest4_1') + '</h5>',
+    },
     {
       fieldGroupClassName: 'row',
       fieldGroup: [
@@ -255,77 +306,94 @@ export class D4FiscaliComponent extends BaseComponent {
           expressionProperties: {
             'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_detrazioni_21_2020 == null || model.flag_detrazioni_21_2020 === false || model.flag_detrazioni_21_2020 === 0) {
-                return 'NO';
+                return 'NO '+ this.translateService.instant('d4_intest4');
               } else {
-                return 'SÌ';
+                return 'SÌ '+ this.translateService.instant('d4_intest4');
               }
-            }
+            },
+            //se flag_detrazioni === false il controllo deve essere disabilitato sul NO
+            // 'templateOptions.disabled': (model: any, formState: any, field: FormlyFieldConfig) => {
+            //   if (model.flag_detrazioni === false || model.flag_detrazioni === 0)
+            //     return true;
+            //   return false;
+            // }
+          },
+         //validazione SOLO su modifica flag_detrazioni == 1
+         validators: {
+          compatibility_detr: ctrl => {
+            if (ctrl.value && (ctrl.parent.get('flag_detrazioni').value === false ||ctrl.parent.get('flag_detrazioni').value === 0))
+              return false;
+            return true;
           }
+        },
+        validation: {
+          show: true,
+          messages: {
+            compatibility_detr: 'Scelta non compatibile con "'+this.translateService.instant('d4_intest2')+'" a NO',
+          }
+        },
           
         },
-        {
-          template: '<h5>' + this.translateService.instant('d4_intest4') + '</h5>',
-          className: 'col-auto  pt-1'
-        }
+      
       ]
     },
 
-    {
-      fieldGroup: [
-        {
-          type: 'radio',
-          key: 'detrazioni_21_2020',
-          templateOptions: {
-            options: [
-              {key: 'TI21', value: this.translateService.instant('d4_txt7_ti21')},
-              {key: 'D21', value: this.translateService.instant('d4_txt8_d21')}
-            ],
-            required: true,
-            translate: true,
-            // tslint:disable-next-line:max-line-length
-            label: this.translateService.instant('d4_txt9_detrazioni_21')
-          },
-          expressionProperties: {
-            'templateOptions.description': (model: any, formState: any, field: FormlyFieldConfig) => {
-              switch (model.detrazioni_21_2020) {
-                case 'TI21': {
-                   return this.translateService.instant('d4_nota_ti21');
-                }
-                case 'D21': {
-                   return this.translateService.instant('d4_nota_d21');
-                }
-                default: {
-                   return '';
-                }
-              }
-            }
-          }
-        }
-      ],
-      hideExpression: (model, formstate) => {
-        return (this.model.flag_detrazioni_21_2020 == null || this.model.flag_detrazioni_21_2020 === 0 || this.model.flag_detrazioni_21_2020 === false);
-      }
-    },
-    {
-      fieldGroupClassName: 'row',
-      fieldGroup: [
-        {
-          key: 'reddito_21_2020',
-          type: 'maskcurrency',
-          className: 'col-md-3',
-          templateOptions: {
-            required: true,
-            translate: true,
-            label: 'd4_label3_21'
-          },
+    // {
+    //   fieldGroup: [
+    //     {
+    //       type: 'radio',
+    //       key: 'detrazioni_21_2020',
+    //       templateOptions: {
+    //         options: [
+    //           {key: 'TI21', value: this.translateService.instant('d4_txt7_ti21')},
+    //           {key: 'D21', value: this.translateService.instant('d4_txt8_d21')}
+    //         ],
+    //         required: true,
+    //         translate: true,
+    //         // tslint:disable-next-line:max-line-length
+    //         label: this.translateService.instant('d4_txt9_detrazioni_21')
+    //       },
+    //       expressionProperties: {
+    //         'templateOptions.description': (model: any, formState: any, field: FormlyFieldConfig) => {
+    //           switch (model.detrazioni_21_2020) {
+    //             case 'TI21': {
+    //                return this.translateService.instant('d4_nota_ti21');
+    //             }
+    //             case 'D21': {
+    //                return this.translateService.instant('d4_nota_d21');
+    //             }
+    //             default: {
+    //                return '';
+    //             }
+    //           }
+    //         }
+    //       }
+    //     }
+    //   ],
+    //   hideExpression: (model, formstate) => {
+    //     return (model.flag_detrazioni_21_2020 == null || model.flag_detrazioni_21_2020 === 0 || model.flag_detrazioni_21_2020 === false);
+    //   }
+    // },
+    // {
+    //   fieldGroupClassName: 'row',
+    //   fieldGroup: [
+    //     {
+    //       key: 'reddito_21_2020',
+    //       type: 'maskcurrency',
+    //       className: 'col-md-3',
+    //       templateOptions: {
+    //         required: true,
+    //         translate: true,
+    //         label: 'd4_label3_21'
+    //       },
          
-        },
-      ],
-      hideExpression: (model, formstate) => {
-        return (this.model.detrazioni_21_2020 !== 'D21');
-      }
+    //     },
+    //   ],
+    //   hideExpression: (model, formstate) => {
+    //     return (model.detrazioni_21_2020 !== 'D21' || model.flag_detrazioni_21_2020 === 0 || model.flag_detrazioni_21_2020 === false);
+    //   }
       
-    },
+    // },
   ];
 
 
@@ -350,7 +418,7 @@ export class D4FiscaliComponent extends BaseComponent {
               this.items = response['datiPrecontrattuale'];
               let copy = response['datiPrecontrattuale']['copy'];
               if (copy) {
-                this.model = response['datiPrecontrattuale']['copy'];
+                this.model = this.validationCopyRules(copy); 
               }
               this.idins = +params.get('id');
             },
@@ -372,10 +440,19 @@ export class D4FiscaliComponent extends BaseComponent {
     );
   }
 
+  validationCopyRules(copy: any){
+    if (!this.valido_bonus_renzi()){
+      copy.flag_bonus_renzi = null;
+    }
+    return copy;   
+  }
+
   saveData(idD4: number) {
     this.isLoading = true;
+    if (!this.valido_bonus_renzi_data()){
+      this.model.flag_bonus_renzi = null;
+    }
     if (idD4 === 0) {
-      
       const preStore: IPrecontrStore<any> = {
         insegn_id: this.idins,
         entity: this.model,
@@ -407,7 +484,6 @@ export class D4FiscaliComponent extends BaseComponent {
     );
   }
  
- 
   updateD4(tribut: any, idD4: number) {
 
     this.d4Service.updateDatiFiscali(tribut, idD4).subscribe(
@@ -423,11 +499,35 @@ export class D4FiscaliComponent extends BaseComponent {
     );
   }
 
+  //se dopo il 30/06/2020
+  valido_bonus_renzi(){
+    //se il contratto è in aggiornamento 
+    if (this.update){
+      //e il valore è nullo
+      if (this.model.flag_bonus_renzi == null){
+        return false;
+      } 
+      return true;
+    }else{
+      //se il modello è nuovo
+      const endDate = new Date(2020,5,30);
+      const data_ini_contr = new Date(this.items.data_ini_contr)
+      return !(data_ini_contr > endDate); 
+    }
+  }
+
+  valido_bonus_renzi_data(){
+     //se il modello è nuovo
+     const endDate = new Date(2020,5,30);
+     const data_ini_contr = new Date(this.items.data_ini_contr)
+     return !(data_ini_contr > endDate); 
+  }
+
   //1/7/2020 al 31/12/2020
   //se un contratto inizio fine si sovrappone con queste date visualizza
   valido_21_2020(){
     if (this.items.data_ini_contr){
-      const validDate = new Date(2020,6,30);
+      const validDate = new Date(2020,5,30);
       const data_ini_contr = new Date(this.items.data_ini_contr)
       const data_fine_contr = new Date(this.items.data_fine_contr)
       return data_ini_contr > validDate || (data_ini_contr < validDate && data_fine_contr > validDate);

@@ -45,7 +45,8 @@ export class PrecontrattualeService extends CoreSevice implements ServiceQuery {
   }
 
   updatePrecontr(precontr: PrecontrattualeInterface) {
-    return this.http.put(this._baseURL + '/' + precontr.insegn_id, precontr);
+    return this.http.put(this._baseURL + '/' + precontr.insegn_id, precontr)
+        .pipe(catchError(this.handleError('updatePrecontr')));
   }
 
   newPrecontrImportInsegnamento(pre: IPrecontrattuale): Observable<InfraResponse<IPrecontrattuale>> {

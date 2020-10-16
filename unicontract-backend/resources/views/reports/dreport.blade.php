@@ -172,9 +172,9 @@
 
 @if(!is_null($pre->d4fiscali->flag_detrazioni_21_2020))  
 @if($pre->d4fiscali->flag_detrazioni_21_2020==1)
-    - {{__('global.d4_intest4')}}:  
-    @if($pre->d4fiscali->detrazioni_21_2020 == 'TI21'){{ __('global.d4_txt7_ti21') }} <br> @endif
-    @if($pre->d4fiscali->detrazioni_21_2020 == 'D21'){{ __('global.d4_txt8_d21') }}, reddito stimato {{ $pre->d4fiscali->reddito_21_2020 }}€ <br> @endif
+    - {{__('global.d4_intest4')}}
+    {{-- @if($pre->d4fiscali->detrazioni_21_2020 == 'TI21'){{ __('global.d4_txt7_ti21') }} <br> @endif
+    @if($pre->d4fiscali->detrazioni_21_2020 == 'D21'){{ __('global.d4_txt8_d21') }}, reddito stimato {{ $pre->d4fiscali->reddito_21_2020 }}€ <br> @endif --}}
 @else  
     - non {{__('global.d4_intest4') }} <br>   
 @endif
@@ -189,7 +189,7 @@
 </p>
 @endif
 
-@if($pre->d5fiscaliestero()->first() !=null && $pre->anagrafica->provincia_residenza == 'EE')
+@if($pre->d5fiscaliestero()->first() !=null && $pre->anagrafica->provincia_fiscale == 'EE')
     <h4>QUADRO D.5: DICHIARAZIONE AI FINI FISCALI PER I RESIDENTI ALL'ESTERO</h4>
     <p class="normal">    
         Ai fini fiscali si dichiara: <br>

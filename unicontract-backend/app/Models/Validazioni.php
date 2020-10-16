@@ -12,6 +12,9 @@ class Validazioni extends Model
 {
     use WorkflowTrait;
 
+    //flag_upd isValidatoAmm uff. amministrativo
+    //flag_amm  isValidatoEconomica uff. finanze
+
     protected $table = 'table_validation';
     protected $fillable = [
         'insegn_id',
@@ -195,7 +198,11 @@ class Validazioni extends Model
     }
 
     public function isBlocked(){
-        return $this->flag_submit && $this->flag_upd && $this->flag_amm;
+        return $this->isBlockedAmministrativa() && $this->flag_amm;
+    }
+
+    public function isBlockedAmministrativa() {
+        return $this->flag_submit && $this->flag_upd;
     }
 
     public function getBlockedAttribute()

@@ -96,9 +96,12 @@ export class ProseguiButtonComponent implements OnInit {
 
   currentD4(){
     //D4 -> D5 o //D4 -> D6
-    if (this.item.provincia_residenza === 'EE'){
+    //Modifica "Fumelli" la richiesta di aprire i dati fiscali solo
+    //provincia_fiscale === 'EE'; 
+    //nel passato vale la modifica? e quelli che hanno già terminato? 
+    if (this.item.provincia_fiscale === 'EE'){
       this.goto.switchD5(this.item.insegn_id, this.item.d5_fiscali_resid_estero_id)
-    }else if (this.item.provincia_residenza !== 'EE' && this.item.d6_detraz_fam_carico_id === 0){
+    }else if (this.item.provincia_fiscale !== 'EE' && this.item.d6_detraz_fam_carico_id === 0){
       this.goto.switchD6(this.item.insegn_id, this.item.d6_detraz_fam_carico_id);
     }    
   }

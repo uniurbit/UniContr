@@ -139,7 +139,7 @@ class AnagraficaController extends Controller
         } 
 
         $pre = Precontrattuale::with(['validazioni','user'])->where('a1_anagrafica_id', $id)->first();
-        if ($pre->isBlocked()){
+        if ($pre->isBlockedAmministrativa()){
             $data = [];
             $message = trans('global.aggiornamento_non_consentito');
             $success = false;

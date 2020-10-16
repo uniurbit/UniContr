@@ -64,6 +64,7 @@ class SendReportEmails extends Command
     public function handle()
     {        
         $dips = ['DISPEA','DISB','DIGIUR','DISCUI','DESP','DISTUM'];
+        //$dips = ['DISTUM'];
         Log::info('Esecuzione comando [ SendReportEmails ]');    
       
             foreach ($dips as $dip) {

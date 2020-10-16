@@ -44,7 +44,7 @@
 
   <!-- Stato di avanzamento -->
   <app-collapse-riquadro-wrapper [options]="{ title:'summary_sda' | translate }" *ngIf="items">    
-    <table class="table table-borderless mb-0">
+    <table class="table table-borderless table-responsive-md mb-0">
       <thead>
         <tr>
           <th style="width: 70px;"></th>
@@ -255,7 +255,7 @@
   <ng-container *ngxPermissionsOnly="['OP_APPROVAZIONE_ECONOMICA','OP_APPROVAZIONE_AMM','OP_DIPARTIMENTALE','SUPER-ADMIN']">
     <app-collapse-riquadro-wrapper [options]="{title:'Variazione dati'}" *ngIf="items && (items.anangraficaaudit.length > 0 || items.a2modalitapagamentoaudit.length > 0)">    
       <ng-container *ngIf="items.anangraficaaudit.length > 0 ">      
-        <h6>Anagrafica (Residenza, Domicilio fiscale)</h6>
+        <h6>Anagrafica (Residenza, Residenza fiscale)</h6>
         <table class="table table-sm">
           <thead>
             <tr class="row ml-1 mr-1">

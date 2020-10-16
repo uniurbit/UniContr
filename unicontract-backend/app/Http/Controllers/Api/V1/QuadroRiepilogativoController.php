@@ -25,7 +25,7 @@ class QuadroRiepilogativoController extends Controller
         $datiGenerali = [];
         $message = '';
 
-            $queryBuilder = Precontrattuale::leftJoin('users', function($join) {
+            $queryBuilder = Precontrattuale::withoutGlobalScopes()->leftJoin('users', function($join) {
                 $join->on('users.v_ie_ru_personale_id_ab', '=', 'precontr.docente_id');
             })
             ->leftJoin('p1_insegnamento', function($join) {
@@ -158,9 +158,9 @@ class QuadroRiepilogativoController extends Controller
 
         $pre = Pre::with(['user'])->where('insegn_id',$request->insegn_id)->first();     
        
-        if ($pre && $pre->user->email && !Str::contains($pre->user->email,'@uniurb.it')){
+        if ($pre && $pre->user->email && !Str::contains(strtolower($pre->user->email),'@uniurb.it')){
             $email = $pre->user->anagraficaugov()->first()->e_mail;                 
-            if ($email && Str::contains($email,'@uniurb.it')){
+            if ($email && Str::contains(strtolower($email),'@uniurb.it')){
                 //aggiornare email utente 
                 $pre->user->email = $email;
                 $pre->user->save();                

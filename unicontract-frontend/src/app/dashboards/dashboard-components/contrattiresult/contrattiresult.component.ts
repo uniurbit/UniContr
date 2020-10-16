@@ -47,14 +47,14 @@ export class ConvenzioniresultComponent implements OnInit {
   ngOnInit() {
        
     let baseColumns: Array<any> = [
-      { name: '#', prop: 'id', width: 80, maxWidth: 100 },
-      { name: 'Copertura', prop: 'insegnamento.coper_id', width: 100, maxWidth: 100 },
-      { name: 'Dipartimento', prop: 'insegnamento.dip_cod', cellTemplate: this.tooltipCellTemplate, width: 100, maxWidth: 150 },
-      { name: 'Inizio', prop: 'insegnamento.data_ini_contr', width: 100, maxWidth: 150 },
-      { name: 'Fine', prop: 'insegnamento.data_fine_contr', width: 100, maxWidth: 150 },
-      { name: 'Cognome', prop: 'user.cognome', width: 150, maxWidth: 150 },
-      { name: 'Nome', prop: 'user.nome', width: 150, maxWidth: 150 },
-      { name: 'Insegnamento', prop: 'insegnamento.insegnamento', width: 500},
+      { name: '#', prop: 'id', width: 80, maxWidth: 100, sortable: true },
+      { name: 'Copertura', prop: 'insegnamento.coper_id', width: 100, maxWidth: 100, sortable: false },
+      { name: 'Dipartimento', prop: 'insegnamento.dip_cod', cellTemplate: this.tooltipCellTemplate, width: 100, maxWidth: 150, sortable: false },
+      { name: 'Inizio', prop: 'insegnamento.data_ini_contr', width: 100, maxWidth: 150, sortable: false },
+      { name: 'Fine', prop: 'insegnamento.data_fine_contr', width: 100, maxWidth: 150, sortable: false },
+      { name: 'Cognome', prop: 'user.cognome', width: 150, maxWidth: 150, sortable: true },
+      { name: 'Nome', prop: 'user.nome', width: 150, maxWidth: 150, sortable: true },
+      { name: 'Insegnamento', prop: 'insegnamento.insegnamento', width: 500, sortable: false},
     ]
 
     if (this.columns){
@@ -77,10 +77,11 @@ export class ConvenzioniresultComponent implements OnInit {
             hidetoolbar: true, 
             //detailRow: this.detailRow,
             selected: [],                        
-            page: new Page(25),       
+            page: new Page(15),       
             onDblclickRow: (event) => this.onDblclickRow(event),
             onSetPage: (pageInfo) => this.onSetPage(pageInfo),
             onReorder: (event) => this.onReorder(event),
+            onSort:  (event) => this.onSort(event),
             columns: baseColumns,
           },
           fieldArray: {
@@ -91,7 +92,7 @@ export class ConvenzioniresultComponent implements OnInit {
       
       this.orderColumn = baseColumns.map(x => x.name);
 
-      this.querymodel['limit']= 10;     
+      this.querymodel['limit']= 15;     
       this.onFind(this.querymodel);
       
   }
@@ -187,4 +188,13 @@ export class ConvenzioniresultComponent implements OnInit {
     }
   }
 
+  onSort(event) {
+
+    if (this.model.data.length>0){
+      const sort = event.sorts[0];
+      this.querymodel['order_by'] = sort.prop+','+sort.dir;
+      this.onFind(this.querymodel);
+    }
+
+  }
 }

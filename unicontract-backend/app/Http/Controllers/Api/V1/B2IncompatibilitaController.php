@@ -20,7 +20,7 @@ class B2IncompatibilitaController extends Controller
         $datiPrecontrattuale = [];
         $message = '';
        
-            $queryBuilder = Precontrattuale::leftJoin('users', function($join) {
+            $queryBuilder = Precontrattuale::withoutGlobalScopes()->leftJoin('users', function($join) {
                 $join->on('users.v_ie_ru_personale_id_ab', '=', 'precontr.docente_id');
             })
             ->leftJoin('p1_insegnamento', function($join) {
@@ -103,6 +103,7 @@ class B2IncompatibilitaController extends Controller
             ->where('b2_incompatibilita.id', $id)->first(['users.nome',
                                                           'users.cognome', 
                                                           'a1_anagrafica.provincia_residenza',
+                                                          'a1_anagrafica.provincia_fiscale',
                                                           'b2_incompatibilita.*',
                                                           'b2_incompatibilita.created_at AS submitDate',
                                                           'precontr.*',
@@ -148,7 +149,7 @@ class B2IncompatibilitaController extends Controller
             abort(403, trans('global.utente_non_autorizzato'));
         }        
 
-        if (Precontrattuale::with(['validazioni'])->where('b2_incompatibilita_id', $id)->first()->isBlocked()){
+        if (Precontrattuale::with(['validazioni'])->where('b2_incompatibilita_id', $id)->first()->isBlockedAmministrativa()){
             $data = [];
             $message = trans('global.aggiornamento_non_consentito');
             $success = false;

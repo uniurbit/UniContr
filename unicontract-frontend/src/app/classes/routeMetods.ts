@@ -319,4 +319,10 @@ export class RouteMetods {
         return false;
     }
 
+    attivaPulsanteD5(item){
+        if (item.provincia_fiscale === 'EE' && item.d5_fiscali_resid_estero_id == 0 && item.natura_rapporto === 'COCOCO'){
+            return true;
+        }
+        return false;
+    }
 }

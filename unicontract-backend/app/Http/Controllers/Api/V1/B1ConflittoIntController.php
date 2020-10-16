@@ -110,6 +110,7 @@ class B1ConflittoIntController extends Controller
             ->where('b1_confl_interessi.id', $id)->first(['users.nome',
                                                           'users.cognome',
                                                           'a1_anagrafica.provincia_residenza',
+                                                          'a1_anagrafica.provincia_fiscale',
                                                           'b1_confl_interessi.*',
                                                           'b1_confl_interessi.created_at AS createdDate',
                                                           'precontr.*',
@@ -157,7 +158,7 @@ class B1ConflittoIntController extends Controller
             abort(403, trans('global.utente_non_autorizzato'));
         }        
 
-        if (Precontrattuale::with(['validazioni'])->where('b1_confl_interessi_id', $id)->first()->isBlocked()){
+        if (Precontrattuale::with(['validazioni'])->where('b1_confl_interessi_id', $id)->first()->isBlockedAmministrativa()){
             $data = [];
             $message = trans('global.aggiornamento_non_consentito');
             $success = false;

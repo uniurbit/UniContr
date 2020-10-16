@@ -13,17 +13,24 @@
       </div>
     </div>
 
+<!-- 
+    {key: 1, value: this.translateService.instant('e_txt5')},
+    {key: 6, value: this.translateService.instant('e_txt6')},
+    {key: 2, value: this.translateService.instant('e_txt7')},
+    {key: 3, value: this.translateService.instant('e_txt8')},
+    {key: 4, value: this.translateService.instant('e_txt9')},
+    {key: 5, value: this.translateService.instant('e_txt10')} -->
     <div *ngIf="items.cod_limite_reddito === 'ASLR'">
         <p class="mb-0 text-justify">{{ 'e_premessa2' | translate }}</p>
       <div class="row" >        
         <div class="col">         
           <span class="oi oi-check iconic pl-1 pr-2"></span>
           <span *ngIf="items.gestione_separata === 1">{{ 'e_txt5_bis' | translate }} {{ 'cassa'+items.cod_cassa_previdenziale | translate }}</span>
-          <span *ngIf="items.gestione_separata === 2">{{ 'e_txt6' | translate }}</span>
-          <span *ngIf="items.gestione_separata === 3">{{ 'e_txt7' | translate }}</span>   
-          <span *ngIf="items.gestione_separata === 4">{{ 'e_txt8' | translate }}</span>   
-          <span *ngIf="items.gestione_separata === 5">{{ 'e_txt9' | translate }}</span>   
-          <span *ngIf="items.gestione_separata === 6">{{ 'e_txt10' | translate }}</span>                           
+          <span *ngIf="items.gestione_separata === 6">{{ 'e_txt6' | translate }}</span>
+          <span *ngIf="items.gestione_separata === 2">{{ 'e_txt7' | translate }}</span>   
+          <span *ngIf="items.gestione_separata === 3">{{ 'e_txt8' | translate }}</span>   
+          <span *ngIf="items.gestione_separata === 4">{{ 'e_txt9' | translate }}</span>   
+          <span *ngIf="items.gestione_separata === 5">{{ 'e_txt10' | translate }}</span>                           
         </div>
       </div>
     </div>

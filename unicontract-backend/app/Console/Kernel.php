@@ -8,6 +8,7 @@ use App\Console\Commands\SearchDataTitulusSendEmails;
 use App\Console\Commands\SendReportEmails;
 use App\Console\Commands\SendSollecitoEmails;
 use App\Console\Commands\BackupDatabase;
+use App\Console\Commands\SearchData;
 
 class Kernel extends ConsoleKernel
 {
@@ -20,7 +21,8 @@ class Kernel extends ConsoleKernel
         Commands\SearchDataTitulusSendEmails::class, 
         Commands\SendReportEmails::class,        
         Commands\SendSollecitoEmails::class,
-        Commands\BackupDatabase::class
+        Commands\BackupDatabase::class,
+        Commands\SearchData::class
     ];
 
     /**

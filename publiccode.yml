@@ -56,7 +56,7 @@ description:
       - SSO SAML2
       - Integrazione con U-Gov
       - Integrazione con Titulus
-    documentation: 'https://github.com/uniurbit/UniContr/blob/master/UniContr.pdf'
+    documentation: ''
     genericName: applicazione web
     shortDescription: >-
       Applicazione web per la proceduralizzazione e la dematerializzazione dei contratti di docenza negli atenei.

@@ -85,7 +85,8 @@ class SendReportEmails extends Command
                         if (App::environment(['local','preprod'])) {                        
                             Mail::to(config('unidem.administrator_email'))->send($email);                           
                         } else {
-                            Mail::to(['direttore.'.strtolower($dip).'@uniurb.it','segreteria.'.strtolower($dip).'@uniurb.it'])                   
+                            //['direttore.'.strtolower($dip).'@uniurb.it','segreteria.'.strtolower($dip).'@uniurb.it']
+                            Mail::to(config('unidem.'.strtolower($dip).'_report_segreterie'))                   
                                 ->bcc(config('unidem.administrator_email'))                            
                                 ->cc(config('unidem.cc_report_segreterie'))
                                 ->send($email);

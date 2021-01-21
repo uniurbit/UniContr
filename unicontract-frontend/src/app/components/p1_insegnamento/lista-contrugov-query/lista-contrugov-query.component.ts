@@ -98,6 +98,15 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
       }
     },
     {
+      key: 'insegnamento.data_fine_contr',
+      type: 'date',
+      templateOptions: {
+        label: 'Data fine',
+        required: true,
+        column: { cellTemplate: 'valuecolumn'}
+      }
+    },
+    {
       key: 'p2naturarapporto.natura_rapporto',
       type: 'select',
       templateOptions: {
@@ -131,13 +140,13 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
 
   keyValueRules: { [key: string]: any[]} = {
     'compensidaemettere' : [
-      { field: "relazioniratecompenso", operator: "doesnthave", value: "num_rate", type: "selectrelation" },
+      { field: "relazioniratecompenso", operator: "doesntHave", value: "num_rate", type: "selectrelation" },
     ],
     'ordinatividaemettere' :[
-      { field: "compensi.ordinativi", operator: "doesnthave", value: "", type: "selectrelation" },
+      { field: "compensi.ordinativi", operator: "doesntHave", value: "", type: "selectrelation" },
     ],        
     'compensioordinativiemettere': [
-      { field: "relazioniratecompensoordinativo", operator: "doesnthave", value: "num_rate", type: "selectrelation" },     
+      { field: "relazioniratecompensoordinativo", operator: "doesntHave", value: "num_rate", type: "selectrelation" },     
     ]
   };
 

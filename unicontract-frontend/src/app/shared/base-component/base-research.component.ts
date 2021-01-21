@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
 import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,6 +18,8 @@ export class BaseResearchComponent implements OnInit {
   public isLoading = false;
   public fieldsRow: FormlyFieldConfig[] = [];
 
+  @ViewChild('apri') apri: TemplateRef<any>;
+  
   builderoptions: FormlyTemplateOptions;
 
   form = new FormGroup({});
@@ -100,7 +102,7 @@ export class BaseResearchComponent implements OnInit {
 
   setStorageRules(model){
     if (this.prefix){
-      console.log('set rules '+model.rules);
+      //console.log('set rules '+JSON.stringify(model.rules));
       sessionStorage.setItem(this.prefix+'_rules',JSON.stringify(model.rules));
     }
   }
@@ -117,6 +119,7 @@ export class BaseResearchComponent implements OnInit {
       }
     }
   }
+
 
   protected setQueryModel(model, reset = true){
     if (reset) {
@@ -252,7 +255,13 @@ export class BaseResearchComponent implements OnInit {
     }
   }
 
-  rowSelection(value) {
-
+  rowSelection(row) {
+    this.setStorageResult();      
+    if (row.insegn_id) {
+      // caso particolare mantenuto per compatibilità
+      this.router.navigate([this.routeAbsolutePath, row.insegn_id]);
+    } else if (row.id) {
+      this.router.navigate([this.routeAbsolutePath, row.id]);
+    }
   }
 }

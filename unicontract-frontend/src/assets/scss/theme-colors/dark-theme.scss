@@ -55,11 +55,31 @@
     background-color: $gray-600;
   }
 
+
   /* Background colors */
+  .topbar .top-navbar .navbar-header {
+    background: $body-color-dark  !important;    
+    .text-muted {
+      color: $black !important;
+    }
+  }
+  .topbar .navbar-collapse,
+  .topbar {  
+    background: $body-color-dark  !important;
+    .text-muted {
+      color: $black !important;
+    }
+  }  
+  
+
+  // .card {
+  //   background-color: $body-bg-dark;
+  // }
 
   .card,
   .custom-select,
   .form-control,
+  .form-control:focus,
   .nav-tabs .nav-link.active,
   .nav-tabs .nav-item.show .nav-link,
   .list-group-item,
@@ -210,10 +230,13 @@
   }
 
   /* Font colors */
+  .table {
+    color: $body-color-dark !important;
+  }
 
   .page-wrapper,
   .form-control,
-  .custom-select,
+  .custom-select,  
   .chat-list .chat-item .chat-content .box.bg-light-info,
   .nav-tabs .nav-link.active,
   .nav-tabs .nav-item.show .nav-link,
@@ -247,7 +270,7 @@
   .cke_reset_all *,
   .cke_reset_all a,
   .cke_reset_all textarea {
-    color: $body-color-dark;
+    color: $body-color-dark !important;
   }
 
   .mailbox .message-center .message-item .message-title,
@@ -341,7 +364,8 @@
   .cke_toolgroup a.cke_button:last-child:after,
   .cke_toolgroup a.cke_button.cke_button_disabled:hover:last-child:after,
   .wizard-content .wizard.wizard-circle > .steps .step {
-    border-color: $border-color2 !important;
+    border-color: $gray-700 !important;
+    //border-color: $border-color2 !important;
   }
 
   .wizard-content .wizard > .steps > ul > li.current {

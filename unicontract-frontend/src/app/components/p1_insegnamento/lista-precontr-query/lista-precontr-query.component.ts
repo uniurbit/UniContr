@@ -336,7 +336,8 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
       page.size = result.per_page;
     }
 
-    this.resultMetadata = [ {
+    this.resultMetadata = [       
+    {
       key: 'data',
       type: 'datatablelookup',
       wrappers: ['accordion'],
@@ -351,6 +352,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
         onDblclickRow: (event) => this.onDblclickRow(event),
         onSetPage: (pageInfo) => this.onSetPageWithInit(pageInfo),
         columns: [
+          { name: '', prop: 'insegn_id',  with: 65, maxWidth: 65, cellTemplate: this.apri },
           { name: '#', prop: 'id', width: 80, maxWidth: 100 },
           { name: 'Copertura', prop: 'insegnamento.coper_id', width: 100, maxWidth: 100 },
           { name: 'Dipartimento', prop: 'insegnamento.dip_cod', cellTemplate: this.tooltipCellTemplate, width: 100, maxWidth: 150 },
@@ -366,7 +368,19 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
       fieldArray: {
         fieldGroup: []
       }
-    }];
+    },
+    // {
+    //   template: "<div>Usa il tasto <span class='oi oi-external-link ml-1 mr-1'></span> oppure doppio click sulla riga per accedere alla precontrattuale</div>",
+    //   hideExpression: (model, formstate) => {
+    //     if (model.data){
+    //       if (model.data.length > 0)
+    //         return false;
+    //     }
+    //     return true;
+    //   },
+    // }
+
+  ];
 
     if (result) {
       this.setResult(result);

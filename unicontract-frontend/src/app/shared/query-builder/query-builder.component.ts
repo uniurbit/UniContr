@@ -18,7 +18,7 @@ import ControlUtils from '../dynamic-form/control-utils';
 export class QueryBuilderComponent implements OnInit, OnChanges {
   onDestroy$ = new Subject<void>();
 
-  @Input() builderoptions: FormlyTemplateOptions;
+  @Input() builderoptions: FormlyTemplateOptions = null;
 
   @Input() rules;
 
@@ -146,6 +146,8 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
                     tap(selectedField => {
                      
                       if (this.keymetadata[selectedField]) {
+                        //restituiamo il tipo per esecuzione query
+                        field.model.type = this.keymetadata[selectedField].type;
                         field.formControl.reset();
                         field.type = this.keymetadata[selectedField].type;
                         field.wrappers = ['form-field'];
@@ -271,6 +273,7 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
     if (this.operatorsCache[field]) {
       return this.operatorsCache[field];
     }
+    //non eseguito quando l'operatore è in cache
     let operators = this.defaultEmptyList;
     const fieldObject = this.keymetadata[field];    
     let type = fieldObject.type;  

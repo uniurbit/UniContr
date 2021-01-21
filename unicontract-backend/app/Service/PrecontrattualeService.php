@@ -98,6 +98,7 @@ class PrecontrattualeService implements ApplicationService
             $header = View::make('contratto.header');      
             $pdf->setOption('header-html', $header);                      
         }
+        $pdf->setOption('enable-local-file-access',true);
         $pdf->setOption('load-error-handling','ignore');
         $pdf->setOption('margin-top','44');           
         $pdf->setOption('margin-right','30');                             

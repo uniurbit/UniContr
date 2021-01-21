@@ -218,7 +218,7 @@ class PrecontrattualePerGenerazione extends Precontrattuale {
                 return "ANNULLATA";
             }            
             if (!$this->validazioni->flag_submit){            
-                return "DA COMPILARE";
+                return "MODULISTICA \n DA COMPILARE";
             }
             if ($this->validazioni->flag_submit && (!$this->validazioni->flag_upd || !$this->validazioni->flag_amm)){
                 //this.items.flag_upd isValidatoAmm uff. amministrativo
@@ -232,7 +232,7 @@ class PrecontrattualePerGenerazione extends Precontrattuale {
                 }
             }
             if ($this->validazioni->flag_submit && $this->validazioni->flag_upd && $this->validazioni->flag_amm && !$this->validazioni->flag_accept){
-                return "DA ACCETTARE";
+                return "CONTRATTO \n DA ACCETTARE";
             }
             if ($this->validazioni->flag_submit && $this->validazioni->flag_upd && $this->validazioni->flag_amm && $this->validazioni->flag_accept && $this->stato == 0 ){
                 return "ALLA FIRMA";

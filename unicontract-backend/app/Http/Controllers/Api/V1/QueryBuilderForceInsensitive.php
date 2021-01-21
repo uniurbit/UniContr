@@ -53,7 +53,7 @@ class QueryBuilderForceInsensitive extends QueryBuilder
             }else{
                 $query->has($where->field);
             }                                    
-        }else if ($where->operator == 'doesnthave') {
+        }else if ($where->operator == 'doesntHave') {
             if ($where->value){
                 if (is_int($where->value)){
                     $query->has($where->field,'!=',$where->value);
@@ -125,7 +125,7 @@ class QueryBuilderForceInsensitive extends QueryBuilder
             }else{
                 $this->query->has($where->field);
             }                                    
-        }else if ($where->operator == 'doesnthave') {
+        }else if ($where->operator == 'doesntHave') {
             if ($where->value){
                 if (is_int($where->value)){
                     $this->query->has($where->field,'!=',$where->value);

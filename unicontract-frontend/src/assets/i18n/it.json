@@ -1,4 +1,6 @@
 {   
+    "precontr_apri": "Apri precontrattuale",
+
     "NODATA": "Nessun dato",
     "TOTAL": "Totali",
 
@@ -548,7 +550,7 @@
     "e_premessa1" : "Con riferimento ai redditi percepiti nel corrente anno solare e considerato l’art. 44 della Legge 326/2003 che prevede l’obbligo d’iscrizione alla Gestione Separata INPS per i soggetti esercenti attività di Lavoro Autonomo Occasionale, qualora il reddito annuo superi l’importo di € 5.000,00, si dichiara di:",
     "e_premessa2" : "Inoltre, al fine del corretto versamento dei contributi alla Gestione Separata, si dichiara di:",
     "e_txt1" : "non aver superato il limite di reddito che comporta l’iscrizione alla Gestione Separata INPS e ci si impegna a comunicarne tempestivamente il superamento",
-    "e_txt2" : "aver già ricevuto compensi derivanti da attività di prestazione di Lavoro Autonomo Occasionale",
+    "e_txt2" : "aver già ricevuto {{compensi}} derivanti da attività di prestazione di Lavoro Autonomo Occasionale",
     "e_txt3" : "Compenso totale percepito",
     "e_txt4" : "aver superato il limite di reddito di € 5.000,00 e di essere pertanto soggetti all’obbligo di iscrizione alla Gestione Separata INPS",
     "e_txt5" : "essere iscritto ad una forma previdenziale obbligatoria",

@@ -11,11 +11,30 @@
 <!-- ============================================================== -->
 <!-- Right side toggle and nav items -->
 <!-- ============================================================== -->
-<ul class="navbar-nav float-right">
+<ul class="navbar-nav float-right">    
+
+    <!-- ============================================================== -->
+    <!-- Temi -->
+    <!-- ============================================================== -->
+    <li class="nav-item" ngbDropdown>
+        <a ngbDropdownToggle class="nav-link text-muted" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span>Aspetto</span>
+        </a>
+        <div class="dropdown-menu animated bounceInDown" ngbDropdownMenu>   
+            <a class="dropdown-item" href="javascript:void(0)" (click)="themeNormal()">
+                Sfondo chiaro
+                <!-- <i class="fa fa-angle-right"></i> -->
+            </a>
+            <a class="dropdown-item" href="javascript:void(0)" (click)="themeDark()">
+                Sfondo scuro
+                <!-- <i class="fa fa-angle-right"></i> -->
+            </a>
+        </div>
+    </li>
     <!-- ============================================================== -->
     <!-- Search -->
     <!-- ============================================================== -->
-    <li class="nav-item search-box">
+    <!-- <li class="nav-item search-box">
         <a (click)="showSearch = !showSearch" class="nav-link waves-effect waves-dark" href="javascript:void(0)">
             <i class="ti-search"></i>
         </a>
@@ -25,7 +44,7 @@
                 <i class="ti-close font-16"></i>
             </a>
         </form>
-    </li>
+    </li> -->
 
 
     <!-- ============================================================== -->

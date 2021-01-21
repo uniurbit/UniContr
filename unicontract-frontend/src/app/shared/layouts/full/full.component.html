@@ -50,7 +50,7 @@
             <!-- End Logo -->
             <!-- ============================================================== -->
             <div class="navbar-collapse collapse" id="navbarSupportedContent" [attr.data-navbarbg]="options.navbarbg" [ngbCollapse]="!isCollapsed" [class.bg-success]="isDebug()">
-                <app-header-navigation (toggleSidebar)="toggleSidebarType()" class="w-100"></app-header-navigation>
+                <app-header-navigation (toggleSidebar)="toggleSidebarType()" [options]="options" class="w-100"></app-header-navigation>
             </div>
         </nav>
     </header>

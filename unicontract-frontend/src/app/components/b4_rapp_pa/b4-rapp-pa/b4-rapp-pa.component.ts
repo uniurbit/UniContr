@@ -154,6 +154,9 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'cod_fisc_pa',
           type: 'input',
           className: 'col-md-3',
+          validation: {
+            show: true
+          },
           templateOptions: {
             required: true,
             translate: true,
@@ -166,6 +169,9 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'piva_pa',
           type: 'input',
           className: 'col-md-3',
+          validation: {
+            show: true
+          },
           templateOptions: {
             required: true,
             translate: true,

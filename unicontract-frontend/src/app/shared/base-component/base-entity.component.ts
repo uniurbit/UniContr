@@ -85,9 +85,12 @@ export class BaseEntityComponent implements OnInit, OnDestroy {
             setTimeout(()=> {              
               if (this.initObj)
                 this.model = { ...JSON.parse(JSON.stringify(data)), ...this.initObj};
-              else 
-                this.model = JSON.parse(JSON.stringify(data));
-                
+              else {
+                if (data){
+                  this.model = JSON.parse(JSON.stringify(data));
+                }                
+              }              
+                                
               //aggiornamento riferimento nel formstate
               this.options.formState.model = this.model;
 

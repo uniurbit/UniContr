@@ -116,13 +116,14 @@ export class AnagraficaDetailsComponent extends BaseComponent {
             },
             {
               key: 'provincia_nascita',
-              type: 'input',
+              type: 'provincia',
               className: 'col-md-6',
               templateOptions: {
                 maxLength: 2,
                 required: true,
                 translate: true,
-                label: 'a1_label2'
+                label: 'a1_label2',
+                description: "Inserire EE per comune nascita all'estero"
               },
             },
             {
@@ -255,6 +256,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'comune_residenza',
               type: 'input',
               className: 'col-md-6',
+              name: 'city ',
               templateOptions: {
                 required: true,
                 translate: true,
@@ -265,9 +267,9 @@ export class AnagraficaDetailsComponent extends BaseComponent {
             // provincia
             {
               key: 'provincia_residenza',
-              type: 'input',
-              className: 'col-md-3',
-              templateOptions: {
+              type: 'provincia',
+              className: 'col-md-3',              
+              templateOptions: {                              
                 maxLength: 2,
                 required: true,
                 translate: true,
@@ -280,6 +282,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'cap_residenza',
               type: 'input',
               className: 'col-md-3',
+              name: 'postal-code',
               templateOptions: {
                 maxLength: 5,
                 required: true,
@@ -354,13 +357,17 @@ export class AnagraficaDetailsComponent extends BaseComponent {
             // provincia
             {
               key: 'provincia_fiscale',
-              type: 'input',
-              className: 'col-md-3',
+              type: 'provincia',
+              className: 'col-md-3',              
               templateOptions: {
+                attributes: {
+                  autocomplete: 'fiscale',
+                },
                 maxLength: 2,
                 required: true,
                 translate: true,
                 label: 'a1_label10',
+                description: "Inserire EE per residenza fiscale all'estero"
               },
             },
             // cap
@@ -368,7 +375,10 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'cap_fiscale',
               type: 'input',
               className: 'col-md-3',
-              templateOptions: {
+              templateOptions: {                
+                attributes: {
+                  autocomplete: 'fiscale',
+                },
                 maxLength: 5,
                 required: true,
                 translate: true,
@@ -386,6 +396,9 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               type: 'input',
               className: 'col-md-6',
               templateOptions: {
+                attributes: {
+                  autocomplete: 'fiscale',
+                },
                 required: true,
                 translate: true,
                 label: 'a1_label12',
@@ -507,6 +520,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'telefono_cellulare', // 'tel_rif',
               type: 'input',
               className: 'col-md-6',
+              name: 'mobile',
               templateOptions: {
                 maxLength: 20,
                 required: true,
@@ -518,8 +532,11 @@ export class AnagraficaDetailsComponent extends BaseComponent {
             {
               key: 'telefono_abitazione', // 'tel_res',
               type: 'input',
-              className: 'col-md-6',
+              className: 'col-md-6',             
               templateOptions: {
+                attributes: {
+                  autocomplete: 'abitazione',
+                },
                 maxLength: 20,
                 translate: true,
                 label: 'a1_label15'
@@ -535,7 +552,11 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'telefono_ufficio', // 'tel_interno',
               type: 'input',
               className: 'col-md-6',
+              name: 'phone',
               templateOptions: {
+                attributes: {
+                  autocomplete: 'ufficio',
+                },
                 maxLength: 60,
                 translate: true,
                 label: 'a1_label16'

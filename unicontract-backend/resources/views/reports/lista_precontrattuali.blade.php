@@ -27,6 +27,9 @@
         padding-bottom:10px;    
     }
 
+    tr { 
+        page-break-inside: avoid; 
+    }
     
     div.page {
         page-break-after: always;

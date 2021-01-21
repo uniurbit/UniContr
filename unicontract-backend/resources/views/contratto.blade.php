@@ -80,8 +80,8 @@
     <h4>TRA</h4>
     <p class="normal">
         l'Università degli Studi di Urbino Carlo Bo, codice fiscale n. 82002850418, partita IVA n.
-        00448830414, rappresentata legalmente dal Magnifico Rettore Vilberto Stocchi, nato il
-        15/04/1954 ad Apecchio (PU), domiciliato per la sua carica in Urbino (PU) - Via Saffi n. 2, il
+        00448830414, rappresentata legalmente dal Magnifico Rettore Giorgio Calcagnini, 
+        nato il 30/09/1956 ad Urbino (PU), domiciliato per la sua carica in Urbino (PU) - Via Saffi n. 2, il
         quale agisce in ottemperanza del Regolamento d'Ateneo per il conferimento di incarichi di
         insegnamento e della Legge 30/12/2010, n. 240,
     </p>
@@ -121,7 +121,7 @@
     </p>
     <br>
     <p class="normal">	
-    Il Rettore Vilberto Stocchi 
+    Il Rettore Giorgio Calcagnini 
     </p>
     <br>
     <p class="normal">	

@@ -109,7 +109,7 @@ class PrecontrattualeController extends Controller
             //se è validata non posso aggiornare  ... prima sblocca poi si rivalida ...
             $data = [];
             $success = false;
-            $message = 'Operazione di aggiornamento non eseguibile';
+            $message = 'Operazione di aggiornamento non eseguibile: precontrattuale validata';
             return compact('data', 'message', 'success');
         }
 
@@ -392,12 +392,35 @@ class PrecontrattualeController extends Controller
             return compact('data', 'message', 'success');   
         }
 
+        // se è firmata dal rettore
+        if ($pre->stato == 1){
+            $data = [];
+            $success = false;
+            $message = 'Operazione di annullamento non eseguibile';
+            return compact('data', 'message', 'success');
+        }
+
         $valid = Validazioni::where('insegn_id',$request->insegn_id)->first();       
 
+        //se è stata accetta ed è alla firma
+        if ($valid->flag_accept == true){
+            $data = [];
+            $success = false;
+            $message = 'Operazione di annullamento non eseguibile';
+            return compact('data', 'message', 'success');
+        }
+
+        //flag_upd isValidatoAmm uff. amministrativo    
         $transition = 'annulla_amministrativa';
         if ($valid->flag_upd && $valid->flag_amm){
             $transition = 'annulla_amministrativaeconomica';
+        } else if ($valid->flag_upd && $valid->current_place == 'revisione_economica'){
+            $transition = 'annulla_amministrativarevisioneeconomica';
+        } else if ($valid->flag_upd && $valid->current_place == 'revisione_amministrativaeconomica_economica'){
+            $transition = 'annulla_revisioneamministrativaeconomica';
         }
+        
+        //annulla_amministrativaeconomica
 
         if (!$valid->workflow_can($transition)){
             $data = [];
@@ -479,8 +502,17 @@ class PrecontrattualeController extends Controller
         $valid->fill($postData['entity']);
         $valid->date_amm = Carbon::now()->format(config('unidem.datetime_format'));
 
-        $transitions = $valid->workflow_transitions();
-        $valid->workflow_apply($transitions[0]->getName());
+        if ($valid->current_place = "revisione_amministrativaeconomica_economica"){
+            $transition = "valida_revisione_amministrativaeconomica_economica";
+        } else if ($valid->current_place = "revisione_economica"){
+            $transition = "valida_revisione_economica";
+        }else {
+            $transition = "valida_economica";
+        }
+
+        $valid->workflow_apply($transition);
+        //$transitions = $valid->workflow_transitions();
+        //$valid->workflow_apply($transitions[0]->getName());
 
         $data = EmailService::sendEmailByType($request->insegn_id,"APP");       
 
@@ -510,7 +542,23 @@ class PrecontrattualeController extends Controller
             return compact('data', 'message', 'success');   
         }
 
+        //se firmata dal rettore
+        if ($pre->stato == 1){
+            $data = [];
+            $success = false;
+            $message = 'Operazione di annullamento non eseguibile';
+            return compact('data', 'message', 'success');
+        }
+
         $valid = Validazioni::where('insegn_id',$request->insegn_id)->first();       
+
+        //se accettata e alla firma del rettore
+        if ($valid->flag_accept == true){
+            $data = [];
+            $success = false;
+            $message = 'Operazione di annullamento non eseguibile';
+            return compact('data', 'message', 'success');
+        }
 
         $postData = $request->except('id', '_method');
         $valid->fill($postData['entity']);
@@ -541,8 +589,9 @@ class PrecontrattualeController extends Controller
         if (!Auth::user()->hasPermissionTo('presavisione precontrattuale')) {
             abort(403, trans('global.utente_non_autorizzato'));
         }    
-        
-        if (Precontrattuale::with(['validazioni'])->where('insegn_id', $request->insegn_id)->first()->isAnnullata()){
+
+        $pre = Precontrattuale::with(['validazioni'])->where('insegn_id', $request->insegn_id)->first();
+        if ($pre->isAnnullata()){
             $data = [];
             $message = trans('global.aggiornamento_non_consentito');
             $success = false;
@@ -553,6 +602,13 @@ class PrecontrattualeController extends Controller
         $message = ''; 
         $data = [];
         
+        if (!($pre->validazioni->current_place == 'validata_economica' && !$pre->validazioni->flag_accept)){
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito').' precontrattuale in validazione';
+            $success = false;
+            return compact('data', 'message', 'success'); 
+        }
+
         $data = $this->service->presaVisioneAccettazione($request->insegn_id);        
         
         return compact('data', 'message', 'success');

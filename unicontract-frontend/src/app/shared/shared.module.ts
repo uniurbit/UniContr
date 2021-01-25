@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormlyModule } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
@@ -126,6 +126,16 @@ export function maxValidationMessage(err, field) {
   return `Inserire un valore minore di ${field.templateOptions.max}`;
 }
 
+export function validationProvincia(ctr) {
+  return !ctr.value || /^[A-Z]{2}$/.test(ctr.value);
+}
+
+export function provinciaValidationMessage(err, field) {
+  return "Formato non valido: richiesti due caratteri maiuscoli";
+}
+
+
+
 export const customCurrencyMaskConfig = {
   align: 'left',
   allowNegative: false,
@@ -225,6 +235,25 @@ export const customCurrencyMaskConfig = {
             scrollbarH: 'true',
             reorderable: 'reorderable'
           },
+        },
+      },
+      {
+        name: 'provincia',
+        extends: 'input',       
+        defaultOptions: {     
+          name: 'province',               
+          templateOptions: {
+            required: true,                      
+            label: 'b4_txt16',
+            minLength: 2,
+            maxLength: 2,           
+          },
+          validators: {
+            prov: {
+              expression: validationProvincia,
+              message: provinciaValidationMessage,
+            }
+          }          
         },
       },
       {

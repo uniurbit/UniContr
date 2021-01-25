@@ -93,6 +93,8 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
                 ?  ($precontr->d4fiscali->flag_detrazioni == 0 ? 'no' : 'si') : '',
             ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d4fiscali && !is_null($precontr->d4fiscali->flag_bonus_renzi) 
                 ?  ($precontr->d4fiscali->flag_bonus_renzi == 0 ? 'no' : 'si') : '',
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d4fiscali && !is_null($precontr->d4fiscali->flag_bonus_renzi) 
+                ?  ($precontr->d4fiscali->flag_detrazioni_21_2020 == 0 ? 'no' : 'si') : '',
             ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d6familiari
                 ?  ($precontr->d6familiari->flag_richiesta_detrazioni == 0 ? 'no' : 'si') : '',
 
@@ -146,6 +148,7 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             'Aliquota IRPEF',
             'Detrazioni',
             'Bonus Renzi',
+            'Detrazione L. 21/2020',
             'Detrazioni familiari',
 
             'Stato corrente',

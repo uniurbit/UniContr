@@ -8,10 +8,13 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Http\Controllers\Controller;
 
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use App\Role;
+use App\Permission;
 use Illuminate\Support\Facades\Log;
 use App\Service\LogActivityService;
+use Hash;
+use Exception;
+use DB;
 
 class UserController extends Controller
 {
@@ -61,20 +64,34 @@ class UserController extends Controller
          $this->validate($request, [
             'name'=>'required|max:120',
             'email'=>'required|email|unique:users',
-            'password'=>'required|min:6|confirmed'
+            'v_ie_ru_personale_id_ab' => 'required|unique:users', 
+            'nome' => 'required',
+            'cognome' => 'required',
+            'cf' => 'required',            
         ]);
 
-        $user = User::create($request->only('email', 'name', 'password')); //Retrieving only the email and password data
+        $input = $request->only(['name', 'email', 'password', 'v_ie_ru_personale_id_ab','blocked_date','nome','cognome','cf']); 
+        DB::beginTransaction(); 
+        $user = new User();  
+        try {                             
+            $user->fill($input);              
+            $user->password =  Hash::make($input['cf']);
+            $user->save();                
 
-        $roles = $request['roles']; //Retrieving the roles field
-        //Checking if a role was selected
-        if (isset($roles)) {
+            $roles = $request['roles']; //Retrieving the roles field
+            //Checking if a role was selected
+            if (isset($roles)) {
 
-            foreach ($roles as $role) {
-            $role_r = Role::where('id', '=', $role)->firstOrFail();            
-            $user->assignRole($role_r); //Assigning role to user
-            }
-        }                
+                foreach ($roles as $role) {                
+                    $user->assignRole($role); //Assigning role to user
+                }
+            }    
+        } catch(\Exception $e) {
+            
+            DB::rollback();
+            throw $e;
+        }
+        DB::commit(); 
         return $user;
     }
 

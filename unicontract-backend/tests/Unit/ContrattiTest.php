@@ -608,6 +608,35 @@ class ContrattiTest extends TestCase
         $this->assertEquals('text/csv', $response->headers->get('Content-Type'));
 
     }
-    
+       
+     //vuole la connessione ugov
+     // ./vendor/bin/phpunit  --testsuite Unit --filter test_InseganmentiConSegmentiUgov
+    public function test_InseganmentiConSegmentiUgov(){
+        $user = User::where('email','enrico.oliva@uniurb.it')->first();
+        $this->actingAs($user);
+
+        $insegnamentoUgov = InsegnamUgov::with(['segmenti'])->where('COPER_ID', 28128)            
+            ->first(['coper_id', 'tipo_coper_cod', 'data_ini_contratto', 'data_fine_contratto', 
+                'coper_peso', 'ore', 'compenso', 'motivo_atto_cod', 'tipo_atto_des', 'tipo_emitt_des', 
+                'numero', 'data', 'des_tipo_ciclo', 'sett_des', 'sett_cod','af_radice_id']);  
+
+        $this->assertNotNull($insegnamentoUgov);
+        $this->assertNotNull($insegnamentoUgov->segmenti);
+        $this->assertEquals($insegnamentoUgov->segmenti->count(), 2);        
+
+        $this->assertNotNull($insegnamentoUgov->sett_des);
+        $this->assertNotNull($insegnamentoUgov->sett_cod); 
+
+        $insegnamentoUgov1 = InsegnamUgov::where('COPER_ID', 28128)            
+            ->first(['coper_id', 'tipo_coper_cod', 'data_ini_contratto', 'data_fine_contratto', 
+                'coper_peso', 'ore', 'compenso', 'motivo_atto_cod', 'tipo_atto_des', 'tipo_emitt_des', 
+                'numero', 'data', 'des_tipo_ciclo', 'sett_des', 'sett_cod','af_radice_id']); 
+
+        //$this->assertNull($insegnamentoUgov1->segmenti);
+        $this->assertNotNull($insegnamentoUgov1->sett_des); 
+        $this->assertNotNull($insegnamentoUgov1->sett_cod); 
+
+    }
+
 
 }

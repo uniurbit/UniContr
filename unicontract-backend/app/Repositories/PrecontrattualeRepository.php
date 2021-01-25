@@ -203,25 +203,38 @@ class PrecontrattualeRepository extends BaseRepository {
     
 
     public function newPresavisioneAccettazione($data, $pre){
+        DB::beginTransaction(); 
+        try {
 
-        //eventuale cancellazione su annullamento validazioni
-        $refs = TitulusRef::where('insegn_id', $pre->insegn_id)->delete();
-        $deletes = $pre->getPrecontrattualeType()->attachments()->whereIn('attachmenttype_codice',['CONTR_FIRMA'])->delete();
+            // $valid = Validazioni::where('insegn_id', $pre->insegn_id)->first();
+            // if (($valid->current_place != 'validata_economica')){
+            //     throw new Exception("Errore di concorrenza aggiornare");
+            // }
+            
+            //eventuale cancellazione su annullamento validazioni
+            $refs = TitulusRef::where('insegn_id', $pre->insegn_id)->delete();
+            $deletes = $pre->getPrecontrattualeType()->attachments()->whereIn('attachmenttype_codice',['CONTR_FIRMA'])->delete();
 
-        //aggiorna tabella titulus ref
-        $entity = new TitulusRef();
-        $entity->fill($data);               
-        $pre->titulusref()->save($entity);
+            //aggiorna tabella titulus ref
+            $entity = new TitulusRef();
+            $entity->fill($data);               
+            $pre->titulusref()->save($entity);
 
-        //salva riferimento allegato 
-        $this->saveAttachments(array($data), $pre->getPrecontrattualeType());
-        
-        //aggiornamento tabella validazioni
-        $valid = Validazioni::where('insegn_id', $pre->insegn_id)->first();
-        $valid->flag_accept = true;
-        $valid->date_accept = Carbon::now()->format(config('unidem.datetime_format'));
-        $valid->save();
+            //salva riferimento allegato 
+            $this->saveAttachments(array($data), $pre->getPrecontrattualeType());
+            
+            //aggiornamento tabella validazioni
+            $valid = Validazioni::where('insegn_id', $pre->insegn_id)->first();
+            $valid->flag_accept = true;
+            $valid->date_accept = Carbon::now()->format(config('unidem.datetime_format'));
+            $valid->save();
 
+        } catch(\Exception $e) {
+                
+            DB::rollback();
+            throw $e;
+        }
+        DB::commit();  
         $entity =  Precontrattuale::with(['attachments','titulusref','validazioni'])->where('insegn_id', $pre->insegn_id)->first();
         return $entity;
     }

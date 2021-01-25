@@ -8,6 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AppConstants } from 'src/app/app-constants';
 import { environment } from 'src/environments/environment';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-full-layout',
@@ -18,9 +19,10 @@ export class FullComponent implements OnInit, OnDestroy {
   public config: PerfectScrollbarConfigInterface = {};
   onDestroy$ = new Subject<void>();
 
-  constructor(private authService: AuthService, public router: Router) {
+  constructor(private authService: AuthService, public router: Router, public settingService: SettingsService) {
 
     let token = null;
+    this.options.theme = this.settingService.getSetting('THEME');
 
     router.events.pipe(takeUntil(this.onDestroy$)).subscribe(s => {
       if (s instanceof NavigationEnd) {

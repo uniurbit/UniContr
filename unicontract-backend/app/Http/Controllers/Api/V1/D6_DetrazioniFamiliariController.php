@@ -150,6 +150,8 @@ class D6_DetrazioniFamiliariController extends Controller
                                                 'p2_natura_rapporto.flag_titolare_pensione',
                                                 'p2_natura_rapporto.natura_rapporto',
                                                 'a1_anagrafica.sesso',
+                                                'a1_anagrafica.provincia_residenza',
+                                                'a1_anagrafica.provincia_fiscale',
                                                 'd4_fiscali.flag_detrazioni']);
 
             $d6rel = D6_detrazioni_familiari::with(['familiari'])->where('id',$id)->first();

@@ -76,7 +76,8 @@ export class TableLookupTypeComponent extends FieldArrayType {
     this.setPage({ offset: this.to.page.pageNumber ? this.to.page.pageNumber : 0, limit: this.to.page.size});
 
     if(this.to.detailRow){
-      this.table.rowDetail.template = this.to.detailRow;
+      //template only getter
+      //this.table.rowDetail.template = this.to.detailRow;
     }
 
     if (!('selected' in this.to)){
@@ -167,7 +168,8 @@ export class TableLookupTypeComponent extends FieldArrayType {
           const valuea = this.getDescendantProp(a,sort.prop);
           const valueb = this.getDescendantProp(b,sort.prop);
           if (valuea != null && valueb != null){             
-            if (typeof valuea ===  "number"){
+            if (typeof valuea ===  "number" && typeof valueb === "number"){
+                //return (valuea > valueb) * (sort.dir === 'desc' ? -1 : 1);  
                 return ((valuea>valueb ? 1 : valuea<valueb ? -1 : 0) * (sort.dir === 'desc' ? -1 : 1));  
             } else if (event.column.type  && event.column.type == "date"){
               const da = this.adapter.fromModel(valuea);

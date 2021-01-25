@@ -369,7 +369,7 @@
 </div>
 
 <div class="text-right">
-<div class="btn-group  mr-2 mb-1" *ngIf="items">
+<div class="btn-group row mr-2 mb-1" *ngIf="items">
   <ng-container *ngIf="!isRinuncia() && !isAnnullato()" >
     <button type="button" class="btn btn-outline-secondary rounded mr-1" *ngxPermissionsOnly="['OP_DIPARTIMENTALE','SUPER-ADMIN']" (click)="rinunciaCompenso()">
       <span class="oi oi-euro iconic"></span> 

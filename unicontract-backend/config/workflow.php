@@ -39,10 +39,18 @@ return [
                 'from' => 'validata_economica', 
                 'to'   => 'revisione_economica',
             ],   
+            'annulla_amministrativarevisioneeconomica' => [
+                'from' => 'revisione_economica', 
+                'to' => 'revisione_amministrativaeconomica'
+            ],
             'annulla_amministrativaeconomica' => [
                 'from' => 'validata_economica', 
                 'to'   => 'revisione_amministrativaeconomica',
-            ],   
+            ],               
+            'annulla_revisioneamministrativaeconomica' => [
+                'from' => 'revisione_amministrativaeconomica_economica',
+                'to' => 'revisione_amministrativaeconomica'
+            ],            
             'valida_revisione_amministrativaeconomica_amministrativa' => [
                 'from' => 'revisione_amministrativaeconomica', 
                 'to'   => 'revisione_amministrativaeconomica_economica',

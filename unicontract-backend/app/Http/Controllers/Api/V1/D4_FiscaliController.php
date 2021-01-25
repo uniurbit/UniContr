@@ -150,6 +150,7 @@ class D4_FiscaliController extends Controller
                                                 'p2_natura_rapporto.natura_rapporto',
                                                 'a1_anagrafica.sesso',
                                                 'a1_anagrafica.provincia_residenza',
+                                                'a1_anagrafica.provincia_fiscale',
                                                 'd1_inps.flag_misura_ridotta',
                                                 'd6_detraz_fam_carico.flag_richiesta_detrazioni']);
             

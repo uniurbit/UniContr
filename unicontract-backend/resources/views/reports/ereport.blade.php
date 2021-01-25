@@ -5,7 +5,7 @@
     @if($pre->eAutonomoOcasionale->cod_limite_reddito== 'NASL')
     - non aver superato il limite di reddito che comporta l'iscrizione alla gestione separata e ci si impegna a comunicarne tempestivamente il superamento.
     @elseif($pre->eAutonomoOcasionale->cod_limite_reddito== 'AGR')
-    - aver già ricevuto euro {{ $pre->eAutonomoOcasionale->importo }}derivante da attività di prestazione di lavoro autonomo occasionale.
+    - aver già ricevuto euro {{ $pre->eAutonomoOcasionale->importo }} derivanti da attività di prestazione di lavoro autonomo occasionale.
     @elseif($pre->eAutonomoOcasionale->cod_limite_reddito== 'ASLR')
  
         @switch($pre->eAutonomoOcasionale->gestione_separata)

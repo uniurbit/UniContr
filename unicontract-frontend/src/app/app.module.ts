@@ -210,6 +210,7 @@ import { ContrUgovService } from './services/contr-ugov.service';
 import { MyMissingTranslationHandler } from './shared/MyMissingTranslationHandler';
 import { LogAttivitaComponent } from './components/user/logattivita.component';
 import { LogAttivitaService } from './services/logattivita.service';
+import { SettingsService } from './services/settings.service';
 
 
 
@@ -446,6 +447,7 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
     DocumentoService,
     MappingRuoloService,
     MappingUfficioService,
+    SettingsService,
     {provide: 'personainternaService', useClass: PersonaInternaService},
     {provide: 'strutturainternaService', useClass: StrutturaInternaService},
     {provide: 'strutturaesternaService', useClass: StrutturaEsternaService},

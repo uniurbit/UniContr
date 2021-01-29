@@ -55,16 +55,17 @@ class Saml2AuthController extends Controller
         }        
 
         $redirectUrl = $luser->getIntendedUrl();
-
+        //dall'idp        
+        $redirectUrlFromLogin = $user->getIntendedUrl();
 
         //i custom claim sono definiti nell'utente
         $token = JWTAuth::fromUser( $luser);
 
         Log::info('redirectUrl [' . $redirectUrl . ']');       
         Log::info('token [' . $token . ']');       
-
+        
         if ($redirectUrl !== null) {
-            return redirect($redirectUrl.'?token='.$token)
+            return redirect($redirectUrl.'?token='.$token.($redirectUrlFromLogin ? ('&redirect='.$redirectUrlFromLogin) : '') )             
                 ->header('token', $token)
                 ->header('token_type', 'bearer')
                 ->header('expires_in', Auth::guard()->factory()->getTTL() * 60);

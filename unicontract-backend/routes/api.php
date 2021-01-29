@@ -25,19 +25,21 @@ Route::group([
     require base_path('routes/app_api.v1.php');
 });
   
-Route::get('/loginSaml', function(){
+Route::get('/loginSaml', function(Request $request){
     
     if(\Auth::guest())
     {       
         if (\App::environment('local')) {
-            if (\Request::ip() == "192.168.5.135" || \Request::ip() == "192.168.5.137" || \Request::ip() == "127.0.0.1" ) {
-                return  \Saml2::login(config('unidem.client_url').'home');            
-            } else {
-                return  abort(404);
-            }
+#            if (\Request::ip() == "192.168.5.135" || \Request::ip() == "192.168.5.137" || \Request::ip() == "127.0.0.1" ) {                
+                $redirect = $request->query('redirect');
+                return  \Saml2::login($redirect ? $redirect : 'home');           
+#            } else {
+#                return  abort(404);
+#            }
         }
-        return  \Saml2::login(config('unidem.client_url').'home');                             
-        
+
+        $redirect = $request->query('redirect');
+        return  \Saml2::login($redirect ? $redirect : 'home');                                    
     }
 });
 

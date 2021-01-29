@@ -1,0 +1,92 @@
+version: '3.4'
+volumes:
+  exclude:
+    
+services:
+  app:
+    build:
+      args:
+        user: enrico
+        uid: 1000
+        basepath: ${BASE_PATH}
+      context: ./
+      dockerfile: ./docker-compose/php-fpm/Dockerfile
+    image: unicontr
+    container_name: unicontr-backend
+    working_dir: ${BASE_PATH}
+    volumes:
+      - ../unicontract-backend:${BASE_PATH}
+    networks:
+      - app-network
+
+  db:
+    image: mysql:5.7
+
+    container_name: unicontr-db
+    restart: unless-stopped
+    ports: 
+      - "${DB_PORT}:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    env_file: 
+      - ../unicontract-backend/.env
+    volumes:
+      - ./docker-compose/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./docker-compose/mysql/dbdata:/var/lib/mysql/
+    networks:
+      - app-network
+
+  idp: 
+    build:
+      context: ../unicontract-mock-idp
+      dockerfile: ../unicontract-docker/docker-compose/mock-idp/Dockerfile 
+    container_name: idp
+    ports:
+      - "7000:7000"
+    volumes:
+      - ../unicontract-mock-idp/start.js:/usr/src/app/start.js
+    command: 
+        bash -c "node start.js"
+  
+  dev:
+    build: 
+      context: ../unicontract-frontend
+      dockerfile: ../unicontract-docker/docker-compose/angular/Dockerfile 
+    container_name: dev
+    ports:
+      - "4200:4200"
+    environment:
+      SHELL: /bin/bash
+      NODE_ENV: development
+    volumes:
+      - ../unicontract-frontend:/usr/src/app
+       # the volume above prevents our host system's node_modules to be mounted
+      - exclude:/usr/src/app/node_modules/
+
+    command: 
+        bash -c "npm rebuild node-sass && ng serve --host 0.0.0.0 --port 4200 --poll 500"
+
+  nginx:
+    image: nginx:alpine
+    container_name: unicontr-nginx
+    tty: true
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../unicontract-backend:${BASE_PATH}
+      - ./docker-compose/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+    

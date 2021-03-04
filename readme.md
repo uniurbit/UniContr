@@ -75,6 +75,13 @@ il database di riferimento ...)
 
 3) Eseguire `composer install` per l'istallazione dei package
 
+4) Installazione certificato
+```
+    openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out sp.crt -keyout sp.key
+    sudo cp sp.key vendor/onelogin/php-saml/certs/
+    sudo cp sp.crt vendor/onelogin/php-saml/certs/
+```
+
 4) Eseguire `php artisan migrate:fresh --seed` 
 
 ## Configurazione UniContr-frontend

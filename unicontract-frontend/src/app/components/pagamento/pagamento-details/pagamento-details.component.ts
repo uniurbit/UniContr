@@ -198,7 +198,7 @@ export class PagamentoDetailsComponent extends BaseComponent {
       (params) => {
         this.update = false;
         this.isLoading = true;
-        this.pagamentoService.getPagamento(params.get('id_ab')).subscribe(
+        this.pagamentoService.getPagamento(params.get('id_ab'), params.get('idins')).subscribe(
           response => {
 
             if (response['dati']) {

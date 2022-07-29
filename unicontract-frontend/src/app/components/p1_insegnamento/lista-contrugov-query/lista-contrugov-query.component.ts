@@ -17,7 +17,7 @@ import { annoAccademicoCorrente } from 'src/app/shared/dynamic-form/utils';
 })
 export class ListaContrugovQueryComponent extends BaseResearchComponent {
   enabledExport = false;
-  translate: MyTranslatePipe;
+  translate: MyTranslatePipe; 
 
   fieldsRow: FormlyFieldConfig[] = [
     {
@@ -27,14 +27,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
         label: 'Anno',
         valueProp: 'value',
         labelProp: 'label',
-        options: [
-          {value: '2016', label: '2016 / 2017'},
-          {value: '2017', label: '2017 / 2018'},
-          {value: '2018', label: '2018 / 2019'},
-          {value: '2019', label: '2019 / 2020'},
-          {value: '2020', label: '2020 / 2021'},
-          {value: '2021', label: '2021 / 2022'},
-        ]
+        options: this.service.getAnniAccademici()
       }
     },
     {
@@ -239,7 +232,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
           { name: 'Nome', prop: 'precontr.user.nome', width: 120, maxWidth: 150 },
           { name: 'Data inizio', prop: 'precontr.insegnamento.data_ini_contr', width: 100, maxWidth: 150, type: 'date' },
           { name: 'Data fine', prop: 'precontr.insegnamento.data_fine_contr', width: 100, maxWidth: 150, type: 'date' },
-          { name: 'Dipartimento', prop: 'id_uo_aff', cellTemplate: this.tooltipCellTemplate, width: 100, maxWidth: 100 }, //"27605"
+          { name: 'Dipartimento', prop: 'precontr.insegnamento.dip_cod', cellTemplate: this.tooltipCellTemplate, width: 100, maxWidth: 100 }, //"27605"
           { name: 'Anno', prop: 'datibase.anno_rif', width: 70, maxWidth: 70 },                    
           { name: 'Descrizione', prop: 'datibase.ds_dg', width: 450 },
           { name: 'Stato contabile', prop: 'datibase.stato_dg', pipe: this.translate, width: 80, maxWidth: 80 },

@@ -9,6 +9,7 @@ use App\Http\Controllers\iSearch;
 use Illuminate\Support\Facades\Log;
 use Artisaninweb\SoapWrapper\Exceptions\ServiceNotFound;
 use Exception;
+use SoapFault; 
 //https://github.com/artisaninweb/laravel-soap
 //add php.ini ext-soap
 
@@ -38,9 +39,10 @@ class SoapControllerTitulus implements iSearch
         ->wsdl('https://'.config('titulus.username').':'.config('titulus.password').'@'.config('titulus.host').'/titulus_ws/services/Titulus4?wsdl')
         ->trace(true)       
         ->options([
-          'soap_version' => SOAP_1_1,          
+          'soap_version' => 1,          
           'login' => config('titulus.username'),
-          'password' => config('titulus.password'),          
+          'password' => config('titulus.password'),    
+          'cache_wsdl'   => WSDL_CACHE_NONE        
           //'maintain'=>true, //SESSION_MAINTAIN_PROPERTY
       ]);        
     });        
@@ -59,7 +61,7 @@ class SoapControllerTitulus implements iSearch
             Log::error($e);  
 
             //se al terzo tentativo ho ancora errore rilancio e esco
-            if ($try==2){
+            if ($try==0){
               throw $e;
             }
             

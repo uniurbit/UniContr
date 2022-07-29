@@ -50,6 +50,7 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             $precontr->anagrafica ? $precontr->anagrafica->sesso : '',
             $precontr->anagrafica ? (($precontr->anagrafica->data_nascita != null) ? $precontr->anagrafica->data_nascita :'') : '',
             $precontr->anagrafica ? (($precontr->anagrafica->comune_nascita != null) ? $precontr->anagrafica->comune_nascita :'') : '',
+            $precontr->anagrafica ?  (($precontr->anagrafica->nazione_residenza != null) ? $precontr->anagrafica->nazione_residenza :'') : '', 
 
             $precontr->p2naturarapporto ? ($precontr->p2naturarapporto->flag_titolare_pensione == 1 ? 'si' : 'no') : '',
             $precontr->p2naturarapporto ? ($precontr->p2naturarapporto->flag_dipend_pubbl_amm == 1 ? 'si' : 'no') : '',
@@ -80,9 +81,11 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
                 ? ($precontr->d1inps->flag_misura_ridotta == 0 ? 'no' : 'si') : '',
 
             ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d1inps 
-                && !is_null($precontr->d1inps->cassa_gestioni_previdenziali) 
-                && !empty($precontr->d1inps->cassa_gestioni_previdenziali)
-                    ? __('global.cassa'.$precontr->d1inps->cassa_gestioni_previdenziali) : '',
+                ? (($precontr->d1inps->flag_misura_ridotta == 1 && $precontr->d1inps->specif_misura_ridotta == 'D3C') 
+                    ? (!is_null($precontr->d1inps->cassa_gestioni_previdenziali) && !empty($precontr->d1inps->cassa_gestioni_previdenziali) 
+                        ? __('global.cassa'.$precontr->d1inps->cassa_gestioni_previdenziali) : '') 
+                    : '') 
+                : '',
 
             ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d2inail
                 ?  __('global.'.$precontr->d2inail->posizione_previdenziale) : '', 
@@ -121,6 +124,8 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             'Sesso',
             'Data nascita',
             'Luogo nascita',
+            'Cittadinanza',
+
             'Stato pensionamento',
             'Dipendente di P.A.',
             'Insegnamento',

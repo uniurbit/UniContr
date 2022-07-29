@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\QueryBuilder;
 use App\Ruolo;
 use App\UnitaOrganizzativa;
 use App\MappingUfficio;
+use Illuminate\Support\Facades\Cache;
 
 class Personale extends Model
 {    
@@ -18,6 +19,15 @@ class Personale extends Model
     public $primaryKey = 'ID_AB';
 
     public $selectcolumns = array('nome','cognome', 'matricola', 'aff_org', 'email','cd_ruolo'. 'id_ab','cod_fis');
+
+    public function cacheKey()
+    {
+        return sprintf(
+            "%s/%s",
+            $this->getTable(),
+            $this->id_ab
+        );
+    }
 
     public static function boot()
     {
@@ -30,6 +40,13 @@ class Personale extends Model
     public function ruolo()
     {
         return $this->belongsTo(Ruolo::class,'cd_ruolo','ruolo');
+    }
+
+    public function unitaRelation()
+    {
+        return Cache::remember($this->cacheKey() . ':unitaorganizzativa', 60 * 24 * 20, function () {
+            return $this->unita()->get();
+        });
     }
 
     public function unita()

@@ -37,7 +37,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (token) {
             console.log('keep token home component');
             authService.loginWithToken(token);
-            authService.redirectFirstLogin();
+            const redirect = params.get('redirect');          
+            authService.redirectFirstLogin(redirect);
           } else {
             console.log('no token home component');
           }

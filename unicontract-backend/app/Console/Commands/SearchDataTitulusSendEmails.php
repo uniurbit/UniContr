@@ -75,15 +75,28 @@ class SearchDataTitulusSendEmails extends Command
                            
                     foreach ($doc->files->children('xw',true) as $file) {
                         // downloading file
-                        $fileId = (string) $file->attributes()->name;   
-                        $file =  $sc->getAttachment($fileId);
+                        $file == null;
+                        $signed = (string) $file->attributes()->signed;
+                        if ($signed == 'false'){
+                            foreach ($file->children('xw',true) as $internalfile) {
+                                $signed = (string) $internalfile->attributes()->signed;
+                                if ($signed == 'true'){
+                                    $fileId = (string) $internalfile->attributes()->name;                    
+                                    $file =  $sc->getAttachment($fileId);                                                            
+                                }
+                            }
+                        } 
+                        if ($file==null){
+                            $fileId = (string) $file->attributes()->name;   
+                            $file =  $sc->getAttachment($fileId);
+                        }                                                               
                     }
-
+                    
                     //aggiornamento tabella titulus ref 
                     $ref->num_protocollo = $num_prot;
                     $ref->num_repertorio = $repertorio;
                     $ref->bozza = 'no'; //$bozza;
-                    $ref->signed = $signed;
+                    $ref->signed = $signed == 'true' ? true : false;
                     $ref->save();
 
                     $pre = Precontrattuale::where('insegn_id',$ref->insegn_id)->first();

@@ -44,7 +44,14 @@
 
 <ng-template #apri ngx-datatable-cell-template let-row="row" let-rowIndex="rowIndex" let-value="value" >
   <button type="button" class="btn btn-sm btn-outline-secondary oi oi-external-link d-flex align-items-center" title="{{ prefix ? (prefix+'_apri' | translate) : 'Apri' }}" (click)="rowSelection(row)"></button>  
-</ng-template>  
+</ng-template>
+
+<ng-template #comandi ngx-datatable-cell-template let-row="row" let-rowIndex="rowIndex" let-value="value">
+  <div class="btn-group" data-toggle="button" > 
+    <button type="button" class="btn btn-sm btn-outline-secondary oi oi-external-link" title="{{ prefix ? (prefix+'_apri' | translate) : 'Apri' }}" (click)="rowSelection(row)"></button>  
+    <button type="button" class="btn btn-sm btn-outline-secondary shadow-none oi oi-data-transfer-download ml-1" title="{{ prefix ? (prefix+'_download' | translate) : 'Scarica' }}" (click)="downloadSelection(row)" [disabled]="downloadDisabled(row)"></button>  
+  </div>
+</ng-template>
 
 <ng-template #tooltip let-row="row" let-value="value" let-i="index">
   <span title="{{ value+'_tooltip' | translate}}"> {{ value | translate }} </span>

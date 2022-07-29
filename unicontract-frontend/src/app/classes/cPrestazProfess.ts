@@ -14,8 +14,9 @@ export class CPrestazProfess implements CPrestazProfessInterface {
     denominazione_cassa: string;
     contributo_cassa: boolean;
     flag_rivalsa: boolean;
-    flag_regime_fiscale: boolean;
+    flag_regime_fiscale?: boolean;
     insegn_id?: number;
+    regime_fiscale: string;
 
     constructor() {
         this.id = 0;
@@ -33,5 +34,6 @@ export class CPrestazProfess implements CPrestazProfessInterface {
         this.flag_rivalsa = false;
         this.flag_regime_fiscale = false;
     }
+    
 }
 

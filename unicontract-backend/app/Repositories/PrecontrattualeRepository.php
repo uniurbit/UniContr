@@ -258,7 +258,7 @@ class PrecontrattualeRepository extends BaseRepository {
             //creazione dell'allegato 
             $result = PrecontrattualeService::createContrattoBozza($data['insegn_id']);
             $this->saveAttachments([$result], Precontrattuale::where('insegn_id', $data['insegn_id'])->first());
-            $data = EmailService::sendEmailByType($data['insegn_id'],"CMU");
+            EmailService::sendEmailByType($data['insegn_id'],"CMU");
 
             $precontr = $valid->precontrattuale()->first(); 
             $precontr->storyprocess()->save(

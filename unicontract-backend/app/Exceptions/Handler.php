@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
 use App\Mail\ExceptionOccured as ExceptionMail;
+use Yajra\Pdo\Oci8\Exceptions\Oci8Exception;
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -47,17 +49,6 @@ class Handler extends ExceptionHandler
         parent::report($exception);
     }
 
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
-     */
-    public function render($request, Exception $exception)
-    {
-        return parent::render($request, $exception);
-    }
 
     /**
      * Parse the exception and send email
@@ -77,6 +68,26 @@ class Handler extends ExceptionHandler
         } catch (Exception $e) {
             //
         }
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Exception  $exception
+     * @return \Illuminate\Http\Response
+     */
+    public function render($request, Exception $exception)
+    {
+        //message:"ORA-12170: TNS:Connect timeout occurred"
+        if ($exception instanceof Oci8Exception){
+            Log::error($exception);
+            $response = response()->json(['message' => "Sottosistema Ugov in manutenzione"], 500);
+            $response->setStatusCode(500, "Sottosistema Ugov in manutenzione");
+            return $response;
+        }
+
+        return parent::render($request, $exception);
     }
 
 }

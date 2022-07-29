@@ -19,6 +19,10 @@ import ControlUtils from 'src/app/shared/dynamic-form/control-utils';
 import { TranslateSelectPipe } from 'src/app/shared/pipe/translate-select.pipe';
 import { StoryProcess } from './../../../classes/storyProcess';
 import { StoryProcessService } from './../../../services/storyProcess.service';
+import { of } from 'rxjs';
+import { nazioni } from 'src/app/shared/store/nazioni-data-store';
+import { province } from 'src/app/shared/store/provincia-data-store';
+
 
 
 
@@ -204,9 +208,10 @@ export class AnagraficaDetailsComponent extends BaseComponent {
           fieldGroup: [
             {
               key: 'nazione_residenza',
-              type: 'input',
+              type: 'select',
               className: 'col-md-6',
               templateOptions: {
+                options: of(nazioni.map(naz => { return { value: naz.nazionalita, label: naz.nazionalita } })),
                 required: true,
                 translate: true,
                 label: 'a1_label7',
@@ -267,10 +272,11 @@ export class AnagraficaDetailsComponent extends BaseComponent {
             // provincia
             {
               key: 'provincia_residenza',
-              type: 'provincia',
+              type: 'select',
               className: 'col-md-3',              
               templateOptions: {                              
                 maxLength: 2,
+                options: of(province.map(prov => { return { value: prov.sigla, label: prov.sigla + " " + prov.nome } })),
                 required: true,
                 translate: true,
                 label: 'a1_label10',
@@ -357,9 +363,10 @@ export class AnagraficaDetailsComponent extends BaseComponent {
             // provincia
             {
               key: 'provincia_fiscale',
-              type: 'provincia',
+              type: 'select',
               className: 'col-md-3',              
               templateOptions: {
+                options: of(province.map(prov => { return { value: prov.sigla, label: prov.sigla + " " + prov.nome } })),
                 attributes: {
                   autocomplete: 'fiscale',
                 },

@@ -13,6 +13,10 @@ use App\Ruolo;
 use App\Models\B4RapportoPA;
 use App\Models\P2rapporto;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+use App\Exceptions\Handler;
+use Illuminate\Container\Container;
+use Exception;
 
 
 class PrecontrattualePerGenerazione extends Precontrattuale {
@@ -47,6 +51,7 @@ class PrecontrattualePerGenerazione extends Precontrattuale {
         
         return $this->insegnamento->ruoloToString($cd_ruolo);
     }
+    
     public function getDipartimentoAttribute()
     {
         return $this->insegnamento->dipartimento;
@@ -191,6 +196,9 @@ class PrecontrattualePerGenerazione extends Precontrattuale {
         
         $counter = $this->insegnamento->contatore(); //contatore_insegnamenti($cod_insegnam, $cf); 
 
+        //nel caso il contatore sia 0 ma è stato importato come RINNOVO 
+        //significa che il sistema su Ugov non è coerente per eventuali delibere di rinnovo        
+        //UniContr lo considera rinnovo
         if($counter == 1){
             return [
                 'storico' => "attribuito",
@@ -208,6 +216,20 @@ class PrecontrattualePerGenerazione extends Precontrattuale {
                 'text_rinnovo_3' => "ulteriore rinnovo",
                 'text_rinnovo_4' => "rinnovato"
             ];
+        }
+
+        if($counter == 0){
+            
+            Log::info('Generato contratto con contatore a 0  [ id =' . $this->id . '] [ coper_id =' . $this->insegnamento->coper_id . ']');             
+            
+            return [
+                'storico' => "attribuito",
+                'text_rinnovo_1' => "rinnovato",
+                'text_rinnovo_2' => "attribuito",
+                'text_rinnovo_3' => "rinnovo",
+                'text_rinnovo_4' => "conferito"
+            ];
+            
         }
 
     }

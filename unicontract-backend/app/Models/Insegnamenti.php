@@ -194,27 +194,45 @@ class Insegnamenti extends Model {
         
         //$data_delibera = Carbon::createFromFormat(, $this->data_delibera)->format('Y-m-d');
         
+        //Direttore di dipartimento
+        //Senato Accademico
+        //Consiglio di Dipartimento
+
         if($this->emittente == "Consiglio di Dipartimento") {
             $tipo_emitt = "Consiglio";
-        } else if ($this->tipo_emitt == "Direttore di dipartimento") {
+        } else if ($this->emittente == "Direttore di dipartimento") {
             $tipo_emitt = "Direttore";
         }else{
             $tipo_emitt = $this->emittente;
         }
-        
-        return "delibera n. ".$this->num_delibera." del ". $this->dataDelibera()." dal ".$tipo_emitt." del ".$this->dipartimento;  
+
+        //Decreto Direttore
+        //Disposizione Direttore
+        //Delibera
+
+        if ($this->tipo_atto == "Delibera") {
+            $tipo_atto = "delibera";
+        } else if ($this->tipo_atto == "Decreto Direttore") {
+            $tipo_atto = "decreto";
+        } else if ($this->tipo_atto == "Disposizione Direttore") {
+            $tipo_atto = "disposizione";
+        }else{
+            $tipo_atto = $this->tipo_atto;
+        }
+
+        return $tipo_atto." n. ".$this->num_delibera." del ". $this->dataDelibera()." dal ".$tipo_emitt." del ".$this->dipartimento;          
     }
 
     public function contatore(){    
 
-        return InsegnamUgovController::contatoreInsegnamenti($this->coper_id);
+        //return InsegnamUgovController::contatoreInsegnamenti($this->coper_id);
 
-        // $coper_id = $this->coper_id;
-        // $value = Cache::get('counter_'.$coper_id, function () use($coper_id) {
-        //     return InsegnamUgovController::contatoreInsegnamenti($coper_id);
-        // });
+        $coper_id = $this->coper_id;
+        $value = Cache::remember('counter_'.$coper_id, 60, function () use($coper_id) {
+            return InsegnamUgovController::contatoreInsegnamenti($coper_id);
+        });
 
-        // return $value;
+        return $value;
     }
 
      // RESTITUISCE L'EPIGRAFE DEL RUOLO DOCENTE

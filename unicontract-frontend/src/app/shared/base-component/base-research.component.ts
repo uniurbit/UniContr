@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
 import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,7 +19,8 @@ export class BaseResearchComponent implements OnInit {
   public fieldsRow: FormlyFieldConfig[] = [];
 
   @ViewChild('apri') apri: TemplateRef<any>;
-  
+  @ViewChild('comandi') comandi: TemplateRef<any>;
+
   builderoptions: FormlyTemplateOptions;
 
   form = new FormGroup({});
@@ -102,7 +103,7 @@ export class BaseResearchComponent implements OnInit {
 
   setStorageRules(model){
     if (this.prefix){
-      //console.log('set rules '+JSON.stringify(model.rules));
+        //console.log('set rules '+JSON.stringify(model.rules));
       sessionStorage.setItem(this.prefix+'_rules',JSON.stringify(model.rules));
     }
   }
@@ -230,7 +231,7 @@ export class BaseResearchComponent implements OnInit {
       this.service.export(this.querymodel).subscribe(file => {
         this.isLoading = false;
 
-        const blob =  new Blob([file]);
+        const blob = new Blob([file]);
         saveAs(blob, 'download.csv');
 
       },
@@ -240,28 +241,37 @@ export class BaseResearchComponent implements OnInit {
   }
 
   onExportXLS(){
-     // richiamare export dal service
-     if (this.model.data.length > 0) {
-      this.isLoading = true;
-      this.service.exportxls(this.querymodel).subscribe(file => {
-        this.isLoading = false;
+    // richiamare export dal service
+    if (this.model.data.length > 0) {
+     this.isLoading = true;
+     this.service.exportxls(this.querymodel).subscribe(file => {
+       this.isLoading = false;
 
-        const blob =  new Blob([file]);
-        saveAs(blob, 'download.xlsx');
+       const blob =  new Blob([file]);
+       saveAs(blob, 'download.xlsx');
 
-      },
-        e => {  this.isLoading = false; console.log(e); }
-      );
-    }
+     },
+       e => {  this.isLoading = false; console.log(e); }
+     );
+   }
+ }
+
+ rowSelection(row) {
+  this.setStorageResult();      
+  if (row.insegn_id) {
+    // caso particolare mantenuto per compatibilità
+    this.router.navigate([this.routeAbsolutePath, row.insegn_id]);
+  } else if (row.id) {
+    this.router.navigate([this.routeAbsolutePath, row.id]);
+  }
+}
+
+  downloadSelection(value) {
+
   }
 
-  rowSelection(row) {
-    this.setStorageResult();      
-    if (row.insegn_id) {
-      // caso particolare mantenuto per compatibilità
-      this.router.navigate([this.routeAbsolutePath, row.insegn_id]);
-    } else if (row.id) {
-      this.router.navigate([this.routeAbsolutePath, row.id]);
-    }
+  downloadDisabled(value) {
+    return false;
   }
+
 }

@@ -10,6 +10,7 @@ use App\FindParameter;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\Paginator as BasePaginator;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+use Illuminate\Support\Str;
 
 class QueryTitulusBuilder {
 
@@ -131,11 +132,11 @@ class QueryTitulusBuilder {
 
     private function setterMethodName($key)
     {
-        return 'set' . studly_case($key);
+        return 'set' . Str::studly($key);
     }
     private function customFilterName($key)
     {
-        return 'filterBy' . studly_case($key);
+        return 'filterBy' . Str::studly($key);
     }
     private function setPage($page)
     {

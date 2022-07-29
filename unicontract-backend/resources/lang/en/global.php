@@ -186,7 +186,7 @@ return [
     "d2_title2"=>"Posizione assicurativa INAIL",
     "d2_txt1"=>"Ai sensi del D.Lgs. 38/2000, si dichiara di:",
     "d2_txt2"=>"essere soggetti individuati nell'art. 50, comma 1, lettera c-bis del TUIR che esercitano un'attività a rischio (art. 1 del Testo Unico n. 1124/1965) attratta all'obbligo assicurativo INAIL 5,9 ‰.",
-    "d2_txt3"=>"essere soggetti individuati nell'art. 50, comma 1, lettera c-bis del TUIR che esercitano un'attività a rischio (art.1 del Testo Unico n. 1124/65) attratta all'obbligo assicurativo INAIL 10,26 ‰.",
+    "d2_txt3"=>"essere soggetti individuati nell'art. 50, comma 1, lettera c-bis del TUIR che esercitano un'attività a rischio (art.1 del Testo Unico n. 1124/65) attratta all'obbligo assicurativo INAIL 10,72 ‰.",
     "d2_txt4"=>"essere soggetti individuati nell'art. 50, comma 1, lettera c-bis del TUIR che esercitano un'attività a rischio (art. 1 del Testo Unico n. 1124/65) attratta all'obbligo assicurativo INAIL 4,75 ‰.",
     "d2_txt5"=>"non essere soggetti all'obbligo di assicurazione INAIL in quanto l'attività oggetto del contratto consiste in docenza frontale.",
     "d2_sub_txt1"=>"Posizione assicurativa 11475146/71: Laboratori di analisi chimiche, fisiche, industriali, merceologiche, ecc. (solo per attività effettuate a se stante; compreso l'accesso ad opifici, cantieri, ecc.); istituti sperimentali e di ricerca scientifica (istituti fisici, chimici, mineralogici, petrografici, elettrotecnici, meccanici, agrari, ecc.).",
@@ -194,7 +194,7 @@ return [
     "d2_sub_txt3"=>"Posizione assicurativa 11475145/26: Personale che per lo svolgimento delle proprie mansioni fa uso diretto di videoterminali e macchine da ufficio; personale addetto a centri di elaborazione dati, a centralini telefonici, a sportelli informatizzati, a registratori di cassa, e simili.",
 
     "INAIL7" => '5,9 ‰',
-    "INAIL10" => '10,26 ‰',
+    "INAIL10" => '10,72 ‰',
     "INAIL4" => '4,75 ‰',
     "NOINAIL" => 'no',
 
@@ -231,6 +231,9 @@ return [
     "d4_nota3"=>"- l'aliquota IRPEF del 23% riguarda i contribuenti con un reddito compreso tra € 0,00 e € 15.000,00",
     "d4_nota4"=>"- l'aliquota IRPEF del 27% riguarda i contribuenti con un reddito compreso tra € 15.000,01 e € 28.000,00",
     "d4_nota5"=>"- l'aliquota IRPEF del 38% riguarda i contribuenti con un reddito compreso tra € 28.000,01 e € 55.000,00",
+    "d4_nota4_2022" => "- l'aliquota IRPEF del 25% riguarda i contribuenti con un reddito compreso tra € 15.000,01 e € 28.000,00",
+    "d4_nota5_2022" => "- l'aliquota IRPEF del 35% riguarda i contribuenti con un reddito compreso tra € 28.000,01 e € 50.000,00",
+    "d4_nota6_2022" => "- l'aliquota IRPEF del 43% riguarda i contribuenti con un reddito superiore a € 50.000,00",
     "d4_nota6"=>"- l'aliquota IRPEF del 41% riguarda i contribuenti con un reddito compreso tra € 55.000,01 e € 75.000,00",
     "d4_nota7"=>"- l'aliquota IRPEF del 43% riguarda i contribuenti con un reddito superiore a € 75.000,00",
     "d4_nota8"=>"Nota informativa",
@@ -316,6 +319,10 @@ return [
     "26121"=> "DISTUM",
     "26080"=> "DiSPeA",
     "26124"=> "DISCUI",
-    "49025"=> "DISCUI"
+    "49025"=> "DISCUI",
+    
+    "dichiaro_RF01"=> "essere professionista rientrante nel regime fiscale ordinario",
+    "dichiaro_RF02"=> "essere professionista rientrante nel regime fiscale contribuenti minimi (art.1, commi 96-117, legge n. 244/2007)",
+    "dichiaro_RF19"=> "essere professionista rientrante nel regime fiscale forfettario (art.1, commi 54-89, legge n. 190/2014)"
 
 ];

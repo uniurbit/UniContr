@@ -72,5 +72,7 @@ class Kernel extends HttpKernel
         'auth.jwt' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'storeudate' => \App\Http\Middleware\StoreUdatePrecontrattuale::class,
+
+        'ownermiddleware' => \App\Http\Middleware\OwnerMiddleware::class,
     ];
 }

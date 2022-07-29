@@ -8,6 +8,7 @@ use App\Models\InsegnamUgov;
 use App\Precontrattuale;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Auth;
 class InsegnamUgovController extends Controller
 {
@@ -49,35 +50,84 @@ class InsegnamUgovController extends Controller
     }
 
     //condizione necessaria che il contratto corrente si CONF_INC 
-    public static function contatoreInsegnamenti($coper_id) {
+    public static function contatoreInsegnamenti($coper_id, $force = true) {
      
+        //se il motivo atto è un contratto di alta qualificazione ... $this->tipoContr == 'ALTQG' || $this->tipoContr == 'ALTQC' || $this->tipoContr == 'ALTQU';
+        //allora vado a cercare il APPR_INC
+        $count = 0;
+        //leggere da ugov insegnamento ...
+        $insegnamentoUgov = InsegnamUgov::where('COPER_ID', $coper_id)            
+            ->first(['coper_id', 'tipo_coper_cod', 'data_ini_contratto', 'data_fine_contratto', 
+                'coper_peso', 'ore', 'compenso', 'motivo_atto_cod', 'tipo_atto_des', 'tipo_emitt_des', 
+                'numero', 'data', 'des_tipo_ciclo', 'sett_des', 'sett_cod','af_radice_id']);  
+
+        $tipo_coper_cod = $insegnamentoUgov->tipo_coper_cod;
+
+        $datiUgov = null;
+              
+        if ( $tipo_coper_cod == 'ALTQG' ||  $tipo_coper_cod == 'ALTQC' ||  $tipo_coper_cod == 'ALTQU'){
+            //contratto di alta qualificazione
+            //non c'è BAN_INC cerco il primo contratto APPR_INC
+            $datiUgov = self::queryFirstMotivoAttoCod($coper_id, ['APPR_INC']);
+
+        }else{
+            //altro
+            $datiUgov = self::queryFirstMotivoAttoCod($coper_id, ['BAN_INC']);
+        }                          
+
+        //ATTENZIONE per i casi di rinnovi contratti già a sistema, di didattica ufficiale ma con affidamento incarico di docenza        
+        if (!$datiUgov){
+            $datiUgov = self::queryFirstMotivoAttoCod($coper_id, ['APPR_INC', 'BAN_INC']);
+            Log::info('Conferimento incarico [ cod_coper_id: '.$coper_id.' ] tipo contratto: '.$tipo_coper_cod.' - non consistente con l\'origine dell\'attribuzione');
+        }
+
+        if ($datiUgov){            
+            $result = DB::connection('oracle')->table('V_IE_DI_COPER V1')->join('V_IE_DI_COPER V2', function($join) use($coper_id){
+                $join->on('V2.AF_GEN_COD', '=', 'V1.AF_GEN_COD')
+                     ->on(DB::raw("COALESCE(V2.SEDE_ID, 1)"), '=', DB::raw("COALESCE(V1.SEDE_ID, 1)"))
+                     ->on(DB::raw("COALESCE(V2.PART_STU_ID,-1)"), '=', DB::raw("COALESCE(V1.PART_STU_ID,-1)"))
+                     ->on('V2.cod_fis','=','V1.cod_fis');                           
+            })->where('V1.COPER_ID','=',$coper_id)->where('V2.data_ini_contratto','<',$datiUgov->data_contratto_corrente)
+            ->where('V2.data_ini_contratto','>=',$datiUgov->ultima_nuova_attribuzione)
+            ->distinct() //elimino i contratti uguali caso PAPI e GNANI per divisione insegnamento in sezioni ... 
+            ->select('V1.coper_id', 'V2.motivo_atto_cod', 'V2.aa_id', 'V2.data_ini_att', 'V2.AF_GEN_COD', 'V1.sede_id', 'V2.sede_id', 'V1.PART_STU_ID', 'V2.PART_STU_ID', 'V2.data_ini_contratto', 'V2.data_fine_contratto')
+            ->get();
+            $count = $result->count();
+        }else{                        
+            Log::info('Conferimento incarico [ cod_coper_id: '.$coper_id.' ] senza BAN_INC o APPR_INC');
+            if ($force){
+                //NON c'è il BAN_INC o APPR_INC conto tutti i contratti CONF_INC PRESENTI escludendo il presente
+                //è un caso di errore quindi ritorno 0 
+                //è impostato un rinnovo ma non vengono trovati i dati per il rinnovo
+                $count = DB::connection('oracle')->table('V_IE_DI_COPER V1')->join('V_IE_DI_COPER V2', function($join) use($coper_id){
+                    $join->on('V2.AF_GEN_COD', '=', 'V1.AF_GEN_COD')
+                        ->on(DB::raw("COALESCE(V2.SEDE_ID, 1)"), '=', DB::raw("COALESCE(V1.SEDE_ID, 1)"))
+                        ->on(DB::raw("COALESCE(V2.PART_STU_ID,-1)"), '=', DB::raw("COALESCE(V1.PART_STU_ID,-1)"))
+                        ->on('V2.cod_fis','=','V1.cod_fis')     
+                        ->on('V2.data_ini_contratto','<','V1.data_ini_contratto');                         
+                })->where('V1.COPER_ID','=',$coper_id)->where('V2.motivo_atto_cod','=','CONF_INC')->count();    
+                return $count;
+            }
+        }
+        
+        return $count;  
+    }
+
+    public static function queryFirstMotivoAttoCod($coper_id,$motivo_atto_cod_array)
+    {
         $datiUgov = DB::connection('oracle')->table('V_IE_DI_COPER V1')->join('V_IE_DI_COPER V2', function($join) use($coper_id) {
             $join->on('V2.AF_GEN_COD', '=', 'V1.AF_GEN_COD')
+                 ->on(DB::raw("COALESCE(V2.SEDE_ID, 1)"), '=', DB::raw("COALESCE(V1.SEDE_ID, 1)"))
+                 ->on(DB::raw("COALESCE(V2.PART_STU_ID,-1)"), '=', DB::raw("COALESCE(V1.PART_STU_ID,-1)"))
                  ->on('V2.cod_fis','=','V1.cod_fis')
                  ->on('V2.data_ini_contratto','<','V1.data_ini_contratto');
         })
-        ->where('V2.motivo_atto_cod','=','BAN_INC')  
-        ->where('V1.COPER_ID','=', $coper_id)->where('V1.motivo_atto_cod','=','CONF_INC')     
-        ->select('V2.data_ini_contratto as ultima_nuova_attribuzione','V1.data_ini_contratto as data_contratto_corrente')
-        ->orderBy('V2.data_ini_contratto', 'DESC')->first();            
+        ->whereIn('V2.motivo_atto_cod',$motivo_atto_cod_array)  
+        ->where('V1.COPER_ID','=', $coper_id)->where('V1.motivo_atto_cod','=','CONF_INC')
+        ->select('V2.data_ini_contratto as ultima_nuova_attribuzione','V1.data_ini_contratto as data_contratto_corrente','V2.motivo_atto_cod as motivo_atto_cod_inizio')
+        ->orderBy('V2.data_ini_contratto', 'DESC')->first();     
 
-        if ($datiUgov){            
-            $count = DB::connection('oracle')->table('V_IE_DI_COPER V1')->join('V_IE_DI_COPER V2', function($join) use($coper_id){
-                $join->on('V2.AF_GEN_COD', '=', 'V1.AF_GEN_COD')
-                     ->on('V2.cod_fis','=','V1.cod_fis');                           
-            })->where('V1.COPER_ID','=',$coper_id)->where('V2.data_ini_contratto','<',$datiUgov->data_contratto_corrente)
-            ->where('V2.data_ini_contratto','>=',$datiUgov->ultima_nuova_attribuzione)->count();
-        }else{
-            //NON c'è il BAN_INC conto tutti i contratti CONF_INC PRESENTI escludendo il presente
-            $count = DB::connection('oracle')->table('V_IE_DI_COPER V1')->join('V_IE_DI_COPER V2', function($join) use($coper_id){
-                $join->on('V2.AF_GEN_COD', '=', 'V1.AF_GEN_COD')
-                     ->on('V2.cod_fis','=','V1.cod_fis')     
-                     ->on('V2.data_ini_contratto','<','V1.data_ini_contratto');                         
-            })->where('V1.COPER_ID','=',$coper_id)->where('V2.motivo_atto_cod','=','CONF_INC')->count();    
-            return $count;
-        }
-        
-        return $count;
+        return $datiUgov;
     }
 
     public function query(Request $request){
@@ -100,6 +150,12 @@ class InsegnamUgovController extends Controller
             "operator" => "!=",
             "field" => "DATA_INI_CONTRATTO",                
             "value" => '[null]'
+        ]);
+        //filtro insegnamenti con rinuncia
+        array_push($parameters['rules'],[
+            "operator" => "NotIn",
+            "field" => "STATO_COPER_COD",                
+            "value" => ['R']
         ]);
 
 

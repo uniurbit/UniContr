@@ -270,15 +270,17 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
   }
 
   getOperators(field: string, rawmodel): Operator[] {
+    const fieldObject = this.keymetadata[field];    
+    let type = fieldObject.type;  
+    //effetto collaterale per impostare il type al modello di risposta
+    rawmodel.type = fieldObject.type;
+
     if (this.operatorsCache[field]) {
       return this.operatorsCache[field];
     }
     //non eseguito quando l'operatore è in cache
     let operators = this.defaultEmptyList;
-    const fieldObject = this.keymetadata[field];    
-    let type = fieldObject.type;  
-    rawmodel.type = fieldObject.type;
-    
+        
     if (type) {
       if (type === 'external')
         type = (fieldObject.templateOptions.type || 'string');

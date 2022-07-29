@@ -5,6 +5,7 @@ use Request;
 use App\LogActivity as LogActivityModel;
 use App\User;
 use Auth;
+use Illuminate\Support\Str;
 
 class LogActivityService
 {
@@ -15,7 +16,7 @@ class LogActivityService
 
         if ($content == null){
             $content = Request::getContent();
-            $content = (strlen($content) > 500) ? substr($content,0,500) : $content;
+            $content = (strlen($content) > 500) ? Str::limit($content,500) : $content;
         }
 
     	$log = [];

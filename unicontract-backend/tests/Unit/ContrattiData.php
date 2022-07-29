@@ -195,4 +195,33 @@ class ContrattiData
         ];
     }
 
+    public static function getA2ModalitaPagamento($insegn_id){
+        return [
+            'insegn_id' => $insegn_id,
+            'modality' => "ACIC",
+            'intestazione' => "Cleri Bonita",
+            'iban' => "IT33U0311168280000000005966",
+            'denominazione' => "UBI Banca",
+            'luogo' => "Fermignano",
+            'bic' => null,
+            'aba' => null,
+            'originalValue' => [
+                'modality' => "ACIC",
+                'intestazione' => "Cleri Bonita",
+                'iban' => "IT33U0311168280000000005966",
+                'denominazione' => "UBI Banca",
+                'luogo' => "Fermignano",
+            ]
+        ];
+    }
+
+    public static function getValidazioneEconomica($insegn_id){
+        return [
+            'insegn_id' => $insegn_id,
+            'entity' => [
+                'flag_amm' => true
+            ]
+        ];
+    }
+
 }

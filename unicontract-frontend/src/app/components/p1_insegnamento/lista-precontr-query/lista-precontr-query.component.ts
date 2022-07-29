@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MyTranslatePipe } from 'src/app/shared/pipe/custom.translatepipe';
 import { annoAccademicoCorrente } from 'src/app/shared/dynamic-form/utils';
+import { encode, decode } from 'base64-arraybuffer';
 
 @Component({
   selector: 'app-lista-precontr-query',
@@ -25,7 +26,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
       templateOptions: {
         label: 'Codice',        
       }
-    },
+    },    
     {
       key: 'insegnamento.aa',
       type: 'select',
@@ -33,14 +34,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
         label: 'Anno',
         valueProp: 'value',
         labelProp: 'label',
-        options: [
-          {value: '2016', label: '2016 / 2017'},
-          {value: '2017', label: '2017 / 2018'},
-          {value: '2018', label: '2018 / 2019'},
-          {value: '2019', label: '2019 / 2020'},
-          {value: '2020', label: '2020 / 2021'},
-          {value: '2021', label: '2021 / 2022'},
-        ]
+        options: this.service.getAnniAccademici()
       }
     },
     {
@@ -352,7 +346,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
         onDblclickRow: (event) => this.onDblclickRow(event),
         onSetPage: (pageInfo) => this.onSetPageWithInit(pageInfo),
         columns: [
-          { name: '', prop: 'insegn_id',  with: 65, maxWidth: 65, cellTemplate: this.apri },
+          { name: '', prop: 'insegn_id',  with: 100, maxWidth: 100, cellTemplate: this.comandi },
           { name: '#', prop: 'id', width: 80, maxWidth: 100 },
           { name: 'Copertura', prop: 'insegnamento.coper_id', width: 100, maxWidth: 100 },
           { name: 'Dipartimento', prop: 'insegnamento.dip_cod', cellTemplate: this.tooltipCellTemplate, width: 100, maxWidth: 150 },
@@ -387,6 +381,32 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     }
 
   }
+
+  downloadDisabled(row){
+    if (row.stato == 1){
+      return false;
+    }
+    return true;
+  }
+
+  downloadSelection(row){
+    if (row.stato==1) {
+      this.isLoading = true;
+      this.service.downloadContrattoFirmato(row.id).subscribe(file => {
+        this.isLoading = false;
+        if (file.filevalue) {
+          const blob = new Blob([decode(file.filevalue)]);
+          saveAs(blob, file.filename);
+        }
+      },
+        e => { 
+          this.isLoading = false;
+          console.log(e); 
+        }
+      );
+    }
+  }
+
 
 
 }

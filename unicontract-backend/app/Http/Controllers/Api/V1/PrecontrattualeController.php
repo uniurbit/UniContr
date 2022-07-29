@@ -18,6 +18,11 @@ use App\Service\TitulusHelper;
 use App\Exports\PrecontrattualeExport;
 use Illuminate\Support\Facades\Log;
 use App\Models\InsegnamUgov;
+use PHP_IBAN\IBAN;
+use Illuminate\Support\Facades\Cache;
+use App\Exceptions\Handler;
+use Illuminate\Container\Container;
+use Exception;
 
 class PrecontrattualeController extends Controller
 {
@@ -128,6 +133,13 @@ class PrecontrattualeController extends Controller
             return compact('data', 'message', 'success');
         }
 
+        //verificare motivo atto non supportato
+        if ($insegnamentoUgov->motivo_atto_cod && !in_array($insegnamentoUgov->motivo_atto_cod, ['BAN_INC','APPR_INC','CONF_INC'])){
+            $message = 'Insegnamento non aggiornabile: motivo atto non supportato';
+            $success = false;            
+            return compact('data', 'message', 'success');
+        }
+
         //verificare la data di conferimento
         if (!$insegnamentoUgov->data){                
             $message = 'Insegnamento non aggiornabile: data conferimento non inserita';
@@ -140,6 +152,20 @@ class PrecontrattualeController extends Controller
             $success = false;            
             return compact('data', 'message', 'success');
         }     
+
+        if ($insegnamentoUgov->motivo_atto=='APPR_INC' && !in_array($insegnamentoUgov->tipo_contratto, ['ALTQG','ALTQC','ALTQU'])){
+            $data = null;
+            $message = 'Insegnamento non aggiornabile: tipologia copertura non coerente con il motivo atto';
+            $success = false;            
+            return compact('data', 'message', 'success');
+        }
+        
+        if ($insegnamentoUgov->motivo_atto=='BAN_INC' && !in_array($insegnamentoUgov->tipo_contratto, ['CONTC', 'CONTU', 'INTC', 'INTU', 'INTXU', 'INTXC', 'SUPPU', 'SUPPC'])){
+            $data = null;
+            $message = 'Insegnamento non aggiornabile: tipologia copertura non coerente con il motivo atto';
+            $success = false;            
+            return compact('data', 'message', 'success');
+        }
         
         //verificare i cfu    
         //se c'è la p2 e 
@@ -170,9 +196,26 @@ class PrecontrattualeController extends Controller
 
         }
 
+        if ($insegnamentoUgov->motivo_atto_cod=='CONF_INC'){
+            $value = Cache::pull('counter_'.$insegnamentoUgov->coper_id);
+            $contatore = InsegnamUgovController::contatoreInsegnamenti($insegnamentoUgov->coper_id, false);
+            if ($contatore == 0){
+                Log::info('Contatore a 0 - Importato contratto [ coper_id =' . $insegnamentoUgov->coper_id . '] [contatore insegnamenti = '.$contatore);                  
+                $handler = new Handler(Container::getInstance());
+                $handler->report(new Exception('Aggiornato contratto con contatore a 0  [ coper_id =' . $insegnamentoUgov->coper_id . ']'));
+
+                // $data = null;
+                // $message = 'Insegnamento non importabile come RINNOVO CONTRATTO: non ci sono precedenti insegnamenti corrispondenti';
+                // $success = false;            
+                // return compact('data', 'message', 'success');
+            }
+        }
+
         $precontr->insegnamento->setDataFromUgov($insegnamentoUgov);
 
         $precontr->insegnamento->save();
+
+   
 
         $precontr->storyprocess()->save(
             PrecontrattualeService::createStoryProcess('Modello P1: Aggiornamento dati insegnamento', 
@@ -212,6 +255,13 @@ class PrecontrattualeController extends Controller
                 return compact('data', 'message', 'success');
             }
 
+            //verificare motivo atto non supportato
+            if ($request->insegnamento['motivo_atto'] && !in_array($request->insegnamento['motivo_atto'], ['BAN_INC','APPR_INC','CONF_INC'])){
+                $message = 'Insegnamento non importabile: motivo atto non supportato';
+                $success = false;            
+                return compact('data', 'message', 'success');
+            }
+
             //verificare la data di conferimento
             if (!$request->insegnamento['data_delibera']){                
                 $message = 'Insegnamento non importabile: data conferimento non inserita';
@@ -234,7 +284,7 @@ class PrecontrattualeController extends Controller
             //verificare che al docente sia associata una email istituzionale        
             if ($request->insegnamento['tipo_contratto'] && !in_array($request->insegnamento['tipo_contratto'], ['ALTQG','ALTQC','ALTQU', 'CONTC', 'CONTU', 'INTC', 'INTU', 'INTXU', 'INTXC', 'SUPPU', 'SUPPC'  ])){
                 $data = null;
-                $message = 'Insegnamento non importabile: tipologia non riconosciuta';
+                $message = 'Insegnamento non importabile: tipologia di copertura non riconosciuta';
                 $success = false;            
                 return compact('data', 'message', 'success');
             }
@@ -246,6 +296,60 @@ class PrecontrattualeController extends Controller
                 $success = false;            
                 return compact('data', 'message', 'success');
             }
+
+            if ($request->insegnamento['motivo_atto']=='APPR_INC' && !in_array($request->insegnamento['tipo_contratto'], ['ALTQG','ALTQC','ALTQU'])){
+                $data = null;
+                $message = 'Insegnamento non importabile: tipologia copertura non coerente con il motivo atto';
+                $success = false;            
+                return compact('data', 'message', 'success');
+            }
+            
+            if ($request->insegnamento['motivo_atto']=='BAN_INC' && !in_array($request->insegnamento['tipo_contratto'], ['CONTC', 'CONTU', 'INTC', 'INTU', 'INTXU', 'INTXC', 'SUPPU', 'SUPPC'])){
+                $data = null;
+                $message = 'Insegnamento non importabile: tipologia copertura non coerente con il motivo atto';
+                $success = false;            
+                return compact('data', 'message', 'success');
+            }
+
+            // if ($request->insegnamento['motivo_atto']=='CONF_INC' && !in_array($request->insegnamento['tipo_contratto'], ['CONTC', 'CONTU', 'INTC', 'INTU', 'INTXU', 'INTXC', 'SUPPU', 'SUPPC'])){
+            //     //verifico che nel passato il PRIMO in ordine decrescente dei contratti sia un 'BAN_INC'   
+            //     $datiUgov = self::queryFirstMotivoAttoCod($coper_id, ['APPR_INC', 'BAN_INC']);
+            //     if ($dataUgov == null || $dataUgov->motivo_atto_cod_inizio != 'BAN_INC'){
+            //         $data = null;
+            //         $message = 'Insegnamento non importabile: rinnovo con tipologia di contratto non coerente il primo conferimento';
+            //         $success = false;            
+            //         return compact('data', 'message', 'success');
+            //     }
+            // }
+
+            // if ($request->insegnamento['motivo_atto']=='CONF_INC' && !in_array($request->insegnamento['tipo_contratto'], ['ALTQG','ALTQC','ALTQU'])){
+            //     //verifico che nel passato iL PRIMO in ordine decrescente dei contratti sia un 'APPR_INC'
+            //     //verifico che nel passato il PRIMO in ordine decrescente dei contratti sia un 'BAN_INC'   
+            //     $datiUgov = self::queryFirstMotivoAttoCod($coper_id, ['APPR_INC', 'BAN_INC']);
+            //     if ($dataUgov == null || $dataUgov->motivo_atto_cod_inizio != 'APPR_INC'){
+            //         $data = null;
+            //         $message = 'Insegnamento non importabile: rinnovo con tipologia di contratto non coerente il primo conferimento';
+            //         $success = false;            
+            //         return compact('data', 'message', 'success');
+            //     }
+            // }
+
+            if ($request->insegnamento['motivo_atto']=='CONF_INC'){
+                $contatore = InsegnamUgovController::contatoreInsegnamenti($request->insegnamento['coper_id'], false);              
+                if ($contatore == 0){
+                    Log::info('Contatore a 0 - Importato contratto [ coper_id =' . $request->insegnamento['coper_id'] . '] [contatore insegnamenti = '.$contatore);                  
+                    $handler = new Handler(Container::getInstance());
+                    $handler->report(new Exception('Importato contratto con contatore a 0  [ coper_id =' . $request->insegnamento['coper_id'] . ']'));
+
+                    $data = null;
+                    $message = 'Insegnamento non importabile come RINNOVO CONTRATTO: non ci sono precedenti insegnamenti corrispondenti';
+                    $success = false;            
+                    return compact('data', 'message', 'success');
+                }else{
+                    Log::info('Importato contratto [ coper_id =' . $request->insegnamento['coper_id'] . '] [contatore insegnamenti = '.$contatore);
+                }
+            }
+            
 
             $message = '';
             $postData = $request->except('id', '_method');
@@ -334,12 +438,20 @@ class PrecontrattualeController extends Controller
         $success = true;
         $message = '';
 
-        $pre = Precontrattuale::with(['p2naturarapporto','anagrafica','validazioni'])->where('insegn_id', $request->insegn_id)->first();
+        $pre = Precontrattuale::with(['p2naturarapporto','insegnamento','anagrafica','validazioni'])->where('insegn_id', $request->insegn_id)->first();
         if ($pre->isAnnullata()){
             $data = [];
             $message = trans('global.aggiornamento_non_consentito');
             $success = false;
             return compact('data', 'message', 'success');   
+        }
+
+        $insegnamentoUgov = InsegnamUgov::where('COPER_ID', $pre->insegnamento->coper_id)->first();
+        if ($insegnamentoUgov == null){ 
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito').': il codice di copertura di questo insegnamento è stato eliminato da Ugov didattica, rimuovere la precontrattuale';
+            $success = false;
+            return compact('data', 'message', 'success');       
         }
 
         if (!$pre->checkCompilazioneModelli()){
@@ -466,7 +578,7 @@ class PrecontrattualeController extends Controller
         $success = true;
         $message = '';
 
-        $pre = Precontrattuale::with(['p2naturarapporto','anagrafica','validazioni'])->where('insegn_id', $request->insegn_id)->first();
+        $pre = Precontrattuale::with(['p2naturarapporto','anagrafica','insegnamento','a2modalitapagamento','validazioni'])->where('insegn_id', $request->insegn_id)->first();
         if ($pre->isAnnullata()){
             $data = [];
             $message = trans('global.aggiornamento_non_consentito');
@@ -474,12 +586,31 @@ class PrecontrattualeController extends Controller
             return compact('data', 'message', 'success');   
         }
 
+        $insegnamentoUgov = InsegnamUgov::where('COPER_ID', $pre->insegnamento->coper_id)->first();
+        if ($insegnamentoUgov == null){ 
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito').': il codice di copertura di questo insegnamento è stato eliminato da Ugov didattica, rimuovere la precontrattuale';
+            $success = false;
+            return compact('data', 'message', 'success');       
+        }
+
         if (!$pre->checkCompilazioneModelli()){
             $data = [];
-            $message = trans('global.validazione_non_consentita');
             $success = false;
+            $message = trans('global.validazione_non_consentita');
             return compact('data', 'message', 'success');   
         }        
+
+        
+        if ($pre->a2modalitapagamento->modality == 'ACIC'){
+            $iban = new IBAN($pre->a2modalitapagamento->iban);
+            if (!$iban->Verify()){
+                $data = [];
+                $success = false;
+                $message = 'Errore: IBAN non corretto';
+                return compact('data', 'message', 'success');
+            }
+        }
 
         $valid = Validazioni::where('insegn_id',$request->insegn_id)->first();
 
@@ -499,26 +630,7 @@ class PrecontrattualeController extends Controller
         }
 
         $postData = $request->except('id', '_method');
-        $valid->fill($postData['entity']);
-        $valid->date_amm = Carbon::now()->format(config('unidem.datetime_format'));
-
-        if ($valid->current_place = "revisione_amministrativaeconomica_economica"){
-            $transition = "valida_revisione_amministrativaeconomica_economica";
-        } else if ($valid->current_place = "revisione_economica"){
-            $transition = "valida_revisione_economica";
-        }else {
-            $transition = "valida_economica";
-        }
-
-        $valid->workflow_apply($transition);
-        //$transitions = $valid->workflow_transitions();
-        //$valid->workflow_apply($transitions[0]->getName());
-
-        $data = EmailService::sendEmailByType($request->insegn_id,"APP");       
-
-        $valid->save();        
-
-        $data = Validazioni::where('insegn_id',$request->insegn_id)->first();
+        $data = PrecontrattualeService::validazioneEconomica($request->insegn_id,$postData,$message);
 
         return compact('data', 'message', 'success');
     }
@@ -623,7 +735,7 @@ class PrecontrattualeController extends Controller
         $message = '';        
         $data = [];        
        
-        $pre = Precontrattuale::with(['p2naturarapporto','anagrafica','validazioni'])->where('insegn_id', $request->insegn_id)->first();
+        $pre = Precontrattuale::with(['p2naturarapporto','insegnamento','anagrafica','validazioni'])->where('insegn_id', $request->insegn_id)->first();
         
         if ($pre->isAnnullata()){
             $data = [];
@@ -638,6 +750,14 @@ class PrecontrattualeController extends Controller
             $success = false;
             return compact('data', 'message', 'success');   
         }      
+
+        $insegnamentoUgov = InsegnamUgov::where('COPER_ID', $pre->insegnamento->coper_id)->first();
+        if ($insegnamentoUgov == null){ 
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito').': il codice di copertura di questo insegnamento è stato eliminato contattare la sua segreteria didattica';
+            $success = false;
+            return compact('data', 'message', 'success');       
+        }
 
         //aggiornamento tabella validazioni        
         $valid = Validazioni::where('insegn_id', $request->insegn_id)->first();        
@@ -724,6 +844,9 @@ class PrecontrattualeController extends Controller
         // se l'utente NON ha il permesso di ricerca su tutti i contratti
         if (!Auth::user()->hasPermissionTo('search all contratti')){           
 
+            //se ha il ruolo docente e il 
+            //e ruolo operatore dipartimentale
+            //nel caso multiruolo devo scegliere un ruolo
             if (Auth::user()->hasRole('op_docente')){
                 array_push($parameters['rules'],[
                     "operator" => "=",
@@ -825,6 +948,46 @@ class PrecontrattualeController extends Controller
             $attach['filevalue'] =  base64_encode(Storage::get($attach->filepath));
         }        
         return $attach;    
+    }
+    
+    public function downloadContrattoFirmato($id){
+        $pre = Precontrattuale::withoutGlobalScopes()->with(['attachments','user','insegnamento'])->where('id', $id)->first();
+
+        // se l'utente NON ha il permesso di ricerca su tutti i contratti verifico se può eseguire il download
+        if (!Auth::user()->hasPermissionTo('search all contratti')){           
+
+            if (Auth::user()->hasRole('op_docente')){
+                if ($pre->user->v_ie_ru_personale_id_ab != Auth::user()->v_ie_ru_personale_id_ab){
+                    abort(403, trans('global.utente_non_autorizzato'));
+                }                
+            }else{
+                //aggiungere filtro per unitaorganizzativa_uo
+                $uo = Auth::user()->unitaorganizzativa();
+
+                if ($uo == null) {
+                    abort(403, trans('global.utente_non_autorizzato'));
+                }    
+
+                if ($uo->isPlesso()){
+                    if (!(in_array($pre->insegnamento->dip_cod,$uo->dipartimenti()))){
+                        abort(403, trans('global.utente_non_autorizzato'));
+                    }    
+                    
+                } else {
+                    if ($pre->insegnamento->dip_cod != $uo->uo){
+                        abort(403, trans('global.utente_non_autorizzato'));
+                    }                   
+                }     
+            }                  
+        }
+        
+        if ($pre->stato == 1){
+            $attach =  $pre->attachments()->where('attachmenttype_codice','CONTR_FIRMA')->first();
+            if ($attach){
+                return (new AttachmentController())->download($attach->id);
+            }                   
+        }                            
+        abort(404, "Documento non trovato");                         
     }
 
 }

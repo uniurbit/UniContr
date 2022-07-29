@@ -85,20 +85,20 @@ class TitulusTest extends TestCase
     }
 
     // ./vendor/bin/phpunit  --testsuite Unit --filter testTitulusUrl
-    public function testTitulusUrl(){
-        $params = array(
-            'verbo' => 'attach',
-            'db'=> 'xdocwaydoc',
-            'id' =>  'lCSypEWbk/J8IwtiXvkR4Q==_000174511-FS_FILES-b86ee703-5545-410e-b2c9-682262de7051[129].pdf',
-            'stampigliatura' => true,
-        );
-        $queryString = http_build_query($params);
-        $url = URL::to('https://titulus-uniurb.pp.cineca.it/xway/application/xdocway/engine/xdocway.jsp'. '?' . $queryString);
-        $this->assertNotNull($url);
-        var_dump($url);
-        $contents = file_get_contents($url);
-        var_dump($contents);
-    }
+    // public function testTitulusUrl(){
+    //     $params = array(
+    //         'verbo' => 'attach',
+    //         'db'=> 'xdocwaydoc',
+    //         'id' =>  'lCSypEWbk/J8IwtiXvkR4Q==_000174511-FS_FILES-b86ee703-5545-410e-b2c9-682262de7051[129].pdf',
+    //         'stampigliatura' => true,
+    //     );
+    //     $queryString = http_build_query($params);
+    //     $url = URL::to('https://titulus-uniurb.pp.cineca.it/xway/application/xdocway/engine/xdocway.jsp'. '?' . $queryString);
+    //     $this->assertNotNull($url);
+    //     var_dump($url);
+    //     $contents = file_get_contents($url);
+    //     var_dump($contents);
+    // }
 
     // ./vendor/bin/phpunit  --testsuite Unit --filter testSaveDocumentTitulus
     //Ripristinare SoapFault: java.lang.Exception: Operazione non consentita, mancata autorizzazione!
@@ -254,10 +254,13 @@ class TitulusTest extends TestCase
         $fasc->addRPA(TitulusTest::UFF,TitulusTest::NOME_RPA);                  
         //$fasc->voce_indice = 'UNIPEO - Domanda di progressione economica orizzontale';  
         //var_dump($fasc->toXml());
-//<voce_indice>UNIPEO - Domanda di progressione economica orizzontale</voce_indice>
+        //<voce_indice>UNIPEO - Domanda di progressione economica orizzontale</voce_indice>
         $this->assertEquals(str_replace(array("\n", "\r"), '',$fasc->toXml()),
         '<?xml version="1.0" encoding="UTF-8"?><fascicolo><oggetto>convenzione di prova creato mediante ws</oggetto><classif cod="03/13"/><rif_interni><rif diritto="RPA" nome_persona="cappellacci marco" nome_uff="Ufficio Protocollo e Archivio"/></rif_interni></fascicolo>');
         
+        $this->markTestSkipped('Test non eseguito per mancanza autorizzazione');
+
+        //ATTENZIONE OPERAZIONE NON CONSENTITA PER MANCANZA AUTORIZZAZIONE
         $response = $sc->newFascicolo($fasc->toXml());
         $this->assertNotNull($response);
         //var_dump($response);
@@ -605,6 +608,64 @@ class TitulusTest extends TestCase
         $persint = $ctr->getResponsabile('Servizio Sistema Informatico di Ateneo');
         $this->assertNotNull($persint->matricola); 
     }
+ 
     
+     // ./vendor/bin/phpunit  --testsuite Unit --filter testTitulusFindSignedFile
+     public function testTitulusFindSignedFile(){        
+        $xmlresponse = '<?xml version="1.0" encoding="UTF-8"?>
+
+        <Response xmlns:xw="http://www.kion.it/ns/xw" canSee="true" canLinkFolder="true">
+          <url>https://titulus-uniurb.cineca.it/xway/application/xdocway/engine/xdocway.jsp?verbo=queryplain&amp;query=%5B//@physdoc%5D%3D963099&amp;wfActive=false&amp;codammaoo=UNURCLE</url>
+          <Document physdoc="963099">
+            <doc nrecord="000963099-UNURCLE-16be3bd3-c0d5-490f-bac0-01551179c3ff" scarto="99" tipo="partenza" physdoc="963099" data_prot="20201210" anno="2020" cod_amm_aoo="UNURCLE" annullato="no" num_prot="2020-UNURCLE-0055933">
+             
+              <files>
+                <xw:file index="yes" name="ZMjIFVJn17a7YldZVKpoow==_000908648-FS_FILES-820685b8-2107-4cbe-aaac-f4a7e413448a[1].pdf" signed="false" title="Contratto di insegnamento">
+                  <chkin cod_operatore="PI000246" data="20201210" operatore="unicontr2_ws utente" ora="10:20:07"/>
+                  <chkout operatore="ROSSI CATIA (Segreteria del Direttore Generale)" cod_operatore="002823" data="20201210" ora="11:05:05"/>
+                  <DigestMethod Algorithm="SHA-256"/>
+                  <DigestValue>a2f81944819651c465896a4f1b8b597dfed766f52f0a540d4a5a1448cdc2424f</DigestValue>
+                  <xw:file name="Auz0X280YFAgx5oyzl0utQ==_000908744-FS_FILES-c4aca718-ee57-435a-b7e3-4f0a6f80dc37[1].pdf" title="Contratto di insegnamento" index="yes" signed_from="000908648-FS_FILES-820685b8-2107-4cbe-aaac-f4a7e413448a[1].pdf" signed="true">
+                    <chkin operatore="ROSSI CATIA (Segreteria del Direttore Generale)" cod_operatore="002823" data="20201210" ora="11:05:05"/>
+                    <DigestMethod Algorithm="SHA-256"/>
+                    <DigestValue>bc0534c1d1171c9d9ffdfb65c8d64cbaf98bd9a269f9edcf0813febcf19f5c36</DigestValue>
+                  </xw:file>
+                </xw:file>
+              </files>
+
+            </doc>
+          </Document>
+        </Response>';
+       
+
+        $obj = simplexml_load_string($xmlresponse);
+        $document = $obj->Document;        
+        $doc = $document->doc;                
+        foreach ($doc->files->children('xw',true) as $file) {            
+            //restuisce il primo firmato             
+            $signed = (string) $file->attributes()->signed;
+            if ($signed == 'false'){
+                foreach ($file->children('xw',true) as $internalfile) {
+                    $signed = (string) $internalfile->attributes()->signed;
+                    if ($signed == 'true'){
+                        $fileId = (string) $internalfile->attributes()->name;                    
+                        //$attachmentBean =  $sc->getAttachment($fileId);
+                        //$attachmentBean->title =  (string) $file->attributes()->title;  
+                        $this->assertEquals('Contratto di insegnamento',(string) $internalfile->attributes()->title); 
+                        $this->assertEquals('Auz0X280YFAgx5oyzl0utQ==_000908744-FS_FILES-c4aca718-ee57-435a-b7e3-4f0a6f80dc37[1].pdf',$fileId);                         
+                        //return $attachmentBean;  
+                        return;          
+                    }
+                }
+            }
+            $fileId = (string) $file->attributes()->name;                    
+            //$attachmentBean =  $sc->getAttachment($fileId);
+            //$attachmentBean->title =  (string) $file->attributes()->title;  
+            $this->assertEquals('Contratto di insegnamento',(string) $file->attributes()->title); 
+            $this->assertEquals('ZMjIFVJn17a7YldZVKpoow==_000908648-FS_FILES-820685b8-2107-4cbe-aaac-f4a7e413448a[1].pdf',$fileid);                         
+
+        }        
+     }
+
 }
 

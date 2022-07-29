@@ -18,6 +18,7 @@ use Exception;
 use App\Exceptions\Handler;
 use Illuminate\Container\Container;
 use Illuminate\Support\Str;
+
 class LoginListener
 {
     /**
@@ -65,18 +66,25 @@ class LoginListener
         $user->parseAttributes($attributesName);
         
         $userData = new \App\User;    
-        
-        $userData->id = $user->getUserId();
-        $userData->attributes = $user->getAttributes();
-        $userData->name = $user->displayName[0];
-        $userData->email = $user->email[0];
-        $userData->ruolo = $user->ruolo[0];
-        Log::info('email [' . $userData->email . ']');   
-        Log::info('ruolo [' . $userData->ruolo . ']');   
-        $userData->eduPersonScopedAffiliation = $user->eduPersonScopedAffiliation;
-        $userData->password =Hash::make($user->codiceFiscale[0]);
-        $userData->assertion = $user->getRawSamlAssertion();
-        $userData->cf = $user->codiceFiscale[0];
+        try{ 
+            $userData->id = $user->getUserId();
+            $userData->attributes = $user->getAttributes();
+            $userData->name = $user->displayName[0];
+            $userData->email = $user->email[0];
+            Log::info('email [' . $userData->email . ']');   
+            $userData->ruolo = $user->ruolo[0];            
+            Log::info('ruolo [' . $userData->ruolo . ']');   
+            $userData->eduPersonScopedAffiliation = $user->eduPersonScopedAffiliation;
+            $userData->password =Hash::make($user->codiceFiscale[0]);
+            $userData->assertion = $user->getRawSamlAssertion();
+            $userData->cf = $user->codiceFiscale[0];
+        }catch(Exception $e){            
+            Log::info('Errore metadati utente passati dall\'idp');                     
+            $handler = new Handler(Container::getInstance());
+            $handler->report($e);
+            Log::info('Utente non autorizzato: '.$userData->email.' '.$userData->ruolo);            
+            abort(401,  trans('global.utente_non_autorizzato'));
+        }
 
         //check if email already exists and fetch user
         $laravelUser = \App\User::where('email', $userData['email'])->first();

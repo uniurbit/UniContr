@@ -36,7 +36,9 @@ export class FullComponent implements OnInit, OnDestroy {
         if (token) {
             console.log('keep token');
             authService.loginWithToken(token);
-            authService.redirectFirstLogin();
+            const redirect = params.get('redirect');
+            console.log('redirect '+redirect);
+            authService.redirectFirstLogin(redirect);            
           } else {
             console.log('no token');
           }
@@ -74,8 +76,8 @@ export class FullComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.router.url === '/') {      
-      if (this.authService.isAuthenticated()){
-        this.authService.redirectFirstLogin();
+      if (this.authService.isAuthenticated()){        
+        this.authService.redirectFirstLogin(null);
       }else{
         this.router.navigate(['home/']);
       }      

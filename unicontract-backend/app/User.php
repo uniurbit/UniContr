@@ -13,6 +13,8 @@ use App\Models\AnagraficaUgov;
 use App\UnitaOrganizzativa;
 use Auth;
 use App;
+use Illuminate\Support\Facades\Cache;
+
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
@@ -151,6 +153,22 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(PersonaleResponsOrg::class, 'id_ab', 'v_ie_ru_personale_id_ab');
     }
 
+    public function cacheKey()
+    {
+        return sprintf(
+            "%s/%s",
+            $this->getTable(),
+            $this->v_ie_ru_personale_id_ab
+        );
+    }
+
+    public function personaleRelation()
+    {
+        return Cache::remember($this->cacheKey() . ':personale', 60 * 24 * 20, function () {
+            return $this->personale()->get();
+        });
+    }
+
     public function personale()
     {
         return $this->hasOne(Personale::class, 'id_ab', 'v_ie_ru_personale_id_ab');
@@ -168,9 +186,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function unitaOrganizzativa()
     {
-        $p = $this->personale()->first();
+        $p = $this->personaleRelation()->first();
         if ($p){
-            return $p->unita()->first();                
+            return $p->unitaRelation()->first();                
         }        
     }
  

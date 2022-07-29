@@ -667,6 +667,11 @@ const routes: Routes = [
         path: 'lineeguida/:val',
         component: LinkEsterniComponent, canActivate: [AuthGuard], pathMatch: 'full',
       },
+      // LINK al contratto
+      {
+        path: 'contratto/:val/:id',
+        component: LinkEsterniComponent, canActivate: [AuthGuard], pathMatch: 'full',
+      },
 
       // STORY PROCESS
       {
@@ -932,8 +937,13 @@ const routes: Routes = [
     {
         provide: externalLoginUrlProvider,
         useValue: (route: ActivatedRouteSnapshot) => {
-            // const externalUrl = route.paramMap.get('externalUrl');
-            window.open(environment.API_URL + 'api/loginSaml', '_self');
+          const externalUrl = route.queryParams['redirect'];
+          console.log(externalUrl);
+          if (externalUrl){
+            window.open(environment.API_URL + 'api/loginSaml?redirect='+externalUrl, '_self');
+          }else{
+            window.open(environment.API_URL + 'api/loginSaml');
+          }
         },
     },
   ],

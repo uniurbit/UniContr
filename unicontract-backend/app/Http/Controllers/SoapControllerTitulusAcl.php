@@ -32,9 +32,10 @@ class SoapControllerTitulusAcl implements iSearch
         ->wsdl('https://'.config('titulus.username').':'.config('titulus.password').'@'.config('titulus.host').'/titulus_ws/services/Acl4?wsdl')
         ->trace(true)
         ->options([
-          'soap_version' => SOAP_1_1,
+          'soap_version' => 1,
           'login' => config('titulus.username'),
-          'password' => config('titulus.password')
+          'password' => config('titulus.password'),
+          'cache_wsdl'   => WSDL_CACHE_NONE  
       ]);        
     });        
   }

@@ -21,7 +21,8 @@ class C_PrestazioneProfessionale extends Model
         'denominazione_cassa',
         'contributo_cassa',
         'flag_rivalsa',
-        'flag_regime_fiscale'
+        'flag_regime_fiscale',
+        'regime_fiscale'
     ];
 
     protected $casts = [

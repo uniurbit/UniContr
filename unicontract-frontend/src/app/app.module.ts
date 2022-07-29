@@ -211,6 +211,7 @@ import { MyMissingTranslationHandler } from './shared/MyMissingTranslationHandle
 import { LogAttivitaComponent } from './components/user/logattivita.component';
 import { LogAttivitaService } from './services/logattivita.service';
 import { SettingsService } from './services/settings.service';
+import { SessionStorageService } from './services/session-storage.service';
 
 
 
@@ -448,6 +449,7 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
     MappingRuoloService,
     MappingUfficioService,
     SettingsService,
+    SessionStorageService,
     {provide: 'personainternaService', useClass: PersonaInternaService},
     {provide: 'strutturainternaService', useClass: StrutturaInternaService},
     {provide: 'strutturaesternaService', useClass: StrutturaEsternaService},

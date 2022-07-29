@@ -80,7 +80,7 @@ class SendReportEmails extends Command
                     //se esiste almeno una precontrattuale invio email alle segreterie 
                     if ($pres->count()>0){
                         $result = PrecontrattualeService::makePdfFromPresForReport($dip, $pres);                       
-                        $email = new ReportSegreterieEmail($dip,$result->download(),'ELENCO_CONTRATTI_DOCENZA_NON_ANCORA_STIPULATI_'.$dip.'.pdf');        
+                        $email = new ReportSegreterieEmail($dip,$result->output(),'ELENCO_CONTRATTI_DOCENZA_NON_ANCORA_STIPULATI_'.$dip.'.pdf');        
                         
                         if (App::environment(['local','preprod'])) {                        
                             Mail::to(config('unidem.administrator_email'))->send($email);                           

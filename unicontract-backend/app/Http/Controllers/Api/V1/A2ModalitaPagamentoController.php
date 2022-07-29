@@ -11,8 +11,10 @@ use App\Precontrattuale;
 use App\Repositories\A2ModalitaPagamentoRepository;
 use App\Service\PrecontrattualeService;
 use App\Audit;
+use App\Models\Insegnamenti;
 use Illuminate\Support\Facades\Log;
 use Auth;
+use Carbon\Carbon;
 class A2ModalitaPagamentoController extends Controller
 {
 
@@ -73,28 +75,37 @@ class A2ModalitaPagamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id_ab)
+    public function show($id_ab, $insegn_id)
     {
+
         $dati = [];
         $message = '';
         
             $dati = AnagraficaUgov::leftJoin('PAGAMENTI', function($join) {
-                $join->on('PAGAMENTI.MATRICOLA', '=', 'ANAGRAFICA.MATRICOLA')
-                ->orderBy('PAGAMENTI.DATA_IN', 'DESC');
+                $join->on('PAGAMENTI.MATRICOLA', '=', 'ANAGRAFICA.MATRICOLA');              
             })
             ->leftJoin('BANCHE', function($join) {
                 $join->on('PAGAMENTI.ABI', '=', 'BANCHE.ABI');
             })
             ->where('ANAGRAFICA.ID_AB', $id_ab)
+            ->orderBy('PAGAMENTI.DATA_IN', 'DESC')
             ->first(['PAGAMENTI.*', 'ANAGRAFICA.NOME', 'ANAGRAFICA.COGNOME', 'BANCHE.DESCR']);
-
             //cercare l'ultima precontrattuale inserita stato = 0 o stato = 1 docente_id
+            
+            //come determinare che non abbia compilato altri contratti dell'anno accademico corrente? 
             $copy = A2ModalitaPagamento::whereHas('precontrattuale', function ($query) use($id_ab) {
                 $query->where('docente_id',$id_ab)->where('stato','<',2);
-            })->orderBy('id','desc')->first();
+            })->orderBy('id','desc')->first();            
 
+            if ($copy){                
+                $insegn = Insegnamenti::where('id', $insegn_id)->first(); 
+                if ($insegn && $copy->precontrattuale->insegnamento && $insegn->aa != $copy->precontrattuale->insegnamento->aa && $dati){
+                    //se il valore trovato non è dell'anno corrente utilizzare la lettura da ugov
+                    $copy=null;
+                }
+            }
+            
             $dati['copy'] = $copy;          
-
 
             $success = true;
        

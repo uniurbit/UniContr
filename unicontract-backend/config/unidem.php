@@ -48,9 +48,9 @@ return [
     /**
      * Lista email separate da , per spedizione report alle segreterie marco.bernardo@uniurb.it
      */
-    'cc_report_segreterie' =>  explode(',',env('CC_REPORT_SEGRETERIE', 'gianluca.antonelli@uniurb.it,anna.galiotta@uniurb.it,pierangela.donnanno@uniurb.it')),   
+    'cc_report_segreterie' =>  explode(',',env('CC_REPORT_SEGRETERIE', 'gianluca.antonelli@uniurb.it,anna.galiotta@uniurb.it,francesca.fumelli@uniurb.it,pierangela.donnanno@uniurb.it')),   
    
-    'dispea_report_segreterie' =>  array_map('trim',explode(',',env('DISPEA_REPORT_SEGRETERIE', 'direttore.dispea@uniurb.it,segreteria.dispea@uniurb.it,scuola.restauro@uniurb.it,scuola.geologia@uniurb.it,scuola.informatica@uniurb.it,scuola.filosofia@uniurb.it'))),   
+    'dispea_report_segreterie' =>  array_map('trim',explode(',',env('DISPEA_REPORT_SEGRETERIE', 'direttore.dispea@uniurb.it,segreteria.dispea@uniurb.it,scuola.restauro@uniurb.it,scuola.geologia@uniurb.it,scuola.stefi@uniurb.it'))),   
     'disb_report_segreterie' =>  array_map('trim',explode(',',env('DISB_REPORT_SEGRETERIE', 'direttore.disb@uniurb.it, segreteria.disb@uniurb.it, scuola.farmacia@uniurb.it, scuola.sbb@uniurb.it, scuola.motorie@uniurb.it'))),   
     'digiur_report_segreterie' =>  array_map('trim',explode(',',env('DIGIUR_REPORT_SEGRETERIE', 'direttore.digiur@uniurb.it, segreteria.digiur@uniurb.it, scuola.giurisprudenza@uniurb.it'))),   
     'discui_report_segreterie' =>  array_map('trim',explode(',',env('DISCUI_REPORT_SEGRETERIE', 'direttore.discui@uniurb.it, segreteria.discui@uniurb.it, scuola.lingue@uniurb.it, scuola.comunicazione@uniurb.it'))),   
@@ -65,5 +65,10 @@ return [
      /**
      * Lista email separate da , per notifica compilazione terminata da parte del docente  
      */       
-    'cmu_email' => explode(',',env('CMU_EMAIL',  'amministrazione@uniurb.it')),           
+    'cmu_email' => explode(',',env('CMU_EMAIL',  'unicontract@uniurb.it,amministrazione.reclutamento.pdoc@uniurb.it')),     
+        
+    /**
+     * Inserire nuovi IBAN in Ugov 
+     */
+    'ins_iban_ugov' => env('INS_IBAN_UGOV',false),
 ];

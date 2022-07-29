@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage/backups
 /vendor
 .env
 .phpunit.result.cache
@@ -11,3 +12,5 @@ npm-debug.log
 yarn-error.log
 saml.key
 saml.crt
+sp.key
+sp.crt

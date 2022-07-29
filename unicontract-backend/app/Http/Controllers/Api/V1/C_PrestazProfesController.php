@@ -25,7 +25,12 @@ class C_PrestazProfesController extends Controller
             
             $copy = C_PrestazioneProfessionale::whereHas('precontrattuale', function ($query) use($datiPrecontrattuale) {
                 $query->where('docente_id',$datiPrecontrattuale['docente_id'])->where('stato','<',2);
-            })->orderBy('id','desc')->first();            
+            })->orderBy('id','desc')->first();         
+            
+            if ($copy){
+                $copy->flag_regime_fiscale = null;
+            }
+
             $datiPrecontrattuale['copy'] = $copy;
             
             $success = true;

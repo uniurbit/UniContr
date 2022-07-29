@@ -12,7 +12,9 @@ import { Subject } from 'rxjs';
 export class BlankComponent implements OnDestroy {
 
   onDestroy$ = new Subject<void>();
-  
+  redirect = null;
+
+
   constructor(private authService: AuthService, public router: Router) {
     
     let token = null;
@@ -29,7 +31,8 @@ export class BlankComponent implements OnDestroy {
         if (token){
           console.log("keep token");
           authService.loginWithToken(token);
-          authService.redirectFirstLogin();
+          this.redirect = params.get('redirect');          
+          authService.redirectFirstLogin(this.redirect);
           //this.router.navigate(['home/lista-precontr-query']);
         }else{
           console.log("no token blank");
@@ -42,7 +45,7 @@ export class BlankComponent implements OnDestroy {
    ngOnInit() {
     if (this.router.url === '/' || this.router.url === '') {
       if (this.authService.isAuthenticated()){
-        this.authService.redirectFirstLogin();
+        this.authService.redirectFirstLogin(this.redirect);
       }else{
         this.router.navigate(['/home']);
       }      

@@ -109,6 +109,20 @@ class TitulusHelper
         $document = $obj->Document;        
         $doc = $document->doc;                
         foreach ($doc->files->children('xw',true) as $file) {
+
+            $signed = (string) $file->attributes()->signed;
+            if ($signed == 'false'){
+                foreach ($file->children('xw',true) as $internalfile) {
+                    $signed = (string) $internalfile->attributes()->signed;
+                    if ($signed == 'true'){
+                        $fileId = (string) $internalfile->attributes()->name;                    
+                        $attachmentBean =  $sc->getAttachment($fileId);
+                        $attachmentBean->title =  (string) $internalfile->attributes()->title;               
+                        return $attachmentBean;                          
+                    }
+                }
+            }
+
             //restuisce il primo
             $fileId = (string) $file->attributes()->name;            
             $attachmentBean =  $sc->getAttachment($fileId);

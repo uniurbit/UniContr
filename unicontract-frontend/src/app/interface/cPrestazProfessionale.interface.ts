@@ -12,6 +12,7 @@ export interface CPrestazProfessInterface {
     denominazione_cassa: string;
     contributo_cassa: boolean;
     flag_rivalsa: boolean;
-    flag_regime_fiscale: boolean;
+    flag_regime_fiscale?: boolean;
+    regime_fiscale: string;
 }
 

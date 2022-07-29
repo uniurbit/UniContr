@@ -22,7 +22,7 @@ import { NgbStringAdapter } from 'src/app/NgbStringAdapter';
 
 export class B1ConflittoComponent extends BaseComponent {
 
-  items: B1Conflitto;
+  items: B1Conflitto = null;
   private precontr: Updb1;
   idins: number;
   adapter = new NgbStringAdapter();   
@@ -438,6 +438,7 @@ export class B1ConflittoComponent extends BaseComponent {
               templateOptions: {
                 required: true,
                 label: 'Attività professionale',
+                maxLength: 190
               },
               hideExpression: (model, formstate) => {
                 return (!model.flag_attivita);

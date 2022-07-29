@@ -21,6 +21,8 @@
     <app-list-item label="{{ '00_int12' | translate }}" value="{{ datoMancante(item.tipo_atto_des) | uppercase }} NUM. {{ datoMancante(item.numero) }} DEL {{ datoMancante(item.data) | toDateObj | date: 'dd-MM-yyyy'}}"></app-list-item>   
     <app-list-item label="{{ '00_int13' | translate }}" value="{{ datoMancante(item.tipo_emitt_des) | uppercase }}"></app-list-item>
     <app-list-item label="{{ '00_int14' | translate }}" value="{{ datoMancante(tools.tipoConferimento(item.motivo_atto_cod)) }}"></app-list-item>
+    <app-list-item label="{{ '00_int17' | translate }}" value="{{ datoMancante(item.ruolo_doc_des | uppercase) }}"></app-list-item>
+    
     
   </app-riquadro-wrapper>
 

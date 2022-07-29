@@ -142,16 +142,16 @@
         <td></td>
       </tr>
 
-      <tr *ngIf="isAccettato()" [className]="items.stato === 0 ? 'table-warning' : 'table-success'">
+      <tr *ngIf="isAccettato()" [className]="(items.stato === 0 || items.stato === 2) ? 'table-warning' : 'table-success'">
         <td> 
           <!-- <button type="button" class="btn btn-outline-secondary" title="{{ 'summary_title5' | translate }}">  -->
-            <span  *ngIf="items.stato === 0" class="oi oi-thumb-up iconic  pl-2 pb-1 m-1"></span>
+            <span  *ngIf="items.stato === 0 || items.stato === 2" class="oi oi-thumb-up iconic  pl-2 pb-1 m-1"></span>
             <span  *ngIf="items.stato === 1" class="oi oi-check iconic  pl-2 pb-1 m-1"></span>
           <!-- </button> -->
         </td>
         <td>{{ 'summary_firma' | translate }}</td>
         <td>
-          <span *ngIf="items.stato === 0">{{ 'summary_inattesafirma' | translate }}</span>
+          <span *ngIf="items.stato === 0 || items.stato === 2">{{ 'summary_inattesafirma' | translate }}</span>
           <span *ngIf="items.stato === 1">{{ 'summary_firmato' | translate }}</span>
         </td>
         <td>{{ 'summary_segr' | translate }}</td>

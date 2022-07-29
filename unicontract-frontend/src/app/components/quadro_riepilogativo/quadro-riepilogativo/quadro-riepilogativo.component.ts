@@ -22,6 +22,7 @@ import { StoryProcessService } from './../../../services/storyProcess.service';
 import { StoryProcess } from './../../../classes/storyProcess';
 import { stringify } from 'querystring';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { SessionStorageService } from 'src/app/services/session-storage.service';
 
 @Component({
   selector: 'app-quadro-riepilogativo',
@@ -37,7 +38,16 @@ export class QuadroRiepilogativoComponent extends BaseComponent {
   story: StoryProcess;
   datiCont: any = null;
 
-  visualizzatoContratto: boolean = false;
+  _visualizzaContratto: boolean = false;
+  get visualizzatoContratto() : boolean {
+    return this._visualizzaContratto || this.sessionStorageService.getItem('visualizzaContratto'+((this.items) ? this.items.id : ''));
+  }
+
+  set visualizzatoContratto(value: boolean) {
+    this._visualizzaContratto = value;
+    this.sessionStorageService.setItem('visualizzaContratto'+this.items.id, value);
+  }
+
   items: any = null;
   idins: number;
 
@@ -113,6 +123,7 @@ export class QuadroRiepilogativoComponent extends BaseComponent {
               private tools: InsegnamTools,
               private storyService: StoryProcessService,
               private permissionsService: NgxPermissionsService,
+              private sessionStorageService: SessionStorageService,
               private goto: RouteMetods) { super(messageService); }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -186,19 +197,26 @@ export class QuadroRiepilogativoComponent extends BaseComponent {
 
   previewcontratto() {
     this.isLoading = true;
+    
+    let newWindow = window.open();//OPEN WINDOW FIRST ON SUBMIT THEN POPULATE PDF   
+    newWindow.document.write('caricamento ...');
+
     this.summaryService.previewContratto(this.idins).subscribe(file => {
       this.isLoading = false;
-      if (file.filevalue) {
+      if (file && file.filevalue) {
         this.visualizzatoContratto = true;
 
         const blob = new Blob([decode(file.filevalue)], { type: 'application/pdf' });
 
         const fileURL = URL.createObjectURL(blob);
-        window.open(fileURL, '_blank');
+        newWindow.location.href = fileURL;//POPULATING PDF        
+      }else{
+        newWindow.close();
       }
     },
     e => {
       this.isLoading = false;
+      newWindow.close();
       console.log(e);
     }
     );
@@ -243,16 +261,23 @@ export class QuadroRiepilogativoComponent extends BaseComponent {
 
   downloadModulisticaPrecontr(){
     this.isLoading = true;
+     //aperture al di fuori della chiamata asicrona per il blocco popup
+    let newWindow = window.open();//OPEN WINDOW FIRST ON SUBMIT THEN POPULATE PDF   
+    newWindow.document.write('caricamento ...');
+
     this.summaryService.modulisticaPrecontr(this.idins).subscribe(file => {
       this.isLoading = false;
-      if (file.filevalue) {
+      if (file && file.filevalue) {
         const blob = new Blob([decode(file.filevalue)], { type: 'application/pdf' });        
         const fileURL = URL.createObjectURL(blob);
-        window.open(fileURL, '_blank');      
+        newWindow.location.href = fileURL;//POPULATING PDF       
+      }else{
+        newWindow.close();
       }
     },
     e => {
       this.isLoading = false;
+      newWindow.close();
       console.log(e);
     }
     );
@@ -314,8 +339,11 @@ export class QuadroRiepilogativoComponent extends BaseComponent {
           response => {
             this.isLoading = false;
             if (response.success) {
-              this.items = {...this.items, ...response.data};
-              this.messageService.info('Operazione di validazione terminata con successo');
+              this.items = {...this.items, ...response.data};                                          
+              this.messageService.info('Operazione di validazione terminata con successo');                        
+              if (response.message){
+                this.messageService.info(response.message,false);
+              }
               this.storyProcess('Precontrattuale validata da Ufficio Trattamenti Economici e Previdenziali');
             } else {
               this.messageService.error(response.message);
@@ -406,6 +434,7 @@ export class QuadroRiepilogativoComponent extends BaseComponent {
             if (response.success) {
               this.items = {...this.items, ...response.data.validazioni};
               this.items.attachments = response.data.attachments;
+              this.sessionStorageService.removeItem('visualizzaContratto'+this.items.id);
               this.messageService.info('Operazione di presa visione e accettazione terminata con successo');
               this.storyProcess('Presa visione e accettazione del contratto da parte del docente');
             } else {

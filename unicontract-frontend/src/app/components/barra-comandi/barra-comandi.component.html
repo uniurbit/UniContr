@@ -8,7 +8,7 @@
     <span class="oi oi-list-rich iconic"  title="{{ 'btn_smm_title' | translate }}"></span>
   </button>
 
-  <ng-container *ngxPermissionsOnly="['OP_APPROVAZIONE_AMM','OP_APPROVAZIONE_ECONOMICA','SUPER-ADMIN']">
+  <ng-container *ngxPermissionsOnly="['OP_DIPARTIMENTALE','OP_APPROVAZIONE_AMM','OP_APPROVAZIONE_ECONOMICA','SUPER-ADMIN']">
     <button *ngIf="!item?.validazioni?.flag_submit && isDisabled('P1')" class="btn btn-outline-secondary rounded mr-1"  (click)="sendEmail.emit()" >
       <span class="oi oi-envelope-closed iconic"  title="{{ 'btn_email_title' | translate }}"></span>    
     </button>

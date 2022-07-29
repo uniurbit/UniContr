@@ -31,13 +31,16 @@ export class D4FiscaliComponent extends BaseComponent {
   idins: number;
   story: StoryProcess;
 
+  // Legge di bilancio 2022 cambio delle aliquote fiscali commentante quelle modifiche e eliminate
   aliquote: Array<Object> = [
     {aliquota: '23', name: '23 %'},
-    {aliquota: '27', name: '27 %'},
-    {aliquota: '38', name: '38 %'},
-    {aliquota: '41', name: '41 %'},
+    {aliquota: '25', name: '25 %'},
+    //{aliquota: '27', name: '27 %'},
+    {aliquota: '35', name: '35 %'},
+    //{aliquota: '38', name: '38 %'},
+    //{aliquota: '41', name: '41 %'},
     {aliquota: '43', name: '43 %'},
-  ];
+  ];  
 
   formAttch = new FormGroup({});
   model: any = {};
@@ -76,12 +79,13 @@ export class D4FiscaliComponent extends BaseComponent {
       fieldGroupClassName: 'row',
       fieldGroup: [
         {
+          //Modifiche _2022 dovute alla modifica delle aliquote fiscali Legge bilancio 2022
           template: '<p><b>' + this.translateService.instant('d4_nota1') + '</b><br>'
           + this.translateService.instant('d4_nota3') + '<br>'
-          + this.translateService.instant('d4_nota4') + '<br>'
-          + this.translateService.instant('d4_nota5') + '<br>'
-          + this.translateService.instant('d4_nota6') + '<br>'
-          + this.translateService.instant('d4_nota7') + '</p>',
+          + this.translateService.instant('d4_nota4_2022') + '<br>'
+          + this.translateService.instant('d4_nota5_2022') + '<br>'
+          + this.translateService.instant('d4_nota6_2022') + '</p>',
+          //+ this.translateService.instant('d4_nota7') + '</p>',
           className: 'col-auto'
         }
       ]

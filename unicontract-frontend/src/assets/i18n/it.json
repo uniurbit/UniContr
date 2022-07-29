@@ -1,5 +1,6 @@
 {   
     "precontr_apri": "Apri precontrattuale",
+    "precontr_download": "Scarica contratto firmato",
 
     "NODATA": "Nessun dato",
     "TOTAL": "Totali",
@@ -23,6 +24,7 @@
     "00_int14": "Motivo atto",
     "00_int15": "Tipologia",
     "00_int16": "Periodo",
+    "00_int17": "Ruolo docente",
     
     "obligatory": "Campo obbligatorio",
     "end1" : "Compilazione terminata con successo.",
@@ -207,7 +209,7 @@
     "a1_dvf" : "Data variazione dom. fiscale",
     "a1_dpc" : "Domicilio per comunicazioni",
     "a1_rtc" : "Telefono di riferimento",
-    "a1_rta" : "Telefono ambitaizone",
+    "a1_rta" : "Telefono ambitazione",
     "a1_rtel" : "Telefono ufficio",
     "a1_rtels" : "Recapiti telefonici",
     "a1_fax" : "Fax",
@@ -383,6 +385,7 @@
     "c_intest3" : "Iscrizione Cassa previdenziale",
     "c_intest4" : "Diritto alla Rivalsa",
     "c_intest5" : "Diritto al Regime fiscale agevolato",
+    "c_intest6" : "Informazioni relative al Regime fiscale",
     "c_label1" : "Numero di Partita IVA",
     "c_label2" : "Intestazione Partita IVA",
     "c_label3" : "Tipologia",
@@ -394,6 +397,7 @@
     "c_label9" : "Data di iscrizione",
     "c_label10" : "Demoninazione Cassa Previdenziale",
     "c_label11" : "Contributo Cassa Previdenziale",
+    "c_label12" : "Regime fiscale",
     "c_txt1" : "Dichiara di aver diritto alla rivalsa del 4% sugli onorari professionali",
     "c_txt2" : "Dichiara di essere professionista rientrante nel regime fiscale agevolato",
     "c_txt3" : "A tal proposito si dichiara di:",
@@ -413,6 +417,8 @@
     "c_txt9" : "essere professionista rientrante nel regime fiscale agevolato",
     "c_txt9b" : "essere professionista non rientrante nel regime fiscale agevolato",
     "c_txt10" : "In merito a quanto dichiarato nella presente modulistica precontrattuale, si dichiara di essere consapevoli delle responsabilità penali previste dagli artt. 75 e 76 del D.P.R. 445/2000 per le ipotesi di falsità in atti e dichiarazioni mendaci.",
+
+
 
     "d1_title" : "Quadro D.1: Dichiarazione ai fini previdenziali",
     "d1_title2" : "essere esclusi dall'obbligo contributivo INPS/INPGI Gestione Separata",
@@ -449,7 +455,7 @@
     "d2_title2" : "Posizione assicurativa INAIL",
     "d2_txt1" : "Ai sensi del D.Lgs. 38/2000, si dichiara di:",
     "d2_txt2" : "essere soggetti individuati nell'art. 50, comma 1, lettera c-bis del TUIR che esercitano un'attività a rischio (art. 1 del Testo Unico n. 1124/1965) attratta all'obbligo assicurativo INAIL 5,9 ‰.",
-    "d2_txt3" : "essere soggetti individuati nell'art. 50, comma 1, lettera c-bis del TUIR che esercitano un'attività a rischio (art.1 del Testo Unico n. 1124/65) attratta all'obbligo assicurativo INAIL 10,26 ‰.",
+    "d2_txt3" : "essere soggetti individuati nell'art. 50, comma 1, lettera c-bis del TUIR che esercitano un'attività a rischio (art.1 del Testo Unico n. 1124/65) attratta all'obbligo assicurativo INAIL 10,72 ‰.",
     "d2_txt4" : "essere soggetti individuati nell'art. 50, comma 1, lettera c-bis del TUIR che esercitano un'attività a rischio (art. 1 del Testo Unico n. 1124/65) attratta all'obbligo assicurativo INAIL 4,75 ‰.",
     "d2_txt5" : "non essere soggetti all'obbligo di assicurazione INAIL in quanto l'attività oggetto del contratto consiste in docenza frontale.",
     "d2_sub_txt1" : "Posizione assicurativa 11475146/71: Laboratori di analisi chimiche, fisiche, industriali, merceologiche, ecc. (solo per attività effettuate a se stante; compreso l'accesso ad opifici, cantieri, ecc.); istituti sperimentali e di ricerca scientifica (istituti fisici, chimici, mineralogici, petrografici, elettrotecnici, meccanici, agrari, ecc.).",
@@ -492,8 +498,11 @@
     "d4_nota1" : "Nota bene:",
     "d4_nota2" : "Si precisa che il reddito complessivo sarà preso in considerazione solo in fase di conguaglio fiscale",
     "d4_nota3" : "- l'aliquota IRPEF del 23% riguarda i contribuenti con un reddito compreso tra € 0,00 e € 15.000,00",
-    "d4_nota4" : "- l'aliquota IRPEF del 27% riguarda i contribuenti con un reddito compreso tra € 15.000,01 e € 28.000,00",
+    "d4_nota4" : "- l'aliquota IRPEF del 27% riguarda i contribuenti con un reddito compreso tra € 15.000,01 e € 28.000,00",    
     "d4_nota5" : "- l'aliquota IRPEF del 38% riguarda i contribuenti con un reddito compreso tra € 28.000,01 e € 55.000,00",
+    "d4_nota4_2022" : "- l'aliquota IRPEF del 25% riguarda i contribuenti con un reddito compreso tra € 15.000,01 e € 28.000,00",
+    "d4_nota5_2022" : "- l'aliquota IRPEF del 35% riguarda i contribuenti con un reddito compreso tra € 28.000,01 e € 50.000,00",
+    "d4_nota6_2022" : "- l'aliquota IRPEF del 43% riguarda i contribuenti con un reddito superiore a € 50.000,00",
     "d4_nota6" : "- l'aliquota IRPEF del 41% riguarda i contribuenti con un reddito compreso tra € 55.000,01 e € 75.000,00",
     "d4_nota7" : "- l'aliquota IRPEF del 43% riguarda i contribuenti con un reddito superiore a € 75.000,00",
     "d4_nota8" : "Nota informativa",
@@ -694,6 +703,10 @@
     "cap_fiscale" : "CAP fiscale",
     "indirizzo_fiscale" : "Indirizzo fiscale",
     "civico_fiscale" : "Civico fiscale",
-    "data_variazione_dom_fiscale" : "Data variazione residenza fiscale"
-    
+    "data_variazione_dom_fiscale" : "Data variazione residenza fiscale",
+
+    "dichiaro_RF01": "essere professionista rientrante nel regime fiscale ordinario",
+    "dichiaro_RF02": "essere professionista rientrante nel regime fiscale contribuenti minimi (art.1, commi 96-117, legge n. 244/2007)",
+    "dichiaro_RF19": "essere professionista rientrante nel regime fiscale forfettario (art.1, commi 54-89, legge n. 190/2014)"
+        
 }

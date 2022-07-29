@@ -43,6 +43,27 @@ export class CoreSevice {
       }
     };
   }
+
+  /**
+   * 
+   * @param from: int anno di inizio 
+   * @returns array [
+          {value: '2016', label: '2016 / 2017'},
+          {value: '2017', label: '2017 / 2018'},
+          {value: '2018', label: '2018 / 2019'},
+          {value: '2019', label: '2019 / 2020'},
+          {value: '2020', label: '2020 / 2021'},
+          {value: '2021', label: '2021 / 2022'},
+        ]
+   */
+  getAnniAccademici(from = 2016): Observable<any[]> {
+      const years = [];
+      const currentYear = new Date().getFullYear();
+      for (let index = 0; index <= currentYear - from; index++) {
+          years.push({value: (from + index).toString(), label: `${from + index} / ${from + index + 1}`});
+      }
+      return of (years);
+  }
 }
 
 export const cacheBusterNotifier = new Subject();
@@ -56,12 +77,11 @@ export class BaseService extends CoreSevice implements ServiceQuery, ServiceEnti
   }
 
   @Cacheable({
-    cacheBusterObserver: cacheBusterNotifier
+    cacheBusterObserver: cacheBusterNotifier    
   })
-
-  getById(id: any): Observable<any> {
+  protected getByIdInternal(id: any, basePath: string): Observable<any>{
     return this.http
-    .get(this._baseURL +  `/${this.basePath}/` + id.toString(), httpOptions).pipe(
+    .get(this._baseURL +  `/${basePath}/` + id.toString(), httpOptions).pipe(
       tap(sub => {
         if (sub) {
           this.messageService.info('Lettura permesso effettuata con successo');
@@ -71,6 +91,10 @@ export class BaseService extends CoreSevice implements ServiceQuery, ServiceEnti
       }),
       catchError(this.handleError('getById'))
     );
+  }
+
+  getById(id: any): Observable<any> {
+    return this.getByIdInternal(id,this.basePath);
   }
 
   constructor(protected http: HttpClient,
@@ -156,4 +180,5 @@ export class BaseService extends CoreSevice implements ServiceQuery, ServiceEnti
       )
     );
   }
+
 }

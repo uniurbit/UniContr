@@ -25,8 +25,9 @@ export class BaseComponent implements OnInit, OnDestroy {
   }
 
   handleError(error): void {
-    this.isLoading = false;
-    this.messageService.error(`L'operazione è terminata con errori: ${error.message}`);
+    this.isLoading = false;    
+    this.messageService.error(`L'operazione è terminata con errori: ${error.message}`, true, false, error);
+    //this.messageService.error(`L'operazione è terminata con errori: ${error.message}`);        
   }
 
   complete() {

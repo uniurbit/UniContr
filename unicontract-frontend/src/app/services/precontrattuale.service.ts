@@ -123,6 +123,12 @@ export class PrecontrattualeService extends CoreSevice implements ServiceQuery {
     throw new Error('Method not implemented.');
   }
 
+  downloadContrattoFirmato(id): Observable<any>{
+    if (id) {
+        return this.http.get( this._baseURL + '/downloadcontrattofirmato/' + id.toString()).pipe(catchError(this.handleError('download contratto', null, true)));
+    }
+    return of([]);
+  }
 
 }
 

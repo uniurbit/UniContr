@@ -22,6 +22,8 @@ class QuadroRiepilogativoController extends Controller
      */
     public function index($id)
     {
+        //!!!!Nota che $id invece di essere id della precontrattuale è insegn_id per compatibilità
+
         $datiGenerali = [];
         $message = '';
 
@@ -61,7 +63,7 @@ class QuadroRiepilogativoController extends Controller
 
             $pre = Pre::with(['attachments','user.attachments','anagrafica.audit','a2modalitapagamento.audit'])->where('insegn_id', $id)->first();            
             $datiGenerali['attachments'] = $pre->attachments ?: [];                        
-            $datiGenerali['userattachments'] = $pre->user ? $pre->user->attachments ?: [] : [];            
+            $datiGenerali['userattachments'] = $pre->user ? ($pre->user->attachments ?: []) : [];            
             if ($pre->a2modalitapagamento){
                     $datiGenerali['a2modalitapagamentoaudit'] = $pre->a2modalitapagamento->audit()->whereIn('id',
                     $pre->a2modalitapagamento->audit()->selectRaw('max(`id`)')->groupBy('field_name')->get()

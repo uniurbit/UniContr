@@ -31,10 +31,16 @@
     @endif
 
      <!--regime fiscale aggevolato-->
-    @if($pre->cPrestazioneProfessionale->flag_regime_fiscale == 0)
-        - {{ __('global.c_txt9b') }} <br>
-    @else
-        - {{ __('global.c_txt9') }} <br>  
+    @if($pre->cPrestazioneProfessionale->flag_regime_fiscale != null)
+        @if($pre->cPrestazioneProfessionale->flag_regime_fiscale == 0)
+            - {{ __('global.c_txt9b') }} <br>
+        @else
+            - {{ __('global.c_txt9') }} <br>  
+        @endif
+    @endif
+
+    @if($pre->cPrestazioneProfessionale->regime_fiscale)
+        - {{ __('global.dichiaro_'.$pre->cPrestazioneProfessionale->regime_fiscale) }} <br>
     @endif
 </p>
 <br>

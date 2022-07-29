@@ -3,13 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService, BaseComponent } from './../../../shared';
 import { RouteMetods } from './../../../classes/routeMetods';
 import { InsegnamTools } from './../../../classes/insegnamTools';
-import { CPrestazProfess } from './../../../classes/cPrestazProfess';
 import { CPrestazProfessService } from './../../../services/cPrestazProfess.service';
-import { ValidazioneService } from 'src/app/services/validazione.service';
 import { UpdSubmit } from './../../../classes/validazioni';
 
 import { DatePipe } from '@angular/common';
 import { PrecontrattualeService } from 'src/app/services/precontrattuale.service';
+import { CPrestazProfessInterface } from 'src/app/interface/cPrestazProfessionale.interface';
 
 @Component({
   selector: 'app-c-prestaz-profess-details',
@@ -20,7 +19,7 @@ import { PrecontrattualeService } from 'src/app/services/precontrattuale.service
 
 export class CPrestazProfessDetailsComponent extends BaseComponent {
 
-  items: CPrestazProfess = null;
+  items: CPrestazProfessInterface = null;
   private validation: UpdSubmit;
   currentDate = new Date();
 

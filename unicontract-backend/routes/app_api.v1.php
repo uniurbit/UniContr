@@ -80,7 +80,7 @@ Route::group(['middleware' => ['cors','auth:api','log'], 'namespace'=>'Api\V1'],
     Route::post('contrugov/exportxls','ContrUgovController@exportxls');  
 
     // P.1 INSEGNAMENTO    
-    Route::get('insegnamenti/{id}', 'InsegnamentiController@show');
+    Route::get('insegnamenti/{id}', 'InsegnamentiController@show')->middleware(['ownermiddleware']);
     Route::post('insegnamenti', 'InsegnamentiController@store');
     Route::put('insegnamenti/{id}', 'InsegnamentiController@update');
    // Route::put('insegnamenti/upd/{id}', 'InsegnamentiController@updateP1');
@@ -114,29 +114,31 @@ Route::group(['middleware' => ['cors','auth:api','log'], 'namespace'=>'Api\V1'],
     Route::post('precontrattuale/export','PrecontrattualeController@export'); 
     Route::post('precontrattuale/exportxls','PrecontrattualeController@exportxls'); 
     Route::post('precontrattuale/updateinsegnamentofromugov', 'PrecontrattualeController@updateInsegnamentoFromUgov'); 
+    Route::get('precontrattuale/downloadcontrattofirmato/{id}', 'PrecontrattualeController@downloadContrattoFirmato'); 
+    
     
     // QUADRO RIEPILOGATIVO
-    Route::get('summary/{id}', 'QuadroRiepilogativoController@index');
+    Route::get('summary/{id}', 'QuadroRiepilogativoController@index')->middleware(['ownermiddleware']);
     Route::post('summary/sendinfoemail','QuadroRiepilogativoController@sendInfoEmail');
     Route::get('summary/iddg/{coper_id}', 'QuadroRiepilogativoController@getIddg');
 
     // P.2 RAPPORTO
-    Route::resource('rapporto', 'P2RapportoController');
+    //Route::resource('rapporto', 'P2RapportoController');
     Route::post('rapporto', 'P2RapportoController@store');  
     Route::get('rapporto/{id}', 'P2RapportoController@show');
     Route::put('rapporto/{id}', 'P2RapportoController@update');
 
     // A.1 ANAGRAFICA
     Route::get('anagrafica/{id_ab}', 'AnagraficaController@show');
-    Route::get('anagrafica/local/{id_ab}', 'AnagraficaController@showlocal');
+    Route::get('anagrafica/local/{id}', 'AnagraficaController@showlocal');
     Route::post('anagrafica', 'AnagraficaController@store');
     Route::put('anagrafica/{id}', 'AnagraficaController@update');
 
     // A.2 MODALITA DI PAGAMENTO
-    Route::get('pagamento/{id_ab}', 'A2ModalitaPagamentoController@show');
     Route::post('pagamento', 'A2ModalitaPagamentoController@store');
     Route::get('pagamento/local/{id}', 'A2ModalitaPagamentoController@showlocal');
     Route::put('pagamento/local/{id}', 'A2ModalitaPagamentoController@update');
+    Route::get('pagamento/{id_ab}/{insegn_id}', 'A2ModalitaPagamentoController@show');
 
     // B.1 CONFLITTO INTERESSI    
     Route::get('conflitto/generatepdf/{id}/{kind}','B1ConflittoIntController@generatePDF');

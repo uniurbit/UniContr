@@ -20,6 +20,7 @@ use App\Repositories\PrecontrattualeRepository;
 use App\Repositories\AnagraficaRepository;
 use App\Repositories\P2RapportoRepository;
 use App\Repositories\B1ConflittoInteressiRepository;
+use App\Repositories\A2ModalitaPagamentoRepository;
 use App\Mail\FirstMail;
 use Illuminate\Support\Facades\Mail;
 use App\Service\PrecontrattualeService;
@@ -329,11 +330,12 @@ class ContrattiTest extends TestCase
         $repo = new AnagraficaRepository($this->app);
         $repo->store(ContrattiData::getAnagrafica($response->insegn_id));
      
-        
-
         $result = $service->presaVisioneAccettazione($response->insegn_id);
 
-        //$result = PrecontrattualeService::saveContrattoBozzaTitulus();
+        $this->assertNotNull($result);
+        
+        $pre = PrecontrattualePerGenerazione::with(['anagrafica','user','insegnamento','p2naturarapporto'])->where('insegn_id',$response->insegn_id)->first();  
+        $result = PrecontrattualeService::saveContrattoBozzaTitulus($pre);
     
         $this->assertNotNull($result);
 
@@ -429,19 +431,30 @@ class ContrattiTest extends TestCase
         $result = PrecontrattualeService::makePdfForReport('DISB');
 
         Storage::disk('local')->delete('test.pdf');    
-        Storage::disk('local')->put('test.pdf', $result->download());      
+        Storage::disk('local')->put('test.pdf', $result->output());      
         $exists = Storage::disk('local')->exists('test.pdf');        
 
         $this->assertTrue($exists);
     }
 
          
+    //./vendor/bin/phpunit  --testsuite Unit --filter test1CalcoloNumeroRinnovi
+    public function test1CalcoloNumeroRinnovi() {
+        //alta qualificazione
+        $this->assertEquals(1, InsegnamUgovController::contatoreInsegnamenti(72204));
+        //caso con contratti uguali stesso anno         
+        $this->assertEquals(3, InsegnamUgovController::contatoreInsegnamenti(67114));
+        $this->assertEquals(3, InsegnamUgovController::contatoreInsegnamenti(66994));        
+    }
+
     //./vendor/bin/phpunit  --testsuite Unit --filter testCalcoloNumeroRinnovi
     public function testCalcoloNumeroRinnovi() {
-     
+   
         $datiUgov = DB::connection('oracle')->table('V_IE_DI_COPER V1')->join('V_IE_DI_COPER V2', function($join) {
             $join->on('V2.AF_GEN_COD', '=', 'V1.AF_GEN_COD')
                  ->on('V2.cod_fis','=','V1.cod_fis')
+                 ->on(DB::raw("COALESCE(V2.SEDE_ID,-1)"), '=', DB::raw("COALESCE(V1.SEDE_ID,-1)"))
+                 ->on(DB::raw("COALESCE(V2.PART_STU_ID,-1)"), '=', DB::raw("COALESCE(V1.PART_STU_ID,-1)"))
                  ->on('V2.data_ini_contratto','<','V1.data_ini_contratto')
                  ->where('V2.motivo_atto_cod','=','BAN_INC')
                  ->where('V1.COPER_ID','=',25244);    
@@ -451,6 +464,8 @@ class ContrattiTest extends TestCase
 
         $count = DB::connection('oracle')->table('V_IE_DI_COPER V1')->join('V_IE_DI_COPER V2', function($join) {
             $join->on('V2.AF_GEN_COD', '=', 'V1.AF_GEN_COD')
+                 ->on(DB::raw("COALESCE(V2.SEDE_ID,-1)"), '=', DB::raw("COALESCE(V1.SEDE_ID,-1)"))
+                 ->on(DB::raw("COALESCE(V2.PART_STU_ID,-1)"), '=', DB::raw("COALESCE(V1.PART_STU_ID,-1)"))
                  ->on('V2.cod_fis','=','V1.cod_fis')                             
                  ->where('V1.COPER_ID','=',25244);    
         })->where('V2.data_ini_contratto','<',$datiUgov->data_contratto_corrente)
@@ -458,12 +473,16 @@ class ContrattiTest extends TestCase
                
         $this->assertNotNull($datiUgov);
         $this->assertEquals(2,$count);        
+        //caso con due sedi        
+        $this->assertEquals(1, InsegnamUgovController::contatoreInsegnamenti(35590));
+        $this->assertEquals(2, InsegnamUgovController::contatoreInsegnamenti(32710));
 
         $this->assertEquals(0, InsegnamUgovController::contatoreInsegnamenti(17418));
 
         $this->assertEquals(2, InsegnamUgovController::contatoreInsegnamenti(25244));   
         $this->assertEquals(1, InsegnamUgovController::contatoreInsegnamenti(25236));   
-        $this->assertEquals(0, InsegnamUgovController::contatoreInsegnamenti(23690));   
+        $this->assertEquals(0, InsegnamUgovController::contatoreInsegnamenti(23690));  
+        $this->assertEquals(4, InsegnamUgovController::contatoreInsegnamenti(33488));   
     }
 
   
@@ -499,9 +518,9 @@ class ContrattiTest extends TestCase
         ->where('insegn_id',$response->insegn_id)->first();
     $pdf = PrecontrattualeService::makePdfPrecontrattualeReport($pres);
 
-    Storage::disk('local')->delete('test.pdf');
+    Storage::disk('local')->delete('test.pdf'); 
 
-    Storage::disk('local')->put('test.pdf', $pdf->download());      
+    Storage::disk('local')->put('test.pdf', $pdf->output());      
     $exists = Storage::disk('local')->exists('test.pdf');        
 
     $this->assertTrue($exists);
@@ -636,6 +655,42 @@ class ContrattiTest extends TestCase
         $this->assertNotNull($insegnamentoUgov1->sett_des); 
         $this->assertNotNull($insegnamentoUgov1->sett_cod); 
 
+    }
+
+    
+    //./vendor/bin/phpunit  --testsuite Unit --filter testPrecontrattualeIbanUgovValidazione
+    public function testPrecontrattualeIbanUgovValidazione() { 
+        $user = User::where('email','enrico.oliva@uniurb.it')->first();
+        $this->actingAs($user);
+
+        //IMPORT INSEGNAMENTO DOCENTE
+        $repo = new PrecontrattualeRepository($this->app);
+        $service = new PrecontrattualeService($repo);
+        $response = $repo->newPrecontrImportInsegnamento(ContrattiData::getPrecontrattuale());        
+        
+        $repo->newPrestazioneProfessionale(ContrattiData::getPrestazioneProfessionale($response->insegn_id));   
+
+        //P2
+        $repo = new P2RapportoRepository($this->app);
+        $repo->store(ContrattiData::getP2Rapporto($response->insegn_id));
+        
+        //ANAGRAFICA
+        $repo = new AnagraficaRepository($this->app);
+        $repo->store(ContrattiData::getAnagrafica($response->insegn_id));
+     
+        $repo = new A2ModalitaPagamentoRepository($this->app);
+        $datiPagamento = $repo->store(ContrattiData::getA2ModalitaPagamento($response->insegn_id));      
+
+        $msg='';
+        $result = PrecontrattualeService::validazioneEconomica($response->insegn_id, 
+            ContrattiData::getValidazioneEconomica($response->insegn_id), $msg);
+
+        //$result = PrecontrattualeService::saveContrattoBozzaTitulus();
+    
+        $this->assertNotNull($result);
+        $this->assertTrue($result->flag_amm==1);
+
+        Precontrattuale::find($response->id)->delete();
     }
 
 

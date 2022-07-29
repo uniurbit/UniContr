@@ -18,8 +18,8 @@ export class PagamentoService extends CoreSevice  {
     this._baseURL = AppConstants.baseApiURL + '/pagamento';
   }
 
-  getPagamento(idab: string) {
-    return this.http.get(this._baseURL + '/' + idab).pipe(catchError(this.handleError('getPagamento', null, false)));
+  getPagamento(idab: string, idins: string) {
+    return this.http.get(this._baseURL + '/' + idab + '/' + idins).pipe(catchError(this.handleError('getPagamento', null, false)));
   }
 
   getPagamentoLocal(id: number) {

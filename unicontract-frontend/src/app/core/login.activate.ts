@@ -15,8 +15,13 @@ export class LoginActivate implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean>|Promise<boolean>|boolean {
-    if (!this.authService.isAuthenticated()) {
-      this.router.navigate(['externallogin']);
+    if (!this.authService.isAuthenticated()) {            
+      if (state.url){
+        this.router.navigate(['externallogin'], { queryParams: { redirect: state.url } });      
+      }else{
+        this.router.navigate(['externallogin']);      
+      }
+      
     }
     return true;
   }

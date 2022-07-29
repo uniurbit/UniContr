@@ -210,7 +210,7 @@ export class P2PosizioneInsComponent extends BaseComponent {
         const lastid = response['data']['id']; // RETURN LAST ID
 
         if (response['success']) {
-          this.messageService.info('Parte 2: Posizione del collaboratore crata con successo');
+          this.messageService.info('Parte 2: Posizione del collaboratore creata con successo');
           this.router.navigate(['home/p2rapporto/details', lastid]);        
         } else {
           this.messageService.error(response['message']);

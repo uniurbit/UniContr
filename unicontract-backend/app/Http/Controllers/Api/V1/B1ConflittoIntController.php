@@ -215,7 +215,7 @@ class B1ConflittoIntController extends Controller
                 
             $attach['filename'] = 'Dichiarazione '. $pre->user->nameTutorString() .'.pdf';
         }                          
-        $attach['filevalue'] =  base64_encode($pdf->download());
+        $attach['filevalue'] =  base64_encode($pdf->output());
 
         return $attach;
     }

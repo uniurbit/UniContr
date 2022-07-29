@@ -25,12 +25,18 @@ use App\Models\Titulus\Fascicolo;
 use App\Models\Titulus\Documento;
 use App\Models\Titulus\Rif;
 use App\Models\Titulus\Element;
+use App\Models\Validazioni;
 use Illuminate\Support\Facades\Log;
 use App\MappingUfficio;
 use Carbon\Carbon;
 use App\Repositories\PrecontrattualeRepository;
 use View;
 use App\Models\StoryProcess;
+use App\Http\Controllers\SoapControllerWSACPersonaFisica;
+use App\Soap\Request\WsdtoPersonaFisicaSearch;
+use App\Soap\Request\WsdtoPagamento;
+use PHP_IBAN\IBAN;
+use Exception;
 
 
 class PrecontrattualeService implements ApplicationService
@@ -126,7 +132,7 @@ class PrecontrattualeService implements ApplicationService
         $attach['attachmenttype_codice'] =  $type;
         $attach['filename'] = 'Contratto'. $pre->user->nameTutorString() .'.pdf';
         try {
-            $value = $pdf->download();
+            $value = $pdf->output();
             $attach['filevalue'] =  base64_encode( $value);
         } catch (\Throwable $th) {
             throw $th;
@@ -145,7 +151,7 @@ class PrecontrattualeService implements ApplicationService
         $attach['attachmenttype_codice'] = 'CONTR_BOZZA';
         $attach['filename'] = 'Contratto'. $pre->user->nameTutorString() .'.pdf';
         try {
-            $value = $pdf->download();
+            $value = $pdf->output();
             $attach['filevalue'] =  base64_encode( $value);
         } catch (\Throwable $th) {
             throw $th;
@@ -175,7 +181,7 @@ class PrecontrattualeService implements ApplicationService
 
         $attachment = null;
         $attachment['filename'] = 'Contratto'. $pre->user->nameTutorString() .'.pdf';        
-        $filevalue = $pdf->download();
+        $filevalue = $pdf->output();
 
         $attachBeans = array();        
         if ($filevalue !=null){
@@ -327,7 +333,7 @@ class PrecontrattualeService implements ApplicationService
         $attach['attachmenttype_codice'] = 'MODULISTICA_PRECONTRATTUALE';
         $attach['filename'] = 'Modulistica_'. $pre->user->nameTutorString() .'.pdf';
         try {
-            $value = $pdf->download();
+            $value = $pdf->output();
             $attach['filevalue'] =  base64_encode( $value);
         } catch (\Throwable $th) {
             throw $th;
@@ -349,5 +355,125 @@ class PrecontrattualeService implements ApplicationService
         return $pdf;
     }
 
+    public static function validazioneEconomica($insegn_id, $postData, &$msg){
+        DB::beginTransaction(); 
+        try {
+
+            //salvataggio validazione
+            $valid = Validazioni::where('insegn_id',$insegn_id)->first();
+
+            $valid->fill($postData['entity']);
+            $valid->date_amm = Carbon::now()->format(config('unidem.datetime_format'));
+
+            if ($valid->current_place = "revisione_amministrativaeconomica_economica"){
+                $transition = "valida_revisione_amministrativaeconomica_economica";
+            } else if ($valid->current_place = "revisione_economica"){
+                $transition = "valida_revisione_economica";
+            }else {
+                $transition = "valida_economica";
+            }
+
+            $valid->workflow_apply($transition); 
+
+            $valid->save();    
+            
+            //aggiornamento modalità di pagamento verso ugov
+            $pre = Precontrattuale::with(['user','a2modalitapagamento'])->where('insegn_id',$insegn_id)->first();       
+            if ($pre->a2modalitapagamento->modality == 'ACIC'){
+                $result = PrecontrattualeService::inserimentoIbanUgov(
+                    $pre->a2modalitapagamento->iban, 
+                    $pre->user->v_ie_ru_personale_id_ab,
+                    $pre->user->cf,
+                    $pre->a2modalitapagamento->intestazione
+                );
+                if ($result){
+                    $msg = $msg.'Inserito Iban in Ugov';
+                    $pre->storyprocess()->save(
+                        PrecontrattualeService::createStoryProcess('Validazione economica: Inserito Iban in Ugov '.$pre->a2modalitapagamento->iban,  
+                        $pre->insegn_id)
+                    );
+                } 
+            } 
+
+            $data = EmailService::sendEmailByType($insegn_id,"APP");  
+
+        } catch(\Exception $e) {
+            
+            DB::rollback();
+            throw $e;
+        }
+        DB::commit();
+
+        $data = Validazioni::where('insegn_id',$insegn_id)->first();
+        return $data;
+    }
+
+    public static function esisteIbanUgov($myiban, $id_ab, $cf){
+
+        $iban = new IBAN($myiban);
+        $mf_iban = $iban->MachineFormat();
+
+        $sc = new SoapControllerWSACPersonaFisica(new SoapWrapper);   
+        $wsdtoPersonaFisicaSearch = WsdtoPersonaFisicaSearch::fromBasicData(null, null, null, $id_ab, $cf);             
+        $response = $sc->elencaCoordPagamento($wsdtoPersonaFisicaSearch, null);
+        
+        $obj = $response;
+
+        if (!isset($obj->listaCoordPagamento)){
+            //se non è settata listaCoordPagamento
+            return false;
+        }
+
+        $hasMyIBAN = array_filter($obj->listaCoordPagamento, function ($coordPagamento) use($mf_iban) {
+            //trovato e valido altrimenti aggiungo 
+            $isBeetwen = Carbon::now()->between(Carbon::parse($coordPagamento->dataInizio),Carbon::parse($coordPagamento->dataFine));
+            return $coordPagamento->iban == $mf_iban && $isBeetwen;
+        });
+
+        if (count($hasMyIBAN) == 0){
+            return false;
+        }
+        Log::info('Iban Ugov esistente [ iban =' . $myiban . ']'); 
+        return true;
+    }
+
+    public static function inserimentoIbanUgov($myiban, $id_ab, $cf, $intestazione){
+        $iban = new IBAN($myiban);
+        if (!PrecontrattualeService::esisteIbanUgov($myiban,$id_ab, $cf)){
+            if (!$iban->Verify()){
+                throw new Exception("Errore: IBAN non corretto");
+            }
+            //inserisci
+            //controllo IBAN e codice nazione
+            $codNazione = $iban->Country();
+            $abi = $iban->Bank();
+            $cab = $iban->Branch();
+            $cin = $iban->NationalChecksum();
+            $numeroConto = $iban->Account();
+            $format = $iban->MachineFormat();
+
+            //inserimento coordinate
+            $sc = new SoapControllerWSACPersonaFisica(new SoapWrapper);   
+            $wsdtoPagamento = WsdtoPagamento::fromBasicData(
+                $abi,
+                $cab,
+                $cin,
+                $intestazione, //'TEST OLIVA ENRICO 1', 
+                $numeroConto, 
+                'CC', 
+                $codNazione, 
+                Carbon::now()->toIso8601String(), //inzio validità
+                "2223-03-03T00:00:00+01:00", //Carbon::now()->addYears(3)->toIso8601String(), //fine validità
+                $iban->MachineFormat());   
+
+            $response = $sc->inserisciCoordPagamento($id_ab, null, $cf, $wsdtoPagamento);
+
+            if ($response->idCoordPagamento){
+                Log::info('Inserimento Iban Ugov [ idCoordPagamento =' . $response->idCoordPagamento . ']'); 
+            }
+            return $response;
+        }
+        return null;
+    }
 
 }

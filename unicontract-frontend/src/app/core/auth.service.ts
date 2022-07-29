@@ -84,7 +84,14 @@ export class AuthService {
         }
     }
 
-    redirectFirstLogin(){
+    redirectFirstLogin(redirect){
+
+        if (redirect && redirect != 'home' && redirect != '/home' && redirect != ''){
+            console.log(redirect);
+            this.router.navigateByUrl(redirect);       
+            return;                         
+        }
+
 
         const permissions = this.permissionsService.getPermissions();
         if (permissions['OP_APPROVAZIONE_AMM']){

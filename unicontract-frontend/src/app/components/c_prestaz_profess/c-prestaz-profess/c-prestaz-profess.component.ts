@@ -343,11 +343,39 @@ export class CPrestazProfessComponent extends BaseComponent {
       ],
       hideExpression: (model: any, formState: any) => {
         if (model.flag_regime_fiscale === 0 || model.flag_regime_fiscale === false) {
-          return model;
+          return true;
         }
       },
     }
   ];
+
+  fields6: FormlyFieldConfig[] = [
+    {
+      template: '<h5>'+ this.translateService.instant('c_intest6') +'</h5>' //Informazioni relative al Regime fiscale
+    },
+    {
+      fieldGroupClassName: 'row',
+      fieldGroup: [
+        {
+          type: 'radio',
+          key: 'regime_fiscale',          
+          className: 'col-md-12',         
+          templateOptions: {             
+            label: 'c_label12',       //Dichiaro di essere professionista rientrante nel
+            translate: true,
+            required: true,
+            options: [
+              {key: 'RF01', value: 'Ordinario'},
+              {key: 'RF02', value: 'Contribuenti minimi (art.1, commi 96-117, legge n. 244/2007)'},
+              {key: 'RF19', value: 'Forfettario (art.1, commi 54-89, legge n. 190/2014)'}
+            ],          
+          },       
+        },       
+      ]
+    },
+
+  ];
+
 
   fields: FormlyFieldConfig[] = [
     {
@@ -366,9 +394,29 @@ export class CPrestazProfessComponent extends BaseComponent {
       wrappers: ['riquadro'],
       fieldGroup: this.fields4,
     },
+    //blocco da eliminare quando è finito il trasitorio della variazione del regime fiscale.
     {
       wrappers: ['riquadro'],
       fieldGroup: this.fields5,
+      hideExpression: (model: any, formState: any) => {
+        //nel caso nuovo non lo devo visualizzare
+        //nel caso flag_regime_fiscale a null 
+        //solo se è valorizzato il flag_regime_ficale
+        if (model.id == null || model.flag_regime_fiscale == null) {
+          model.flag_regime_fiscale = null;
+          return true;
+        }
+      },
+    },
+    //field5 e 6 sono alternativi
+    {
+      wrappers: ['riquadro'],
+      fieldGroup: this.fields6,
+      hideExpression: (model: any, formState: any) => {
+        if (model.id != null && model.flag_regime_fiscale != null) {
+          return true;
+        }
+      },
     },
   ];
 

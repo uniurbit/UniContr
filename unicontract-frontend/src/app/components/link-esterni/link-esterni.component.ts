@@ -4,6 +4,7 @@ import { encode, decode } from 'base64-arraybuffer';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { PDFAnnotationData, PDFDocumentProxy } from 'pdfjs-dist';
+import { PrecontrattualeService } from 'src/app/services/precontrattuale.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class LinkEsterniComponent implements OnInit {
   // screen DPI / PDF DPI
   readonly dpiRatio = 96 / 72;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
+  constructor(protected service: PrecontrattualeService, private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(
@@ -31,10 +32,41 @@ export class LinkEsterniComponent implements OnInit {
           this.routePrecontrEditabile();
         } else if (params.get('val') === 'compilazione') {
           this.routeCompilazione();
+        } else if (params.get('val') == 'download') {
+          const buff = decode(params.get('id'));
+          const id = new TextDecoder("utf-8").decode(buff);         
+          this.downloadSelection(id);
         }
       }
     );
   }
+
+
+
+  downloadSelection(id){
+    this.isLoading = true;
+    this.service.downloadContrattoFirmato(id).subscribe(file => {
+      this.isLoading = false;
+      if (file.filevalue) {
+        const blob = new Blob([decode(file.filevalue)]);
+        saveAs(blob, file.filename);
+      }
+    },
+      e => { 
+        this.isLoading = false;
+        console.log(e); 
+        this.router.navigate(['home/summary', id]);
+      },
+      () => {      
+        this.router.navigate(['home/summary', id]);
+      }
+    );
+  }
+  
+
+
+
+
 
   routeLgUgovDidattica() {
     this.isLoading = true;
@@ -48,7 +80,7 @@ export class LinkEsterniComponent implements OnInit {
 
   routePrecontrEditabile() {
     this.isLoading = true;
-    this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/precontr_editabile.pdf';
+    this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/precontr_editabile_5.pdf';
   }
 
   routeCompilazione() {

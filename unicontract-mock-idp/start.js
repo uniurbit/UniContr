@@ -31,6 +31,11 @@ const app = create({
           value: 'enrico.oliva@uniurb.it',
           type: 'xs:string'
         },
+        'urn:oid:1.3.6.1.4.1.27280.1.13': {
+          format: 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri',
+          value: 'ND',
+          type: 'xs:string'
+        }
       }
     },
   ]

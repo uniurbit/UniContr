@@ -1,4 +1,4 @@
-# This repository adheres to the publiccode.yml standard by including this 
+# This repository adheres to the publiccode.yml standard by including this
 # metadata file that makes public software easily discoverable.
 # More info at https://github.com/italia/publiccode.yml
 
@@ -16,6 +16,7 @@ platforms:
   - web
 usedBy:
   - 'https://www.uniurb.it'
+  - 'https://www.unical.it'
 categories:
   - employee-management
 dependsOn:
@@ -70,7 +71,7 @@ description:
       - Permette agli uffici competenti di validare telematicamente la
       modulistica precontrattuale.
 
-      - Genera automaticamente il contratto incrociando tipo di didattica: 
+      - Genera automaticamente il contratto incrociando tipo di didattica:
 
 
 

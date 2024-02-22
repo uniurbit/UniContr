@@ -50,7 +50,21 @@ class D4_FiscaliController extends Controller
             
             $copy = D4_fiscali::whereHas('precontrattuale', function ($query) use($datiPrecontrattuale) {
                 $query->where('docente_id',$datiPrecontrattuale['docente_id'])->where('stato','<',2);
-            })->orderBy('id','desc')->first();            
+            })->orderBy('id','desc')->first();  
+            
+            //va fatta la conversione delle aliquote alle nuove
+            if ($copy) {
+                if ($copy->percentuale_aliquota_irpef == '38'){
+                    $copy->percentuale_aliquota_irpef = '35';
+                }
+                if ($copy->percentuale_aliquota_irpef == '27'){
+                    $copy->percentuale_aliquota_irpef = '25';
+                }
+                if ($copy->percentuale_aliquota_irpef == '41'){
+                    $copy->percentuale_aliquota_irpef = '43';
+                }
+            }
+            
             $datiPrecontrattuale['copy'] = $copy;
             
             $success = true;

@@ -77,8 +77,29 @@ export class SummaryService extends CoreSevice {
             .pipe(catchError(this.handleError('presaVisione', null, false)));
     }
 
+    richiestafirmaio(data) {
+        return this.http.post(AppConstants.baseApiURL + '/precontrattuale/richiestafirmaio', data, httpOptions)
+            .pipe(catchError(this.handleError('richiesta FirmaIO', null, true)));
+    } 
+
+    
+    richiestafirmausign(data) {
+        return this.http.post(AppConstants.baseApiURL + '/precontrattuale/richiestafirmausign', data, httpOptions)
+            .pipe(catchError(this.handleError('richiesta U-Sign', null, true)));
+    } 
+
+    cancellazioneIstanzaFirmaUtente(data) {
+        return this.http.post(AppConstants.baseApiURL + '/precontrattuale/cancellazioneistanzafirmautente', data, httpOptions)
+            .pipe(catchError(this.handleError('cancellazione richiesta firma utente', null, true)));
+    }     
+
     annullaContratto(data) {
         return this.http.post(AppConstants.baseApiURL + '/precontrattuale/annullacontratto', data, httpOptions)
+            .pipe(catchError(this.handleError('annullaContratto', null, false)));
+    }
+
+    annullaAnnullaContratto(data) {
+        return this.http.post(AppConstants.baseApiURL + '/precontrattuale/annullaannullacontratto', data, httpOptions)
             .pipe(catchError(this.handleError('annullaContratto', null, false)));
     }
 

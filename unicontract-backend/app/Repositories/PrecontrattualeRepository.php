@@ -23,7 +23,8 @@ use Carbon\Carbon;
 use Hash;
 use App\Service\PrecontrattualeService;
 use App\Service\EmailService;
-
+use App\Http\Controllers\SoapControllerTitulus;
+use Artisaninweb\SoapWrapper\SoapWrapper;
 
 class PrecontrattualeRepository extends BaseRepository {
     /**
@@ -81,7 +82,38 @@ class PrecontrattualeRepository extends BaseRepository {
         return $entity;
     }
 
-    
+    public function changeContatoreInsegnamentiManuale(array $data){  
+        DB::beginTransaction(); 
+        try {
+            
+            $pre = Precontrattuale::where('insegn_id', $data['insegn_id'])->first(); 
+            $insegn = $pre->insegnamento;
+            $insegn->contatore_insegnamenti_manuale = $data['entity']['contatore_insegnamenti_manuale'];
+            $insegn->save();
+            
+            if ($insegn->contatore_insegnamenti_manuale==null){
+                $pre->storyprocess()->save(
+                    PrecontrattualeService::createStoryProcess('Cancellato inserimento contatore insegnamenti precedenti', 
+                    $insegn->id)
+                ); 
+            }else{
+                $pre->storyprocess()->save(
+                    PrecontrattualeService::createStoryProcess('Inserito contatore insegnamenti precedenti', 
+                    $insegn->id)
+                ); 
+            }
+            
+
+        } catch(\Exception $e) {
+            
+            DB::rollback();
+            throw $e;
+        }
+
+        DB::commit();       
+        //$entity = Precontrattuale::with(['insegnamento','validazioni','sendemailsrcp'])->find($pre->id);
+        return $insegn;
+    }    
 
     public function newIncompat(array $data){  
         DB::beginTransaction(); 
@@ -202,7 +234,7 @@ class PrecontrattualeRepository extends BaseRepository {
     }  
     
 
-    public function newPresavisioneAccettazione($data, $pre){
+    public function newPresavisioneAccettazione($data, $pre, $msg = null){
         DB::beginTransaction(); 
         try {
 
@@ -227,11 +259,26 @@ class PrecontrattualeRepository extends BaseRepository {
             $valid = Validazioni::where('insegn_id', $pre->insegn_id)->first();
             $valid->flag_accept = true;
             $valid->date_accept = Carbon::now()->format(config('unidem.datetime_format'));
+            $valid->tipo_accettazione = $data['tipo_accettazione'];
             $valid->save();
+
+
+            $pre->storyprocess()->save(
+                PrecontrattualeService::createStoryProcess('Presa visione e accettazione contratto'.($msg ? '. Contratto acquisito. '.$msg : ''), 
+                $pre->insegn_id,
+                $pre->user)
+            ); 
 
         } catch(\Exception $e) {
                 
             DB::rollback();
+
+            if ($data && array_key_exists('nrecord',$data) && $data['nrecord']){
+                //cancello la bozza creata
+                $sc = new SoapControllerTitulus(new SoapWrapper);
+                $sc->deleteDocument($data['nrecord']);
+            }
+
             throw $e;
         }
         DB::commit();  
@@ -312,6 +359,47 @@ class PrecontrattualeRepository extends BaseRepository {
         DB::commit();  
         return Precontrattuale::where('insegn_id', $data['insegn_id'])->first();
     }
+
+    public function annullaAnnullaContratto(array $data){
+        DB::beginTransaction(); 
+        try {
+
+            $precontr = Precontrattuale::where('insegn_id', $data['insegn_id'])->first();             
+                     
+             //se il contratto è in stato 3 (annulla firmato) passi allo stato 1 (firmato)     
+            if ($precontr->stato == 3){
+                $precontr->stato = 1;  
+            }else{
+                $precontr->stato = 0; 
+            }
+            
+            $msg = '';
+            if ($precontr->tipo_annullamento == 'REVOC'){
+                $msg = 'Annulla revoca del contratto';
+            }else{
+                $msg = 'Annulla rinuncia';
+            }
+
+            //$precontr->fill($data['entity']);
+            $precontr->date_annullamento = null;
+            $precontr->tipo_annullamento = null;
+            $precontr->motivazione = null;
+            $precontr->save();
+
+            $precontr->storyprocess()->save(
+                PrecontrattualeService::createStoryProcess($msg, 
+                $precontr->insegn_id)
+            ); 
+            
+        } catch(\Exception $e) {
+            
+            DB::rollback();
+            throw $e;
+        }
+        DB::commit();  
+        return Precontrattuale::where('insegn_id', $data['insegn_id'])->first();
+    }
+
     
     
     public function rinunciaCompenso(array $data){

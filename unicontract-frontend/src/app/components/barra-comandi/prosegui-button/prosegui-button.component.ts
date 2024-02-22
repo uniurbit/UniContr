@@ -6,7 +6,7 @@ import { InsegnamTools } from 'src/app/classes/insegnamTools';
 @Component({
   selector: 'app-prosegui-button',
   template: `
-  <button *ngIf="item && visible() && !annullato()" type="button" class="btn btn-outline-secondary rounded mr-1" (click)="onClick()" >
+  <button *ngIf="item && visible() && !annullato()" type="button" class="{{ getClassName() }}" (click)="onClick()" >
     <span title="{{ 'btn_togo' | translate }}">{{ 'btn_prosegui' | translate }}</span>
   </button>
   `,
@@ -28,6 +28,18 @@ export class ProseguiButtonComponent implements OnInit {
   //questo bottone compare in fondo a destra della pulsantiera e muove sempre alla successiva rispetto a quella corrente  
   visible(){
     return !InsegnamTools.termina(this.item);
+  }
+
+  getClassName() {
+    if (this.isCompilato()) {
+      return 'btn btn-outline-secondary btn-warning rounded mr-1';
+    }
+    return 'btn btn-outline-secondary rounded mr-1';
+  }
+
+  // stati
+  isCompilato() {
+    return this.item.validazioni.flag_submit === 1;
   }
 
   annullato(){

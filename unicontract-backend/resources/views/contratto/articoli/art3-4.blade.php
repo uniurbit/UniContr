@@ -13,12 +13,12 @@ contrattuale instaurato con l'Ateneo. Il conferimento dei dati è obbligatorio p
 Il presente contratto è assoggettato all'Imposta Regionale sulle Attività Produttive (IRAP) ai sensi del D.Lgs. 15/12/1997 n. 446 e ss.mm..<br>
 {{$pre->genere['str0']}} {{$pre->genere['str5']}} è soggett{{$pre->genere['str2']}} alle disposizioni di cui all'art. 2, commi 26 e seguenti, 
 della Legge 08/08/1995, n. 335 e ss.mm. e ii. (iscrizione alla Gestione Separata presso l'INPS).<br>
-@if($pre->d2inail->posizione_previdenziale == '__NOINAIL')    
+@if($pre->d2inail->posizione_previdenziale != 'NOINAIL')    
 {{$pre->genere['str0']}} {{$pre->genere['str5']}} è attratt{{$pre->genere['str2']}} all'obbligo assicurativo INAIL in quanto soggetto individuato 
-nell'art. 50, comma 1 lettera c-bis del TUIR che esercita un'attività a rischio (art. 1 del Testo Unico n. 1124/65).<br>           
-L'Università provvede alla copertura assicurativa privata contro gli infortuni e la responsabilità civile verso terzi con imputazione di spesa 
-a carico del bilancio universitario.
+nell'art. 50, comma 1 lettera c-bis del TUIR che esercita un'attività a rischio (art. 1 del Testo Unico n. 1124/65).<br>    
 @endif
+L'Università provvede alla copertura assicurativa privata contro gli infortuni e la responsabilità civile verso terzi con imputazione di spesa 
+a carico del bilancio universitario. 
 </p>
 @elseif($pre->naturaRapporto == "PRPR")
 {{-- // PRESTAZIONE PROFESSIONALE (PARTITA IVA) --}}

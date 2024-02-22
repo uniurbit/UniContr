@@ -17,10 +17,10 @@ import ControlUtils from './control-utils';
 })
 export class DynamicTableComponent<T> implements OnInit, OnDestroy {
     
-    @ViewChild('textcolumn') public textcolumn: TemplateRef<any>;
-    @ViewChild('datecolumn') public datecolumn: TemplateRef<any>;
+    @ViewChild('textcolumn', { static: true }) public textcolumn: TemplateRef<any>;
+    @ViewChild('datecolumn', { static: true }) public datecolumn: TemplateRef<any>;
     
-    @ViewChild(DatatableComponent) table: DatatableComponent;
+    @ViewChild(DatatableComponent, { static: true }) table: DatatableComponent;
 
     @Input() metadata: ControlBase<any>[];        
     

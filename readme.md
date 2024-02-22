@@ -6,7 +6,7 @@ UniContr è una applicazione web per la proceduralizzazione e dematerializzazion
 - 🔥 Gestione delle precontrattuali: inserimento, modifica e validazione 
 - 🔥 Storico precontrattuali
 - 🔥 Dashboard uffici 
-- 🔥 Generazione contratto
+- 🔥 Generazione contratto (formato PDF/A)
 - 🔥 Nofiche uffici e docenti 
     - Richiesta Compilazione Modulistica Precontrattuale
     - Avvenuta compilazione modulistica precontrattuale
@@ -15,6 +15,7 @@ UniContr è una applicazione web per la proceduralizzazione e dematerializzazion
     - Avvenuta accettazione contratto di insegnamento 
     - Report mensile per dipartimento con elenco contratti di docenza non ancora stipulati
     - Solleciti di Visione e accettazione contratto docenza UniUrb e Compilazione Modulistica Precontrattuale
+- 🔥 Firma dei contratti
 
 ## Struttura precontrattuale 
 
@@ -51,8 +52,10 @@ UniContr è una applicazione web per la proceduralizzazione e dematerializzazion
 - ⚡️ Integrazione per la lettura dati da Ugov
     - lettura afferenza organizzativa
 - ⚡️ Integrazione con Titulus 
+- ⚡️ Integrazione con Firma con IO per firma contratti dall'App IO [manuale](https://docs.pagopa.it/manuale-operativo-di-firma-con-io/)
+- ⚡️ Integrazione con U-Sign per firma contratti tramite applicazione web
 - 📝 Sistema multi utente e multi ruolo
-- 📝 Generazione di pdf basato su [wkhtmltopdf](https://github.com/barryvdh/laravel-snappy)
+- 📝 Generazione di pdf basato su [mpdf](https://github.com/barryvdh/laravel-snappy)
 - 😍 Tema Boostrap 
 - 💪 Costruito su 
     - [Laravel](https://laravel.com/) 

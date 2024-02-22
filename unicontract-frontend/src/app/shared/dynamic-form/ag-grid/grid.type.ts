@@ -32,7 +32,7 @@ import { GridFormlyCellComponent } from './grid-formly-cell.component';
 })
 
 export class GridTypeComponent extends FieldArrayType implements OnInit {
-  @ViewChild('agGrid') agGrid: TemplateRef<any>;
+  @ViewChild('agGrid', { static: true }) agGrid: TemplateRef<any>;
 
   private gridApi;
   private gridColumnApi;

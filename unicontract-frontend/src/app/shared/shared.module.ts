@@ -2,7 +2,6 @@ import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
@@ -95,6 +94,14 @@ import { ViewListComponent } from './view-list/view-list.component';
 import { ListItemComponent } from './view-list/list-item/list-item.component';
 import { ToDateObjPipe } from './pipe/todateobj.pipe';
 import { ReplacePipe } from './pipe/replace.pipe';
+import { ViewNotificheComponent } from './view-notifiche/view-notifiche.component';
+import { NotificaService } from './notifica.service';
+import { PdfViewComponent } from './pdf-view/pdf-view.component';
+import { SafePipe } from './pipe/safe.pipe';
+import { ToastsContainer } from './toasts-container/toasts-container.component';
+import { ToastService } from './toast-service';
+import { SignNamiral } from './dynamic-form/sign-namiral.component';
+import { SignNamiralService } from './sign-namirial.service';
 
 
 
@@ -119,7 +126,7 @@ export function maxlengthValidationMessage(err, field) {
 }
 
 export function minValidationMessage(err, field) {
-  return `Inserire un valore maggiore di ${field.templateOptions.min}`;
+  return `Inserire un valore maggiore uguale a ${field.templateOptions.min}`;
 }
 
 export function maxValidationMessage(err, field) {
@@ -152,9 +159,8 @@ export const customCurrencyMaskConfig = {
 @NgModule({
   imports: [
     CommonModule,
-    NgbModule.forRoot(),
-    NgbTooltipModule,
-    HttpModule,
+    NgbModule,
+    NgbTooltipModule,    
     FormsModule,
     ReactiveFormsModule,
     NgxDatatableModule,
@@ -167,6 +173,10 @@ export const customCurrencyMaskConfig = {
     AgGridModule.withComponents([GridFormlyCellComponent]),
     FormlyModule.forRoot({
       types: [
+        {
+          name: 'signnamirial', 
+          component: SignNamiral,            
+        }, 
         {
           name: 'button',
           component: FormlyFieldButton,
@@ -324,9 +334,12 @@ export const customCurrencyMaskConfig = {
     TranslateModule,
   ],
   providers: [
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
+    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },    
+    NotificaService,
+    ToastService,
+    SignNamiralService
   ],
-  exports: [
+  exports: [    
     UserLoginComponent,
     ShowErrorsComponent,
     DynamicFormComponent,
@@ -375,6 +388,7 @@ export const customCurrencyMaskConfig = {
     UniqueName,
     UniqueYear,
     ToDateObjPipe,
+    SafePipe,
     ConfirmationDialogComponent,
     FormlyFieldTemplate,
     SystemErrorComponent,
@@ -388,6 +402,10 @@ export const customCurrencyMaskConfig = {
     InputConfirmationDialogComponent,
     ViewListComponent,
     ListItemComponent,
+    ViewNotificheComponent,
+    PdfViewComponent,
+    ToastsContainer,
+    SignNamiral
   ],
   declarations: [
     UserLoginComponent, UserLoginComponent, ShowErrorsComponent,
@@ -424,6 +442,7 @@ export const customCurrencyMaskConfig = {
     UniqueName,
     UniqueYear,
     ToDateObjPipe,
+    SafePipe,
     ConfirmationDialogComponent,
     FormlyFieldTemplate,
     SystemErrorComponent,
@@ -438,6 +457,10 @@ export const customCurrencyMaskConfig = {
     InputConfirmationDialogComponent,
     ViewListComponent,
     ListItemComponent,
+    ViewNotificheComponent,
+    PdfViewComponent,
+    ToastsContainer,
+    SignNamiral
   ],
   entryComponents: [LookupComponent]
 })
@@ -448,7 +471,10 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         { provide: FORMLY_CONFIG, multi: true, useFactory: registerTranslateExtension, deps: [TranslateService] },
+        NotificaService,
+        ToastService
       ]
+
     };
   }
 }

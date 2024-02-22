@@ -75,11 +75,11 @@ import { TableColumn } from '@swimlane/ngx-datatable';
 // <h1>Model</h1>
 // <pre>{{ model | json }}</pre>
 export class TableTypeComponent extends FieldArrayType {  
-  @ViewChild('table') table: any;
+  @ViewChild('table', { static: true }) table: any;
 
-  @ViewChild('defaultcolumn') public defaultColumn: TemplateRef<any>;
-  @ViewChild('valuecolumn') public valuecolumn: TemplateRef<any>;  
-  @ViewChild('expaderdetailcolumn') public expaderdetailcolumn: TemplateRef<any>;  
+  @ViewChild('defaultcolumn', { static: true }) public defaultColumn: TemplateRef<any>;
+  @ViewChild('valuecolumn', { static: true }) public valuecolumn: TemplateRef<any>;  
+  @ViewChild('expaderdetailcolumn', { static: true }) public expaderdetailcolumn: TemplateRef<any>;  
     
   //descrizione delle colonne della tabella
   columns: TableColumn[];

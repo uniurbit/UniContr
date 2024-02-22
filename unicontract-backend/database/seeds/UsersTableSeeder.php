@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make( 'testadm1n' ) ,
                 'name' => 'Enrico Oliva' ,
                 'v_ie_ru_personale_id_ab'=> 39842,  
-                'cf' => '1111111111111111',
+                'cf' => 'LVONRC76C29L456I',
                 'nome' => 'Enrico',
                 'cognome' => 'Oliva'
             ] );        

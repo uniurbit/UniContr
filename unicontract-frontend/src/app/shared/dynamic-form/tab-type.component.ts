@@ -47,7 +47,7 @@ export class TabTypeComponent extends FieldType implements OnInit {
 
   activedStep = 0;
 
-  @ViewChild('tabs') tabs: NgbTabset;
+  @ViewChild('tabs', { static: true }) tabs: NgbTabset;
 
   last = false;
   _selectedTab = 'tab-0';

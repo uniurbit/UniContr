@@ -8,16 +8,16 @@
         padding: 0px;
       }
       body {
-		font-family: 'Times New Roman', Times, serif;
-		font-size: 14pt;		
-        text-rendering: geometricPrecision;
+		font-family: 'timesnewroman', 'Times New Roman', Times, serif;
+		font-size: 10pt;
+		text-rendering: geometricPrecision;
       }   
 	  h3 {
 		  text-align: center
 	  }	  
 	  .normal {
 		font-family: 'Times New Roman', Times, serif;
-		font-size: 14pt;		
+		font-size: 11pt;		
         text-rendering: geometricPrecision;
  		line-height: 1.5;
 		text-align: justify

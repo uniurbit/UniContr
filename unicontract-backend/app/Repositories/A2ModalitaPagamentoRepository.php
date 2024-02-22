@@ -16,6 +16,7 @@ use App\Repositories\Events\RepositoryEntityCreated;
 use Carbon\Carbon;
 use App\Service\PrecontrattualeService;
 use App\Audit;
+use Illuminate\Support\Arr;
 
 class A2ModalitaPagamentoRepository extends BaseRepository {
     /**
@@ -36,8 +37,8 @@ class A2ModalitaPagamentoRepository extends BaseRepository {
             $entity->fill($data);
             $success = $entity->save();            
                         
-            $newValue = array_only($entity->toArray(),Audit::$toTrace);
-            $originalValue = array_only($data['originalValue'],Audit::$toTrace);            
+            $newValue = Arr::only($entity->toArray(),Audit::$toTrace);
+            $originalValue = Arr::only($data['originalValue'],Audit::$toTrace);            
             $diff = array_diff($newValue, $originalValue);
             $msg='';
             foreach ($diff  as $key => $value) {                      

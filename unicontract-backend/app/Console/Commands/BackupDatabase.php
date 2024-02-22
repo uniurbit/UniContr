@@ -40,15 +40,18 @@ class BackupDatabase extends Command
     public function __construct()
     {
         parent::__construct();
-
+        
         $filename = "backups/backup-" .  Carbon::now()->format(config('unidem.date_format')) . ".sql";
-        $this->process = new Process(sprintf(
+        
+        $cmd = [sprintf(
             'mysqldump -u%s -p%s %s > %s',
             config('database.connections.mysql.username'),
             config('database.connections.mysql.password'),
             config('database.connections.mysql.database'),
             storage_path($filename)
-        ));
+        )];
+
+        $this->process = new Process($cmd);
     }
 
     /**

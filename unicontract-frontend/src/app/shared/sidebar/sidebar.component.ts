@@ -61,7 +61,7 @@ export class SidebarComponent implements OnInit {
   getEnv() {
      if (!environment.production){       
         if (environment.API_URL.includes('preprod'))
-          return "PRE-PROD";
+          return "PRE-PROD"
         else 
           return "LOCAL";
      }

@@ -41,12 +41,12 @@ class TitulusExtraDoc
     public static function addSistemaMittente($node, array $dati){
         $dati = (object)$dati;
         $sistema_mittente = $node->addChild('sistema_mittente');
-        $sistema_mittente->addChild('id_documento', $dati->id_documento);
-        //<!--ID nel sistema Unicontract-->
-        $sistema_mittente->addChild('pers_id',$dati->pers_id);
-        $sistema_mittente->addChild('codice_dipartimento_registro',$dati->codice_dipartimento_registro);
+           //<!--ID nel sistema Unicontract-->
+        $sistema_mittente->addChild('precontr_id', $dati->precontr_id);     
+        $sistema_mittente->addChild('user_id',$dati->user_id);
+        //$sistema_mittente->addChild('codice_dipartimento_registro',$dati->codice_dipartimento_registro);
         $sistema_mittente->addChild('applicativo',$dati->applicativo);
-        $sistema_mittente->addChild('versione',$dati->versione);
+        //$sistema_mittente->addChild('versione',$dati->versione);
         return $sistema_mittente;
     }
 

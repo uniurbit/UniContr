@@ -3,33 +3,33 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
 	<style type="text/css">
-	  html, body, p, ul, li, span, img {
-        margin: 0px;
-        padding: 0px;
-      }
-      body {
-		font-family: 'Times New Roman', Times, serif;
-		font-size: 14pt;		
-        text-rendering: geometricPrecision;
-      }   
-	  h3 {
-		  text-align: center
-	  }	  
-	  .normal {
-		font-family: 'Times New Roman', Times, serif;
-		font-size: 14pt;		
-        text-rendering: geometricPrecision;
- 		line-height: 1.5;
-		text-align: justify
-	  }
-	  .piepagina{		
-		font-size: 11pt;
-		font-style: italic;
-		font-family: Arial, Helvetica, sans-serif;
-		text-rendering: geometricPrecision;
-		text-align: justify;					
-	  }
-	</style>
+		html, body, p, ul, li, span, img {
+		  margin: 0px;
+		  padding: 0px;
+		}
+		body {
+		  font-family: 'timesnewroman', 'Times New Roman', Times, serif;
+		  font-size: 10pt;
+		  text-rendering: geometricPrecision;
+		}   
+		h3 {
+			text-align: center
+		}	  
+		.normal {
+		  font-family: 'Times New Roman', Times, serif;
+		  font-size: 11pt;		
+		  text-rendering: geometricPrecision;
+		   line-height: 1.5;
+		  text-align: justify
+		}
+		.piepagina{		
+		  font-size: 8pt;
+		  font-style: italic;
+		  font-family: Arial, Helvetica, sans-serif;
+		  text-rendering: geometricPrecision;
+		  text-align: justify;					
+		}
+	  </style>
 </head>
 <body>
 	<h3>Dichiarazione ai sensi dell'art. 15, comma 1, lett. c, del D.Lgs. n. 33/2013 e s.m.i.</h3>

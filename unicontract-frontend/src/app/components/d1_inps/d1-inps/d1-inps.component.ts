@@ -462,9 +462,13 @@ export class D1InpsComponent extends BaseComponent {
                 this.model = response['datiPrecontrattuale']['copy'];
               }
               this.idins = +params.get('id');
+
+              if (response.message){
+                this.messageService.info(response.message)
+              }
             },
             (error) => this.handleError(error),
-            () => this.complete()
+            () => this.complete(false)
           );
         } else {
           this.isLoading = true;

@@ -25,6 +25,7 @@
     "00_int15": "Tipologia",
     "00_int16": "Periodo",
     "00_int17": "Ruolo docente",
+    "00_int18": "Sede",
     
     "obligatory": "Campo obbligatorio",
     "end1" : "Compilazione terminata con successo.",
@@ -153,13 +154,13 @@
     "C_coniugato" : "Coniugat{{s}}",
     "D_divorziato" : "Divorziat{{s}}",
     "L_libero" : "Liber{{s}} da impedimenti coniugali",
-    "N_celibe" : "=M {Celibe} =F {Nubile}",
-    "R_celibefigli" : "=M {Celibe con figli riconosciuti} =F {Nubile con figli riconosciuti}",
+    "N_celibe" : "=M{Celibe} =F{Nubile}",
+    "R_celibefigli" : "=M{Celibe con figli riconosciuti} =F{Nubile con figli riconosciuti}",
     "S_separato" : "Separat{{s}}",
     "T_configliriconosciuti" : "Con figli non riconosciuti",
     "U_configliacarico" : "Con figli a carico condiviso",
     "V_vedovo" : "Vedov{{s}}",
-    "W_celibeconfigli" :  "=M {Celibe con figli riconosciuti a carico} =F {Nubile con figli riconosciuti a carico}",
+    "W_celibeconfigli" :  "=M{Celibe con figli riconosciuti a carico} =F{Nubile con figli riconosciuti a carico}",
     "X_separatoconfigli" :  "Separat{{s}} con figli riconosciuti a carico",
     "Y_divorziatoconfigli" :  "Divorziat{{s}} con figli riconosciuti a carico",
     "Z_coniugatodetrazioni" :  "Coniugat{{s}}: detrazioni doppie",
@@ -209,7 +210,7 @@
     "a1_dvf" : "Data variazione dom. fiscale",
     "a1_dpc" : "Domicilio per comunicazioni",
     "a1_rtc" : "Telefono di riferimento",
-    "a1_rta" : "Telefono ambitazione",
+    "a1_rta" : "Telefono abitazione",
     "a1_rtel" : "Telefono ufficio",
     "a1_rtels" : "Recapiti telefonici",
     "a1_fax" : "Fax",
@@ -244,6 +245,7 @@
     "a1_label12" : "Indirizzo",
     "indirizzo_residenza" : "Indirizzo residenza",
     "a1_label13" : "Numero civico",
+    "a1_num_civico" : "Numero civico",
     "civico_residenza" : "Numero civico residenza",
     "data_variazione_dom_fisc" : "Data variazione",
     "a1_label14" : "Telefono di riferimento",
@@ -262,6 +264,7 @@
     
     "a2_title1" : "Scelta della modalità di pagamento",
     "a2_title2" : "Dati relativi al C/C",
+    "a2_title3" : "Informazioni di pagamento",
     "a2_check1" : "Ritiro del corrispettivo presso qualsiasi agenzia UBI Banca",
     "a2_check2" : "Accreditamento presso Istituto di Credito",
     "a2_label1" : "Intestatario del C/C",
@@ -707,6 +710,18 @@
 
     "dichiaro_RF01": "essere professionista rientrante nel regime fiscale ordinario",
     "dichiaro_RF02": "essere professionista rientrante nel regime fiscale contribuenti minimi (art.1, commi 96-117, legge n. 244/2007)",
-    "dichiaro_RF19": "essere professionista rientrante nel regime fiscale forfettario (art.1, commi 54-89, legge n. 190/2014)"
+    "dichiaro_RF19": "essere professionista rientrante nel regime fiscale forfettario (art.1, commi 54-89, legge n. 190/2014)",
+
+    "due_rate": "Due rate",
+    "una_rata": "Unica rata",
+
+    "errori" : {    
+        "userAuthorization": "Utente non abilitato al processo di firma su U-Sign. Richiedere il certificato di firma digitale alla propria segreteria didattica.",
+        "canSign": "Utente non abilitato alla firma su U-Sign. Contattare la propria segreteria didattica.",
+        "certificateName": "Utente non abilitato alla firma su U-Sign. Certificato di firma non trovato. Contattare la propria segreteria didattica."
+    }
+    
+
+    
         
 }

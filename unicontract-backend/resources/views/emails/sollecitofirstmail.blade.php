@@ -22,7 +22,6 @@ Per eventuali informazioni o richieste di chiarimento,<br>
 può far riferimento ai recapiti di seguito indicati.
 
 Cordiali saluti.
-@component('mail::sign')
+
 @include( 'emails.firmamessaggioamministrazione')
-@endcomponent
 @endcomponent

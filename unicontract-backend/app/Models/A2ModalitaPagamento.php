@@ -17,7 +17,8 @@ class A2ModalitaPagamento extends Model
         'denominazione',
         'luogo',
         'intestazione',
-        'aba'
+        'aba',
+        'soluzione_pagamento'
     ];
 
     protected $appends = ['createdDate'];

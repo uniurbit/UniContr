@@ -16,7 +16,9 @@
     <app-list-item label="{{ '00_int3' | translate }}" value="{{ item.aa }} / {{ tools.annoAccademico(item.aa) }}"></app-list-item>
     <app-list-item label="{{ '00_int5' | translate }}">DAL GIORNO {{ item.data_ini_contr  }} AL GIORNO {{ item.data_fine_contr }} <span *ngIf="item.ciclo">({{ item.ciclo | uppercase }})</span></app-list-item>
     <app-list-item label="{{ '00_int11' | translate }}" value="{{ item.compenso | currency: '€' }}"></app-list-item>    
-    
+    <div *ngxPermissionsOnly="['OP_APPROVAZIONE_AMM', 'OP_APPROVAZIONE_ECONOMICA', 'SUPER-ADMIN']">      
+        <app-list-item label="Copertura" value="{{ item.coper_id }}"></app-list-item> 
+    </div>
     <hr>
         
     <app-list-item label="{{ '00_int12' | translate }}" value="{{ item.tipo_atto | uppercase }} NUM. {{ item.num_delibera }} DEL {{ item.data_delibera | toDateObj | date: 'dd-MM-yyyy' }}"></app-list-item>    
@@ -31,8 +33,27 @@
 
   <ng-container *ngxPermissionsOnly="['OP_APPROVAZIONE_ECONOMICA','OP_APPROVAZIONE_AMM','OP_DIPARTIMENTALE','SUPER-ADMIN']">
     <app-riquadro-wrapper *ngIf="item.motivo_atto == 'CONF_INC'">
+      
       <h5>Storico</h5>
+      <ng-container *ngIf="item.contatore_insegnamenti_manuale==null">
       <p>Il presente insegnamento è stato già precedentemente attribuito a {{ item.nome }} {{ item.cognome  }} {{item.contatore_insegnamenti}} volte.</p>
+      </ng-container>
+      <ng-container *ngIf="item.contatore_insegnamenti_manuale!=null">
+      <p>E'stato inserito manualmente il numero delle precedentementi attribuzioni dell'insegnamento a {{ item.nome }} {{ item.cognome  }} {{item.contatore_insegnamenti_manuale}} volte.</p>
+      </ng-container>
+        
+      <ng-container  *ngxPermissionsOnly="['SUPER-ADMIN','OP_DIPARTIMENTALE']">
+        <div class="d-inline-flex" *ngIf="item.contatore_insegnamenti==null || item.contatore_insegnamenti==0 || !!item.contatore_insegnamenti_manuale">
+        <button type="button" class="btn btn-outline-secondary rounded mr-1" (click)="inserisciManualmente()">
+          <span class="oi oi-pencil iconic"></span>
+          <span class="ml-1">Inserisci manualmente numero rinnovi</span>
+        </button>
+        <button type="button" class="btn btn-outline-secondary rounded" [disabled]="!!!item.contatore_insegnamenti_manuale" (click)="cancellaContatoreManualmente()">
+          <span class="oi oi-trash"></span>     
+        </button>
+        </div>
+      </ng-container>
+  
     </app-riquadro-wrapper>
   </ng-container>
 
@@ -49,8 +70,8 @@
     <div class="row col-md-10">Nessuna richiesta di compilazione precontrattuale inviata</div>           
   </app-riquadro-wrapper>
 
-  <div class="form-footer text-right">
-    <app-barra-comandi *ngIf="item" [item]="item" [type]="'P1'" (sendEmail)="sendEmail()" (updateInsegnamento)="updateInsegnamento($event)" ></app-barra-comandi>  
+  <div class="form-footer text-right">   
+    <app-barra-comandi *ngIf="item" [item]="item" [type]="'P1'" (sendEmail)="sendEmail()" (updateInsegnamento)="updateInsegnamento($event)" (changeCopertura)="changeCopertura($event)" ></app-barra-comandi>  
        
     <app-termina-button [item]="item" *ngIf="item.validazioni.flag_submit === 0 && tools.termina(item) === true" (update)="isLoadingChange($event)"></app-termina-button>    
   </div>

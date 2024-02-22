@@ -32,6 +32,8 @@ export class LinkEsterniComponent implements OnInit {
           this.routePrecontrEditabile();
         } else if (params.get('val') === 'compilazione') {
           this.routeCompilazione();
+        } else if (params.get('val') === 'firma') {
+          this.routeFirma();
         } else if (params.get('val') == 'download') {
           const buff = decode(params.get('id'));
           const id = new TextDecoder("utf-8").decode(buff);         
@@ -80,12 +82,17 @@ export class LinkEsterniComponent implements OnInit {
 
   routePrecontrEditabile() {
     this.isLoading = true;
-    this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/precontr_editabile_5.pdf';
+    this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/precontr_editabile_7.pdf';
   }
 
   routeCompilazione() {
     this.isLoading = true;
     this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/compilazione-modulistica.pdf';
+  }
+
+  routeFirma() {
+    this.isLoading = true;
+    this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/firma_contratto_docenti.pdf';
   }
 
 

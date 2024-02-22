@@ -3,7 +3,7 @@
 {{-- // COLLABORAZIONE DI NATURA AUTONOMA --}}
 <p class="normal">
 Il corrispettivo onnicomprensivo lordo per la prestazione è commisurato in € {{$pre->compenso}} e verrà 
-versato {{$pre->genere['str4']}} {{$pre->genere['str5']}} in {{$pre->modPagamento}} {{$pre->attestazione}}.<br>La spesa relativa dovrà essere imputata alle relative voci di 
+versato {{$pre->genere['str4']}} {{$pre->genere['str5']}} in {{$pre->modPagamento}}{{$pre->attestazione}}.<br>La spesa relativa dovrà essere imputata alle relative voci di 
 costo del budget autorizzatorio del {{$pre->dipartimento}}, per l'esercizio finanziario di competenza (anno accademico {{$pre->aa}}).<br>
 Il corrispettivo suddetto è escluso dal campo di applicazione dell'I.V.A. ai sensi e per gli effetti dell'art. 5, comma 2, del D.P.R. 26/10/1972 n. 633 e ss.mm..
 </p>
@@ -34,7 +34,7 @@ incarichi di insegnamento, emanato con D.R. 359/2017 del 25/07/2017, ai sensi de
 {{-- // ASSIMILATO A LAVORO DIPENDENTE --}}
 <p class="normal">
 Il corrispettivo onnicomprensivo lordo per la prestazione è commisurato in € {{$pre->compenso}} e verrà 
-versato {{$pre->genere['str4']}} {{$pre->genere['str5']}} in {{$pre->modPagamento}} {{$pre->attestazione}}.<br>La spesa relativa dovrà essere 
+versato {{$pre->genere['str4']}} {{$pre->genere['str5']}} in un'unica soluzione al termine del contratto {{$pre->attestazione}}.<br>La spesa relativa dovrà essere 
 imputata alle relative voci di costo del budget autorizzatorio del {{$pre->dipartimento}}, per l'esercizio finanziario di 
 competenza (anno accademico {{$pre->aa}}).<br>Il corrispettivo suddetto è escluso dal campo di applicazione dell'I.V.A. ai sensi e per 
 gli effetti dell'art. 5, comma 2, del D.P.R. 26/10/1972 n. 633 e ss.mm..

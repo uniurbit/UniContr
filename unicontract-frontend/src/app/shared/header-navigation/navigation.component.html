@@ -32,7 +32,7 @@
     <!-- User profile and search -->
     <!-- ============================================================== -->
     <li  *ngIf="!(isLoggedIn$ | async) as isLoggedIn; else logout"  class="nav-item" ngbDropdown placement="bottom-right" >
-        <a ngbDropdownToggle class="nav-link text-muted waves-effect waves-dark pro-pic" href="{{baseurl + 'api/loginSaml'}}" data-toggle="dropdown" aria-haspopup="true"
+        <a ngbDropdownToggle class="nav-link waves-effect waves-dark pro-pic" href="{{baseurl + 'api/loginSaml'}}" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false" data-sidebartype="mini-sidebar">
         <!--<a class="nav-link sidebartoggler waves-effect waves-light" href="{{baseurl + 'api/loginSaml'}}" data-sidebartype="mini-sidebar">-->
             <span>Login</span>
@@ -40,7 +40,7 @@
     </li>   
      <ng-template #logout> 
     <li class="nav-item" ngbDropdown placement="bottom-right">
-        <a ngbDropdownToggle class="nav-link text-muted waves-effect waves-dark pro-pic" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
+        <a ngbDropdownToggle class="nav-link waves-effect waves-dark pro-pic" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false"  data-sidebartype="mini-sidebar">
             <div class="d-flex justify-content-center" style="width: 200px;">{{ username }}</div>
             <!-- <img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"> -->

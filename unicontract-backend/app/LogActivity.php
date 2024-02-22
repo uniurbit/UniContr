@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DateTimeInterface;
 
 class LogActivity extends Model
 {
@@ -16,6 +17,17 @@ class LogActivity extends Model
     ];
 
     protected $casts = [       
-        'created_at' => 'datetime:d-m-Y H:m:s',
+        'created_at' => 'datetime:d-m-Y H:i:s',
     ]; 
+     
+    /**
+     * Prepare a date for array / JSON serialization.
+     *
+     * @param  \DateTimeInterface  $date
+     * @return string
+     */
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->setTimezone(config('unidem.timezone'));
+    }
 }

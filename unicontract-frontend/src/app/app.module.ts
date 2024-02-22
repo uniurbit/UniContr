@@ -1,10 +1,10 @@
 import { AuthService } from './core/auth.service';
-import { CommonModule, LOCATION_INITIALIZED } from '@angular/common';
+import { CommonModule, DatePipe, LOCATION_INITIALIZED } from '@angular/common';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { RoutingModuleModule } from './routing-module/routing-module.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Component, LOCALE_ID, Injector, APP_INITIALIZER } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { NgModule, Component, LOCALE_ID, Injector, APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 import { JwtModule } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -212,6 +212,11 @@ import { LogAttivitaComponent } from './components/user/logattivita.component';
 import { LogAttivitaService } from './services/logattivita.service';
 import { SettingsService } from './services/settings.service';
 import { SessionStorageService } from './services/session-storage.service';
+import { NotificaService } from './shared/notifica.service';
+import { NotificaComponent } from './components/user/notifica.component';
+import { NotificheComponent } from './components/user/notifiche.component';
+import { WrapperNotificheComponent } from './components/wrapper-notifiche/wrapper-notifiche.component';
+import { AppConstants } from './app-constants';
 
 
 
@@ -272,6 +277,8 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
     RolesComponent,
     MappingRuolo,
     MappingRuoli,
+    NotificaComponent,
+    NotificheComponent, 
 
     PersoneinterneTitulus,
     StruttureEsterneTitulus,
@@ -326,16 +333,16 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
     SalvaAnnullaButtonComponent,    
     MappingUfficiTitulus,
     MappingUfficioTitulus,
-    LogAttivitaComponent,
+    LogAttivitaComponent,    
+    WrapperNotificheComponent,
   ],
 
   imports: [
     SharedModule.forRoot(),
     NgxPermissionsModule.forRoot(),
     CommonModule,
-    NgbModule.forRoot(),
-    NgbTooltipModule,
-    HttpModule,
+    NgbModule,
+    NgbTooltipModule,    
     FormsModule,
     ReactiveFormsModule,
     NgxDatatableModule,
@@ -465,9 +472,10 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
       multi: true
     },       
     InsegnamTools,
-    RouteMetods,    
+    RouteMetods,
+    DatePipe
   ],
-
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [
     AppComponent
   ],
@@ -477,6 +485,34 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
 })
 export class AppModule {
   constructor(router: Router) {
+
+    window['initAsync'] = function () {
+      console.log('app initSDK');
+      // PLACE HERE CONFIGURATION CODE (eg. API keys, tokens, etc..)
+      var BASE_URL = AppConstants.baseApiURL; //'https://uniurb.webfirma.cineca.it/my-web-firma' ;
+      var API_URL = "/sdk/";
+      var OTP_API_URL = '/firma/sendOtp/'; //"http://localhost:8080/firma/sendOtp/";
+      var OTP_API_FEA_URL = '/firma/sendFilesToFEA/'; //"http://localhost:8080/firma/sendOtp/";
+      var OTP_API_ARUBA_URL = '/firma/sendArubaOtp';
+      var SIGN_API_URL = '/firma/signProcess/'; //"http://localhost:8080/firma/signProcess/";
+      var CERT_OTP_URL = '/firma/certificato/otpType/';
+
+      window['SDK'].init(
+        {
+          'BASE_URL': BASE_URL,
+          'API_URL': BASE_URL + API_URL,
+          'OTP_API_URL': BASE_URL + OTP_API_URL,
+          'OTP_API_FEA_URL': BASE_URL + OTP_API_FEA_URL,
+          'OTP_API_ARUBA_URL': BASE_URL + OTP_API_ARUBA_URL,
+          'SIGN_API_URL': BASE_URL + SIGN_API_URL,
+          'CERT_OTP_URL': BASE_URL + CERT_OTP_URL,
+          'FORM_URL': AppConstants.baseURL+'otp/sdk/',
+          'language': 'IT',
+          useIFrame: false,
+          apiToken: ""//"0123456790abcdefghijklmnopqrstuvxwz"
+        }
+      );
+    };
 
   }
  }

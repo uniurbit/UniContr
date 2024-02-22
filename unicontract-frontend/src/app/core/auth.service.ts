@@ -48,7 +48,7 @@ export class AuthService {
     }
 
     login() {
-        return this.http.get(`${this.authUrl}/loginSaml`, httpOptions)
+        return this.http.get(`${this.authUrl}loginSaml`, httpOptions)
         .subscribe(res => {
             console.log(res);
         });
@@ -60,8 +60,30 @@ export class AuthService {
         this.reload();
     }
 
+    cambiaUtente(id){
+        return this.http.post<any>(`${this.authUrl}api/auth/cambiautente`, {id: id}, httpOptions).pipe(tap((data) => {
+            if (data.success){
+                localStorage.removeItem(AuthService.TOKEN);
+                localStorage.clear();
+                sessionStorage.clear();
+                this.permissionsService.flushPermissions();
+                this.resetFields();
+                this.loggedIn.next(false);
+                
+                this.loginWithToken(data.token);
+            }else{
+                //messaggio     
+                console.log(data.message);           
+            }
+            
+          })).subscribe(res => {            
+            console.log(res);
+        });
+    }
+
+
     refreshToken() {
-        return this.http.post<any>(`${this.authUrl}/api/auth/refreshtoken`, {
+        return this.http.post<any>(`${this.authUrl}api/auth/refreshtoken`, {
           'refreshToken': this.getToken()
         }).pipe(tap((data) => {
           this.storeJwtToken(data.token);

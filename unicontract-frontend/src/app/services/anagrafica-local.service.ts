@@ -19,7 +19,6 @@ export class AnagraficaLocalService extends CoreSevice {
     this._baseURL = AppConstants.baseApiURL + '/anagrafica';
   }
 
-  //interroga il database di unicontr per otterne l'anagrafica locale
   getAnagraficaLocal(id: string) {
     return this.http.get(this._baseURL + '/local/' + id).pipe(catchError(this.handleError('getAnagraficaLocal', null, true)));
   }

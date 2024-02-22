@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!-- saved from url=(0070)https://uniurb.webfirma.pp.cineca.it/my-web-firma/sdk/req_otp_fea.html -->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Fea</title>
+    <!--<base href="/my-web-firma/fea/">-->
+    <base href="/otp/fea/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="icon" type="image/x-icon" href="https://uniurb.webfirma.pp.cineca.it/my-web-firma/fea/favicon.ico"> -->
+    <link rel="stylesheet" href="styles.css">
+    <style></style>
+    <style>
+        .error[_ngcontent-bxo-c14] {
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 15px;
+            min-height: 30px;
+            min-width: 30px;
+            background-color: #ff000080
+        }
+    </style>
+    <style>
+        .error[_ngcontent-bxo-c13] {
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 15px;
+            min-height: 30px;
+            min-width: 30px;
+            background-color: #ff000080
+        }
+    </style>
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1115.0" data-gr-ext-installed="">
+    <app-root id="componenteFea" usigntoken="" uploadurl="/api/v1/sendToFEA"
+        downloadurl="/api/v1/signWithFEA" sdk="true" _nghost-bxo-c15="" ng-version="13.1.2">
+        <div _ngcontent-bxo-c15="">
+            <app-otp-container _ngcontent-bxo-c15="" _nghost-bxo-c14=""><!----><!----><!---->
+                <app-debug-container _ngcontent-bxo-c14="" _nghost-bxo-c13=""><!----></app-debug-container>
+            </app-otp-container>
+        </div>
+    </app-root>
+    <script src="runtime.js" type="module"></script>
+    <script src="polyfills.js" type="module"></script>
+    <script src="main.js" type="module"></script>
+
+    <script>
+
+        (function () {
+            window.addEventListener('message', function (event) {
+
+                var message = JSON.parse(event.data);
+                if (message.command.toLowerCase() === 'fea') {
+                    console.log(message.args);
+                    var event = new CustomEvent("tokenReceived", { "detail": message.args.process_token });
+                    event.currentTarget = message.args.process_token;
+                    SDK.OTP.commandArgs.process_token = message.args.process_token;
+                    SDK.OTP.commandArgs.auth_token = message.args.auth_token
+                    document.dispatchEvent(event);
+                    window.initAsync();
+                }
+            });
+        }());
+
+        (function() { 
+            (function (send) {
+                XMLHttpRequest.prototype.send = function (data) {
+                    console.log("Adding header");
+                    //Authorization: `bearer ${token}`
+                    this.setRequestHeader("Authorization", SDK.OTP.commandArgs.auth_token);
+                    send.call(this, data);
+                };
+            })(XMLHttpRequest.prototype.send);
+        })();
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "/otp/sdk/api-client-lib.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'api-client-lib'));
+
+        <!-- init callback function called by SDK after loading completion -->
+        window.initAsync = function () {
+
+            var CURRENT_SERVER_URL = getServerURL();
+            console.log("CURRENT_SERVER_URL: " + CURRENT_SERVER_URL);
+
+            // PLACE HERE CONFIGURATION CODE (eg. API keys, tokens, etc..)
+            SDK.init(
+                {
+                    'BASE_URL': CURRENT_SERVER_URL, //'http://localhost:8080', //,
+                    'debug_mode': true,
+                    'event_listener': 'FEA'
+                }
+            );
+            if (SDK.OTP.commandArgs.process_token !== undefined && SDK.OTP.commandArgs.process_token !== null) {
+                console.log('[req_otp_fea] token:', SDK.OTP.commandArgs.process_token);
+                document.getElementById('componenteFea').setAttribute("usigntoken", SDK.OTP.commandArgs.process_token);
+            }
+
+            
+        };
+
+        function successCallback(data) {
+            console.log('[successCallback]', JSON.stringify(data));
+            var event = new CustomEvent("SuccessEvent", { 'status': 'SuccessCallBack', 'data': data });
+            document.dispatchEvent(event);
+
+            if (data && data.code == 200) {
+                var response_payload = {
+                    callback: 'fea_callback',
+                    data: data
+                };
+                console.log('invio la conferma del buon esito');
+                SDK.OTP.checkFEASignature(response_payload);
+            }
+        }
+
+        function checkSignStatus() {
+
+            if (SDK.OTP.commandArgs.process_token !== undefined && SDK.OTP.commandArgs.process_token !== null) {
+                // $('#submitBtn').attr("value","Processing...").attr("disabled","disabled");
+
+                var otp = $('#otp').val();
+                var pin = $('#pin').val();
+
+                // TODO: passare callback per gestire token/pin errato e poter rifare submit della form
+                SDK.OTP.processOTP(SDK.OTP.commandArgs.process_token);
+            }
+        }
+
+
+        function getServerURL() {
+            var serverUrl = null;
+            if (!window.location.origin) {
+                serverUrl = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+            }
+            else {
+                serverUrl = window.location.origin;
+            }
+            return serverUrl;
+        }
+    </script>
+
+</body>
+</html>

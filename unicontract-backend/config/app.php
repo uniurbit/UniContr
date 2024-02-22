@@ -178,12 +178,11 @@ return [
         
         /*
          * Package Service Providers...
-         */
-        Collective\Html\HtmlServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
+         */        
         Yajra\Oci8\Oci8ServiceProvider::class,
-        Brexis\LaravelWorkflow\WorkflowServiceProvider::class,
+        ZeroDaHero\LaravelWorkflow\WorkflowServiceProvider::class,
         Artisaninweb\SoapWrapper\ServiceProvider::class,
+        Mccarlosen\LaravelMpdf\LaravelMpdfServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -194,8 +193,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
                 
-        Aacotroneo\Saml2\Saml2ServiceProvider::class,
-        Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,      
+        Aacotroneo\Saml2\Saml2ServiceProvider::class, 
                 
     ],
 
@@ -245,15 +243,14 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
         'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Saml2' => Aacotroneo\Saml2\Facades\Saml2Auth::class,        
         'PDF' => Barryvdh\DomPDF\Facade::class,        
-        'Workflow' => Brexis\LaravelWorkflow\Facades\WorkflowFacade::class,
+        'PDFM' => Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::class,   
+  
     ],
 
 

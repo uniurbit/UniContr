@@ -109,47 +109,50 @@ class B4RapportoPARepository extends BaseRepository {
         return $entity;
     }
 
-
-      /**
+    /**
      *  $data lista di attachments
      *  $model istanza del modello a cui associare i file 
      */
     public function saveAttachments($data, $model, $emptyPermission = false){
         foreach ($data as $valore){ 
-            // $copy = false;
-            // if (array_key_exists('id',$valore) && $valore['filename'] && !array_key_exists('filevalue',$valore)){
-            //     //va eseguita una lettura del file value
-            //     $attach = Attachment::find($valore['id']);
-            //     $valore['filevalue'] = base64_encode(Storage::get($attach->filepath));            
-            //     //sto eseguendo una copia                
-            //     $copy=true;
-            // } 
-
+            
             //nel caso in cui esiste il valore id 
             //non c'è filename 
-            //implica che va rimosso           
-            $saved = false;
-            $valore['model_type'] = get_class($model);        
-            $attachment = new Attachment($valore);        
-            $attachment->model()->associate($model);
-            if (array_key_exists('filevalue',$valore) && $attachment->loadStream($valore['filevalue']) != null ){                
-                $model->attachments()->save($attachment);
-                $saved = true;
-            }else{                
-                if ($attachment->nrecord && $attachment->num_prot && $attachment->createLink($attachment->num_prot)){
-                    $model->attachments()->save($attachment);
+            //implica che va rimosso 
+            if (array_key_exists('id',$valore) && !$valore['filename']){   
+                $tmp = Attachment::find($valore['id']);
+                if ($tmp){
+                    $tmp->delete();
+                }
+            } else {            
+                $saved = false;
+
+                $valore['model_type'] = get_class($model);        
+                $attachment = new Attachment($valore);        
+                $attachment->model()->associate($model);
+                if (array_key_exists('filevalue',$valore) && $attachment->loadStream($valore['filevalue']) != null ){                
+                    $model->attachments()->save($attachment);                    
                     $saved = true;
-                } else{
-                    if ($emptyPermission && $attachment->createEmptyFile()){
+                }else{                
+                    if ($attachment->nrecord && $attachment->createLink($attachment->nrecord)){
                         $model->attachments()->save($attachment);
                         $saved = true;
-                    }                    
+                    } else{
+                        if ($emptyPermission && $attachment->createEmptyFile()){
+                            $model->attachments()->save($attachment);
+                            $saved = true;
+                        }                    
+                    }
                 }
-            }
 
-            if (array_key_exists('id',$valore) && $saved && $valore['id']){   
-                Attachment::find($valore['id'])->delete();
-            }                 
+                if (array_key_exists('id',$valore) && $saved){
+                    $tmp = Attachment::find($valore['id']);
+                    if ($tmp){
+                        $tmp->delete();
+                    }
+                } 
+            }
+                        
         }
     }
 

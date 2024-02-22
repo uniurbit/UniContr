@@ -1,0 +1,5 @@
+<div *ngFor="let notifica of notifiche$ | async">
+  <ngb-alert [ngClass]="{'mb-0': riferimento=='generale'}" [dismissible]="false" [type]="notifica.priorita">
+    <span [innerHTML]="notifica.messaggio"></span>
+  </ngb-alert>
+</div>

@@ -25,12 +25,24 @@ export class InputConfirmationDialogComponent implements OnInit {
   @Input() btnOkText: string;
   @Input() btnCancelText: string;
   @Input() messageHtml: string;
+  private _extraData: any = null
+  @Input() public set extraData(value: any) {   
+    this._extraData = value;
+    this.options.formState.extraData = this.extraData
+  }
+  public get extraData(): any {
+    return this._extraData;
+  }
+  @Input() pdfFilevalue = null;
+
 
   form = new FormGroup({});
   model: any = {};
   options: FormlyFormOptions = {
     formState: {
-      model: this.model,      
+      model: this.model,     
+      container: this,
+      extraData: this.extraData
     },
   };
   @Input() fields: FormlyFieldConfig[] = [

@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://127.0.0.1:80/',
+  API_URL: 'http://127.0.0.1:80/', //'http://pcoliva.uniurb.it/',
   baseHref: '/',
-  whitelistedDomains: ['localhost:4200','127.0.0.1:80'],
+  whitelistedDomains: ['localhost:4200','pcoliva.uniurb.it','127.0.0.1:80'],
   blacklistedRoutes: ['localhost:4200/auth/'],
   documentation: ''
 };

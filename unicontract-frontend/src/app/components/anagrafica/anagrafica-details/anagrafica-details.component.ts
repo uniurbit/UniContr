@@ -19,10 +19,6 @@ import ControlUtils from 'src/app/shared/dynamic-form/control-utils';
 import { TranslateSelectPipe } from 'src/app/shared/pipe/translate-select.pipe';
 import { StoryProcess } from './../../../classes/storyProcess';
 import { StoryProcessService } from './../../../services/storyProcess.service';
-import { of } from 'rxjs';
-import { nazioni } from 'src/app/shared/store/nazioni-data-store';
-import { province } from 'src/app/shared/store/provincia-data-store';
-
 
 
 
@@ -208,10 +204,9 @@ export class AnagraficaDetailsComponent extends BaseComponent {
           fieldGroup: [
             {
               key: 'nazione_residenza',
-              type: 'select',
+              type: 'input',
               className: 'col-md-6',
               templateOptions: {
-                options: of(nazioni.map(naz => { return { value: naz.nazionalita, label: naz.nazionalita } })),
                 required: true,
                 translate: true,
                 label: 'a1_label7',
@@ -272,11 +267,10 @@ export class AnagraficaDetailsComponent extends BaseComponent {
             // provincia
             {
               key: 'provincia_residenza',
-              type: 'select',
+              type: 'provincia',
               className: 'col-md-3',              
               templateOptions: {                              
                 maxLength: 2,
-                options: of(province.map(prov => { return { value: prov.sigla, label: prov.sigla + " " + prov.nome } })),
                 required: true,
                 translate: true,
                 label: 'a1_label10',
@@ -319,9 +313,13 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               type: 'input',
               className: 'col-md-3',
               templateOptions: {
+                required: true,
                 maxLength: 10,
                 translate: true,
-                label: 'a1_label13'
+                label: 'a1_num_civico',
+                //pattern: /^[1-9]\d*(?: ?(?:[a-z][a-z]?|[/-] ?\d+[a-z]?[a-z]?|[/-] ?[a-z]?[a-z]?))?$/i
+                //pattern: /^(SNC)|[1-9]\d*(?: ?(?:[a-z][a-z]?|[/-] ?\d+[a-z]?[a-z]?|[/-] ?[a-z]?[a-z]?))?$/i
+                pattern: /^([0-9a-zA-Z \-])*/i
               },
             },
             // data variazione indirizzo di residenza
@@ -363,10 +361,9 @@ export class AnagraficaDetailsComponent extends BaseComponent {
             // provincia
             {
               key: 'provincia_fiscale',
-              type: 'select',
+              type: 'provincia',
               className: 'col-md-3',              
               templateOptions: {
-                options: of(province.map(prov => { return { value: prov.sigla, label: prov.sigla + " " + prov.nome } })),
                 attributes: {
                   autocomplete: 'fiscale',
                 },
@@ -418,9 +415,13 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               type: 'input',
               className: 'col-md-3',
               templateOptions: {
+                required: true,
                 maxLength: 10,
                 translate: true,
-                label: 'a1_label13',
+                label: 'a1_num_civico',
+                //pattern: /^[1-9]\d*(?: ?(?:[a-z][a-z]?|[/-] ?\d+[a-z]?[a-z]?|[/-] ?[a-z]?[a-z]?))?$/i
+                //pattern: /^(SNC)|[1-9]\d*(?: ?(?:[a-z][a-z]?|[/-] ?\d+[a-z]?[a-z]?|[/-] ?[a-z]?[a-z]?))?$/i                
+                pattern: /^([0-9a-zA-Z \-])*/i
               },
             },
             // data variazione del residenza fiscale

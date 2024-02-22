@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api\V1;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Precontrattuale;
+use App\User;
 use App\PrecontrattualePerGenerazione;
 use App\Models\Insegnamenti;
 use Auth;
 use App\Repositories\PrecontrattualeRepository;
 use App\Models\Validazioni;
 use App\Service\PrecontrattualeService;
+use App\Service\FirmaIOService;
 use Carbon\Carbon;
 use App\Service\EmailService;
 use Illuminate\Support\Str;
@@ -23,6 +25,8 @@ use Illuminate\Support\Facades\Cache;
 use App\Exceptions\Handler;
 use Illuminate\Container\Container;
 use Exception;
+use Illuminate\Support\Arr;
+use App\Http\Controllers\FirmaIOClient;
 
 class PrecontrattualeController extends Controller
 {
@@ -94,65 +98,37 @@ class PrecontrattualeController extends Controller
         return compact('data', 'message', 'success');
     }
 
+    private function controlliCopertura($insegnamentoUgov, $precontr)
+    {
 
-    public function updateInsegnamentoFromUgov(Request $request){
         $data = [];
-        $success = true;
-        $message = '';
-
-        //verificare stato della precontrattuale se è già validata non è aggiornabile...      
-        $precontr = PrecontrattualePerGenerazione::with(['validazioni','insegnamento','p2naturarapporto'])->where('insegn_id', $request->insegn_id)->first();
-
-        if ($precontr->isBlocked()){
-            $data = [];
-            $message = trans('global.aggiornamento_non_consentito');
-            $success = false;
-            return compact('data', 'message', 'success');   
-        } 
-
-        if ($precontr->validazioni->flag_amm == 1 || $precontr->validazioni->flag_upd == 1){
-            //se è validata non posso aggiornare  ... prima sblocca poi si rivalida ...
-            $data = [];
-            $success = false;
-            $message = 'Operazione di aggiornamento non eseguibile: precontrattuale validata';
-            return compact('data', 'message', 'success');
-        }
-
-        //leggere da ugov insegnamento ...
-        $insegnamentoUgov = InsegnamUgov::where('COPER_ID', $precontr->insegnamento->coper_id)            
-            ->first(['coper_id', 'tipo_coper_cod', 'data_ini_contratto', 'data_fine_contratto', 
-                'coper_peso', 'ore', 'compenso', 'motivo_atto_cod', 'tipo_atto_des', 'tipo_emitt_des', 
-                'numero', 'data', 'des_tipo_ciclo', 'sett_des', 'sett_cod','af_radice_id']);  
-
-
-
         //verificare la data di conferimento
         if (!$insegnamentoUgov->motivo_atto_cod){                
             $message = 'Insegnamento non aggiornabile: motivo atto non inserito';
             $success = false;            
             return compact('data', 'message', 'success');
         }
-
+        
         //verificare motivo atto non supportato
         if ($insegnamentoUgov->motivo_atto_cod && !in_array($insegnamentoUgov->motivo_atto_cod, ['BAN_INC','APPR_INC','CONF_INC'])){
             $message = 'Insegnamento non aggiornabile: motivo atto non supportato';
             $success = false;            
             return compact('data', 'message', 'success');
         }
-
+        
         //verificare la data di conferimento
         if (!$insegnamentoUgov->data){                
             $message = 'Insegnamento non aggiornabile: data conferimento non inserita';
             $success = false;            
             return compact('data', 'message', 'success');
         }
-
+        
         if ($insegnamentoUgov->data_ini_contratto > $insegnamentoUgov->data_fine_contratto){
             $message = 'Insegnamento non aggiornabile: data di fine insegnamento antecedente alla data di inizio';
             $success = false;            
             return compact('data', 'message', 'success');
         }     
-
+        
         if ($insegnamentoUgov->motivo_atto=='APPR_INC' && !in_array($insegnamentoUgov->tipo_contratto, ['ALTQG','ALTQC','ALTQU'])){
             $data = null;
             $message = 'Insegnamento non aggiornabile: tipologia copertura non coerente con il motivo atto';
@@ -194,15 +170,37 @@ class PrecontrattualeController extends Controller
                 }
             }
 
+            if ($precontr->p2naturarapporto->natura_rapporto !== 'PTG' &&  $precontr->flag_no_compenso == 0){
+                if ($insegnamentoUgov->compenso == null || $insegnamentoUgov->compenso <= 0){                
+                    $message = 'Insegnamento non aggiornabile: compenso non inserito';
+                    $success = false;            
+                    return compact('data', 'message', 'success');
+                }
+            }
+        
         }
-
+        
         if ($insegnamentoUgov->motivo_atto_cod=='CONF_INC'){
             $value = Cache::pull('counter_'.$insegnamentoUgov->coper_id);
-            $contatore = InsegnamUgovController::contatoreInsegnamenti($insegnamentoUgov->coper_id, false);
+            //update
+            $docente = $precontr->user; 
+            $force = false;
+            if ($docente){                  
+                $coper_ids = $docente->getForzaCoperturaIds();    
+                //se il coper id è dentro 
+                $force = in_array($insegnamentoUgov->coper_id,$coper_ids);
+            }
+            $contatore = InsegnamUgovController::contatoreInsegnamenti($insegnamentoUgov->coper_id, $force);
+            
+
             if ($contatore == 0){
                 Log::info('Contatore a 0 - Importato contratto [ coper_id =' . $insegnamentoUgov->coper_id . '] [contatore insegnamenti = '.$contatore);                  
                 $handler = new Handler(Container::getInstance());
                 $handler->report(new Exception('Aggiornato contratto con contatore a 0  [ coper_id =' . $insegnamentoUgov->coper_id . ']'));
+                
+                $message = 'Insegnamento non aggiornabile: con contatore a 0. Verificare sede, che corrisponda con i precedenti insegnamenti.';
+                $success = false;            
+                return compact('data', 'message', 'success');
 
                 // $data = null;
                 // $message = 'Insegnamento non importabile come RINNOVO CONTRATTO: non ci sono precedenti insegnamenti corrispondenti';
@@ -210,6 +208,156 @@ class PrecontrattualeController extends Controller
                 // return compact('data', 'message', 'success');
             }
         }
+       
+    }
+
+    public function changeCoperturaFromUgov(Request $request){
+        $data = [];
+        $success = true;
+        $message = '';
+
+        if (!Auth::user()->hasRole('super-admin')){
+            $data = [];
+            $message = 'Operazione non eseguibile: operatore non abilitato';
+            $success = false;
+            return compact('data', 'message', 'success');   
+        }
+
+        //verificare stato della precontrattuale se è già validata non è aggiornabile...      
+        $precontr = PrecontrattualePerGenerazione::with(['validazioni','insegnamento','p2naturarapporto'])->where('insegn_id', $request->insegn_id)->first();
+
+        if ($precontr->isBlocked()){
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito');
+            $success = false;
+            return compact('data', 'message', 'success');   
+        } 
+
+        if ($precontr->validazioni->flag_amm == 1 || $precontr->validazioni->flag_upd == 1){
+            //se è validata non posso aggiornare  ... prima sblocca poi si rivalida ...
+            $data = [];
+            $success = false;
+            $message = 'Operazione di aggiornamento non eseguibile: precontrattuale validata';
+            return compact('data', 'message', 'success');
+        }
+
+        //determina se un insegnamento è stato già importato e se la sua precontrattuale associata è diversa da annullato
+        $precontrs = Precontrattuale::with(['insegnamento'])->whereHas('insegnamento',function($query) use($request){
+            $query->where('coper_id', $request->entity['new_coper_id']);            
+        })->whereNotIn('stato',[2,3])->get();
+
+        $count = $precontrs->count();                    
+        $data = [];
+
+        if($count === 0 ) { //&& $precontrs->first()->id == $precontr->id
+
+            //leggere da ugov insegnamento ...
+            $insegnamentoUgov = InsegnamUgov::join('ANAGRAFICA', 'V_IE_DI_COPER.MATRICOLA', '=', 'ANAGRAFICA.MATRICOLA')
+                ->where('V_IE_DI_COPER.COPER_ID', $request->entity['new_coper_id'])            
+                ->first(['ANAGRAFICA.ID_AB', 'ANAGRAFICA.EMAIL', 'ANAGRAFICA.E_MAIL', 'ANAGRAFICA.E_MAIL_PRIVATA', 'V_IE_DI_COPER.*']); 
+
+            //controlli per cambio 
+            if ($insegnamentoUgov->aa_off_id != $precontr->insegnamento->aa){
+                $message = 'Copertura non cambiabile: insegnamento non corrispondente';
+                $success = false;            
+                return compact('data', 'message', 'success');
+
+            } 
+            if ($insegnamentoUgov->id_ab != $precontr->docente_id){
+                $message = 'Copertura non cambiabile: docente non corrispondente';
+                $success = false;            
+                return compact('data', 'message', 'success');
+            }   
+            if ($insegnamentoUgov->af_gen_des != $precontr->insegnamento->insegnamento){
+                $message = 'Copertura non cambiabile: insegnamento non corrispondente';
+                $success = false;            
+                return compact('data', 'message', 'success');
+
+            } 
+            if ($insegnamentoUgov->sett_des != $precontr->insegnamento->settore){
+                $message = 'Copertura non cambiabile: settore non corrispondente';
+                $success = false;            
+                return compact('data', 'message', 'success');
+            }
+
+            if ($insegnamentoUgov->sett_cod != $precontr->insegnamento->cod_settore){
+                $message = 'Copertura non cambiabile: codice settore non corrispondente';
+                $success = false;            
+                return compact('data', 'message', 'success');
+            }
+        
+            
+            $this->controlliCopertura($insegnamentoUgov, $precontr);
+
+            $precontr->insegnamento->setDataFromUgov($insegnamentoUgov);
+            $da_coper_id =  $precontr->insegnamento->coper_id;
+
+            $precontr->insegnamento->coper_id = $insegnamentoUgov->coper_id;
+
+            $precontr->insegnamento->save();
+    
+            $precontr->storyprocess()->save(
+                PrecontrattualeService::createStoryProcess('Modello P1: Cambio codice copertura da '.$da_coper_id.' a '. $precontr->insegnamento->coper_id.' stesso insegnamento', 
+                $precontr->insegn_id)
+            );
+
+            $data = $precontr->insegnamento;
+
+            return compact('data', 'message', 'success');
+
+
+        } else{
+            $message = 'Copertura non cambiabile: copertura già in UniContr';
+            $success = false;            
+            return compact('data', 'message', 'success');
+        }
+    }
+
+    public function updateInsegnamentoFromUgov(Request $request){
+        $data = [];
+        $success = true;
+        $message = '';
+
+        //verificare stato della precontrattuale se è già validata non è aggiornabile...      
+        $precontr = PrecontrattualePerGenerazione::with(['validazioni','insegnamento','p2naturarapporto'])->where('insegn_id', $request->insegn_id)->first();
+
+        if ($precontr->isBlocked()){
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito');
+            $success = false;
+            return compact('data', 'message', 'success');   
+        } 
+
+        if ($precontr->validazioni->flag_amm == 1 || $precontr->validazioni->flag_upd == 1){
+            //se è validata non posso aggiornare tutto  ... prima sblocca poi si rivalida ...
+
+             //leggere da ugov insegnamento ...
+            $insegnamentoUgov = InsegnamUgov::where('COPER_ID', $precontr->insegnamento->coper_id)            
+            ->first(['coper_id', 'motivo_atto_cod', 'tipo_atto_des', 'tipo_emitt_des', 'numero', 'data', 'cds_cod']);  
+
+            $precontr->insegnamento->setDataFromUgovDelibera($insegnamentoUgov);
+            $precontr->insegnamento->save();
+
+            $precontr->storyprocess()->save(
+                PrecontrattualeService::createStoryProcess('Modello P1: Aggiornamento tipo atto', 
+                $precontr->insegn_id)
+            );
+
+            $data = [];
+            $success = true;
+            $message = 'Operazione di aggiornamento eseguita solo per tipo di atto. Precontrattuale validata';
+            return compact('data', 'message', 'success');
+        }
+
+        //leggere da ugov insegnamento ...
+        $insegnamentoUgov = InsegnamUgov::where('COPER_ID', $precontr->insegnamento->coper_id)            
+            ->first(['coper_id', 'tipo_coper_cod', 'data_ini_contratto', 'data_fine_contratto', 
+                'coper_peso', 'ore', 'compenso', 'motivo_atto_cod', 'tipo_atto_des', 'tipo_emitt_des', 
+                'numero', 'data', 'des_tipo_ciclo', 'sett_des', 'sett_cod','af_radice_id', 'cds_cod']);  
+
+
+
+        $this->controlliCopertura($insegnamentoUgov, $precontr);
 
         $precontr->insegnamento->setDataFromUgov($insegnamentoUgov);
 
@@ -226,9 +374,7 @@ class PrecontrattualeController extends Controller
 
         return compact('data', 'message', 'success');
     }
-
-
-
+    
     public function newPrecontrImportInsegnamento(Request $request){
         $success = true;
         $count = 0;
@@ -334,17 +480,29 @@ class PrecontrattualeController extends Controller
             //     }
             // }
 
-            if ($request->insegnamento['motivo_atto']=='CONF_INC'){
-                $contatore = InsegnamUgovController::contatoreInsegnamenti($request->insegnamento['coper_id'], false);              
+            if ($request->insegnamento['motivo_atto']=='CONF_INC'){                
+                //nuovo
+                $docente = User::where('v_ie_ru_personale_id_ab', $request->docente['v_ie_ru_personale_id_ab'])->first();     
+                $force = false;
+                if ($docente){                  
+                    $coper_ids = $docente->getForzaCoperturaIds();    
+                    //se il coper id è dentro 
+                    $force = in_array($request->insegnamento['coper_id'],$coper_ids);
+                }
+                
+                $contatore = InsegnamUgovController::contatoreInsegnamenti($request->insegnamento['coper_id'], $force);              
                 if ($contatore == 0){
                     Log::info('Contatore a 0 - Importato contratto [ coper_id =' . $request->insegnamento['coper_id'] . '] [contatore insegnamenti = '.$contatore);                  
                     $handler = new Handler(Container::getInstance());
                     $handler->report(new Exception('Importato contratto con contatore a 0  [ coper_id =' . $request->insegnamento['coper_id'] . ']'));
 
-                    $data = null;
-                    $message = 'Insegnamento non importabile come RINNOVO CONTRATTO: non ci sono precedenti insegnamenti corrispondenti';
-                    $success = false;            
-                    return compact('data', 'message', 'success');
+                    if (!$force){
+                        $data = null;
+                        $message = 'Insegnamento non importabile come RINNOVO CONTRATTO: non ci sono precedenti insegnamenti corrispondenti. Verificare esistenza di un bando precedente. Verificare sede, che corrisponda con i precedenti insegnamenti.';
+                        $success = false;            
+                        return compact('data', 'message', 'success');
+                    }
+                    
                 }else{
                     Log::info('Importato contratto [ coper_id =' . $request->insegnamento['coper_id'] . '] [contatore insegnamenti = '.$contatore);
                 }
@@ -362,6 +520,39 @@ class PrecontrattualeController extends Controller
 
         return compact('data', 'message', 'success');
     }
+
+    public function changeContatoreInsegnamentiManuale(Request $request){
+        $data = [];
+        $success = true;
+        $message = 'Operazione di inserimento completata con successo';
+      
+        //verificare stato della precontrattuale se è già validata non è aggiornabile...      
+        $precontr = PrecontrattualePerGenerazione::with(['validazioni','insegnamento','p2naturarapporto'])->where('insegn_id', $request->insegn_id)->first();
+
+        if ($precontr->isBlocked()){
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito');
+            $success = false;
+            return compact('data', 'message', 'success');   
+        } 
+
+        if ($precontr->validazioni->flag_amm == 1 || $precontr->validazioni->flag_upd == 1){
+            //se è validata non posso aggiornare  ... prima sblocca poi si rivalida ...
+            $data = [];
+            $success = false;
+            $message = 'Operazione di inserimento non eseguibile: precontrattuale validata';
+            return compact('data', 'message', 'success');
+        }
+
+        $message = '';
+        $postData = $request->except('id', '_method');
+            
+        $data = $this->repo->changeContatoreInsegnamentiManuale($postData);
+
+        return compact('data', 'message', 'success');
+
+    }
+
 
     public function newIncompat(Request $request){
         
@@ -558,7 +749,7 @@ class PrecontrattualeController extends Controller
      
         $data = Validazioni::where('insegn_id',$request->insegn_id)->first();
 
-        $entity = array_dot($postData['entity']);
+        $entity = Arr::dot($postData['entity']);
         $pre->storyprocess()->save(
             PrecontrattualeService::createStoryProcess('Annullamento validazione Uff. Personale: '.$entity['note.motivazione'], 
             $pre->insegn_id)
@@ -684,7 +875,7 @@ class PrecontrattualeController extends Controller
 
         $valid->save();    
 
-        $entity = array_dot($postData['entity']);
+        $entity = Arr::dot($postData['entity']);
         $pre->storyprocess()->save(
             PrecontrattualeService::createStoryProcess('Annullamento validazione Uff. Finanze: '.$entity['note.motivazione'], 
             $pre->insegn_id)
@@ -724,6 +915,105 @@ class PrecontrattualeController extends Controller
         $data = $this->service->presaVisioneAccettazione($request->insegn_id);        
         
         return compact('data', 'message', 'success');
+    }
+
+
+    public function richiestaFirmaIO(Request $request){
+                
+        $success = true;
+        $message = ''; 
+        $data = [];
+
+        if (!Auth::user()->hasPermissionTo('presavisione precontrattuale')) {
+            abort(403, trans('global.utente_non_autorizzato'));
+        }
+
+        $pre = Precontrattuale::with(['validazioni'])->where('insegn_id', $request->insegn_id)->first();
+        if ($pre->isAnnullata()){
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito');
+            $success = false;
+            return compact('data', 'message', 'success');   
+        }
+
+        $success = true;
+        $message = ''; 
+        $data = [];
+        
+        if (!($pre->validazioni->current_place == 'validata_economica' && !$pre->validazioni->flag_accept)){
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito').' precontrattuale in validazione';
+            $success = false;
+            return compact('data', 'message', 'success'); 
+        }
+   
+        return $this->service->richiestaFirmaIO($request->insegn_id);        
+    }
+
+
+    public function richiestaFirmaUSIGN(Request $request){
+                
+        $success = true;
+        $message = ''; 
+        $data = [];
+
+        if (!Auth::user()->hasPermissionTo('presavisione precontrattuale')) {
+            abort(403, trans('global.utente_non_autorizzato'));
+        }
+
+        $pre = Precontrattuale::with(['validazioni'])->where('insegn_id', $request->insegn_id)->first();
+        if ($pre->isAnnullata()){
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito');
+            $success = false;
+            return compact('data', 'message', 'success');   
+        }
+
+        $success = true;
+        $message = ''; 
+        $data = [];
+        
+        if (!($pre->validazioni->current_place == 'validata_economica' && !$pre->validazioni->flag_accept)){
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito').' precontrattuale in validazione';
+            $success = false;
+            return compact('data', 'message', 'success'); 
+        }
+   
+        return $this->service->richiestaFirmaUSIGN($request->insegn_id);        
+    }
+
+
+    public function cancellazioneIstanzaFirmaUtente(Request $request){
+                
+        $success = true;
+        $message = ''; 
+        $data = [];
+
+        if (!Auth::user()->hasPermissionTo('presavisione precontrattuale')) {
+            abort(403, trans('global.utente_non_autorizzato'));
+        }
+
+        $pre = Precontrattuale::with(['validazioni'])->where('insegn_id', $request->insegn_id)->first();
+        if ($pre->isAnnullata()){
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito');
+            $success = false;
+            return compact('data', 'message', 'success');   
+        }
+
+        $success = true;
+        $message = ''; 
+        $data = [];
+        
+        if (!($pre->validazioni->current_place == 'validata_economica' && !$pre->validazioni->flag_accept)){
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito').' precontrattuale in validazione';
+            $success = false;
+            return compact('data', 'message', 'success'); 
+        }
+   
+        return $this->service->cancellazioneIstanzaFirmaUtente($request->insegn_id, $request->entity);        
     }
 
     public function terminaInoltra(Request $request){
@@ -789,6 +1079,20 @@ class PrecontrattualeController extends Controller
          
         $postData = $request->except('id', '_method');        
         $data = $this->repo->annullaContratto($postData);
+
+        return compact('data', 'message', 'success');
+    }
+
+    public function annullaAnnullaContratto(Request $request){
+        $success = true;
+        $message = '';        
+        
+        if (!Auth::user()->hasPermissionTo('annullacontratto precontrattuale')) {
+            abort(403, trans('global.utente_non_autorizzato'));
+        }    
+         
+        $postData = $request->except('id', '_method');        
+        $data = $this->repo->annullaAnnullaContratto($postData);
 
         return compact('data', 'message', 'success');
     }
@@ -858,10 +1162,18 @@ class PrecontrattualeController extends Controller
                 $uo = Auth::user()->unitaorganizzativa();
 
                 if ($uo == null) {
-                   abort(403, trans('global.utente_non_autorizzato'));
-                }    
-        
-                if ($uo->isPlesso()){
+                   //cerca tra i permessi
+                   $uos = Auth::user()->getDipartimentiUo();
+                   if ($uos && count($uos)>0){
+                        array_push($parameters['rules'],[
+                            "operator" => "In",
+                            "field" => "insegnamento.dip_cod",                
+                            "value" => $uos
+                        ]);
+                   }else {
+                        abort(403, 'Utente senza unità organizzativa associata');
+                   }                   
+                } else if ($uo->isPlesso()){
                     //filtro per unitaorganizzativa dell'utente di inserimento (plesso)
                     array_push($parameters['rules'],[
                         "operator" => "In",
@@ -886,7 +1198,7 @@ class PrecontrattualeController extends Controller
     public function export(Request $request){
         //prendi i parametri 
         $findparam = $this->queryparameter($request);                  
-        $findparam['includes'] = 'insegnamento,user,validazioni,p2naturarapporto,d1inps,d4fiscali,d2inail,d6familiari'; 
+        $findparam['includes'] = 'insegnamento,insegnamento.corsodistudio,user,validazioni,p2naturarapporto,d1inps,d4fiscali,d2inail,d6familiari'; 
 
         return (new PrecontrattualeExport($request,$findparam))->download('precontrattuali.csv', \Maatwebsite\Excel\Excel::CSV,  [
             'Content-Type' => 'text/csv',
@@ -897,7 +1209,7 @@ class PrecontrattualeController extends Controller
     public function exportxls(Request $request){
         //prendi i parametri 
         $findparam = $this->queryparameter($request);                  
-        $findparam['includes'] = 'insegnamento,user,validazioni,p2naturarapporto,d1inps,d4fiscali,d2inail,d6familiari'; 
+        $findparam['includes'] = 'insegnamento,insegnamento.corsodistudio,user,validazioni,p2naturarapporto,d1inps,d4fiscali,d2inail,d6familiari'; 
 
         return (new PrecontrattualeExport($request,$findparam))->download('precontrattuali.xlsx');     
     }
@@ -965,10 +1277,16 @@ class PrecontrattualeController extends Controller
                 $uo = Auth::user()->unitaorganizzativa();
 
                 if ($uo == null) {
-                    abort(403, trans('global.utente_non_autorizzato'));
-                }    
-
-                if ($uo->isPlesso()){
+                    //cerca tra i permessi
+                    $uos = Auth::user()->getDipartimentiUo();
+                    if ($uos && count($uos)>0){
+                        if (!(in_array($pre->insegnamento->dip_cod,$uos))){
+                            abort(403, trans('global.utente_non_autorizzato'));
+                        } 
+                    } else {
+                        abort(403, trans('global.utente_non_autorizzato'));
+                    }
+                } else if ($uo->isPlesso()){
                     if (!(in_array($pre->insegnamento->dip_cod,$uo->dipartimenti()))){
                         abort(403, trans('global.utente_non_autorizzato'));
                     }    

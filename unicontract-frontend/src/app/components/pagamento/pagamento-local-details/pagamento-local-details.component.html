@@ -21,6 +21,14 @@
     <app-list-item *ngIf="item.aba" label="{{ 'a2_label6' | translate }}" value="{{ item.aba | uppercase }}"> </app-list-item>
   </app-riquadro-wrapper>
 
+  <ng-container *ngIf="item.precontr.p2naturarapporto.natura_rapporto == 'COCOCO' && item.precontr.insegnamento.compenso > 3000 && item.precontr.insegnamento.aa >= 2022">
+  <app-riquadro-wrapper >
+    <h5>{{ 'a2_title3' | translate }}</h5>
+    <app-list-item label="{{ 'Soluzione di pagamento' | translate }}" value="{{ item.soluzione_pagamento ? (item.soluzione_pagamento | translate) : 'DATO MANCANTE' }}"> </app-list-item>  
+  </app-riquadro-wrapper>
+  </ng-container>
+  
+
   <div class="form-footer text-right" >  
     <app-barra-comandi *ngIf="item" [item]="item" [type]="'A2'"></app-barra-comandi>
     

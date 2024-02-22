@@ -8,6 +8,7 @@ use App\Models\Docente;
 use App\Precontrattuale;
 use App\Models\B1ConflittoInteressi;
 use PDF;
+use PDFM;
 use App\Attachment;
 use App\Repositories\B1ConflittoInteressiRepository;
 use App\Service\PrecontrattualeService;
@@ -199,19 +200,45 @@ class B1ConflittoIntController extends Controller
         $attach = null;
 
         if ($kind=='CONFL_INT_TRASP'){
-            $pdf = PDF::loadView('pdfConflittoInteressiTrasparenza', ['pre' => $pre])
-                ->setOption('margin-left','20')
-                ->setOption('margin-right','20')
-                ->setOption('margin-top','30')
-                ->setOption('margin-bottom','20');
+
+            $config = PrecontrattualeService::configPdf('Dichiarazione');
+            $config['margin-top'] = '30';
+            $config['margin-right'] = '20';                             
+            $config['margin-left'] = '20';                             
+            $config['margin-bottom'] = '20';        
+    
+            $pdf = PDFM::loadView(
+                'pdfConflittoInteressiTrasparenza',
+                ['pre' => $pre],
+                [],             
+                $config);         
+                                      
+            // $pdf = PDF::loadView('pdfConflittoInteressiTrasparenza', ['pre' => $pre])
+            //     ->setOption('margin-left','20')
+            //     ->setOption('margin-right','20')
+            //     ->setOption('margin-top','30')
+            //     ->setOption('margin-bottom','20');
                  
             $attach['filename'] = 'Dichiarazione Trasparenza '. $pre->user->nameTutorString() .'.pdf';
         }else{ //CONFL_INT
-            $pdf = PDF::loadView('pdfConflittoInteressi', ['pre' => $pre])
-                ->setOption('margin-left','20')
-                ->setOption('margin-right','20')
-                ->setOption('margin-top','30')
-                ->setOption('margin-bottom','20');   
+
+            $config = PrecontrattualeService::configPdf('Dichiarazione');
+            $config['margin-top'] = '30';
+            $config['margin-right'] = '20';                             
+            $config['margin-left'] = '20';                             
+            $config['margin-bottom'] = '20';        
+    
+            $pdf = PDFM::loadView(
+                'pdfConflittoInteressi',
+                ['pre' => $pre],
+                [],             
+                $config);       
+
+            // $pdf = PDF::loadView('pdfConflittoInteressi', ['pre' => $pre])
+            //     ->setOption('margin-left','20')
+            //     ->setOption('margin-right','20')
+            //     ->setOption('margin-top','30')
+            //     ->setOption('margin-bottom','20');   
                 
             $attach['filename'] = 'Dichiarazione '. $pre->user->nameTutorString() .'.pdf';
         }                          

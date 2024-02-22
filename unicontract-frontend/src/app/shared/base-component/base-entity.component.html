@@ -13,7 +13,7 @@
                 <span class="ml-2">Aggiorna</span>
             </button>
             <button *ngIf="isReloadable" class="btn btn-outline-primary rounded-lg ml-1" (click)="onReload()" [disabled]="!form.dirty">
-                <span class="oi oi-reload iconic" title="reload" aria-hidden="true"></span>
+                <span class="oi oi-reload" title="reload" aria-hidden="true"></span>
                 <span class="ml-2">Ricarica</span>
             </button>
             <button *ngIf="researchPath" class="btn btn-outline-primary rounded-lg ml-1" (click)="onResearch()">

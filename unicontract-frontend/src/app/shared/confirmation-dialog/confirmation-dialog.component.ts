@@ -12,6 +12,7 @@ export class ConfirmationDialogComponent implements OnInit {
   @Input() btnOkText: string;
   @Input() btnCancelText: string;
   @Input() messageHtml: string;
+  @Input() pdfFilevalue: string;
 
   constructor(private activeModal: NgbActiveModal) { }
 

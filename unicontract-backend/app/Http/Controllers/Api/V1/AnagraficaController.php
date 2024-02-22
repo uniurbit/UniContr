@@ -162,7 +162,7 @@ class AnagraficaController extends Controller
         $msg = '';
         $toTrace =null;
         if (!$dati->wasRecentlyCreated) {                               
-            $toTrace = array_only($dati->getChanges(),Audit::$toTrace);
+            $toTrace = Arr::only($dati->getChanges(),Audit::$toTrace);
             foreach ($toTrace  as $key => $value) {
                 //dati da memorizzare ... 
                 //e notificare ...                

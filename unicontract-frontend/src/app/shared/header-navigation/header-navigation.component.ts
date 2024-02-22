@@ -11,6 +11,9 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/core';
 import { Router } from '@angular/router';
 import { SettingsService } from 'src/app/services/settings.service';
+import { ConfirmationDialogService } from '../confirmation-dialog/confirmation-dialog.service';
+import { TranslateService } from '@ngx-translate/core';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 declare var $: any;
 
@@ -32,7 +35,28 @@ export class HeaderNavigationComponent implements AfterViewInit {
 
   baseurl = environment.API_URL;
 
-  constructor(private modalService: NgbModal, public authService: AuthService, private router: Router, public settingService: SettingsService) {}
+  constructor(private modalService: NgbModal, public authService: AuthService, private router: Router, 
+    public confirmationDialogService: ConfirmationDialogService,
+    public translateService: TranslateService,
+    public settingService: SettingsService) {}
+
+
+  fieldcambioutente: FormlyFieldConfig[] = [   
+    {
+      fieldGroupClassName: 'row',
+      fieldGroup: [
+        {          
+          key: 'user_id',
+          type: 'input',
+          className: 'col-md-12',
+          //wrappers: [], //scompare la label
+          templateOptions: {
+            label: 'Id utente',                                
+          },
+        },
+      ]
+    },
+  ];
 
   ngAfterViewInit() {}
 
@@ -67,6 +91,33 @@ export class HeaderNavigationComponent implements AfterViewInit {
   get email() {
     return this.authService.email;
   }
+
+  onUserChange(){     
+    this.eseguiCambiaUtente();
+  }
+
+  model: any;
+  eseguiCambiaUtente() {            
+      this.confirmationDialogService.inputConfirm('Conferma', `Vuoi procedere con l\'operazione?`,        
+        'Sì',
+        'No',        
+        'sm',
+        '',
+        this.fieldcambioutente, //campi form      
+        )
+        .then((confirmed) => {
+          if (confirmed.result) {        
+            this.authService.cambiaUtente(confirmed.entity.user_id);
+          }
+        }).catch(() => {
+      
+        });   
+  }
+  
+  isProd() {
+    return environment.production
+  }
+
 
   //theme: 'light', // two possible values: light, dark
   themeNormal(){

@@ -44,7 +44,7 @@ export class AnagraficaLocal implements AnagraficaLocalInterface {
         this.cf_coniuge = '';
         this.stato_civile = '';
         this. titolo_studio = '';
-        this.nazione_residenza = ''; //memorizzata la cittadinanza
+        this.nazione_residenza = '';
         this.comune_residenza = '';
         this.provincia_residenza = '';
         this.cap_residenza = '';

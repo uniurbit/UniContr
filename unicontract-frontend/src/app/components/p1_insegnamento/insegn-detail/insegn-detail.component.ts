@@ -18,7 +18,7 @@ import { IPrecontrStore } from 'src/app/interface/precontrattuale';
   templateUrl: './insegn-detail.component.html',
   styleUrls: [
     './insegn-detail.component.css'
-]
+  ]
 })
 
 @NgModule({
@@ -35,13 +35,13 @@ export class InsegnDetailComponent extends BaseComponent {
   itemUpdP1: Updp1;
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private insegnamentoService: InsegnamentoService,
-              private ugovService: InsegnUgovService,
-              public messageService: MessageService,
-              public confirmationDialogService: ConfirmationDialogService,
-              private tools: InsegnamTools,
-              private goto: RouteMetods) { super(messageService); }
+    private router: Router,
+    private insegnamentoService: InsegnamentoService,
+    private ugovService: InsegnUgovService,
+    public messageService: MessageService,
+    public confirmationDialogService: ConfirmationDialogService,
+    private tools: InsegnamTools,
+    private goto: RouteMetods) { super(messageService); }
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
@@ -49,13 +49,13 @@ export class InsegnDetailComponent extends BaseComponent {
       (params) => {
         this.isLoading = true;
         this.insegnamentoService.getInsegnamento(+params.get('id')).subscribe(
-          response => { 
-            if (!response['success']){
-              this.messageService.error(response['message'],true);
+          response => {
+            if (!response['success']) {
+              this.messageService.error(response['message'], true);
             }
-            this.item = response['datiInsegnamento'] 
+            this.item = response['datiInsegnamento']
           },
-          (error) => {  this.isLoading = false; },
+          (error) => { this.isLoading = false; },
           () => this.isLoading = false
         );
       }
@@ -72,24 +72,24 @@ export class InsegnDetailComponent extends BaseComponent {
 
   sendEmail() {
     // tslint:disable-next-line:max-line-length
-    this.confirmationDialogService.confirm('Conferma', 'Vuoi procedere con l\'invio della richiesta di compilazione della modulistica precontrattuale?' )
-    .then((confirmed) => {
-      if (confirmed) {
-        this.isLoading = true;
-        this.insegnamentoService.sendFirstEmail(this.item.insegn_id).subscribe(
-          response => {
-            if (response.success) {
-              this.item['sendemailsrcp'].push(response.data);
-              this.messageService.info(response.message);
-            } else {
-              this.messageService.error(response.message);
-            }
-          },
-          (error) => this.isLoading = false,
-          () => this.isLoading = false
-        );
-      }
-    });
+    this.confirmationDialogService.confirm('Conferma', 'Vuoi procedere con l\'invio della richiesta di compilazione della modulistica precontrattuale?')
+      .then((confirmed) => {
+        if (confirmed) {
+          this.isLoading = true;
+          this.insegnamentoService.sendFirstEmail(this.item.insegn_id).subscribe(
+            response => {
+              if (response.success) {
+                this.item['sendemailsrcp'].push(response.data);
+                this.messageService.info(response.message);
+              } else {
+                this.messageService.error(response.message);
+              }
+            },
+            (error) => this.isLoading = false,
+            () => this.isLoading = false
+          );
+        }
+      });
   }
 
   isLoadingChange(event) {
@@ -97,40 +97,153 @@ export class InsegnDetailComponent extends BaseComponent {
   }
 
   updateInsegnamento(insegn_id) {
-    this.confirmationDialogService.confirm('Conferma', 'Vuoi procedere con l\'operazione di aggiornamento dei dati?' )
-    .then((confirmed) => {
-      if (confirmed) {
-        this.route.paramMap.subscribe(
-          (params) => {        
-            
-            const preStore: IPrecontrStore<any> = {
-              insegn_id: insegn_id,
-              entity: null,
-            };
-            
-            this.updateInsegnamentoFromUgov(preStore);            
-          },        
-        );
-      }
-    });
+    this.confirmationDialogService.confirm('Conferma', 'Vuoi procedere con l\'operazione di aggiornamento dei dati?')
+      .then((confirmed) => {
+        if (confirmed) {
+          this.route.paramMap.subscribe(
+            (params) => {
+
+              const preStore: IPrecontrStore<any> = {
+                insegn_id: insegn_id,
+                entity: null,
+              };
+
+              this.updateInsegnamentoFromUgov(preStore);
+            },
+          );
+        }
+      });
   }
 
   updateInsegnamentoFromUgov(preStore: IPrecontrStore<any>) {
-    this.isLoading = true;    
+    this.isLoading = true;
     this.insegnamentoService.updateInsegnamentoFromUgov(preStore).subscribe(
       response => {
-        this.isLoading=false;
+        this.isLoading = false;
         if (response['success']) {
           //aggiornamento pagina o aggionramento dati
-          this.item = { ...this.item, ...response['data']},
-          this.messageService.info('Parte 1: Dati relativi all\'insegnamento aggiornati con successo');
+          this.item = { ...this.item, ...response['data'] };
+          if (response['message']){
+            this.messageService.warn(response['message']);
+          } else {
+            this.messageService.info("Parte 1: Dati relativi all'insegnamento aggiornati con successo");
+          }
+        
         } else {
           this.messageService.error(response['message']);
-        }        
+        }
       },
       (error) => this.isLoading = false,
-        () => this.isLoading = false
+      () => this.isLoading = false
     );
   }
 
+  changeCopertura(insegn_id) {
+    this.confirmationDialogService.inputConfirm('Cambio', 'Procedere con l\'operazione di cambio?', 'Conferma', 'Annulla', 'sm', null, [
+      // motivazione
+      {
+        fieldGroupClassName: 'row',
+        fieldGroup: [
+          {
+            key: 'new_coper_id',
+            type: 'number',
+            className: 'col-md-12',
+            templateOptions: {
+              required: true,
+              label: 'Codice copertura',
+            },
+          },
+        ],
+      }
+    ])
+      .then((confirmed) => {
+        if (confirmed.result) {
+          const data: IPrecontrStore<any> = {
+            insegn_id: this.item.insegn_id,
+            entity: confirmed.entity
+          };
+
+          this.isLoading = true;
+          this.insegnamentoService.changeCoperturaFromUgov(data).subscribe(
+            response => {
+              this.isLoading = false;
+              if (response.success) {
+                this.item = { ...this.item, ...response.data };
+                this.messageService.info('Operazione di cambio terminata con successo');
+              } else {
+                this.messageService.error(response.message);
+              }
+            }
+          );
+        }
+      });
+  }
+
+
+  inserisciManualmente() {
+    this.confirmationDialogService.inputConfirm('Inserimento', 'Inserimento manuale del numero dei precedenti insegnamenti', 'Conferma', 'Annulla', 'sm', null, [
+      // motivazione
+      {
+        fieldGroupClassName: 'row',
+        fieldGroup: [
+          {
+            key: 'contatore_insegnamenti_manuale',
+            type: 'number',
+            className: 'col-md-12',
+            templateOptions: {
+              min: 1,
+              required: true,
+              label: 'Numero precedenti insegnamenti',
+            },
+          },
+        ],
+      }
+    ])
+      .then((confirmed) => {
+        if (confirmed.result) {
+          const data: IPrecontrStore<any> = {
+            insegn_id: this.item.insegn_id,
+            entity: confirmed.entity
+          };
+
+          this.isLoading = true;
+          this.insegnamentoService.changeContatoreInsegnamentiManuale(data).subscribe(
+            response => {
+              this.isLoading = false;
+              if (response.success) {                
+                this.item.contatore_insegnamenti_manuale = response.data.contatore_insegnamenti_manuale;
+                this.messageService.info('Operazione di cambio terminata con successo');
+              } else {
+                this.messageService.error(response.message);
+              }
+            }
+          );
+        }
+      });
+  }
+
+  cancellaContatoreManualmente() {
+    const data: IPrecontrStore<any> = {
+      insegn_id: this.item.insegn_id,
+      entity:  {
+        contatore_insegnamenti_manuale: null
+      }
+    };
+
+    this.isLoading = true;
+    this.insegnamentoService.changeContatoreInsegnamentiManuale(data).subscribe(
+      response => {
+        this.isLoading = false;
+        if (response.success) {
+          console.log(response.data)
+          this.item.contatore_insegnamenti_manuale = response.data.contatore_insegnamenti_manuale;
+          this.messageService.info('Operazione di cambio terminata con successo');
+        } else {
+          this.messageService.error(response.message);
+        }
+      }
+    );
+  }
+
+  
 }

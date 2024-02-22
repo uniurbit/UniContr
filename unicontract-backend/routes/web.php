@@ -11,27 +11,35 @@
 |
 */
 
-Route::get('/loginSaml', function(){
 
-    if(\Auth::guest())
-    {
-        return \Saml2::login("/");
-    }
-})->name('loginSaml');
+// Route::get('/logoutSaml', function () {      
+//     Auth::logout();    
+//     Session::save();
 
-Route::get('/logoutSaml', function () {      
-    Auth::logout();    
-    Session::save();
+//     return redirect('saml2/logout'); 
+// });
 
-    return redirect('saml2/logout'); 
-});
+// Route::group([
+//     'prefix' => config('saml2_settings.routesPrefix'),
+//     'middleware' => config('saml2_settings.routesMiddleware'),
+// ], function () {
+//     Route::post('/acs', array(
+//         'as' => 'saml_acs',
+//         'uses' => 'Saml2AuthController@acs',
+//     ));
+// });
 
+
+// https://unidem.uniurb.it/unidem/unicontr/unicontr/public/saml2/prod/metadata
+//https://unidem-preprod.uniurb.it/unidem/unicontr/unicontr/public/saml2/preprod/metadata
+// http://127.0.0.1/saml2/local/metadata
 Route::group([
     'prefix' => config('saml2_settings.routesPrefix'),
     'middleware' => config('saml2_settings.routesMiddleware'),
 ], function () {
-    Route::post('/acs', array(
-        'as' => 'saml_acs',
-        'uses' => 'Saml2AuthController@acs',
-    ));
+    Route::get('metadata', function(Request $request){ 
+        $url = URL::route('saml2_metadata', env('IDP_ENV_ID', 'local'));
+        return redirect($url);
+    });
+    
 });

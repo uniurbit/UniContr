@@ -53,8 +53,16 @@ class UserTest extends TestCase
         $response = $this->json('GET', 'api/v1/roles', [], $headers)
             ->assertStatus(200);        
         
-        //crea
-        $role = factory(Role::class)->make();
+
+        //cancella
+        $r = Role::where('name','super-super-test')->first();
+        if ($r){
+            $response = $this->json('DELETE', 'api/v1/roles/'.$r->id, [], $headers)
+                ->assertStatus(200);
+        }
+        
+        //crea         
+        $role = Role::factory()->make();
         $data = $role->toArray();        
         $data['permissions'] = \App\Permission::all()->take(2);
 
@@ -99,8 +107,13 @@ class UserTest extends TestCase
                 ] 
            );
 
+        //precondizione
+        $p = Permission::where('name','permission-test-test')-> first();
+        if ($p)
+           $p->delete();
+
         //crea
-        $permission = factory(Permission::class)->make();
+        $permission = Permission::factory()->make();
         $data = $permission->toArray();                
         
         //crea

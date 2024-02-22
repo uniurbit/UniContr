@@ -488,15 +488,27 @@ class TitulusTest extends TestCase
 
     // ./vendor/bin/phpunit  --testsuite Unit --filter testgetDocumentURL
     public function testgetDocumentURL(){
+        //$this->markTestSkipped('cambiato formato indirizzo getDocumentURL di Titulus');
+
         $sc = new SoapControllerTitulus(new SoapWrapper);     
         $resp = $sc->getDocumentURL('2019-UNURCLE-0008773');        
         $this->assertNotNull($resp);
 
         var_dump($resp);  
         $parse = parse_url($resp);        
-        $url = config('titulus.url').$parse['path'].'?'.$parse['query'];
-        $this->assertNotNull($url);
-        $this->assertEquals($url,"https://titulus-uniurb.pp.cineca.it/xway/application/xdocway/engine/xdocway.jsp?verbo=queryplain&query=%5Bdocnumprot%5D%3D2019-UNURCLE-0008773&wfActive=false"); 
+
+        //nrecord 000845300-UNURCLE-bccc7094-9d91-4dba-9cd2-f110c3f7726d
+        //https://titulus-uniurb.pp.cineca.it/fe/#/documento/000845300-UNURCLE-bccc7094-9d91-4dba-9cd2-f110c3f7726d
+        if (isset($parse['query'])){
+            //vecchia versione 
+            $url = config('titulus.url').$parse['path'].'?'.$parse['query'];
+            $this->assertEquals($url,"https://titulus-uniurb.pp.cineca.it/xway/application/xdocway/engine/xdocway.jsp?verbo=queryplain&query=%5Bdocnumprot%5D%3D2019-UNURCLE-0008773&wfActive=false"); 
+        }else{
+            //nuova versione
+            $url = $resp;     
+            $this->assertNotNull($url);
+            $this->assertEquals($resp,"https://titulus-uniurb.pp.cineca.it/fe/#/documento/2019-UNURCLE-0008773");       
+        }
     }
 
     // ./vendor/bin/phpunit  --testsuite Unit --filter testPersStrutturaInterna

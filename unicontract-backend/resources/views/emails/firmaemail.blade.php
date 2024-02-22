@@ -7,7 +7,7 @@ presso il {{ $pre->insegnamento->dipartimento }}.<br>
 <br>
 <br>
 Pertanto, il contratto è pronto per la firma digitale, da apporre collegandosi ad
-[UniContr]({{$urlUniContr}}).
+[Titulus]({{$urlUniContr}}).
 <br>
 @component('mail::button', ['url' => $urlUniContr])
 Firma

@@ -107,9 +107,10 @@ export class TokenInterceptor implements HttpInterceptor {
             console.log('refresh token');
             return next.handle(this.addToken(request, data.token));
           }),
-          catchError((err: any) => {
+          catchError((error: any) => {
             this.refreshTokenInProgress = false;
             console.log('error refresh token');
+            this.auth.logout();
             window.location.href = AppConstants.baseURL + '/loginSaml';
 
             return throwError(error);

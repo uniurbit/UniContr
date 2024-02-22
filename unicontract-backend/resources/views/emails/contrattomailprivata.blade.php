@@ -13,7 +13,5 @@ Scarica contratto firmato
 @endcomponent
 
 Cordiali saluti.<br>
-@component('mail::sign')
 Università degli Studi di Urbino Carlo Bo<br>
-@endcomponent
 @endcomponent

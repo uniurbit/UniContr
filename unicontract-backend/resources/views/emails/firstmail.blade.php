@@ -5,7 +5,7 @@ con riferimento all'incarico di insegnamento di<br>
 {{ $pre->insegnamento->insegnamentoDescr }} (anno accademico {{$pre->aa}})<br>
 presso il {{ $pre->insegnamento->dipartimento }}<br>
 dell'Università degli Studi di Urbino Carlo Bo,<br>
-La invitiamo a collegarsi il più presto possibile alla piattaforma UniContr<br>
+La invitiamo a collegarsi il più presto possibile alla piattaforma [UniContr]({{$urlUniContr}})<br>
 per la compilazione online della modulistica precontrattuale necessaria<br>
 alla definizione del contratto:
 
@@ -20,10 +20,8 @@ che dovrà pertanto solo verificare e aggiornare ove necessario.<br>
 Per eventuali informazioni o richieste di chiarimento,<br>
 può far riferimento ai recapiti di seguito indicati.
 
-Cordiali saluti.
-@component('mail::sign')
+Cordiali saluti. <br>
 @include( 'emails.firmamessaggioamministrazione')
-@endcomponent
 @endcomponent
 
 

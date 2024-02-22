@@ -107,11 +107,37 @@ class TitulusHelper
         $response = $sc->loadDocument($num_prot,false);        
         $obj = simplexml_load_string($response);
         $document = $obj->Document;        
-        $doc = $document->doc;                
+        $doc = $document->doc;        
+        
+        
+    //     <files>
+    //     <xw:file index="yes" name="cBFJBqj5fHp5OB8V6sT7SA==_002129466-FS_FILES-a3358a3d-b628-4d57-ae9c-f447dec28242[3].pdf" principale="true" signed="true" title="Contratto di insegnamento">
+    //       <DigestMethod Algorithm="SHA-256"/>
+    //       <DigestValue>3a08f7f3108b18004db63b556229943d624e2f95ca587e99160bbe9257ee1515</DigestValue>
+    //       <chkin operatore="unicontr2_ws utente" cod_operatore="PI000246" data="20240212" ora="11:29:25"/>
+    //       <chkout operatore="Calcagnini Giorgio (Rettore)" cod_operatore="000180" data="20240212" ora="13:06:18"/>
+    //       <xw:file name="nVGS/S7+F8p5kFktXhGWLw==_002130124-FS_FILES-fedfecb3-e681-4de6-b329-e74411f7814e[1].pdf" title="Contratto di insegnamento" index="yes" principale="true" signed_from="002129466-FS_FILES-a3358a3d-b628-4d57-ae9c-f447dec28242[3].pdf" signed="true" sealed="false" timestamped="false">
+    //         <DigestMethod Algorithm="SHA-256"/>
+    //         <DigestValue>765c28d60c34b5c13336fe798a09198a2891201ebe3371cc75294af495da23de</DigestValue>
+    //         <chkin operatore="Calcagnini Giorgio (Rettore)" cod_operatore="000180" data="20240212" ora="13:06:18"/>
+    //       </xw:file>
+    //     </xw:file>
+    //   </files>
         foreach ($doc->files->children('xw',true) as $file) {
 
             $signed = (string) $file->attributes()->signed;
             if ($signed == 'false'){
+                foreach ($file->children('xw',true) as $internalfile) {
+                    $signed = (string) $internalfile->attributes()->signed;
+                    if ($signed == 'true'){
+                        $fileId = (string) $internalfile->attributes()->name;                    
+                        $attachmentBean =  $sc->getAttachment($fileId);
+                        $attachmentBean->title =  (string) $internalfile->attributes()->title;               
+                        return $attachmentBean;                          
+                    }
+                }
+            }
+            if ($signed == 'true'){
                 foreach ($file->children('xw',true) as $internalfile) {
                     $signed = (string) $internalfile->attributes()->signed;
                     if ($signed == 'true'){
@@ -132,5 +158,24 @@ class TitulusHelper
         return null;
     }
 
-    
+      /**
+     * getTitulusUrl
+     *
+     * @param  mixed $id numero di protocollo o nrecord
+     * @return void
+     */
+    public static function getTitulusUrl($id){
+        $sc = new SoapControllerTitulus(new SoapWrapper); 
+        $resp = $sc->getDocumentURL($id);
+        $parse = parse_url($resp);        
+        if (isset($parse['query'])){
+            return [
+                'url'=> config('titulus.url').$parse['path'].'?'.$parse['query']
+            ];
+        }else{
+            return [
+                'url'=> $resp 
+            ];
+        }
+    }
 }

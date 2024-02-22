@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use App\Precontrattuale;
-use Brexis\LaravelWorkflow\Traits\WorkflowTrait;
+use ZeroDaHero\LaravelWorkflow\Traits\WorkflowTrait;
 use App\Audit;
 
 class Validazioni extends Model

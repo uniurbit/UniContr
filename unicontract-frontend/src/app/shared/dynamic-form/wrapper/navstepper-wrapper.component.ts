@@ -21,7 +21,7 @@ export interface StepType {
 //<i class="glyphicon glyphicon-user"></i>
 export class NavstepperWrapperComponent implements OnInit {
   
-  @ViewChild('tabs') tabs:NgbTabset;
+  @ViewChild('tabs', { static: true }) tabs:NgbTabset;
 
   
   @Input()

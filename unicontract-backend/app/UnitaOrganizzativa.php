@@ -55,12 +55,30 @@ class UnitaOrganizzativa extends Model
      }
  
      /**
-      * isPlesso ritorna true se l'unità organizzativa corrente è un plesso
+      * isInternalPlesso ritorna true se l'unità organizzativa corrente è un plesso
+      *
+      * @return Boolean
+      */
+      public function isInternalPlesso(){
+        return $this->tipo == 'PLD';
+     }
+
+      
+     /**
+      * isPlesso ritorna true se l'unità organizzativa corrente è un plesso o è all'interno di un plesso
       *
       * @return Boolean
       */
      public function isPlesso(){
-        return $this->tipo == 'PLD';
+        if ($this->isInternalPlesso()){
+            return $this->isInternalPlesso();
+        } else {
+            $padre = $this->padre()->first();
+            if ($padre){
+                return $padre->isInternalPlesso();
+            }                  
+        }       
+        return false;       
      }
      
      /**
@@ -72,28 +90,39 @@ class UnitaOrganizzativa extends Model
         return $this->tipo == 'DIP';
      }
          
-    /**
-     * restituisce un array dei dipartimenti 
-     * che afferiscono all'unità organizzativa corrente.
-     *
-     * @return Array
-     */
+     public function padre()
+     {
+         return $this->hasMany(UnitaOrganizzativa::class, 'uo',  'uo_padre');         
+     }
+ 
     public function dipartimenti(){
-        if ($this->isPlesso()){
-            //Plesso Economico - Umanistico (DESP-DISTUM)
-            if ($this->id_ab == 26618){
-                return ['004424','004939'];
+        if ($this->isInternalPlesso()){
+           return $this->listaDipartimenti($this->id_ab);
+        } else {
+            $padre = $this->padre()->first();
+            if ($padre && $padre->isInternalPlesso()){
+                return $this->listaDipartimenti($padre->id_ab);
             }
-            //Plesso Giuridico-Umanistico (DIGIUR-DISCUI)
-            if ($this->id_ab == 26616){
-                return ['004419','004940','005579'];
-            }
-            //Plesso Scientifico (DiSPeA-DiSB)
-            if ($this->id_ab == 32718){
-                return ['004919','005019'];
-            }     
-            //... aggiungere ulteriori associazioni      
+            return [$this->uo];
         }
+    }
+
+    private function listaDipartimenti($id_ab)
+    {
+        //Plesso Economico - Umanistico (DESP-DISTUM)
+        if ($id_ab == 26618){
+            return ['004424','004939'];
+        }
+        //Plesso Giuridico-Umanistico (DIGIUR-DISCUI)
+        if ($id_ab == 26616){
+            return ['004419','005579'];
+        }
+        //Plesso Scientifico (DiSPeA-DiSB)
+        if ($id_ab == 32718){
+            return ['004919','005019'];
+        }         
+
+        return [];  
     }
 
     public static function allDipartimenti(){

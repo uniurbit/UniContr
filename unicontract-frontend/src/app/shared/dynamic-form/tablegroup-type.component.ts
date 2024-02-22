@@ -82,8 +82,8 @@ import { DatatableRowDetailDirective } from '@swimlane/ngx-datatable';
 
 export class TableGroupTypeComponent extends FieldArrayType {  
   
-  @ViewChild('grouptable') table: any;  
-  @ViewChild('colDetail') colDetail: any;
+  @ViewChild('grouptable', { static: true }) table: any;  
+  @ViewChild('colDetail', { static: true }) colDetail: any;
 
   constructor(builder: FormlyFormBuilder, private differs: KeyValueDiffers) {    
     super(builder);        

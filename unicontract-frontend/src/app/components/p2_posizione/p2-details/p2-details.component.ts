@@ -5,6 +5,8 @@ import { P2rapporto } from './../../../classes/p2rapporto';
 import { InsegnamTools } from './../../../classes/insegnamTools';
 import { RouteMetods } from './../../../classes/routeMetods';
 import { MessageService, BaseComponent } from './../../../shared';
+import { NotificaService } from 'src/app/shared/notifica.service';
+
 
 @Component({
   selector: 'app-p2-details',
@@ -20,6 +22,7 @@ export class P2DetailsComponent extends BaseComponent {
               private router: Router,
               private p2rapportoService: P2rapportoService,
               public messageService: MessageService,
+              public notificaService: NotificaService,
               private tools: InsegnamTools,
               private goto: RouteMetods) { super(messageService); }
 
@@ -29,7 +32,10 @@ export class P2DetailsComponent extends BaseComponent {
       (params) => {
         this.isLoading = true;
         this.p2rapportoService.getRapporto(+params.get('id')).subscribe(
-          response => this.item = response['datiRapporto'],
+          response => {
+            this.item = response['datiRapporto']; 
+            this.notificaService.newNotifiche(this.item.notifiche ? this.item.notifiche : [],'contratto'); 
+          },
           (error) => this.handleError(error),
           () => this.complete()
         );

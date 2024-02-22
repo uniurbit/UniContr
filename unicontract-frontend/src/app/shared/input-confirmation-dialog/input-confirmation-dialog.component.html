@@ -4,16 +4,27 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div *ngIf="message" class="modal-body">
-    {{ message }}
+  <div class="modal-body">
+    <div *ngIf="message">
+      {{ message }}
+    </div>
+    <div *ngIf="messageHtml">  
+      <div [innerHTML]="messageHtml">                           
+      </div>    
+    </div> 
+    <div *ngIf="pdfFilevalue" style="height: 70vh;" class="ml-3 mr-3">       
+      <ng-container *ngIf="pdfFilevalue | async as _pdfFilevalue; else loading">           
+        <app-pdf-view [pdfSrc]="_pdfFilevalue"></app-pdf-view>       
+      </ng-container>
+      <ng-template #loading>
+        <!--visibile solo quando non c'è quello principale e l'async non è ancora risolta-->
+         <ngx-loading [show]="true" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>               
+      </ng-template> 
+    </div>
+    <form [formGroup]="form" *ngIf="model">        
+      <formly-form [model]="model" [fields]="fields" [form]="form" [options]="options"></formly-form>
+    </form>  
   </div>
-  <div *ngIf="messageHtml" class="m-3">  
-    <div [innerHTML]="messageHtml">                           
-    </div>    
-  </div> 
-  <form class="m-3" [formGroup]="form" *ngIf="model">        
-    <formly-form [model]="model" [fields]="fields" [form]="form" [options]="options"></formly-form>
-  </form>  
   <div class="modal-footer">   
     <button *ngIf="btnOkText" type="button" class="btn btn-primary"  [disabled]="form.invalid" (click)="accept()">{{ btnOkText }}</button>
     <button *ngIf="btnCancelText" type="button" class="btn btn-danger" (click)="decline()">{{ btnCancelText }}</button>

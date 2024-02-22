@@ -8,6 +8,8 @@ use App\Models\P2rapporto;
 use App\Repositories\P2RapportoRepository;
 use App\Precontrattuale;
 use App\Service\PrecontrattualeService;
+use App\Service\NotificaService;
+
 use Auth;
 
 class P2RapportoController extends Controller
@@ -46,14 +48,25 @@ class P2RapportoController extends Controller
      */
     public function store(Request $request)
     {
+        $data = [];
+        $message = '';        
+        $success = true;
         
         if (!Auth::user()->hasPermissionTo('compila precontrattuale')) {
             abort(403, trans('global.utente_non_autorizzato'));
         } 
 
-        $data = [];
-        $message = '';        
-        $success = true;
+        //verificare il compenso
+        $precontr = Precontrattuale::with('insegnamento')->where('insegn_id', $request->insegn_id)->first();         
+        if ($request->natura_rapporto !== 'PTG' &&  $precontr->flag_no_compenso == 0){
+            if ($precontr->insegnamento->compenso == null || $precontr->insegnamento->compenso <= 0){                
+                $message = 'Compenso non inserito: contattare la segreteria didattica';
+                $success = false;            
+                return compact('data', 'message', 'success');
+            }
+        }
+        
+
         $postData = $request->except('id', '_method');             
         $data = $this->repo->store($postData);                    
         return compact('data', 'message', 'success');      
@@ -90,6 +103,7 @@ class P2RapportoController extends Controller
             
             $pre = Precontrattuale::with(['validazioni'])->where('p2_natura_rapporto_id', $id)->first();                                                        
             $datiRapporto['validazioni'] = $pre->validazioni;
+            $datiRapporto['notifiche'] = (new NotificaService())->getNotifiche('contratto',$pre);
 
             $success = true;
   
@@ -117,6 +131,15 @@ class P2RapportoController extends Controller
             return compact('data', 'message', 'success');   
         }  
 
+         //verificare il compenso
+         $precontr = Precontrattuale::with('insegnamento')->where('insegn_id', $request->insegn_id)->first();         
+         if ($request->entity['natura_rapporto'] !== 'PTG' &&  $precontr->flag_no_compenso == 0){
+             if ($precontr->insegnamento->compenso == null || $precontr->insegnamento->compenso <= 0){                
+                 $message = 'Compenso non inserito: contattare la segreteria didattica';
+                 $success = false;            
+                 return compact('data', 'message', 'success');
+             }
+         }
         
         $data = [];
         $message = '';

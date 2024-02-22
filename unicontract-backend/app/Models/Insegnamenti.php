@@ -12,6 +12,7 @@ use App\Service\UtilService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use App\Uniurbdb\CorsoDiStudio;
 
 class Insegnamenti extends Model {
     /**
@@ -46,7 +47,9 @@ class Insegnamenti extends Model {
         'stato',
         'storico',
         'user_role',
-        'dip_cod'
+        'dip_cod',
+        'contatore_insegnamenti_manuale',
+        'cds_cod'
     ];
 
     protected $casts = [
@@ -148,6 +151,17 @@ class Insegnamenti extends Model {
         return $this->hasOne(Precontrattuale::class,'insegn_id','id');
     }
 
+    public function corsodistudio()
+    {     
+        return $this->hasMany(CorsoDiStudio::class,'id_ugov','cds_cod');
+    }
+
+    public function setDataFromUgovDelibera(InsegnamUgov $insegnamentoUgov){
+        $this->num_delibera = $insegnamentoUgov->numero;
+        $this->tipo_atto = $insegnamentoUgov->tipo_atto_des;
+        $this->data_delibera =$insegnamentoUgov->data;
+    }
+
     public function setDataFromUgov(InsegnamUgov $insegnamentoUgov){
         
         $this->compenso = $insegnamentoUgov->compenso;
@@ -164,6 +178,7 @@ class Insegnamenti extends Model {
         $this->ciclo = $insegnamentoUgov->des_tipo_ciclo;
         $this->settore = $insegnamentoUgov->sett_des;
         $this->cod_settore = $insegnamentoUgov->sett_cod;
+        $this->cds_cod = $insegnamentoUgov->cds_cod;
 
         // <input type="hidden" name="coper_id" [(ngModel)]="item.coper_id" >
         // <input type="hidden" name="ruolo" [(ngModel)]="item.ruolo_doc_cod">
@@ -226,6 +241,9 @@ class Insegnamenti extends Model {
     public function contatore(){    
 
         //return InsegnamUgovController::contatoreInsegnamenti($this->coper_id);
+        if ($this->contatore_insegnamenti_manuale != null){
+            return $this->contatore_insegnamenti_manuale;
+        }
 
         $coper_id = $this->coper_id;
         $value = Cache::remember('counter_'.$coper_id, 60, function () use($coper_id) {
@@ -335,15 +353,33 @@ class Insegnamenti extends Model {
 
     public function modalitadiPagamento(){
             
-        // VERIFICA SE L'INSEGNAMENTO E' A CAVALLO TRA DUE ANNI
-        $delta = substr($this->dataInizioPeriodo(), -4) - substr($this->dataFinePeriodo(), -4);
-        
-        if($delta != 0) {
-            return "due soluzioni, di cui la seconda al termine del contratto";
-        } else {
-            return "un'unica soluzione al termine del contratto";
-        }
+        //Delibera n. 318/2022 del Consiglio di Amministrazione del 28/10/2022
+        if ($this->aa >= 2022){
+            if($this->compenso > 3000) {
+                if (!$this->precontr->a2modalitapagamento->soluzione_pagamento){
+                    abort(404, 'Scegliere soluzione di pagamento');
+                }
+                //il docente può scegliere tra una o due soluzioni
+                if ($this->precontr->a2modalitapagamento->soluzione_pagamento == 'una_rata'){
+                    return "un'unica soluzione al termine del contratto";
+                }
+                return "due soluzioni, di cui la seconda al termine del contratto";
 
+            } else {
+                return "un'unica soluzione al termine del contratto";
+            }
+        }else{
+            // VERIFICA SE L'INSEGNAMENTO E' A CAVALLO TRA DUE ANNI
+            $delta = substr($this->dataInizioPeriodo(), -4) - substr($this->dataFinePeriodo(), -4);
+                    
+            if($delta != 0) {
+                return "due soluzioni, di cui la seconda al termine del contratto";
+            } else {
+                return "un'unica soluzione al termine del contratto";
+            }
+        }
+        
+    
     }
 
 

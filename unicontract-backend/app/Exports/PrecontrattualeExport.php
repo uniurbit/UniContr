@@ -36,6 +36,7 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
     public function map($precontr): array
     {      
         return [
+            $precontr->id,
             $precontr->insegnamento ? $precontr->insegnamento->coper_id : '',
             $precontr->insegnamento ? $precontr->insegnamento->aa : '',
             $precontr->insegnamento ? $precontr->insegnamento->data_ini_contr : '',
@@ -52,6 +53,8 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             $precontr->anagrafica ? (($precontr->anagrafica->comune_nascita != null) ? $precontr->anagrafica->comune_nascita :'') : '',
             $precontr->anagrafica ?  (($precontr->anagrafica->nazione_residenza != null) ? $precontr->anagrafica->nazione_residenza :'') : '', 
 
+            $precontr->anagrafica ? $precontr->anagrafica->datiDomicilioFiscaleReport() : '',
+
             $precontr->p2naturarapporto ? ($precontr->p2naturarapporto->flag_titolare_pensione == 1 ? 'si' : 'no') : '',
             $precontr->p2naturarapporto ? ($precontr->p2naturarapporto->flag_dipend_pubbl_amm == 1 ? 'si' : 'no') : '',
 
@@ -63,6 +66,7 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             $precontr->insegnamento ? $precontr->insegnamento->ore: '',
             $precontr->insegnamento ? $precontr->insegnamento->compenso: '',
             $precontr->insegnamento ? $precontr->insegnamento->dipartimento: '',
+            $this->getScuola($precontr),             
             $this->naturaRapporto($precontr->p2naturarapporto),
             $this->tipoContratto($precontr->insegnamento->tipo_contratto),
             $precontr->insegnamento ? $precontr->insegnamento->tipo_atto: '',
@@ -96,7 +100,7 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
                 ?  ($precontr->d4fiscali->flag_detrazioni == 0 ? 'no' : 'si') : '',
             ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d4fiscali && !is_null($precontr->d4fiscali->flag_bonus_renzi) 
                 ?  ($precontr->d4fiscali->flag_bonus_renzi == 0 ? 'no' : 'si') : '',
-            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d4fiscali && !is_null($precontr->d4fiscali->flag_bonus_renzi) 
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d4fiscali && !is_null($precontr->d4fiscali->flag_detrazioni_21_2020) 
                 ?  ($precontr->d4fiscali->flag_detrazioni_21_2020 == 0 ? 'no' : 'si') : '',
             ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d6familiari
                 ?  ($precontr->d6familiari->flag_richiesta_detrazioni == 0 ? 'no' : 'si') : '',
@@ -112,6 +116,7 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
     {
         return [
             '#',
+            'Copertura',
             'Anno Offerta Formativa',
             'Data inizio',
             'Data fine',
@@ -126,6 +131,8 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             'Luogo nascita',
             'Cittadinanza',
 
+            'Residenza fiscale',
+
             'Stato pensionamento',
             'Dipendente di P.A.',
             'Insegnamento',
@@ -136,6 +143,8 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             'Ore',
             'Compenso',
             'Dipartimento',
+            'Scuola',
+
             'Natura del rapporto',
             'Tipo contratto',
             'Tipo atto',
@@ -173,5 +182,26 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
         return UtilService::naturaRapporto($p2naturarapporto);  
     }
 
+    public function annoAccademico($perirodoInizio)
+    {
+        return ($perirodoInizio.'/'.($perirodoInizio+1));
+    }
+
+    // $precontr->insegnamento ? ($precontr->insegnamento->corsodistudio ? 
+    //             ($precontr->insegnamento->corsodistudio->where('aa', $this->annoAccademico((int)$precontr->insegnamento->aa))->first() ? $precontr->insegnamento->corsodistudio->where('aa', $this->annoAccademico((int)$precontr->insegnamento->aa))->first()->scuola->scuola_nome : ''  ): '' ): '',
+    public function getScuola($precontr){
+        $result = '';
+        if ($precontr->insegnamento) {
+            if ($precontr->insegnamento->corsodistudio) {
+                $corsodistudio = $precontr->insegnamento->corsodistudio->where('aa', $this->annoAccademico((int)$precontr->insegnamento->aa))->first();
+                
+                if ($corsodistudio) {
+                    $result = $corsodistudio->scuola->scuola_nome;
+                }
+            }
+        }
+
+        return $result;
+    }
 
 }

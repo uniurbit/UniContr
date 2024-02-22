@@ -11,5 +11,5 @@ template: `
 `,
 })
 export class TooltipWrapperComponent extends FieldWrapper {
-    @ViewChild('fieldComponent', {read: ViewContainerRef}) fieldComponent: ViewContainerRef;
+    @ViewChild('fieldComponent', { read: ViewContainerRef, static: true }) fieldComponent: ViewContainerRef;
 }

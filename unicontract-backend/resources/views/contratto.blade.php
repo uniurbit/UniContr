@@ -1,79 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	  
+  <link href="{{ public_path('css\\contratto_styles.css') }}" rel="stylesheet" type="text/css">
 	<style type="text/css">
-	  html, body, p, ul, li, span, img {
-      margin: 0px;      
-      padding: 0px;
-    }
-    body {     
-      margin-left: 30mm;
-      font-family:  Arial, Helvetica, sans-serif;
-      font-size: 13pt;		
-      text-rendering: geometricPrecision;         
-                       
-    } 
-
-    .bozza {
-      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='1200px' width='1000px'><text x='700' y='300' fill='#f7d0cd' font-size='150pt' font-family='Arial' transform='rotate(45)'>BOZZA</text></svg>");
-      background-repeat: repeat-y; 
-      background-position: left center;
-      background-attachment: fixed;
-      background-size:100%;
+    @page {            
+        footer: myFooter1;
+        header: myHeader1;
+        margin-top: 2.54cm;
+        margin-bottom: 2.54cm;
+        margin-left: 3.175cm;
+        margin-right: 3.175cm;
     }
 
-	  h4 {
-      font-size: 13pt;	    
-      text-align: center;
-      line-height: 1.7;
-      text-rendering: geometricPrecision;
-	  }	 
-    div.page
-    {
-        page-break-after: always;
-        page-break-inside: avoid;
-    } 
-	  .normal {
-		font-family:  Arial, Helvetica, sans-serif;
-		font-size: 13pt;		
-    text-rendering: geometricPrecision;
- 		line-height: 1.7;
-		text-align: justify
-	  }
-    .small {
-      font-family:  Arial, Helvetica, sans-serif;
-      font-size: 11pt;		
-      text-rendering: geometricPrecision;
-      line-height: 1.7;
-      text-align: left
-	  }
-    .infor {
-      font-family:  Arial, Helvetica, sans-serif;
-      font-size: 11pt;		
-      text-rendering: geometricPrecision;
-      line-height: 1.3;
-      text-align: justify
-	  }
-    .subtitleinfor {
-      font-family:  Arial, Helvetica, sans-serif;
-      font-size: 12pt;
-      font-weight: bold;		
-      text-rendering: geometricPrecision;
-      line-height: 1.5;
-      text-align: left
+    @page informativa {   
+      header: myHeader2;
+      margin-top: 2cm;
+      margin-bottom: 2cm;
+      margin-left: 2cm;
+      margin-right: 2cm;
     }
-	  .piepagina {		
-      font-size: 9pt;		
-      font-family: Arial, Helvetica, sans-serif;		
-      text-align: left;					
-	  }   
+
+    div.onitsside {
+      page: informativa;
+    }
+
+
 	</style>
 </head>
-<body class="@if ($type=='CONTR_BOZZA') bozza @endif">
+<body>
   
-  
-  <div class="page">
+  <bookmark content="Contratto" level="0" />
+
+  <htmlpageheader name="myHeader2">  
+  </htmlpageheader>
+
+  <htmlpageheader name="myHeader1">
+    <img src="{{public_path('img\\logo_uniurb_1.jpg')}}" style="height: 80px; margin-top: 7px;"/>     
+  </htmlpageheader>
+
+  <htmlpagefooter name="myFooter1">
+    <div style="text-align: right; padding-bottom: 30px">{PAGENO}</div>   
+  </htmlpagefooter>
+
+  <div class="lastpage">
   
   <h4>CONTRATTO DI DIRITTO PRIVATO PER ATTIVITÀ DI INSEGNAMENTO 
   <br>AI SENSI DELL'ART. 23, CO. 1, DELLA LEGGE 30/12/2010, N. 240</h4>
@@ -108,13 +78,30 @@
     <p class="normal">	
     Ciò premesso e consensualmente assunto come parte integrante del presente contratto
     </p>	 						    
-    
-    @include( 'contratto.articoli.art1', $pre)		 	
+    <div style="page-break-inside:avoid">   
+    @include( 'contratto.articoli.art1', $pre)		
+    </div> 	
     @include( 'contratto.articoli.art2', $pre)	
     @include( 'contratto.articoli.art3-4', $pre)	
     @include( 'contratto.articoli.art5', $pre)	
     @include( 'contratto.articoli.art6-7-8-9', $pre)	
 
+    <div style="page-break-inside:avoid">   
+    @if($pre->isDidatticaIntegrativa())
+    <h4>Art. 8 - Accettazione</h4>
+    {{-- $art8 --}}
+    <p class="normal">
+    Il presente contratto viene redatto e sottoscritto esclusivamente in modalità telematica.<br>Le parti convengono che 
+    ogni modifica o integrazione al presente contratto dovrà necessariamente prevedere la stessa modalità.
+    </p>
+    @else
+    <h4>Art. 9 - Accettazione</h4>
+    {{-- $art9 --}}
+    <p class="normal">
+    Il presente contratto viene redatto e sottoscritto esclusivamente in modalità telematica.<br>Le parti convengono che 
+    ogni modifica o integrazione al presente contratto dovrà necessariamente prevedere la stessa modalità.
+    </p>
+    @endif
     <br>
     <p class="small">	
     URBINO, (data ultima sottoscrizione digitale in ordine cronologico attestata dalla marcatura temporale)
@@ -127,11 +114,13 @@
     <p class="normal">	
     {{$pre->genere['str0']}} {{$pre->genere['str5']}} {{ $pre->user->nameTutorString() }} 
     </p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOwAAABoCAIAAAB9kIuNAAABhWlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV/Tav2oONhBxCFDdbKLFnEsVSyChdJWaNXB5NIvaNKQpLg4Cq4FBz8Wqw4uzro6uAqC4AeIq4uToouU+L+00CLGg+N+vLv3uHsHCI0KU01fFFA1y0jFY2I2tyr6X9EPHwbRi4jETD2RXszAdXzdw8PXuzDPcj/35xhS8iYDPCJxlOmGRbxBPLtp6Zz3iYOsJCnE58RTBl2Q+JHrcovfOBcdFnhm0Mik5omDxGKxi+UuZiVDJY4QhxRVo3wh22KF8xZntVJj7XvyFwby2kqa6zTHEccSEkhChIwayqjAQphWjRQTKdqPufjHHH+SXDK5ymDkWEAVKiTHD/4Hv7s1CzPTraRADOh5se2PCcC/CzTrtv19bNvNE8D7DFxpHX+1Acx9kl7vaKEjYHgbuLjuaPIecLkDjD7pkiE5kpemUCgA72f0TTlg5BYYWGv11t7H6QOQoa6Wb4CDQ2CySNnrLu/u6+7t3zPt/n4Ah9dyr47mXvwAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAHdElNRQfnCQQLCQ5/yA0TAAAA2UlEQVR42u3SQQ0AAAjEMMC/5+OLBZJWwrJOUvDZSICJwcRgYkwMJgYTg4kxMZgYTAwmxsRgYjAxmBgTg4nBxGBiTAwmBhODiTExmBhMDCbGxGBiMDGYGBODicHEYGJMDCYGE4OJMTGYGEwMJsbEYGIwMZgYE4OJwcRgYkwMJgYTg4kxMZgYTAwmxsRgYjAxmBgTg4nBxGBiTAwmBhODiTExmBhMDCbGxGBiMDGYGBODicHEYGJMDCYGE4OJMTGYGEwMJsbEYGIwMZgYE4OJwcRgYkwMJgYTw7UOkwPNFPSfiwAAAABJRU5ErkJggg==">                        
+    {{-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOMAAACECAYAAABif5yuAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAGgSURBVHhe7dMxAYAwEMDABx0d698ZGmDBQzPcLVGQ61n7HeC4+y9wmBkhwowQYUaIMCNEmBEizAgRZoQIM0KEGSHCjBBhRogwI0SYESLMCBFmhAgzQoQZIcKMEGFGiDAjRJgRIswIEWaECDNChBkhwowQYUaIMCNEmBEizAgRZoQIM0KEGSHCjBBhRogwI0SYESLMCBFmhAgzQoQZIcKMEGFGiDAjRJgRIswIEWaECDNChBkhwowQYUaIMCNEmBEizAgRZoQIM0KEGSHCjBBhRogwI0SYESLMCBFmhAgzQoQZIcKMEGFGiDAjRJgRIswIEWaECDNChBkhwowQYUaIMCNEmBEizAgRZoQIM0KEGSHCjBBhRogwI0SYESLMCBFmhAgzQoQZIcKMEGFGiDAjRJgRIswIEWaECDNChBkhwowQYUaIMCNEmBEizAgRZoQIM0KEGSHCjBBhRogwI0SYESLMCBFmhAgzQoQZIcKMEGFGiDAjRJgRIswIEWaECDNChBkhwowQYUaIMCNEmBEizAgRZoQIM0KEGSHCjJAw8wG8ygM01E6mjAAAAABJRU5ErkJggg==">                         --}}
+    </div>
     </div>
     {{-- INFORMATIVA SULLA PRIVACY --}}
-    <div class="page ">
-    <div class="logo" ></div>
-        @include( 'contratto.informativa', $pre)	
+    <div class="onitsside" >   
+        @include( 'contratto.informativa', $pre)	    
     </div>
 </body>
 </html>

@@ -86,6 +86,15 @@ class SearchDataTitulusSendEmails extends Command
                                 }
                             }
                         } 
+                        if ($signed == 'true'){
+                            foreach ($file->children('xw',true) as $internalfile) {
+                                $signed = (string) $internalfile->attributes()->signed;
+                                if ($signed == 'true'){
+                                    $fileId = (string) $internalfile->attributes()->name;                    
+                                    $file =  $sc->getAttachment($fileId);                                                            
+                                }
+                            }
+                        } 
                         if ($file==null){
                             $fileId = (string) $file->attributes()->name;   
                             $file =  $sc->getAttachment($fileId);

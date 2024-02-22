@@ -77,7 +77,7 @@ class InsegnamUgovController extends Controller
 
         //ATTENZIONE per i casi di rinnovi contratti già a sistema, di didattica ufficiale ma con affidamento incarico di docenza        
         if (!$datiUgov){
-            $datiUgov = self::queryFirstMotivoAttoCod($coper_id, ['APPR_INC', 'BAN_INC']);
+            $datiUgov = self::queryFirstMotivoAttoCod($coper_id, ['APPR_INC', 'BAN_INC'], $force);
             Log::info('Conferimento incarico [ cod_coper_id: '.$coper_id.' ] tipo contratto: '.$tipo_coper_cod.' - non consistente con l\'origine dell\'attribuzione');
         }
 
@@ -86,13 +86,17 @@ class InsegnamUgovController extends Controller
                 $join->on('V2.AF_GEN_COD', '=', 'V1.AF_GEN_COD')
                      ->on(DB::raw("COALESCE(V2.SEDE_ID, 1)"), '=', DB::raw("COALESCE(V1.SEDE_ID, 1)"))
                      ->on(DB::raw("COALESCE(V2.PART_STU_ID,-1)"), '=', DB::raw("COALESCE(V1.PART_STU_ID,-1)"))
+                     //->on('V2.CDS_COD','=','V1.CDS_COD') esistono casi in cui è consentito //aggiunto cds per Bernacchia caso Tarchi 131036
                      ->on('V2.cod_fis','=','V1.cod_fis');                           
+                     //con '<' escludo il contratto corrente
             })->where('V1.COPER_ID','=',$coper_id)->where('V2.data_ini_contratto','<',$datiUgov->data_contratto_corrente)
             ->where('V2.data_ini_contratto','>=',$datiUgov->ultima_nuova_attribuzione)
             ->distinct() //elimino i contratti uguali caso PAPI e GNANI per divisione insegnamento in sezioni ... 
             ->select('V1.coper_id', 'V2.motivo_atto_cod', 'V2.aa_id', 'V2.data_ini_att', 'V2.AF_GEN_COD', 'V1.sede_id', 'V2.sede_id', 'V1.PART_STU_ID', 'V2.PART_STU_ID', 'V2.data_ini_contratto', 'V2.data_fine_contratto')
             ->get();
-            $count = $result->count();
+            //filtro enventuali BANC_INC O APPR_INC in più dovuti a diversi CDS con medesimo insegnamento o a deliberazioni dipartimentali
+            //considerare eventualità di filtrare ->on('V2.CDS_COD','=','V1.CDS_COD') i calcoli sullo stesso cds e considerare come eccezioni gli altri 
+            $count = $result->where('motivo_atto_cod','=','CONF_INC')->count() + 1; //banc_inc o appr_inc 
         }else{                        
             Log::info('Conferimento incarico [ cod_coper_id: '.$coper_id.' ] senza BAN_INC o APPR_INC');
             if ($force){
@@ -103,6 +107,7 @@ class InsegnamUgovController extends Controller
                     $join->on('V2.AF_GEN_COD', '=', 'V1.AF_GEN_COD')
                         ->on(DB::raw("COALESCE(V2.SEDE_ID, 1)"), '=', DB::raw("COALESCE(V1.SEDE_ID, 1)"))
                         ->on(DB::raw("COALESCE(V2.PART_STU_ID,-1)"), '=', DB::raw("COALESCE(V1.PART_STU_ID,-1)"))
+                        //->on('V2.CDS_COD','=','V1.CDS_COD') esistono casi in cui è consentito //aggiunto cds per Bernacchia caso Tarchi 131036
                         ->on('V2.cod_fis','=','V1.cod_fis')     
                         ->on('V2.data_ini_contratto','<','V1.data_ini_contratto');                         
                 })->where('V1.COPER_ID','=',$coper_id)->where('V2.motivo_atto_cod','=','CONF_INC')->count();    
@@ -113,20 +118,40 @@ class InsegnamUgovController extends Controller
         return $count;  
     }
 
-    public static function queryFirstMotivoAttoCod($coper_id,$motivo_atto_cod_array)
+    public static function queryFirstMotivoAttoCod($coper_id,$motivo_atto_cod_array, $force=false)
     {
-        $datiUgov = DB::connection('oracle')->table('V_IE_DI_COPER V1')->join('V_IE_DI_COPER V2', function($join) use($coper_id) {
-            $join->on('V2.AF_GEN_COD', '=', 'V1.AF_GEN_COD')
-                 ->on(DB::raw("COALESCE(V2.SEDE_ID, 1)"), '=', DB::raw("COALESCE(V1.SEDE_ID, 1)"))
-                 ->on(DB::raw("COALESCE(V2.PART_STU_ID,-1)"), '=', DB::raw("COALESCE(V1.PART_STU_ID,-1)"))
-                 ->on('V2.cod_fis','=','V1.cod_fis')
-                 ->on('V2.data_ini_contratto','<','V1.data_ini_contratto');
-        })
-        ->whereIn('V2.motivo_atto_cod',$motivo_atto_cod_array)  
-        ->where('V1.COPER_ID','=', $coper_id)->where('V1.motivo_atto_cod','=','CONF_INC')
-        ->select('V2.data_ini_contratto as ultima_nuova_attribuzione','V1.data_ini_contratto as data_contratto_corrente','V2.motivo_atto_cod as motivo_atto_cod_inizio')
-        ->orderBy('V2.data_ini_contratto', 'DESC')->first();     
+        $datiUgov = null;
+        if ($force){
+            //casi particolari 
+            $datiUgov = DB::connection('oracle')->table('V_IE_DI_COPER V1')->join('V_IE_DI_COPER V2', function($join) use($coper_id) {
+                $join->on('V2.AF_GEN_COD', '=', 'V1.AF_GEN_COD')
+                     ->on(DB::raw("COALESCE(V2.SEDE_ID, 1)"), '=', DB::raw("COALESCE(V1.SEDE_ID, 1)"))
+                     //->on(DB::raw("COALESCE(V2.PART_STU_ID,-1)"), '=', DB::raw("COALESCE(V1.PART_STU_ID,-1)"))
+                     //->on('V2.CDS_COD','=','V1.CDS_COD') perchè esistono casi in cui è consentito 
+                     ->on('V2.cod_fis','=','V1.cod_fis')
+                     ->on('V2.data_ini_contratto','<','V1.data_ini_contratto');
+            })
+            ->whereIn('V2.motivo_atto_cod',$motivo_atto_cod_array)  
+            ->where('V1.COPER_ID','=', $coper_id)->where('V1.motivo_atto_cod','=','CONF_INC')
+            ->select('V2.data_ini_contratto as ultima_nuova_attribuzione','V1.data_ini_contratto as data_contratto_corrente','V2.motivo_atto_cod as motivo_atto_cod_inizio')
+            ->orderBy('V2.data_ini_contratto', 'DESC')->first();     
 
+        } else {
+
+            $datiUgov = DB::connection('oracle')->table('V_IE_DI_COPER V1')->join('V_IE_DI_COPER V2', function($join) use($coper_id) {
+                $join->on('V2.AF_GEN_COD', '=', 'V1.AF_GEN_COD')
+                     ->on(DB::raw("COALESCE(V2.SEDE_ID, 1)"), '=', DB::raw("COALESCE(V1.SEDE_ID, 1)"))
+                     ->on(DB::raw("COALESCE(V2.PART_STU_ID,-1)"), '=', DB::raw("COALESCE(V1.PART_STU_ID,-1)"))
+                     //->on('V2.CDS_COD','=','V1.CDS_COD') perchè esistono casi in cui è consentito 
+                     ->on('V2.cod_fis','=','V1.cod_fis')
+                     ->on('V2.data_ini_contratto','<','V1.data_ini_contratto');
+            })
+            ->whereIn('V2.motivo_atto_cod',$motivo_atto_cod_array)  
+            ->where('V1.COPER_ID','=', $coper_id)->where('V1.motivo_atto_cod','=','CONF_INC')
+            ->select('V2.data_ini_contratto as ultima_nuova_attribuzione','V1.data_ini_contratto as data_contratto_corrente','V2.motivo_atto_cod as motivo_atto_cod_inizio')
+            ->orderBy('V2.data_ini_contratto', 'DESC')->first();         
+        }
+        
         return $datiUgov;
     }
 
@@ -193,11 +218,19 @@ class InsegnamUgovController extends Controller
             //aggiungere filtro per unitaorganizzativa_uo
             $uo = Auth::user()->unitaorganizzativa();
 
-            if ($uo == null) {
-                abort(403, trans('global.utente_non_autorizzato'));
-            }    
-    
-            if ($uo->isPlesso()){
+            if ($uo == null) {                
+                //cerca tra i permessi
+                $uos = Auth::user()->getDipartimentiUo();
+                if ($uos && count($uos)>0){
+                        array_push($parameters['rules'],[
+                            "operator" => "In",
+                            "field" => "dip_cod",                
+                            "value" => $uos
+                        ]);
+                }else {
+                    abort(403, 'Utente senza unità organizzativa associata');
+                }                   
+            } else if ($uo->isPlesso()){
                 //filtro per unitaorganizzativa dell'utente di inserimento (plesso)
                 array_push($parameters['rules'],[
                     "operator" => "In",

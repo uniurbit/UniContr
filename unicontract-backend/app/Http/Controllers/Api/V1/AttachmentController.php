@@ -12,6 +12,9 @@ use App\Http\Controllers\SoapControllerTitulus;
 use Artisaninweb\SoapWrapper\SoapWrapper;
 use App\Service\TitulusHelper;
 use Auth;
+use JWTAuth;
+use App\PrecontrattualePerGenerazione;
+use App\Service\PrecontrattualeService;
 class AttachmentController extends Controller
 {
     /**
@@ -126,11 +129,41 @@ class AttachmentController extends Controller
 
             $resp = $sc->getDocumentURL($attach->nrecord);
             $parse = parse_url($resp);        
-            return [
-                'url'=> config('titulus.url').$parse['path'].'?'.$parse['query']
-            ];
+            if (isset($parse['query'])){
+                return [
+                    'url'=> config('titulus.url').$parse['path'].'?'.$parse['query']
+                ];
+            }else{
+                return [
+                    'url'=>$resp 
+                ];
+            }
         }        
 
         return response()->json(null);
     }
+
+    public function downloadpdf(Request $request, $id){
+        //scarica documento per la firma per namirial
+        $token = $request->query('token');       
+        $tipo_modello = $request->query('tipo_modello'); 
+        if ($token==null){
+            abort(403, trans('global.utente_non_autorizzato')); 
+        }
+        $request->headers->set('Authorization', 'Bearer ' . $token);
+        $request->request->add(['dati' => []]);
+
+        JWTAuth::setRequest($request)->parseToken();
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $pdf=null;
+        if ($tipo_modello == 'contratto'){
+            $pre = PrecontrattualePerGenerazione::with(['anagrafica','user','insegnamento','p2naturarapporto'])->where('precontr.id',$id)->first();  
+            $pdf = PrecontrattualeService::makePdfForContratto($pre, 'CONTR_FIRMA'); 
+            //$pdf->getMpdf()->SetKeywords(utf8_encode($ctr->keyword)); 
+            return $pdf->output();
+        }
+        return null;
+    }
+
 }

@@ -141,6 +141,15 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
         permissions: ['OP_DOCENTE','OP_APPROVAZIONE_AMM','OP_APPROVAZIONE_ECONOMICA','OP_DIPARTIMENTALE', 'ADMIN', 'SUPER-ADMIN'],
       },
+      {
+        path: 'lineeguida/firma',
+        title: 'Presa visione e firma',
+        icon: '',
+        class: '',
+        extralink: false,
+        submenu: [],
+        permissions: ['OP_DOCENTE','OP_APPROVAZIONE_AMM','OP_APPROVAZIONE_ECONOMICA','OP_DIPARTIMENTALE', 'ADMIN', 'SUPER-ADMIN'],
+      },
     ],
   },
 
@@ -225,6 +234,15 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
         permissions: ['SUPER-ADMIN'],
       },
+      {
+        path: 'notifiche',
+        title: 'Notifiche',
+        icon: '',
+        class: '',
+        extralink: false,
+        submenu: [],
+        permissions: ['SUPER-ADMIN'], 
+      },  
     ]}, // chiude configurazioni
     {
     path: '',

@@ -16,18 +16,19 @@ class FirmaEmail extends Mailable
     /**
      * The pre instance.
      *
-     * @var Order
+     * @var Contratto
      */
     protected $pre;
-
+    protected $url;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Precontrattuale $pre)
+    public function __construct(Precontrattuale $pre, $url)
     {
         $this->pre = $pre;
+        $this->url = $url;
     }
 
     /**
@@ -37,10 +38,17 @@ class FirmaEmail extends Mailable
      */
     public function build()
     {        
+
+        //try {
+        //$url = TitulusHelper::getTitulusUrl($this->pre->titulusref->physdoc)['url'];
+        // } catch (\Throwable $th) {
+        //     $url =  url("https://titulus-uniurb.cineca.it/xway/application/xdocway/engine/xdocway.jsp?verbo=queryplain&codammaoo=UNURCLE&query=%5B%2F%2F%40physdoc%5D%3D".$this->pre->titulusref->physdoc);
+        // }
+       
         return $this->subject("Avvenuta accettazione contratto di insegnamento ".$this->pre->user->nameTutorString())     
         ->markdown('emails.firmaemail')->with([
             'pre' => $this->pre,     
-            'urlUniContr' => url("https://titulus-uniurb.cineca.it/xway/application/xdocway/engine/xdocway.jsp?verbo=queryplain&codammaoo=UNURCLE&query=%5B%2F%2F%40physdoc%5D%3D".$this->pre->titulusref->physdoc),      
+            'urlUniContr' => $this->url,      
         ]);    
         
     }

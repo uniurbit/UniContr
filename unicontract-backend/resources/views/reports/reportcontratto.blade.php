@@ -8,21 +8,22 @@
         padding: 0px;
     }
 
-    body {        
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 12pt;
-        line-height: 1.7;		                                  
-        text-rendering: geometricPrecision;
-    } 
-    
+    body {
+     font-family: 'timesnewroman', 'Times New Roman', Times, serif;
+     font-size: 11pt;
+      text-rendering: geometricPrecision;
+      text-align: justify;
+      word-break: break-word;
+    }
+
     h2, h3, h4 { line-height: 100% }
 
-	  h4 {
-      font-size: 13pt;	    
+    h3 { 
       text-align: center;
       line-height: 1.7;
       text-rendering: geometricPrecision;
-	  }	 
+    }	 
+  
     
     div.page
     {
@@ -30,31 +31,34 @@
         page-break-inside: avoid;
     } 
 
+    div.lastpage {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+
+
     .normal {
-        font-family:  Arial, Helvetica, sans-serif;
-        font-size: 12pt;		
-        text-rendering: geometricPrecision;
-        line-height: 1.7;
-        text-align: justify
+      font-size: 11pt;
+      text-rendering: geometricPrecision;
+      text-align: justify;
+      word-break: break-word;
     }
 
     .small {
-      font-family:  Arial, Helvetica, sans-serif;
-      font-size: 11pt;		
-      text-rendering: geometricPrecision;
-      line-height: 1.7;
-      text-align: left
-	  }
+    font-size: 11pt;
+    text-rendering: geometricPrecision;
+    line-height: 1.7;
+    text-align: left
+    }
 
     .infor {
-      font-family:  Arial, Helvetica, sans-serif;
-      font-size: 11pt;		
-      text-rendering: geometricPrecision;
-      line-height: 1.3;
-      text-align: justify
-	  }
+        font-size: 11pt;
+        text-rendering: geometricPrecision;
+        line-height: 1.3;
+        text-align: justify
+    }
     .subtitleinfor {
-      font-family:  Arial, Helvetica, sans-serif;
+      font-family: 'timesnewroman', 'Times New Roman', Times, serif;
       font-size: 12pt;
       font-weight: bold;		
       text-rendering: geometricPrecision;
@@ -64,7 +68,7 @@
 
 	  .piepagina {		
       font-size: 10pt;		
-      font-family: Arial, Helvetica, sans-serif;		
+      font-family: 'timesnewroman', 'Times New Roman', Times, serif;	
       text-align: left;					
     }       
     
@@ -85,8 +89,8 @@
   
   <div class="page">
   
-  <h4>CONTRATTO DI INSEGNAMENTO A.A. {{ $pre->aa }} 
-  <br>MODULO DEI DATI TRIBUTARI, PREVIDENZIALI E FISCALI</h4>    
+  <h3>CONTRATTO DI INSEGNAMENTO A.A. {{ $pre->aa }} 
+  <br>MODULO DEI DATI TRIBUTARI, PREVIDENZIALI E FISCALI</h3>    
 
   <p class="normal">
    Cognome e nome: {{$pre->user->cognome}} {{$pre->user->nome}}<br>
@@ -115,7 +119,8 @@
     Natura del rapporto: {{$pre->p2naturarapporto->naturaRapportoToString()}} <br>
   </p>
   </div>
-  <div class="page">
+
+  <div class="lastpage">
   <h4>QUADRO A.1: DATI ANAGRAFICI</h4>  
   <p class="normal">
     Cognome e nome: {{$pre->user->cognome}} {{$pre->user->nome}}<br>
@@ -182,11 +187,16 @@
    @endif
 
    Intestazione C/C: {{$pre->a2modalitapagamento->intestazione}} <br> 
+
+   @if($pre->p2naturarapporto->natura_rapporto=='COCOCO' && $pre->a2modalitapagamento->soluzione_pagamento)
+   Soluzione di pagamento:  {{__('global.'.$pre->a2modalitapagamento->soluzione_pagamento)}}
+   @endif 
+
    @endif
   </p>
   </div>
-
-  <div class="page">
+  <p style="page-break-before: always;">&nbsp;</p>
+  <div class="lastpage">
   @if($pre->p2naturarapporto->flag_rapp_studio_univ == 1 && $pre->b3rapportoUniv()->first()!=null) 
     @include('reports.b3report', $pre)		 	
   @endif
@@ -200,19 +210,19 @@
   @endif
   </div>
 
-  <div class="page">
+  <div class="lastpage">
   @if ($pre->p2naturarapporto->natura_rapporto == 'PRPR' && $pre->cPrestazioneProfessionale()->get()->first()!=null)
     @include('reports.creport', $pre)		 	
   @endif
   </div>
 
-  <div class="page">
+  <div class="lastpage">
     @if ($pre->p2naturarapporto->natura_rapporto == 'COCOCO')
       @include('reports.dreport', $pre)		 	
     @endif
     </div>
 
-  <div class="page">
+  <div class="lastpage">
   @if ($pre->p2naturarapporto->natura_rapporto == 'PLAO' && $pre->eAutonomoOcasionale()->get()->first()!=null)
     @include('reports.ereport', $pre)		 	
   @endif

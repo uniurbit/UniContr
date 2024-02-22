@@ -63,8 +63,8 @@ import { NgbStringAdapter } from 'src/app/NgbStringAdapter';
 
 export class TableLookupTypeComponent extends FieldArrayType {  
 
-  @ViewChild('table') table: any;
-  @ViewChild('expaderdetailcolumn') public expaderdetailcolumn: TemplateRef<any>;     
+  @ViewChild('table', { static: true }) table: any;
+  @ViewChild('expaderdetailcolumn', { static: true }) public expaderdetailcolumn: TemplateRef<any>;     
 
   adapter = new NgbStringAdapter();   
 

@@ -9,7 +9,5 @@ dell'Università degli Studi di Urbino Carlo Bo,<br>
 Le inviamo, in allegato, il contratto sottoscritto digitalmente dal Magnifico Rettore.<br>            
 
 Cordiali saluti.<br>
-@component('mail::sign')
 Università degli Studi di Urbino Carlo Bo<br>
-@endcomponent
 @endcomponent

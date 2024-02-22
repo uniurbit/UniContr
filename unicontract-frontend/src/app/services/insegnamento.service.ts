@@ -53,6 +53,14 @@ export class InsegnamentoService extends CoreSevice implements ServiceQuery {
     return this.http.post( AppConstants.baseApiURL + '/precontrattuale/updateinsegnamentofromugov', preStore).pipe(catchError(this.handleError('updateInsegnamentoFromUgov', null, false)));;
   }
 
+  changeCoperturaFromUgov(preStore: IPrecontrStore<any>){
+    return this.http.post( AppConstants.baseApiURL + '/precontrattuale/changecoperturafromugov', preStore).pipe(catchError(this.handleError('changeCoperturaFromUgov', null, false)));;
+  }
+
+  changeContatoreInsegnamentiManuale(preStore: IPrecontrStore<any>){
+    return this.http.post( AppConstants.baseApiURL + '/precontrattuale/changecontatoreinsegnamentimanuale', preStore).pipe(catchError(this.handleError('changeContatoreInsegnamentiManuale', null, false)));;
+  }
+
   newInsegn(insegn: InsegnamentoInterface) {
     return this.http.post(this._baseURL, insegn).pipe(catchError(this.handleError('newInsegn', null, false)));
   }

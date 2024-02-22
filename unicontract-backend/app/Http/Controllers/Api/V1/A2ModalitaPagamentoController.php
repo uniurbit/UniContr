@@ -13,6 +13,7 @@ use App\Service\PrecontrattualeService;
 use App\Audit;
 use App\Models\Insegnamenti;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Arr;
 use Auth;
 use Carbon\Carbon;
 class A2ModalitaPagamentoController extends Controller
@@ -106,6 +107,9 @@ class A2ModalitaPagamentoController extends Controller
             }
             
             $dati['copy'] = $copy;          
+            
+            $precontr = Precontrattuale::with(['p2naturarapporto','insegnamento'])->where('insegn_id', $insegn_id)->first(); 
+            $dati['precontr'] = $precontr;          
 
             $success = true;
        
@@ -153,6 +157,8 @@ class A2ModalitaPagamentoController extends Controller
                 $dati['validazioni'] = [];
             }                                                     
             
+            $precontr = Precontrattuale::with(['p2naturarapporto','insegnamento'])->where('a2_mod_pagamento_id', $id)->first(); 
+            $dati['precontr'] = $precontr;     
               
             $success = true;
        
@@ -201,7 +207,7 @@ class A2ModalitaPagamentoController extends Controller
 
         $toTrace =null;
         if (!$pagamento->wasRecentlyCreated) {                     
-            $toTrace = array_only($pagamento->getChanges(),Audit::$toTrace);
+            $toTrace = Arr::only($pagamento->getChanges(),Audit::$toTrace);
             foreach ($toTrace  as $key => $value) {
                 //dati da memorizzare ... 
                 //e notificare ...

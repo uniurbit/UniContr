@@ -7,10 +7,14 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
-use Symfony\Component\Debug\Exception\FlattenException;
-use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
+//use Symfony\Component\Debug\Exception\FlattenException;
+//use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
 use App\Mail\ExceptionOccured as ExceptionMail;
 use Yajra\Pdo\Oci8\Exceptions\Oci8Exception;
+use Throwable;
+
+use Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer;
+use Symfony\Component\ErrorHandler\Exception\FlattenException;
 
 class Handler extends ExceptionHandler
 {
@@ -39,7 +43,7 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return void
      */
-    public function report(Exception $exception)
+    public function report(Throwable $exception)
     {
         if ($this->shouldReport($exception)) {
             $this->sendExceptionEmail($exception);
@@ -50,23 +54,28 @@ class Handler extends ExceptionHandler
     }
 
 
-    /**
+     /**
      * Parse the exception and send email
      *
      * @param Exception $exception
      */
-    public function sendExceptionEmail(Exception $exception)
+    public function sendExceptionEmail(Throwable $exception)
     {
         try {
+
             $e = FlattenException::create($exception);
+            $handler = new HtmlErrorRenderer(true); // boolean, true raises debug flag...
 
-            $handler = new SymfonyExceptionHandler();
+            #$e = FlattenException::create($exception);
+            #$handler = new SymfonyExceptionHandler();
 
-            $html = $handler->getHtml($e);
+            $html = $handler->getBody($e);
+            $css = $handler->getStylesheet();
 
-            Mail::queue(new ExceptionMail($html));
-        } catch (Exception $e) {
-            //
+            Mail::queue(new ExceptionMail($html,$css));
+        } catch (Throwable $e) {
+            Log::error('Errore non inviato');
+            Log::error($e);
         }
     }
 
@@ -77,7 +86,7 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $exception)
     {
         //message:"ORA-12170: TNS:Connect timeout occurred"
         if ($exception instanceof Oci8Exception){
@@ -89,5 +98,8 @@ class Handler extends ExceptionHandler
 
         return parent::render($request, $exception);
     }
+
+   
+
 
 }

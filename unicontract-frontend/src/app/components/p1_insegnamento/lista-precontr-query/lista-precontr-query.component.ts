@@ -113,6 +113,15 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
       }
     },
     {
+      key: 'insegnamento.compenso',
+      type: 'number',
+      templateOptions: {
+        type: 'number',
+        label: 'Compenso',
+        required: true,        
+      }
+    },
+    {
       key: 'p2naturarapporto.natura_rapporto',
       type: 'select',
       templateOptions: {
@@ -164,6 +173,19 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
           {key: 'accettata', value: 'Accettata in attesa di firma'},
           {key: 'firmata', value: 'Firmata'},
           {key: 'annullata', value: 'Annullata'},
+        ]
+      }
+    },
+    {
+      key: 'validazioni.tipo_accettazione',
+      type: 'select',
+      templateOptions: {
+        label: 'Tipo accettazione',
+        required: true,
+        options: [
+          {key: 'PRESA_ViSIONE', value: 'Presa visione'},
+          {key: 'USIGN', value: 'U-Sign'},
+          {key: 'FIRMAIO', value: 'Firma con IO'},
         ]
       }
     },
@@ -298,7 +320,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
   }
 
   resultMetadata: FormlyFieldConfig[];
-  @ViewChild('tooltip') tooltipCellTemplate: TemplateRef<any>;
+  @ViewChild('tooltip', { static: true }) tooltipCellTemplate: TemplateRef<any>;
 
   constructor(protected service: PrecontrattualeService, router: Router, route: ActivatedRoute, private translateService: TranslateService) {
     super(router, route);
@@ -357,6 +379,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
           { name: 'Insegnamento', prop: 'insegnamento.insegnamento', width: 450 },
           { name: 'Rapporto', prop: 'p2naturarapporto.natura_rapporto', pipe: this.translate, width: 100, maxWidth: 150 },
           { name: 'Stato corrente', prop: 'currentState', minWidth: 100 },
+          { name: 'Tipo accettazione', prop: 'validazioni.tipo_accettazione', minWidth: 100 },
         ]
       },
       fieldArray: {

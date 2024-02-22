@@ -1,0 +1,179 @@
+html,
+body,
+p,
+ul,
+li,
+span,
+img {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    font-family: 'timesnewroman', 'Times New Roman', Times, serif;
+    font-size: 10pt;
+    text-rendering: geometricPrecision;
+}
+
+.bozza {
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1'><path x='500' y='300'  fill='#f7d0cd' stroke='#f7d0cd'  transform='translate(300, 500) rotate(45)' d='M11.72 144.00 L11.72 29.47 L54.69 29.47 Q67.81 29.47 75.74 32.95 Q83.67 36.42 88.16 43.65 Q92.66 50.88 92.66 58.77 Q92.66 66.11 88.67 72.59 Q84.69 79.08 76.64 83.06 Q87.03 86.11 92.62 93.45 Q98.20 100.80 98.20 110.80 Q98.20 118.84 94.80 125.76 Q91.41 132.67 86.41 136.42 Q81.41 140.17 73.87 142.09 Q66.33 144.00 55.39 144.00 ZM26.88 77.59 L51.64 77.59 Q61.72 77.59 66.09 76.27 Q71.88 74.55 74.80 70.56 Q77.73 66.58 77.73 60.56 Q77.73 54.86 75.00 50.52 Q72.27 46.19 67.19 44.59 Q62.11 42.98 49.77 42.98 L26.88 42.98 ZM26.88 130.48 L55.39 130.48 Q62.73 130.48 65.70 129.94 Q70.94 129.00 74.45 126.81 Q77.97 124.63 80.23 120.45 Q82.50 116.27 82.50 110.80 Q82.50 104.39 79.22 99.66 Q75.94 94.94 70.12 93.02 Q64.30 91.11 53.36 91.11 L26.88 91.11 ZM114.73 88.22 Q114.73 59.70 130.05 43.57 Q145.36 27.44 169.58 27.44 Q185.44 27.44 198.17 35.02 Q210.91 42.59 217.59 56.15 Q224.27 69.70 224.27 86.89 Q224.27 104.31 217.23 118.06 Q210.20 131.81 197.31 138.88 Q184.42 145.95 169.50 145.95 Q153.33 145.95 140.59 138.14 Q127.86 130.33 121.30 116.81 Q114.73 103.30 114.73 88.22 ZM130.36 88.45 Q130.36 109.16 141.49 121.07 Q152.63 132.98 169.42 132.98 Q186.53 132.98 197.59 120.95 Q208.64 108.92 208.64 86.81 Q208.64 72.83 203.91 62.40 Q199.19 51.97 190.09 46.23 Q180.98 40.48 169.66 40.48 Q153.56 40.48 141.96 51.54 Q130.36 62.59 130.36 88.45 ZM234.20 144.00 L234.20 129.94 L292.88 56.58 Q299.13 48.77 304.75 42.98 L240.84 42.98 L240.84 29.47 L322.88 29.47 L322.88 42.98 L258.58 122.44 L251.63 130.48 L324.75 130.48 L324.75 144.00 ZM332.20 144.00 L332.20 129.94 L390.88 56.58 Q397.13 48.77 402.75 42.98 L338.84 42.98 L338.84 29.47 L420.88 29.47 L420.88 42.98 L356.58 122.44 L349.63 130.48 L422.75 130.48 L422.75 144.00 ZM426.77 144.00 L470.75 29.47 L487.08 29.47 L533.95 144.00 L516.69 144.00 L503.33 109.31 L455.44 109.31 L442.86 144.00 ZM459.81 96.97 L498.64 96.97 L486.69 65.25 Q481.22 50.80 478.56 41.50 Q476.38 52.52 472.39 63.38 Z'/></svg>");
+    background-repeat: repeat-y;
+    background-size: 100%;
+}
+
+.svgborder {
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='320mm' width='100%'><rect width='100%' height='99%' stroke='lightgray' stroke-width='0.5' fill-opacity='0'/></svg>");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-attachment: fixed;
+}
+
+.dipartimento {
+    font-size: 1.6em;
+    text-align: center;
+    line-height: 1.7;
+    text-rendering: geometricPrecision;
+}
+
+.intestazione {
+    font-size: 18pt;
+    text-align: center;
+    line-height: 1;
+    margin-bottom: 28px;
+    text-rendering: geometricPrecision;
+}
+
+h4 {
+    font-size: 11pt;
+    text-align: center;
+    line-height: 1.7;
+    text-rendering: geometricPrecision;
+}
+
+h2 {
+    font-size: 1.4em;
+    text-align: center;
+}
+
+div.page {
+    page-break-after: always;
+    page-break-inside: avoid;
+}
+
+div.lastpage {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+}
+
+
+.normal {
+    font-size: 11pt;
+    text-rendering: geometricPrecision;
+    text-align: justify;
+    line-height: 1.7;		 
+    word-break: break-word;
+}
+
+.articolo {
+    font-size: 11pt;
+    text-rendering: geometricPrecision;
+    text-align: justify;
+    word-break: break-word;
+    margin-top: 5px;
+}
+
+.element {
+    font-size: 14pt;
+    line-height: 1.4;
+    text-rendering: geometricPrecision;
+    text-align: justify;
+    word-break: break-word;
+}
+
+.small {
+    font-size: 11pt;
+    text-rendering: geometricPrecision;
+    line-height: 1.7;
+    text-align: left
+}
+
+.infor {
+    font-size: 11pt;
+    text-rendering: geometricPrecision;
+    line-height: 1.3;
+    text-align: justify
+}
+
+.subtitleinfor {
+    font-size: 12pt;
+    font-weight: bold;
+    text-rendering: geometricPrecision;
+    line-height: 1.5;
+    text-align: left
+}
+
+.piepagina {
+    font-size: 9pt;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+}
+
+.rientro {
+    padding-left: 20mm;
+    margin-top: 3mm;
+    margin-bottom: 10mm;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* .border {
+          position: fixed;
+          top: 0;
+          left: 0;
+          border: 1px solid;
+          width: 100%;
+          height: 320mm;
+          margin-left: 0mm;
+          margin-right: 0mm;
+          padding: 0;
+          box-sizing: border-box;
+      } */
+
+.subpage {
+    padding-top: 5mm;
+    border: 0.1em lightgrey solid;
+    height: 314mm;
+}
+
+.infor {
+    font-family:   'timesnewroman', 'Times New Roman', Times, serif;
+    font-size: 9pt;		
+    text-rendering: geometricPrecision;
+    line-height: 1.3;
+    text-align: justify
+    }
+
+  .subtitleinfor {
+    font-family:  'timesnewroman', 'Times New Roman', Times, serif;
+    font-size: 10pt;
+    font-weight: bold;		
+    text-rendering: geometricPrecision;
+    line-height: 1.5;
+    text-align: left
+  }
+
+  .piepagina {		
+    font-size: 8pt;		
+    font-family:  'timesnewroman', 'Times New Roman', Times, serif;
+    text-align: left;					
+    }   

@@ -20,6 +20,12 @@
     </button>
   </ng-container>
 
+  <ng-container  *ngxPermissionsOnly="['SUPER-ADMIN']">
+    <button type="button" class="btn btn-outline-secondary rounded mr-1" *ngIf="isDisabled('P1')" (click)="changeCopertura.emit(item.insegn_id)">
+      <span class="oi oi-pencil iconic"  title="Cambia codice di copertura"></span>
+    </button>
+  </ng-container>
+
   <!--P1-->
   <button class="{{ getClassName('P1') }}" [disabled]="isDisabled('P1')" (click)="goto.gotoP1(item.insegn_id)" title="{{ 'btn_p1_title' | translate }}">{{ 'btn_p1' | translate }}</button>
   <!--P2-->

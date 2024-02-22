@@ -81,6 +81,8 @@ class User extends Authenticatable implements JWTSubject
                     }else if ($uo->isDipartimento()){
                         $dips = [$uo->uo];
                     }
+                } else {
+                   $dips = $this->getDipartimentiUo();
                 }
             }            
         }else{
@@ -105,6 +107,55 @@ class User extends Authenticatable implements JWTSubject
         return config('unidem.client_url');      
     }
     
+    /**
+     * getForzaCoperturaIds
+     *
+     * @return array id copertura degli insegnamenti
+     *
+     */     
+    public function getForzaCoperturaIds(){        
+        $permissions = $this->getDirectPermissions();
+        $copertura_ids = [];
+        foreach ($permissions as $permission) {        
+            if (Str::startsWith($permission->name,'forza_copertura:')){
+                $copertura_id = explode(':',$permission->name)[1];
+                array_push($copertura_ids,$copertura_id);
+            }
+        }
+        return $copertura_ids;
+    }
+
+    public function getTipiFirmaAttivi(){        
+        $permissions = $this->getDirectPermissions();
+        $tipi_firma_attivi = [];
+        foreach ($permissions as $permission) {        
+            if (Str::startsWith($permission->name,'firma_con:')){
+                $tipo_firma = explode(':',$permission->name)[1];
+                array_push($tipi_firma_attivi,$tipo_firma);
+            }
+        }
+        if (count($tipi_firma_attivi) == 0){
+            $tipi_firma_attivi = config('unidem.tipi_firma_attivi');
+        }
+
+        return $tipi_firma_attivi;
+    }
+    
+    public function getDipartimentiUo(){      
+        $permissions = $this->getDirectPermissions();
+        $dipartimenti = [];
+        foreach ($permissions as $permission) {
+            //se nel caso di mancanza di configurazione in ugov dell'afferenza organizzativa ... per un problema di tempi
+            //tra l'assunzione e l'aggiornamento in ugov ['dipartimento_dip:004424','dipartimento_dip:004939'];
+            if (Str::startsWith($permission->name,'dipartimento_dip:')){
+                $dip_id = explode(':',$permission->name)[1];
+                array_push($dipartimenti,$dip_id);
+            }
+        }
+        return $dipartimenti;
+    }
+    
+
 
     /**
      * Set attribute to date format

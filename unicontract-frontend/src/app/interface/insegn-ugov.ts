@@ -26,4 +26,5 @@ export interface InsegnUgovInterface {
     motivo_atto_cod: string;
     numero: string;
     data: string;
+    cds_cod: string;
 }

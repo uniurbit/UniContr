@@ -14,6 +14,8 @@ use Ramsey\Uuid\Uuid;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use App\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
+use DateTimeInterface;
 
 class Attachment extends Model
 
@@ -49,7 +51,7 @@ class Attachment extends Model
     //emission_data è la data di protocollazione
     protected $casts = [
         'emission_date' => 'datetime:d-m-Y',
-        'created_at' => 'datetime:d-m-Y H:m:s',
+        'created_at' => 'datetime:d-m-Y H:i:s',
     ];
     
     /**
@@ -102,7 +104,7 @@ class Attachment extends Model
         if ( ! $attachment) {
             return null;
         }       
-        $options = array_only($options, $attributes);
+        $options = Arr::only($options, $attributes);
         $attachment->fill($options);
         return $attachment->model()->associate($model)->save() ? $attachment : null;
     }  
@@ -343,5 +345,17 @@ class Attachment extends Model
         });        
     }
     
+        
+    /**
+     * Prepare a date for array / JSON serialization.
+     *
+     * @param  \DateTimeInterface  $date
+     * @return string
+     */
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->setTimezone(config('unidem.timezone'));
+    }
+
 
 }

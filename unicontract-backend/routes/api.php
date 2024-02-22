@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Aacotroneo\Saml2\Saml2Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,21 +26,31 @@ Route::group([
     require base_path('routes/app_api.v1.php');
 });
   
-Route::get('/loginSaml', function(Request $request){
-    
+  
+Route::get('loginSaml', function(Request $request){    
     if(\Auth::guest())
-    {       
-        if (\App::environment('local')) {
-#            if (\Request::ip() == "192.168.5.135" || \Request::ip() == "192.168.5.137" || \Request::ip() == "127.0.0.1" ) {                
-                $redirect = $request->query('redirect');
-                return  \Saml2::login($redirect ? $redirect : 'home');           
-#            } else {
-#                return  abort(404);
-#            }
-        }
-
-        $redirect = $request->query('redirect');
-        return  \Saml2::login($redirect ? $redirect : 'home');                                    
+    {
+        $redirect = $request->query('redirect'); 
+        $referrer = $request->query('referrer');   
+        if ($referrer){
+            Log::info('referrer: '.$referrer);
+            $url = parse_url($referrer);
+            if ($url){
+                if (isset($url['host'])){
+                    Log::info('host: '.$url['host']);                 
+                    $clientUrl = parse_url(config('unidem.client_url'));
+                    if ($url['host'] !== 'www.uniurb.it' && $url['host'] != $clientUrl['host']){
+                        Log::info('redirect: https://www.uniurb.it/');                 
+                        return redirect()->away('https://www.uniurb.it/');
+                    }                    
+                }
+                if (isset($url['query'])){
+                    Log::info('query: '.$url['query']);            
+                }                               
+            }                       
+        }                               
+        $saml2Auth = new Saml2Auth(Saml2Auth::loadOneLoginAuthFromIpdConfig( env('IDP_ENV_ID', 'local')));
+        return $saml2Auth->login($redirect ? $redirect : 'home');
     }
 });
 
@@ -52,3 +63,10 @@ Route::group([
     Route::get('logout', 'AuthController@logout');         
 });
 
+Route::group([
+    'middleware' => ['cors','auth:api','log','role:super-admin'],
+    'prefix' => 'auth',
+    'namespace'=>'Api'
+], function ($router) {
+    Route::post('cambiautente', 'AuthController@cambiautente'); 
+});

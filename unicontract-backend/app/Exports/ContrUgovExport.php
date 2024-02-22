@@ -73,10 +73,11 @@ class ContrUgovExport implements FromCollection, WithMapping, WithHeadings
             $cont->precontr->insegnamento->data_ini_contr ? $cont->precontr->insegnamento->data_ini_contr : '',
             $cont->precontr->insegnamento->data_fine_contr ? $cont->precontr->insegnamento->data_fine_contr : '',
 
-            $cont->id_uo_aff ? __('global.'.$cont->id_uo_aff) : '',
-            
-            $cont->datibase ? $cont->datibase->anno_rif: '',
-            $cont->datibase ? $cont->datibase->ds_dg: '',
+            $cont->id_uo_aff ? __('global.'.$cont->id_uo_aff) : '', //Dipartimento
+            $this->getScuola($cont->precontr), //scuola
+
+            $cont->datibase ? $cont->datibase->anno_rif: '', //Anno
+            $cont->datibase ? $cont->datibase->ds_dg: '', //Descrizione
             $cont->datibase ? $cont->datibase->stato_dg: '',
 
             $cont->num_rate ? $cont->num_rate: '',
@@ -98,6 +99,7 @@ class ContrUgovExport implements FromCollection, WithMapping, WithHeadings
             'Data inizio contratto',
             'Data fine contratto',
             'Dipartimento',
+            'Scuola',
             'Anno',
             'Descrizione',
 
@@ -109,4 +111,23 @@ class ContrUgovExport implements FromCollection, WithMapping, WithHeadings
         ];
     }
 
+    public function annoAccademico($perirodoInizio)
+    {
+        return ($perirodoInizio.'/'.($perirodoInizio+1));
+    }
+
+    public function getScuola($precontr){
+        $result = '';
+        if ($precontr->insegnamento) {
+            if ($precontr->insegnamento->corsodistudio) {
+                $corsodistudio = $precontr->insegnamento->corsodistudio->where('aa', $this->annoAccademico((int)$precontr->insegnamento->aa))->first();
+                
+                if ($corsodistudio) {
+                    $result = $corsodistudio->scuola->scuola_nome;
+                }
+            }
+        }
+
+        return $result;
+    }
 }

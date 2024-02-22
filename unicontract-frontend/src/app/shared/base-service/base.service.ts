@@ -35,7 +35,11 @@ export class CoreSevice {
   protected handleError<T>(operation = 'operation', result?: T, retrow: boolean = false) {
     return (error: any): Observable<T> => {
       console.error(error); // log to console instead
-      this.messageService.error(`L'operazione di ${operation} è terminata con errori: ${error.message}`, true, false, error);
+      if (error.status && error.status == 502){
+        this.messageService.error(`Sottosistema in errore o in manutenzione, riprovare più tardi.`, true, false, error);  
+      } else {
+        this.messageService.error(`L'operazione di ${operation} è terminata con errori: ${error.message}`, true, false, error);
+      }      
       if (!retrow) {
         return of(result as T);
       } else {

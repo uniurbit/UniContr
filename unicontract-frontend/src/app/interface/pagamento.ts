@@ -7,5 +7,6 @@ export interface A2ModPagamento {
     denominazione: string;
     luogo: string;
     intestazione: string;
-    aba: string;
+    aba: string;    
+    soluzione_pagamento?: string;
 }

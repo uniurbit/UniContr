@@ -22,6 +22,7 @@
     <app-list-item label="{{ '00_int13' | translate }}" value="{{ datoMancante(item.tipo_emitt_des) | uppercase }}"></app-list-item>
     <app-list-item label="{{ '00_int14' | translate }}" value="{{ datoMancante(tools.tipoConferimento(item.motivo_atto_cod)) }}"></app-list-item>
     <app-list-item label="{{ '00_int17' | translate }}" value="{{ datoMancante(item.ruolo_doc_des | uppercase) }}"></app-list-item>
+    <app-list-item label="{{ '00_int18' | translate }}" value="{{ datoMancante(item.sede_des | uppercase) }}"></app-list-item>
     
     
   </app-riquadro-wrapper>
@@ -64,6 +65,7 @@
     <input type="hidden" name="data_delibera" [(ngModel)]="item.data">
     <input type="hidden" name="cod_insegnamento" [(ngModel)]="item.af_gen_cod">    
     <input type="hidden" name="dip_cod" [(ngModel)]="item.dip_cod">    
+    <input type="hidden" name="cds_cod" [(ngModel)]="item.cds_cod">    
 
     <div class="form-footer text-right">
       <button *ngIf="checkEmail(item.email, item.e_mail, item.e_mail_privata)" class="btn btn-outline-secondary rounded mr-1" (click)="saveIns(f.value, item.nome, item.cognome, item.cod_fis, item.id_ab, email(item.email, item.e_mail, item.e_mail_privata))" title="IMPORTA IL PRESENTE INSEGNAMENTO">IMPORTA</button>

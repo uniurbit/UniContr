@@ -17,13 +17,13 @@ return [
     "C_coniugato" => "Coniugat:s",
     "D_divorziato" => "Divorziat:s",
     "L_libero" => "Liber:s da impedimenti coniugali",
-    "N_celibe" => "{0} Celibe | {1} Nubile",
-    "R_celibefigli" => "{0} Celibe con figli riconosciuti | {1} Nubile con figli riconosciuti",
+    "N_celibe" => "{0}Celibe |{1}Nubile",
+    "R_celibefigli" => "{0}Celibe con figli riconosciuti |{1}Nubile con figli riconosciuti",
     "S_separato" => "Separat:s",
     "T_configliriconosciuti" => "Con figli non riconosciuti",
     "U_configliacarico" => "Con figli a carico condiviso",
     "V_vedovo" => "Vedov:s",
-    "W_celibeconfigli" =>  "{0} Celibe con figli riconosciuti a carico | {1} Nubile con figli riconosciuti a carico",
+    "W_celibeconfigli" =>  "{0}Celibe con figli riconosciuti a carico |{1}Nubile con figli riconosciuti a carico",
     "X_separatoconfigli" =>  "Separat:s con figli riconosciuti a carico",
     "Y_divorziatoconfigli" =>  "Divorziat:s con figli riconosciuti a carico",
     "Z_coniugatodetrazioni" =>  "Coniugat:s: detrazioni doppie",
@@ -307,5 +307,8 @@ return [
 
     "dichiaro_RF01"=> "essere professionista rientrante nel regime fiscale ordinario",
     "dichiaro_RF02"=> "essere professionista rientrante nel regime fiscale contribuenti minimi (art.1, commi 96-117, legge n. 244/2007)",
-    "dichiaro_RF19"=> "essere professionista rientrante nel regime fiscale forfettario (art.1, commi 54-89, legge n. 190/2014)"
+    "dichiaro_RF19"=> "essere professionista rientrante nel regime fiscale forfettario (art.1, commi 54-89, legge n. 190/2014)",
+
+    "due_rate"=> "Due rate",
+    "una_rata"=> "Unica rata"
 ];

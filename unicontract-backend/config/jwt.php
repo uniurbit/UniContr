@@ -119,8 +119,8 @@ return [
     | systems in place to revoke the token if necessary.
     |
     */
-
-    'refresh_ttl' => env('JWT_REFRESH_TTL', 20160),
+    
+    'refresh_ttl' => env('JWT_REFRESH_TTL', 40320),
 
     /*
     |--------------------------------------------------------------------------

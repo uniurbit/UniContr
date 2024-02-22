@@ -52,10 +52,11 @@ export class P2PosizioneInsComponent extends BaseComponent {
           key: 'flag_rapp_studio_univ',
           type: 'checkbox',
           className: 'col-auto',
-          defaultValue: false,
+          defaultValue: false,                    
           templateOptions: {
             translate: true,
-            label: 'p2_check1'
+            label: 'p2_check1',
+            description: 'Per i titolari di assegno di ricerca, borsa di studio o borsa post-dottorato oppure iscritti ad un corso di Dottorato di Ricerca'
           }
         },
       ]
@@ -103,18 +104,18 @@ export class P2PosizioneInsComponent extends BaseComponent {
       },
       expressionProperties: {
         'templateOptions.options': (model: any, formState: any, field: FormlyFieldConfig) => {
-          const opt =  [{ key: 'PRPR', value: this.translateService.instant('p3_radio1') }];
+          const opt =  [{ value: 'PRPR', label: this.translateService.instant('p3_radio1') }];
 
           if (this.tools.controlloCNA(this.items.tipo_contratto, this.items.ore)) {
-            opt.push({ key: 'COCOCO', value: this.translateService.instant('p3_radio2') });
+            opt.push({ value: 'COCOCO', label: this.translateService.instant('p3_radio2') });
           }
 
           if (this.tools.controlloPLAO(this.items.tipo_contratto, this.items.ore)) {
-            opt.push( { key: 'PLAO', value: this.translateService.instant('p3_radio3') });
+            opt.push( { value: 'PLAO', label: this.translateService.instant('p3_radio3') });
           }
 
-          opt.push( { key: 'PTG', value: this.translateService.instant('p3_radio4') });
-          opt.push( { key: 'ALD', value: this.translateService.instant('p3_radio5') });
+          opt.push( { value: 'PTG', label: this.translateService.instant('p3_radio4') });
+          opt.push( { value: 'ALD', label: this.translateService.instant('p3_radio5') });
           return opt;
         },
         'templateOptions.description': (model: any, formState: any, field: FormlyFieldConfig) => {
@@ -147,6 +148,14 @@ export class P2PosizioneInsComponent extends BaseComponent {
       //   }
       // },
     },
+    //messaggio di avvertimento commentato nel caso di edit e modifica natura del rapporto
+    // {      
+    //   template: '<p class="text-muted">La modifica del campo "Natura del Rapporto" richiede una verifica della compilazione dei riquadri economici</p>',
+    //   hideExpression(model, formState, field?) {
+    //     //nascondi se non c'è id oppure se c'è id e il campo è pristine
+    //     return !!!model.p2_natura_rapporto_id || (!!model.p2_natura_rapporto_id && field.form.get('natura_rapporto').pristine); 
+    //   },      
+    // },
   ];
 
   constructor(private route: ActivatedRoute,
@@ -206,19 +215,16 @@ export class P2PosizioneInsComponent extends BaseComponent {
     rapporto['insegn_id'] = this.idins;
     this.p2rapportoService.newRapporto(rapporto).subscribe(
       response => {
-        this.isLoading = false;
-        const lastid = response['data']['id']; // RETURN LAST ID
-
+        this.isLoading = false;        
         if (response['success']) {
+          const lastid = response['data']['id']; // RETURN LAST ID
           this.messageService.info('Parte 2: Posizione del collaboratore creata con successo');
           this.router.navigate(['home/p2rapporto/details', lastid]);        
         } else {
           this.messageService.error(response['message']);
-        }
-      
+        }      
       },
-      (error) => this.handleError(error),
-      () => this.complete()
+      (error) => this.handleError(error),      
     );
   }
 

@@ -9,8 +9,8 @@
     }
 
     body {        
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 12pt;
+        font-family:  'timesnewroman', 'Times New Roman', Times, serif;
+        font-size: 11pt;
         line-height: 1.7;		                                  
         text-rendering: geometricPrecision;
     } 
@@ -31,14 +31,21 @@
         page-break-inside: avoid; 
     }
     
-    div.page {
+    div.page
+    {
         page-break-after: always;
+        page-break-inside: avoid;
+    } 
+    
+    div.lastpage
+    {
+        page-break-after: avoid;
         page-break-inside: avoid;
     } 
 
     .normal {
-        font-family:  Arial, Helvetica, sans-serif;
-        font-size: 9pt;		
+        font-family:  'timesnewroman', 'Times New Roman', Times, serif;
+        font-size: 11pt;		
         text-rendering: geometricPrecision;
         line-height: 1.7;
         text-align: justify
@@ -56,7 +63,11 @@ Data del documento: {{ Carbon\Carbon::now()->format(config('unidem.date_format_c
 <hr>
 <h2 style="padding-top: 10px;">ELENCO CONTRATTI DI DOCENZA NON ANCORA STIPULATI</h2>
 @foreach($grouped as $pres)
-
+    @if($loop->last)
+        <div class="lastpage">
+    @else
+        <div class="page">
+    @endif
 <!-- <div class="page"> -->
     <h3 style="padding-top: 10px;">A.A. {{$pres->first()->aa}}</h3>
     <table cellspacing="0" border="0" width="100%" style="padding-top: 10px;">
@@ -89,7 +100,7 @@ Data del documento: {{ Carbon\Carbon::now()->format(config('unidem.date_format_c
             @endforeach
         </tbody>
     </table>    
-<!-- </div> -->
+    </div>
 @endforeach
 
 @endif

@@ -318,6 +318,55 @@ class SoapControllerTitulus implements iSearch
     return $response;
   }
   
+
+  /**
+   * postIt
+   *
+   * @param  mixed $id nrecord, numero di protocollo, numero di repertorio
+   * @param  mixed $postitContent contenuto del postIt
+   * @return void
+   */
+  public function postIt($id, $postitContent){
+    $response = $this->soapWrapper->call('titulus.postIt', [
+      'id' => $id,    
+      'postitContent' => $postitContent,    
+    ]);
+    return $response;
+  }
+
+  
+  /**
+   * cancelDocument Annullamento di un documento protocollato
+   *
+   * @param  mixed $id nrecord, numero di protocollo, numero di repertorio
+   * @param  mixed $reason motivo della dell'annullamento 
+   * @return void
+   */
+  public function cancelDocument($id, $reason){
+    $response = $this->soapWrapper->call('titulus.cancelDocument', [
+      'id' => $id,    
+      'reason' => $reason,    
+    ]);
+    return $response;
+  }
+
+  
+  /**
+   * deleteDocument cancellazione di un documento non protocollato NON ha la motivazione
+   * per le bozze
+   *
+   * @param  mixed $id nrecord, numero di protocollo, numero di repertorio 
+   * @return void
+   */
+  public function deleteDocument($id){
+    $response = $this->soapWrapper->call('titulus.deleteDocument', [
+      'id' => $id          
+    ]);
+    return $response;
+  }
+
+
+
   /**
    * imposta utente reale
    * @param $user nome utente

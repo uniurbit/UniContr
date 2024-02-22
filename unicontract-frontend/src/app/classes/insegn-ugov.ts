@@ -29,6 +29,7 @@ export class InsegnUgov implements InsegnUgovInterface {
     numero: string;
     data: string;
     contatore_insegnamenti?: number;
+    cds_cod: string;
 
     constructor() {
         this.coper_id = 0;
@@ -58,6 +59,7 @@ export class InsegnUgov implements InsegnUgovInterface {
         this.motivo_atto_cod = '';
         this.numero = '';
         this.data = '';
+        this.cds_cod = null;
     }
 
 }

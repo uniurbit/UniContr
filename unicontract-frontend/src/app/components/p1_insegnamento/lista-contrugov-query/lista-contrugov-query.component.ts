@@ -116,6 +116,15 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
       }
     },
     {
+      key: 'insegnamento.compenso',
+      type: 'number',
+      templateOptions: {
+        type: 'number',
+        label: 'Compenso',
+        required: true,        
+      }
+    },
+    {
       key: 'flag_no_compenso',
       type: 'select',
       templateOptions: {
@@ -177,7 +186,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
   }
 
   resultMetadata: FormlyFieldConfig[];
-  @ViewChild('tooltip') tooltipCellTemplate: TemplateRef<any>;
+  @ViewChild('tooltip', { static: true }) tooltipCellTemplate: TemplateRef<any>;
 
   constructor(protected service: ContrUgovService, router: Router, route: ActivatedRoute, private translateService: TranslateService) {
     super(router, route);

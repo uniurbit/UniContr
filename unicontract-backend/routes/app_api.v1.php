@@ -50,6 +50,8 @@ Route::group(['middleware' => ['cors','auth:api','log','role:super-admin','check
     Route::put('permissions/{id}', 'PermissionController@update');
     Route::delete('permissions/{id}', 'PermissionController@delete');
     
+    Route::post('precontrattuale/cancellazioneistanzafirmautente','PrecontrattualeController@cancellazioneIstanzaFirmaUtente'); 
+  
     
 });
 
@@ -106,17 +108,29 @@ Route::group(['middleware' => ['cors','auth:api','log'], 'namespace'=>'Api\V1'],
     Route::post('precontrattuale/validazioneeconomica','PrecontrattualeController@validazioneEconomica');    
     Route::post('precontrattuale/annullaamm','PrecontrattualeController@annullaAmm');    
     Route::post('precontrattuale/annullaeconomica','PrecontrattualeController@annullaEconomica');    
-    Route::post('precontrattuale/presavisioneaccettazione','PrecontrattualeController@presaVisioneAccettazione');    
+    Route::post('precontrattuale/presavisioneaccettazione','PrecontrattualeController@presaVisioneAccettazione'); 
+    Route::post('precontrattuale/richiestafirmaio','PrecontrattualeController@richiestaFirmaIO'); 
+    Route::post('precontrattuale/richiestafirmausign','PrecontrattualeController@richiestaFirmaUSIGN'); 
+        
     Route::get('precontrattuale/gettitulusdocumenturl/{id}','PrecontrattualeController@getTitulusDocumentURL');  
-    Route::post('precontrattuale/annullacontratto','PrecontrattualeController@annullaContratto');    
+    Route::post('precontrattuale/annullacontratto','PrecontrattualeController@annullaContratto'); 
+    Route::post('precontrattuale/annullaannullacontratto','PrecontrattualeController@annullaAnnullaContratto');    
     Route::post('precontrattuale/rinunciacompenso','PrecontrattualeController@rinunciaCompenso');   
     Route::post('precontrattuale/annullarinuncia','PrecontrattualeController@annullaRinuncia');  
     Route::post('precontrattuale/export','PrecontrattualeController@export'); 
     Route::post('precontrattuale/exportxls','PrecontrattualeController@exportxls'); 
     Route::post('precontrattuale/updateinsegnamentofromugov', 'PrecontrattualeController@updateInsegnamentoFromUgov'); 
+    Route::post('precontrattuale/changecoperturafromugov', 'PrecontrattualeController@changeCoperturaFromUgov'); 
+    Route::post('precontrattuale/changecontatoreinsegnamentimanuale', 'PrecontrattualeController@changeContatoreInsegnamentiManuale'); 
     Route::get('precontrattuale/downloadcontrattofirmato/{id}', 'PrecontrattualeController@downloadContrattoFirmato'); 
     
-    
+    //USIGN
+    Route::get('firma/certificato/otpType/{token}', 'FirmaUSIGNController@otpType');
+    Route::post('firma/sendOtp/{token}', 'FirmaUSIGNController@sendOtp');
+    Route::post('firma/signProcess/{token}', 'FirmaUSIGNController@signProcess'); 
+    Route::get('sendToFEA/{token}', 'FirmaUSIGNController@sendToFEA');
+
+
     // QUADRO RIEPILOGATIVO
     Route::get('summary/{id}', 'QuadroRiepilogativoController@index')->middleware(['ownermiddleware']);
     Route::post('summary/sendinfoemail','QuadroRiepilogativoController@sendInfoEmail');
@@ -271,7 +285,19 @@ Route::group(['middleware' => ['cors','auth:api','log'], 'namespace'=>'Api\V1'],
     Route::put('mappinguffici/{id}', 'MappingUfficioController@update');
     Route::delete('mappinguffici/{id}', 'MappingUfficioController@delete');
 
+    // NOTIFICHE
+    Route::get('notifiche', 'NotificaController@index');
+    Route::get('notifiche/{id}', 'NotificaController@show');
+    Route::post('notifiche/query', 'NotificaController@query'); 
+    Route::post('notifiche', 'NotificaController@store');
+    Route::put('notifiche/{id}', 'NotificaController@update');
+    Route::delete('notifiche/{id}', 'NotificaController@delete');
 
+    
+});
+
+Route::group(['middleware' => ['cors'], 'namespace'=>'Api\V1'], function() {
+    Route::get('attachments/downloadpdf/{id}','AttachmentController@downloadpdf');
 });
 
 

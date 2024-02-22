@@ -12,6 +12,7 @@ use App\User;
 use Auth;
 use App\Service\EmailService;
 use Illuminate\Support\Str;
+use App\Service\NotificaService;
 
 class QuadroRiepilogativoController extends Controller
 {
@@ -81,6 +82,12 @@ class QuadroRiepilogativoController extends Controller
             }
             $datiGenerali['richiesta'] = $pre->sendemails()->with(['user'])->where('codifica','INFO')->orderBy('id','desc')->first();
             
+            $datiGenerali['notifiche'] = (new NotificaService())->getNotifiche('contratto',$pre);
+
+            $datiGenerali['firmaUtente'] = $pre->firmaUtente();
+        
+            $datiGenerali['tipiFirmaAttivi'] = $pre->user->getTipiFirmaAttivi();
+
             $success = true;
       
         return compact('datiGenerali', 'message', 'success');

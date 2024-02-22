@@ -30,10 +30,13 @@ export class BaseComponent implements OnInit, OnDestroy {
     //this.messageService.error(`L'operazione è terminata con errori: ${error.message}`);        
   }
 
-  complete() {
+  complete(message = true) {
     this.isLoading = false;
-    //if (this.messageService.isEmpty()) {
+    if (message){
       this.messageService.info('Lettura effettuata con successo');
+    }
+    //if (this.messageService.isEmpty()) {
+      
     //}
   }
 

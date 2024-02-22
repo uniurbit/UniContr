@@ -7,6 +7,7 @@ import { InsegnamTools } from './../../../classes/insegnamTools';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { PagamentoDetailsComponent } from '../pagamento-details/pagamento-details.component';
 
 @Component({
   selector: 'app-pagamento-local-update',
@@ -17,7 +18,7 @@ export class PagamentoLocalUpdateComponent extends BaseComponent {
 
   pagamento: Pagamento;
 
-  model: any;
+  model: any =null;
 
   options: FormlyFormOptions = {
     formState: {
@@ -161,7 +162,8 @@ export class PagamentoLocalUpdateComponent extends BaseComponent {
           ]
         },
       ]
-    }
+    },
+    PagamentoDetailsComponent.informazioni_pagamento(this.translateService)
   ];
 
 
@@ -181,7 +183,12 @@ export class PagamentoLocalUpdateComponent extends BaseComponent {
       (params) => {
         this.isLoading = true;
         this.pagamentoService.getPagamentoLocal(+params.get('id')).subscribe(
-          response => this.pagamento = response['dati'],
+          response => {
+            this.pagamento = response['dati'];
+            if (response['dati']['precontr']){
+              this.options.formState.precontr = response['dati']['precontr'];
+            }
+          },
           (error) => this.handleError(error),
           () => this.complete()
         );

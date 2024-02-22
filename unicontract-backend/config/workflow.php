@@ -14,7 +14,7 @@ return [
         ],
         'marking_store' => [
             'type' => 'single_state', //multiple_state single_state
-            'arguments' => ['current_place']
+            'property' => 'current_place',            
         ],
         'supports'      => ['App\Models\Validazioni'],
         'places'        => ['completata','validata_economica', 'validata_amministrativa', 'revisione_economica','revisione_amministrativa',

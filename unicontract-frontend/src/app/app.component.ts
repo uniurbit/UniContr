@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, NavigationCancel, Router } from '@angular/router';
 import { AuthService } from './core';
 import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
+import { AppConstants } from './app-constants';
 
 @Component({
   selector: 'app-root',
@@ -18,14 +19,14 @@ export class AppComponent {
 
   constructor(public router: Router, private authService: AuthService, private rolesService: NgxRolesService) {
     console.log('constructor app-root ');
-    let token = null;
-
+    let token = null; 
     authService.reload();
   }
 
   ngOnInit() {
     console.log('init app-root');
-  }
+
+     }
 
 }
 

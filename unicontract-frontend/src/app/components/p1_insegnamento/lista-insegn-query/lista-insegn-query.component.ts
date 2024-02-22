@@ -43,7 +43,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
   // 'storico',
   // 'user_role'
 
-  @ViewChild('seleziona') seleziona: TemplateRef<any>;
+  @ViewChild('seleziona', { static: true }) seleziona: TemplateRef<any>;
 
   translate: MyTranslatePipe;
   datePipe = new DatePipe('it-IT');
@@ -139,7 +139,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
   ];
 
   resultMetadata: FormlyFieldConfig[];
-  @ViewChild('tooltip') tooltipCellTemplate: TemplateRef<any>;
+  @ViewChild('tooltip', { static: true }) tooltipCellTemplate: TemplateRef<any>;
 
   builderoptions: FormlyTemplateOptions = {
     min: 1

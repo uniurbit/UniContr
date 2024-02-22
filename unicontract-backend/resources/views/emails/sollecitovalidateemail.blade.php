@@ -9,7 +9,7 @@ Le ricordiamo che la modulistica precontrattuale da Lei compilata<br>
 è stata verificata e validata dagli uffici competenti,<br>
 La invitiamo a prendere visione del contratto in tutte le sue parti<br>
 e a confermare la sua accettazione **il più presto possibile**<br>
-collegandosi di nuovo alla piattaforma UniContr:
+collegandosi di nuovo alla piattaforma [UniContr]({{$urlUniContr}}):
 
 @component('mail::button', ['url' => $urlUniContr])
 Visione e accettazione contratto 
@@ -19,7 +19,6 @@ Per eventuali informazioni o richieste di chiarimento,<br>
 può far riferimento ai recapiti di seguito indicati.
 
 Cordiali saluti.
-@component('mail::sign')
+
 @include( 'emails.firmamessaggioamministrazione')
-@endcomponent
 @endcomponent

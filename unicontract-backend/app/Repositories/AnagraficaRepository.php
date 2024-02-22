@@ -17,6 +17,7 @@ use App\Service\PrecontrattualeService;
 use App\Audit;
 use App\Exceptions\Handler;
 use Illuminate\Container\Container;
+use Illuminate\Support\Arr;
 class AnagraficaRepository extends BaseRepository {
     /**
      * Specify Model class name
@@ -46,8 +47,8 @@ class AnagraficaRepository extends BaseRepository {
 
             //capire la variazione di modello rispetto a ugov o 
             //rispetto al dato in anagrafica precedentemente inserito            
-            $newValue = array_only($entity->toArray(),Audit::$toTrace);
-            $originalValue = array_only($data['originalValue'],Audit::$toTrace);
+            $newValue = Arr::only($entity->toArray(),Audit::$toTrace);
+            $originalValue = Arr::only($data['originalValue'],Audit::$toTrace);
             $diff = array_diff($newValue, $originalValue);
             $msg ='';
             foreach ($diff  as $key => $value) {                      

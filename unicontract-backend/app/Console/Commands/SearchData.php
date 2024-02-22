@@ -61,7 +61,18 @@ class SearchData extends Command
         $response = null;
         try{
             foreach ($precontrs as $pre) {                                                
-              //Inserire qui la logica di aggiornamento
+                $anagrU = AnagraficaUgov::where('id_ab',$pre->docente_id)->select(['cognome','data_nasc','id_ab'])->first();                
+                if ($pre->anagrafica!=null && $pre->anagrafica->data_nascita!=null){
+                    $current = Carbon::createFromFormat(config('unidem.date_format'), $pre->anagrafica->data_nascita);             
+                    $gg  = $anagrU->data_nasc->diffInDays($current);
+                    if ($gg!=0){                   
+                        $anagrafica = $pre->anagrafica;
+                        $anagrafica->data_nascita = $anagrU->data_nasc->format(config('unidem.date_format'));
+                        $anagrafica->timestamps = false;
+                        $anagrafica->save();
+                        Log::info('Aggiornata [ SearchData ] [ id =' . $pre->id . ']'); 
+                    }                                                
+                }
             }
         } catch (\Exception $e) {
             Log::info('Errore [ SearchData ] [ id =' . $pre->id . ']'); 

@@ -23,6 +23,7 @@ use DB;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use App\Service\TitulusHelper;
 
 class EmailService implements ApplicationService
 {
@@ -87,17 +88,19 @@ class EmailService implements ApplicationService
 
     public static function sendEmailAPP_Firma($pre){
                
-        $email = new FirmaEmail($pre);        
+        $url = TitulusHelper::getTitulusUrl($pre->titulusref->physdoc)['url'];
+        $email = new FirmaEmail($pre, $url);        
         
-        if (App::environment(['local','preprod'])) {
-            Mail::to(Auth::user())->send($email);
+        if (App::environment(['local','preprod'])) {          
+            //nel caso di comandi schedulati 
+            Mail::to(config('unidem.administrator_email'))->send($email);                              
         } else {            
             Mail::to(config('unidem.firma_direttore_email'))
                 ->bcc(config('unidem.administrator_email'))->send($email);
         }          
 
         $sendEmail = new SendEmail();
-        $sendEmail->sender_user_id = Auth::user()->id;
+        $sendEmail->sender_user_id = Auth::user() ? Auth::user()->id : $pre->user->id;
         $sendEmail->receiver = 'UFFICI';
         $sendEmail->codifica = "APP_FIRMA";
         $sendEmail->oggetto = $email->subject;

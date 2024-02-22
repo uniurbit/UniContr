@@ -25,13 +25,13 @@
     </app-list-item>
    
     <app-list-item label="{{ 'a1_res' | translate }}">
-      {{ item.comune_residenza | uppercase }} ({{ item.provincia_residenza | uppercase}}) - CAP {{ item.cap_residenza }} - {{ item.indirizzo_residenza | uppercase }}, {{ item.civico_residenza }}
+      {{ item.comune_residenza }} ({{ item.provincia_residenza | uppercase}}) - CAP {{ item.cap_residenza }} - {{ item.indirizzo_residenza }}, {{ item.civico_residenza }}
     </app-list-item>
     
     <app-list-item *ngIf="item.data_variazione_residenza" label="{{ 'a1_dvr' | translate }}" value="{{ item.data_variazione_residenza }}"> </app-list-item>  
    
     <app-list-item *ngIf="item.comune_fiscale && item.provincia_fiscale" label="{{ 'a1_df' | translate }}" >
-      {{ item.comune_fiscale | uppercase }} ({{ item.provincia_fiscale | uppercase}}) - CAP {{ item.cap_fiscale }} - {{ item.indirizzo_fiscale | uppercase }}, {{ item.civico_fiscale }}
+      {{ item.comune_fiscale }} ({{ item.provincia_fiscale | uppercase}}) - CAP {{ item.cap_fiscale }} - {{ item.indirizzo_fiscale }}, {{ item.civico_fiscale }}
     </app-list-item>
     
     <app-list-item *ngIf="item.data_variazione_dom_fiscale" label="{{ 'a1_dvf' | translate }}" value="{{ item.data_variazione_dom_fiscale }}"> </app-list-item>

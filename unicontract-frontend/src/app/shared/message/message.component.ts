@@ -4,7 +4,6 @@ import { InfraMessageType, InfraMessage } from './message';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { modelGroupProvider } from '@angular/forms/src/directives/ng_model_group';
 import { Observable } from 'rxjs';
 
 @Component({

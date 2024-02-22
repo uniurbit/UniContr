@@ -31,6 +31,7 @@ export class Insegnamento implements InsegnamentoInterface {
 
     nominativo?: string;
     docente_id?: string;
+    contatore_insegnamenti_manuale?: number;
 
     constructor() {
         this.id = 0;

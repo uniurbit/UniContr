@@ -29,7 +29,7 @@ class D1_InpsController extends Controller
     public function index($id)
     {
         $datiPrecontrattuale = [];
-        $message = '';
+        $message = 'Lettura effettuata con successo';
       
             $datiPrecontrattuale = PrecontrattualeService::getDatiIntestazione($id);
 
@@ -38,6 +38,16 @@ class D1_InpsController extends Controller
             })->orderBy('id','desc')->first();            
             $datiPrecontrattuale['copy'] = $copy;
 
+            if ($copy == null && $datiPrecontrattuale->p2naturarapporto->flag_dipend_pubbl_amm){
+                //se dipendende pubblica amministrazione allora         
+                $datiPrecontrattuale['copy'] = [
+                    'flag_misura_ridotta' => 1,
+                    'cassa_gestioni_previdenziali' => '201',
+                    'specif_misura_ridotta'=>'D3C'
+                ];
+                $message = 'Dati Misura ridotta preimpostati per dipendente pubblica amministrazione';
+            }
+          
             $success = true;
       
         return compact('datiPrecontrattuale', 'message', 'success');

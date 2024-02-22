@@ -6,25 +6,208 @@ use Auth;
 class ContrattiData 
 {
 
+    //** U-SIGN */
+
+    public static function getCreateProcessResponse(){
+      return '{
+        code : 200,
+        message  : "21234-qwerty-5678"
+      }';
+    }
+
+    public static function getSendToFEAResponse(){
+    return '{
+        "debugMode": true,
+        "documents": {},
+        "feaResponse": {},
+        "otpPerEnrollment": true,
+        "signer": {
+          "codFisc": "LVONRC76C29L500F",
+          "cognome": "Oliva",
+          "nome": "Enrico",
+          "telefono": "3282282328"
+        },
+        "token": "091a32b4-6294-4681-9743-536555eff2ff",
+        "uniservUrl": "bbbb"
+      }';
+    }
+
+    //** APP IO */
+
+    public static function getValidateDocument(){
+      return '{
+        "is_valid": false,
+        "violations": [
+           "(clause 1) incompatible coordinates: unable to find page 3 in the uploaded document"
+        ]
+     }';
+    }
+
+    public static function getCreateDossierResponse(){
+        return '{
+            "id":"01GG4NFBCN4ZH8ETCCKX3766KX",
+            "title": "Contratto di insegnamento",
+            "documents":[
+               {
+                  "title":"Contratto",
+                  "signature_fields":[
+                     {
+                        "unique_name":"Signature1",
+                        "clause":{
+                           "title":"Firma contratto",
+                           "type":"REQUIRED"
+                        }
+                     }
+                  ]
+               }
+            ]
+         }';
+    }
+
+    public static function getSignatureRequestResponseREADY(){
+      return ContrattiData::getSignatureRequestResponse('READY');
+    } 
+
+    public static function getSignatureRequestResponseDRAFT(){
+      return ContrattiData::getSignatureRequestResponse('DRAFT');
+    } 
+
+    public static function getSignatureRequestResponse($status){
+        //"status": "DRAFT",
+        return '{
+            "id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
+            "status": "'.$status.'",
+            "dossier_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
+            "signer_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
+            "expires_at": "2018-10-13T00:00:00.000Z",
+            "documents": [
+              {
+                "id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
+                "metadata": {
+                  "title": "string",
+                  "signature_fields": [
+                    {
+                        "attrs": {
+                            "coordinates": {
+                               "x": 112,
+                               "y": 510
+                            },
+                            "size": {
+                               "w": 140,
+                               "h": 40
+                            },
+                            "page": 0
+                         },
+                      "clause": {
+                        "title": "Firma contratto",
+                        "type": "REQUIRED"
+                      }
+                    }
+                  ]
+                },
+                "created_at": "2018-10-13T00:00:00.000Z",
+                "updated_at": "2018-10-13T00:00:00.000Z",
+                "status": "WAIT_FOR_UPLOAD"
+              },
+              {
+                "id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
+                "metadata": {
+                  "title": "string",
+                  "signature_fields": [
+                    {
+                      "attrs": {
+                        "unique_name": "string"
+                      },
+                      "clause": {
+                        "title": "string",
+                        "type": "REQUIRED"
+                      }
+                    }
+                  ]
+                },
+                "created_at": "2018-10-13T00:00:00.000Z",
+                "updated_at": "2018-10-13T00:00:00.000Z",
+                "status": "WAIT_FOR_VALIDATION",
+                "uploaded_at": "2018-10-13T00:00:00.000Z"
+              },
+              {
+                "id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
+                "metadata": {
+                  "title": "string",
+                  "signature_fields": [
+                    {
+                      "attrs": {
+                        "unique_name": "string"
+                      },
+                      "clause": {
+                        "title": "string",
+                        "type": "REQUIRED"
+                      }
+                    }
+                  ]
+                },
+                "created_at": "2018-10-13T00:00:00.000Z",
+                "updated_at": "2018-10-13T00:00:00.000Z",
+                "status": "READY",
+                "uploaded_at": "2018-10-13T00:00:00.000Z",
+                "url": "string"
+              },
+              {
+                "id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
+                "metadata": {
+                  "title": "string",
+                  "signature_fields": [
+                    {
+                      "attrs": {
+                        "unique_name": "string"
+                      },
+                      "clause": {
+                        "title": "string",
+                        "type": "REQUIRED"
+                      }
+                    }
+                  ]
+                },
+                "created_at": "2018-10-13T00:00:00.000Z",
+                "updated_at": "2018-10-13T00:00:00.000Z",
+                "status": "REJECTED",
+                "uploaded_at": "2018-10-13T00:00:00.000Z",
+                "rejected_at": "2018-10-13T00:00:00.000Z",
+                "reject_reason": "string"
+              }
+            ],
+            "notification": {
+              "io_message_id": "string"
+            },
+            "created_at": "2018-10-13T00:00:00.000Z",
+            "updated_at": "2018-10-13T00:00:00.000Z",
+            "signed_at": "2018-10-13T00:00:00.000Z",
+            "rejected_at": "2018-10-13T00:00:00.000Z",
+            "reject_reason": "string",
+            "qr_code_url": "string",
+            "cancelled_at": "2018-10-13T00:00:00.000Z"
+          }';
+    }
+
     public static function getArrayDocente(){
         return [            
-            'name' => "Marco Angeloni",
-            'nome'=>"Marco",
-            'cognome'=>"Angeloni",
-            'cf'=>"NGLMRC86M26H294M",
-            'email'=>"marco.angeloni@uniurb.it",
-            'v_ie_ru_personale_id_ab'=>"26686",
+            'name' => "Enrico Oliva",
+            'nome'=>"Enrico",
+            'cognome'=>"Oliva",
+            'cf'=>"LVONRC76C29L500F",
+            'email'=>"enrico.oliva@uniurb.it",
+            'v_ie_ru_personale_id_ab'=>"39842",
             'password'=>null
         ];        
     }
 
     public static function getAnagrafica($insegn_id){
         return [
-            'comune_nascita' => "RIMINI",
-            'provincia_nascita' => "RN",
-            'data_nascita' => "26-08-1986",
+            'comune_nascita' => "PESARO",
+            'provincia_nascita' => "PU",
+            'data_nascita' => "29-03-1976",
             'stato_civile' => "C",
-            'cf' => "NGLMRC86M26H294M",
+            'cf' => "LVONRC76C29L500F",
             'cf_coniuge' => null,
             'nazione_residenza' => "SAMMARINESE",
             'titolo_studio' => "Dottore",
@@ -41,8 +224,8 @@ class ContrattiData
             'telefono_cellulare' => "555555",
             'telefono_abitazione' => null,
             'telefono_ufficio' => null,
-            'email' => "marco.angeloni@uniurb.it",
-            'email_privata' => "angeloni15@gmail.com",
+            'email' => "enrico.oliva@uniurb.it",
+            'email_privata' => "oliva.enrico@gmail.com",
             'attachments' => [],
             'sesso' => "M",
             'id_ab' => "26686",

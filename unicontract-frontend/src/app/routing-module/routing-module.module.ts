@@ -84,6 +84,9 @@ import { MappingUfficiTitulus } from '../components/mapping/mappinguffici.compon
 import { MappingUfficioTitulus } from '../components/mapping/mappingufficio.component';
 import { ListaContrugovQueryComponent } from '../components/p1_insegnamento/lista-contrugov-query/lista-contrugov-query.component';
 import { LogAttivitaComponent } from '../components/user/logattivita.component';
+import { NotificheComponent } from '../components/user/notifiche.component';
+import { NotificaComponent } from '../components/user/notifica.component';
+import { WrapperNotificheComponent } from '../components/wrapper-notifiche/wrapper-notifiche.component';
 
 
 const externalLoginUrlProvider = new InjectionToken('externalUrlRedirectResolver');
@@ -94,7 +97,8 @@ const routes: Routes = [
     component: BlankComponent
   },
 
-  { path: 'externallogin',
+  {
+    path: 'externallogin',
     resolve: {
       url: externalLoginUrlProvider,
     },
@@ -109,7 +113,7 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        loadChildren: '../dashboards/dashboard.module#DashboardModule'
+        loadChildren: () => import('../dashboards/dashboard.module').then(m => m.DashboardModule)
       },
       {
         path: 'copertura-ugov',
@@ -121,7 +125,7 @@ const routes: Routes = [
             { title: 'Nuovo contratto' }
           ]
         }
-      },  
+      },
 
       {
         path: 'ugov-insegn-detail/:coper_id/:aa_off_id',
@@ -171,7 +175,6 @@ const routes: Routes = [
           ]
         }
       },
-      
 
       {
         path: 'lista-insegn',
@@ -184,18 +187,229 @@ const routes: Routes = [
           ]
         }
       },
-
+      //VIEW
       {
-        path: 'detail-insegn/:id',
-        component: InsegnDetailComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Parte 1: Dati relativi all\'insegnamento (precompilata)',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Parte 1' }
-          ]
-        }
+        path: '',
+        component: WrapperNotificheComponent,
+        children: [
+
+          {
+            path: 'detail-insegn/:id',
+            component: InsegnDetailComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Parte 1: Dati relativi all\'insegnamento (precompilata)',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Parte 1' }
+              ]
+            }
+          },
+          {
+            path: 'p2rapporto/details/:id',
+            component: P2DetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Parte 2: Posizione del collaboratore e natura del rapporto',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Parte 2' }
+              ]
+            }
+          },
+          {
+            path: 'anagrafica/local/:id',
+            component: AnagraficaLocalDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro A.1: Dati anagrafici',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro A.1' }
+              ]
+            }
+          },
+          {
+            path: 'pagamento/local/:id',
+            component: PagamentoLocalDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro A.2: Modalità di pagamento',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro A.2' }
+              ]
+            }
+          },
+          {
+            path: 'conflitto/details/:id',
+            component: B1ConflittoDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro B.1: Dichiarazione sul conflitto di interessi',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro B.1' }
+              ]
+            }
+          },
+          {
+            path: 'incompat/details/:id',
+            component: B2IncompatibilitaDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro B.2: Dichiarazione sulla incompatibilità',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro B.2' }
+              ]
+            }
+          },
+          {
+            path: 'studio/details/:id',
+            component: B3RappStudioUnivDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro B.3: Rapporto di studio o lavoro con l\'Università',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro B.3' }
+              ]
+            }
+          },
+          {
+            path: 'rapppa/details/:id',
+            component: B4RappPaDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro B.4: Rapporto di lavoro con la Pubblica Amministrazione',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro B.4' }
+              ]
+            }
+          },
+          {
+            path: 'pension/details/:id',
+            component: B5StatoPensionDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro B.5: Stato di pensionamento',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro B.5' }
+              ]
+            }
+          },
+          {
+            path: 'privacy/details/:id',
+            component: B6PrivacyDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro B.6: Trattamento dati e Informativa sulla privacy',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro B.6' }
+              ]
+            }
+          },
+          {
+            path: 'cpiva/details/:id',
+            component: CPrestazProfessDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro C: Prestazione Professionale (art. 53, comma 1, D.P.R. 917/1986)',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro C' }
+              ]
+            }
+          },
+          {
+            path: 'inps/details/:id',
+            component: D1InpsDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro D.1 - Dichiarazione ai fini previdenziali',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro D.1' }
+              ]
+            }
+          },
+          {
+            path: 'inail/details/:id',
+            component: D2InailDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro D.2 - Dichiarazione ai fini assicurativi INAIL',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro D.2' }
+              ]
+            }
+          },
+          {
+            path: 'tributari/details/:id',
+            component: D3TributariDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro D.3 - Dichiarazione ai fini tributari',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro D.3' }
+              ]
+            }
+          },
+          {
+            path: 'fiscali/details/:id',
+            component: D4FiscaliDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro D.4 - Richiesta ai fini fiscali',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro D.4' }
+              ]
+            }
+          },
+          {
+            path: 'fiscaliestero/details/:id',
+            component: D5FiscaliesteroDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro D.5: Dichiarazione ai fini fiscali per i residenti all\'estero',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro D.5' }
+              ]
+            }
+          },
+          {
+            path: 'familiari/details/:id',
+            component: D6DetrazionifamiliariDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro D.6: Richiesta detrazioni fiscali per familiari a carico',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro D.6' }
+              ]
+            }
+          },
+          {
+            path: 'occasionale/details/:id',
+            component: EOccasionaleDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Quadro E - Prestazione di Lavoro Autonomo Occasionale',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Quadro E' }
+              ]
+            }
+          },
+        ]
       },
 
       {
@@ -210,20 +424,6 @@ const routes: Routes = [
           ]
         }
       },
-
-      {
-        path: 'p2rapporto/details/:id',
-        component: P2DetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Parte 2: Posizione del collaboratore e natura del rapporto',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Parte 2' }
-          ]
-        }
-      },
-
       {
         path: 'anagrafica/:id_ab',
         component: AnagraficaDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
@@ -235,21 +435,7 @@ const routes: Routes = [
             { title: 'Quadro A.1' }
           ]
         }
-      },
-
-      {
-        path: 'anagrafica/local/:id',
-        component: AnagraficaLocalDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro A.1: Dati anagrafici',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro A.1' }
-          ]
-        }
-      },
-
+      },     
       {
         path: 'pagamento/:id_ab',
         component: PagamentoDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
@@ -261,21 +447,7 @@ const routes: Routes = [
             { title: 'Quadro A.2' }
           ]
         }
-      },
-
-      {
-        path: 'pagamento/local/:id',
-        component: PagamentoLocalDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro A.2: Modalità di pagamento',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro A.2' }
-          ]
-        }
-      },
-
+      },  
       {
         path: 'pagamento/update/:id',
         component: PagamentoLocalUpdateComponent, canActivate: [AuthGuard], pathMatch: 'full',
@@ -288,7 +460,6 @@ const routes: Routes = [
           ]
         }
       },
-
       {
         path: 'conflitto/:id',
         component: B1ConflittoComponent, canActivate: [AuthGuard], pathMatch: 'full',
@@ -301,20 +472,6 @@ const routes: Routes = [
           ]
         }
       },
-
-      {
-        path: 'conflitto/details/:id',
-        component: B1ConflittoDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro B.1: Dichiarazione sul conflitto di interessi',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro B.1' }
-          ]
-        }
-      },
-
       {
         path: 'incompat/:id',
         component: B2IncompatibilitaComponent, canActivate: [AuthGuard], pathMatch: 'full',
@@ -327,20 +484,6 @@ const routes: Routes = [
           ]
         }
       },
-
-      {
-        path: 'incompat/details/:id',
-        component: B2IncompatibilitaDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro B.2: Dichiarazione sulla incompatibilità',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro B.2' }
-          ]
-        }
-      },
-
       {
         path: 'studio/:id',
         component: B3RappStudioUnivComponent, canActivate: [AuthGuard], pathMatch: 'full',
@@ -353,20 +496,6 @@ const routes: Routes = [
           ]
         }
       },
-
-      {
-        path: 'studio/details/:id',
-        component: B3RappStudioUnivDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro B.3: Rapporto di studio o lavoro con l\'Università',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro B.3' }
-          ]
-        }
-      },
-
       {
         path: 'rapppa/:id',
         component: B4RappPaComponent, canActivate: [AuthGuard], pathMatch: 'full',
@@ -380,19 +509,6 @@ const routes: Routes = [
         }
       },
       {
-        path: 'rapppa/details/:id',
-        component: B4RappPaDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro B.4: Rapporto di lavoro con la Pubblica Amministrazione',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro B.4' }
-          ]
-        }
-      },
-
-      {
         path: 'pension/:id',
         component: B5StatoPensionComponent, canActivate: [AuthGuard], pathMatch: 'full',
         data: {
@@ -404,19 +520,6 @@ const routes: Routes = [
           ]
         }
       },
-      {
-        path: 'pension/details/:id',
-        component: B5StatoPensionDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro B.5: Stato di pensionamento',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro B.5' }
-          ]
-        }
-      },
-
       {
         path: 'privacy/:id',
         component: B6PrivacyComponent, canActivate: [AuthGuard], pathMatch: 'full',
@@ -430,19 +533,6 @@ const routes: Routes = [
         }
       },
       {
-        path: 'privacy/details/:id',
-        component: B6PrivacyDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro B.6: Trattamento dati e Informativa sulla privacy',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro B.6' }
-          ]
-        }
-      },
-
-      {
         path: 'cpiva/:id',
         component: CPrestazProfessComponent, canActivate: [AuthGuard], pathMatch: 'full',
         data: {
@@ -455,19 +545,6 @@ const routes: Routes = [
         }
       },
       {
-        path: 'cpiva/details/:id',
-        component: CPrestazProfessDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro C: Prestazione Professionale (art. 53, comma 1, D.P.R. 917/1986)',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro C' }
-          ]
-        }
-      },
-
-      {
         path: 'inps/:id',
         component: D1InpsComponent, canActivate: [AuthGuard], pathMatch: 'full',
         data: {
@@ -479,19 +556,6 @@ const routes: Routes = [
           ]
         }
       },
-      {
-        path: 'inps/details/:id',
-        component: D1InpsDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro D.1 - Dichiarazione ai fini previdenziali',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro D.1' }
-          ]
-        }
-      },
-
       // MODELLO D.2
       {
         path: 'inail/:id',
@@ -505,19 +569,7 @@ const routes: Routes = [
           ]
         }
       },
-      {
-        path: 'inail/details/:id',
-        component: D2InailDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro D.2 - Dichiarazione ai fini assicurativi INAIL',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro D.2' }
-          ]
-        }
-      },
-
+    
       // MODELLO D.3
       {
         path: 'tributari/:id',
@@ -531,18 +583,7 @@ const routes: Routes = [
           ]
         }
       },
-      {
-        path: 'tributari/details/:id',
-        component: D3TributariDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro D.3 - Dichiarazione ai fini tributari',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro D.3' }
-          ]
-        }
-      },
+   
 
       // MODELLO D.4
       {
@@ -557,18 +598,7 @@ const routes: Routes = [
           ]
         }
       },
-      {
-        path: 'fiscali/details/:id',
-        component: D4FiscaliDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro D.4 - Richiesta ai fini fiscali',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro D.4' }
-          ]
-        }
-      },
+     
 
       // MODELLO D.5
       {
@@ -583,18 +613,7 @@ const routes: Routes = [
           ]
         }
       },
-      {
-        path: 'fiscaliestero/details/:id',
-        component: D5FiscaliesteroDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro D.5: Dichiarazione ai fini fiscali per i residenti all\'estero',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro D.5' }
-          ]
-        }
-      },
+  
 
       // MODELLO D.6
       {
@@ -609,18 +628,7 @@ const routes: Routes = [
           ]
         }
       },
-      {
-        path: 'familiari/details/:id',
-        component: D6DetrazionifamiliariDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro D.6: Richiesta detrazioni fiscali per familiari a carico',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro D.6' }
-          ]
-        }
-      },
+    
 
       // MODELLO E
       {
@@ -635,31 +643,26 @@ const routes: Routes = [
           ]
         }
       },
-      {
-        path: 'occasionale/details/:id',
-        component: EOccasionaleDetailsComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Quadro E - Prestazione di Lavoro Autonomo Occasionale',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Quadro E' }
-          ]
-        }
-      },
+      
 
       // SOMMARIO : QUADRO RIEPILOGATIVO
       {
-        path: 'summary/:id',
-        component: QuadroRiepilogativoComponent, canActivate: [AuthGuard], pathMatch: 'full',
-        data: {
-          title: 'Sommario precontrattuale',
-          urls: [
-            { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-            { title: 'Sommario' }
-          ]
-        }
+        path: '',
+        component: WrapperNotificheComponent,
+        children: [
+          {
+            path: 'summary/:id',
+            component: QuadroRiepilogativoComponent, canActivate: [AuthGuard], pathMatch: 'full',
+            data: {
+              title: 'Sommario precontrattuale',
+              urls: [
+                { title: 'Home', url: '/home' },
+                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                { title: 'Sommario' }
+              ]
+            }
+          },
+        ]
       },
 
       // LINK AI DOCUMENTI
@@ -702,34 +705,34 @@ const routes: Routes = [
       },
 
       // DOCUMENTAZIONE
-    {
-      path: 'sommario',
-      component: SommarioComponent, canActivate: [AuthGuard], pathMatch: 'full',
-      data: {
-        title: 'Sommario modulistica precontrattuale',
-        urls: [
-          { title: 'Home', url: '/home' },
-          { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-          { title: 'Sommario' }
-        ]
-      }
-    },
-    {
-      path: 'procedura',
-      component: ProceduraComponent, canActivate: [AuthGuard], pathMatch: 'full',
-      data: {
-        title: 'Proceduralizzazione e dematerializzazione dei contratti di docenza',
-        urls: [
-          { title: 'Home', url: '/home' },
-          { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
-          { title: 'Proceduralizzazione' }
-        ]
-      }
-    },
+      {
+        path: 'sommario',
+        component: SommarioComponent, canActivate: [AuthGuard], pathMatch: 'full',
+        data: {
+          title: 'Sommario modulistica precontrattuale',
+          urls: [
+            { title: 'Home', url: '/home' },
+            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            { title: 'Sommario' }
+          ]
+        }
+      },
+      {
+        path: 'procedura',
+        component: ProceduraComponent, canActivate: [AuthGuard], pathMatch: 'full',
+        data: {
+          title: 'Proceduralizzazione e dematerializzazione dei contratti di docenza',
+          urls: [
+            { title: 'Home', url: '/home' },
+            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            { title: 'Proceduralizzazione' }
+          ]
+        }
+      },
 
       // MAPPING RUOLI
       {
-        path: 'mappingruoli',  component: MappingRuoli,  canActivate: [AuthGuard],
+        path: 'mappingruoli', component: MappingRuoli, canActivate: [AuthGuard],
         data: {
           title: 'Associazioni ruoli per primo inserimento',
           urls: [
@@ -739,7 +742,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'mappingruoli/:id',  component: MappingRuolo,  canActivate: [AuthGuard],
+        path: 'mappingruoli/:id', component: MappingRuolo, canActivate: [AuthGuard],
         data: {
           title: 'Associazioni ruoli per primo inserimento',
           urls: [
@@ -749,7 +752,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'mappingruoli/new',  component: MappingRuolo,  canActivate: [AuthGuard],
+        path: 'mappingruoli/new', component: MappingRuolo, canActivate: [AuthGuard],
         data: {
           title: 'Nuova associazione ruolo per primo inserimento',
           urls: [
@@ -760,7 +763,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'users',  component: UsersComponent, canActivate: [AuthGuard],
+        path: 'users', component: UsersComponent, canActivate: [AuthGuard],
         data: {
           title: 'Ricerca utenti',
           urls: [
@@ -770,7 +773,7 @@ const routes: Routes = [
         }
       }, // canActivate:[AuthGuard]
       {
-        path: 'users/:id',  component: UserComponent,  canActivate: [AuthGuard],
+        path: 'users/:id', component: UserComponent, canActivate: [AuthGuard],
         data: {
           title: 'Utente',
           urls: [
@@ -780,7 +783,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'roles/new',  component: RoleComponent,  canActivate: [AuthGuard],
+        path: 'roles/new', component: RoleComponent, canActivate: [AuthGuard],
         data: {
           title: 'Nuovo ruolo',
           urls: [
@@ -790,7 +793,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'roles/:id',  component: RoleComponent,  canActivate: [AuthGuard],
+        path: 'roles/:id', component: RoleComponent, canActivate: [AuthGuard],
         data: {
           title: 'Ruolo',
           urls: [
@@ -800,8 +803,8 @@ const routes: Routes = [
         }
       },
       {
-         path: 'roles',  component: RolesComponent, canActivate: [AuthGuard],
-         data: {
+        path: 'roles', component: RolesComponent, canActivate: [AuthGuard],
+        data: {
           title: 'Ricerca ruoli',
           urls: [
             { title: 'Home', url: '/home' },
@@ -810,7 +813,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'permissions/new',  component: PermissionComponent,  canActivate: [AuthGuard],
+        path: 'permissions/new', component: PermissionComponent, canActivate: [AuthGuard],
         data: {
           title: 'Nuovo permesso',
           urls: [
@@ -820,7 +823,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'permissions/:id',  component: PermissionComponent,  canActivate: [AuthGuard],
+        path: 'permissions/:id', component: PermissionComponent, canActivate: [AuthGuard],
         data: {
           title: 'Permesso',
           urls: [
@@ -829,8 +832,41 @@ const routes: Routes = [
           ]
         }
       },
-      { 
-        path: 'logattivita',  component: LogAttivitaComponent,  canActivate:[AuthGuard], 
+
+      {
+        path: 'notifiche/new', component: NotificaComponent, canActivate: [AuthGuard],
+        data: {
+          title: 'Nuova notifica',
+          urls: [
+            { title: 'Home', url: '/home' },
+            { title: 'Nuova notifica' }
+          ]
+        }
+      },
+      {
+        path: 'notifiche/:id', component: NotificaComponent, canActivate: [AuthGuard],
+        data: {
+          title: 'Notifica',
+          urls: [
+            { title: 'Home', url: '/home' },
+            { title: 'Notifica' }
+          ]
+        }
+      },
+      {
+        path: 'notifiche', component: NotificheComponent, canActivate: [AuthGuard],
+        data: {
+          title: 'Ricerca notifiche',
+          urls: [
+            { title: 'Home', url: '/home' },
+            { title: 'Ricerca notifiche' }
+          ]
+        }
+      },
+
+
+      {
+        path: 'logattivita', component: LogAttivitaComponent, canActivate: [AuthGuard],
         data: {
           title: 'Log attività',
           urls: [
@@ -841,7 +877,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'permissions',  component: PermissionsComponent,  canActivate: [AuthGuard],
+        path: 'permissions', component: PermissionsComponent, canActivate: [AuthGuard],
         data: {
           title: 'Ricerca permessi',
           urls: [
@@ -852,7 +888,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'personeinterne',  component: PersoneinterneTitulus, canActivate: [AuthGuard],
+        path: 'personeinterne', component: PersoneinterneTitulus, canActivate: [AuthGuard],
         data: {
           title: 'Ricerca persone interne',
           urls: [
@@ -862,7 +898,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'struttureinterne',  component: StruttureInterneTitulus, canActivate: [AuthGuard],
+        path: 'struttureinterne', component: StruttureInterneTitulus, canActivate: [AuthGuard],
         data: {
           title: 'Ricerca strutture interne',
           urls: [
@@ -872,7 +908,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'struttureesterne',  component: StruttureEsterneTitulus, canActivate: [AuthGuard],
+        path: 'struttureesterne', component: StruttureEsterneTitulus, canActivate: [AuthGuard],
         data: {
           title: 'Ricerca strutture esterne',
           urls: [
@@ -882,7 +918,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'documenti',  component: DocumentiTitulus, canActivate: [AuthGuard],
+        path: 'documenti', component: DocumentiTitulus, canActivate: [AuthGuard],
         data: {
           title: 'Ricerca documenti',
           urls: [
@@ -891,8 +927,8 @@ const routes: Routes = [
           ]
         }
       },
-      { 
-        path: 'mappinguffici',  component: MappingUfficiTitulus,  canActivate:[AuthGuard], 
+      {
+        path: 'mappinguffici', component: MappingUfficiTitulus, canActivate: [AuthGuard],
         data: {
           title: 'Mapping uffici',
           urls: [
@@ -900,9 +936,9 @@ const routes: Routes = [
             { title: 'Ricerca associazione uffici' }
           ]
         }
-      }, 
-      { 
-        path: 'mappinguffici/:id',  component: MappingUfficioTitulus,  canActivate:[AuthGuard], 
+      },
+      {
+        path: 'mappinguffici/:id', component: MappingUfficioTitulus, canActivate: [AuthGuard],
         data: {
           title: 'Mapping uffici',
           urls: [
@@ -910,9 +946,9 @@ const routes: Routes = [
             { title: 'Ricerca mapping uffici' }
           ]
         }
-      }, 
-      { 
-        path: 'mappinguffici/new',  component: MappingUfficioTitulus,  canActivate:[AuthGuard], 
+      },
+      {
+        path: 'mappinguffici/new', component: MappingUfficioTitulus, canActivate: [AuthGuard],
         data: {
           title: 'Nuova associazione uffici',
           urls: [
@@ -920,7 +956,7 @@ const routes: Routes = [
             { title: 'Nuova associazione uffici' }
           ]
         }
-      }, 
+      },
 
     ]
   },
@@ -935,16 +971,16 @@ const routes: Routes = [
 @NgModule({
   providers: [
     {
-        provide: externalLoginUrlProvider,
-        useValue: (route: ActivatedRouteSnapshot) => {
-          const externalUrl = route.queryParams['redirect'];
-          console.log(externalUrl);
-          if (externalUrl){
-            window.open(environment.API_URL + 'api/loginSaml?redirect='+externalUrl, '_self');
-          }else{
-            window.open(environment.API_URL + 'api/loginSaml');
-          }
-        },
+      provide: externalLoginUrlProvider,
+      useValue: (route: ActivatedRouteSnapshot) => {
+        const externalUrl = route.queryParams['redirect'];
+        console.log(externalUrl);
+        if (externalUrl) {
+          window.open(environment.API_URL + 'api/loginSaml?redirect=' + externalUrl, '_self');
+        } else {
+          window.open(environment.API_URL + 'api/loginSaml');
+        }
+      },
     },
   ],
   imports: [RouterModule.forRoot(routes)],

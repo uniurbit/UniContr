@@ -26,9 +26,12 @@ use App\Models\D6_detrazioni_familiari;
 use App\Models\E_AutonomoOccasionale;
 use App\Models\TitulusRef;
 use App\Models\StoryProcess;
+use App\Models\FirmaIO;
+use App\Models\FirmaUSIGN;
 use Carbon\Carbon;
-use Brexis\LaravelWorkflow\Traits\WorkflowTrait;
+use ZeroDaHero\LaravelWorkflow\Traits\WorkflowTrait;
 use Illuminate\Support\Facades\Cache;
+
 
 class Precontrattuale extends Model {
     
@@ -59,7 +62,7 @@ class Precontrattuale extends Model {
         'd5_fiscali_resid_estero_id',
         'd6_detraz_fam_carico_id',
         'e_autonomo_occasionale_id',
-        'docente_id',
+        'docente_id', //incerito id_ab dell'anagrafica
         'motivazione',
         'tipo_annullamento'
     ];
@@ -232,6 +235,38 @@ class Precontrattuale extends Model {
     public function titulusref()
     {
         return $this->hasOne(TitulusRef::class,'insegn_id','insegn_id');        
+    }
+
+    public function firmaIO()
+    {
+        return $this->hasMany(FirmaIO::class, 'precontr_id', 'id');
+    }  
+       
+    public function firmaUSIGN()
+    {
+        return $this->hasMany(FirmaUSIGN::class, 'precontr_id', 'id');
+    }  
+
+    public function latestFirmaIOnotRejected()
+    {        
+        return $this->firmaIO()->where('stato','!=','REJECTED')->where('stato','!=','CANCELLED')->orderby('created_at', 'desc')->first();
+        //return $this->hasOne(FirmaIO::class, 'precontr_id', 'id')->latestOfMany();
+    }
+
+    public function latestFirmaUSIGNnotRejected()
+    {
+        return $this->firmaUSIGN()->where('stato','!=','rejected')->where('stato','!=','cancelled')->orderby('created_at', 'desc')->first();
+        //return $this->hasOne(FirmaUSIGN::class, 'precontr_id', 'id')->latestOfMany()->where('stato','!=','rejected');
+    }
+    
+    /**
+     * firmaUtente
+     * restituisce l'entità di firma corrente U-Sign o FirmaIO
+     *
+     * @return FirmaUtenteInterface
+     */
+    public function firmaUtente(){
+        return $this->latestFirmaUSIGNnotRejected() ?? $this->latestFirmaIOnotRejected();
     }
 
 
@@ -418,6 +453,7 @@ class Precontrattuale extends Model {
               $this->d3_tributari_id !== 0 &&
               $this->d4_fiscali_id !== 0 &&
               (($this->anagrafica->provincia_fiscale === 'EE' && $this->d5_fiscali_resid_estero_id !== 0) || $this->anagrafica->provincia_fiscale !== 'EE') &&
+              ((($this->insegnamento->compenso > 3000 && $this->insegnamento->aa >= 2022) ? $this->a2modalitapagamento->soluzione_pagamento : true) ) &&
               $this->d6_detraz_fam_carico_id !== 0) {
               return true;
             }

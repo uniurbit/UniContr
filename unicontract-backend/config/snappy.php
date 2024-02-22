@@ -35,7 +35,7 @@ return [
     
     'pdf' => [
         'enabled' => true,
-        'binary'  => str_replace("'", '"', env('WKTML_WINDOWS','/usr/local/bin/wkhtmltopdf')),//'"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"', //env('WKTML_WINDOWS','/usr/local/bin/wkhtmltopdf'),
+        'binary'  =>  env('WKTML_WINDOWS') ? '"' .env('WKTML_WINDOWS').'"' : '/usr/local/bin/wkhtmltopdf', //'"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"', //env('WKTML_WINDOWS','/usr/local/bin/wkhtmltopdf'),
         'timeout' => false,
         'options' => [],
         'env'     => [],

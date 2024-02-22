@@ -58,7 +58,8 @@ export class BarraComandiComponent implements OnInit {
 
   @Output() sendEmail = new EventEmitter();
   @Output() updateInsegnamento: EventEmitter<number> = new EventEmitter();
-
+  @Output() changeCopertura: EventEmitter<number> = new EventEmitter();
+  
   constructor(private route: ActivatedRoute,
     private router: Router,  public goto: RouteMetods) { }
 

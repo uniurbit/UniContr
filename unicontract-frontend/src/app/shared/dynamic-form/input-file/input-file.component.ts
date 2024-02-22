@@ -18,7 +18,7 @@ export class InputFileComponent extends FieldType implements OnInit{
 
   inputField: FormlyFieldConfig = null;
     
-  @ViewChild('fileInput') public fileInput: ElementRef;  
+  @ViewChild('fileInput', { static: true }) public fileInput: ElementRef;  
 
   constructor() {
     super();         

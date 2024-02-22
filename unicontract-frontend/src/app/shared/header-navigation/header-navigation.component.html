@@ -91,6 +91,11 @@
             <a class="dropdown-item" href="javascript:void(0)"  (click)="onLogout()">
                 <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
             <div class="dropdown-divider"></div>
+            <ng-container *ngIf="true || !isProd()">                
+                <a class="dropdown-item"  *ngxPermissionsOnly="['SUPER-ADMIN']" href="javascript:void(0)" (click)="onUserChange()">                
+                    Impersona utente
+                </a>
+            </ng-container>
             <!-- <div class="p-l-30 p-10">
                 <a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a>
             </div> -->

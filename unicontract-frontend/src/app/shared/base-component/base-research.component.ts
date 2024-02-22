@@ -18,8 +18,8 @@ export class BaseResearchComponent implements OnInit {
   public isLoading = false;
   public fieldsRow: FormlyFieldConfig[] = [];
 
-  @ViewChild('apri') apri: TemplateRef<any>;
-  @ViewChild('comandi') comandi: TemplateRef<any>;
+  @ViewChild('apri', { static: true }) apri: TemplateRef<any>;
+  @ViewChild('comandi', { static: true }) comandi: TemplateRef<any>;
 
   builderoptions: FormlyTemplateOptions;
 

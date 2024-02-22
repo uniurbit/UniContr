@@ -384,7 +384,7 @@ class ContrattiData
             'modality' => "ACIC",
             'intestazione' => "Cleri Bonita",
             'iban' => "IT33U0311168280000000005966",
-            'denominazione' => "UBI Banca",
+            'denominazione' => "Intesa Sanpaolo",
             'luogo' => "Fermignano",
             'bic' => null,
             'aba' => null,
@@ -392,7 +392,7 @@ class ContrattiData
                 'modality' => "ACIC",
                 'intestazione' => "Cleri Bonita",
                 'iban' => "IT33U0311168280000000005966",
-                'denominazione' => "UBI Banca",
+                'denominazione' => "Intesa Sanpaolo",
                 'luogo' => "Fermignano",
             ]
         ];

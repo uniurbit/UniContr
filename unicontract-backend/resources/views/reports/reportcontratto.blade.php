@@ -158,7 +158,7 @@
   <p class="normal">
    @if($pre->a2modalitapagamento)
    @if($pre->a2modalitapagamento->modality == 'AGBM') 
-      Modalità di pagamento: RITIRO DEL CORRISPETTIVO PRESSO QUALSIASI AGENZIA UBI BANCA <br>   
+      Modalità di pagamento: RITIRO DEL CORRISPETTIVO PRESSO QUALSIASI AGENZIA Intesa Sanpaolo <br>   
    @elseif($pre->a2modalitapagamento->modality == 'ACNT')
       Modalità di pagamento: SPEDIZIONE DI ASSEGNO CIRCOLARE NON TRASFERIBILE ALL'INDIRIZZO DI RESIDENZA <br>   
    @elseif($pre->a2modalitapagamento->modality == 'ACIC') 

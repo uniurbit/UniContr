@@ -77,7 +77,7 @@ export class SignNamiralService extends BaseService {
         }
 
 
-        fcsign.extraParams = ''; //'UrlTSA=https://timestamp.firmacerta.it;UsernameTSA=demo;PasswordTSA=l4C4s0n010';     
+        fcsign.extraParams = '';   
         fcsign.extraParams += "BiometricData=0;"; // Instruct the process to capture biometrica data (pressure, speed, acceleration, graphic stroke)
 
         if (widgetPDFSignaturePosition){

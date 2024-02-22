@@ -15,6 +15,7 @@ use App\Soap\Request\AttachmentBean;
 use App\Precontrattuale;
 use App\Exceptions\Handler;
 use Illuminate\Container\Container;
+use App\Service\PrecontrattualeService;
 
 class SearchDataTitulusSendEmails extends Command
 {
@@ -112,6 +113,15 @@ class SearchDataTitulusSendEmails extends Command
                     $pre->stato = 1;
                     $pre->save();
 
+                    try{
+                        $pre->storyprocess()->save(
+                            PrecontrattualeService::createStoryProcess('Aggiornamento: Contratto firmato dal Rettore. Numero di protocollo '.$num_prot, 
+                            $pre->insegn_id)
+                        ); 
+                    } catch (\Exception $e) {
+                        Log::error($e);
+                    }
+            
                     //invio email al docente
                     EmailService::sendEmailContratto($ref->insegn_id, $file->content,  $ref->physdoc.'_contratto_di_insegnamento.pdf');
                 

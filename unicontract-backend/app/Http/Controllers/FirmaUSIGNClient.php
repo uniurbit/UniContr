@@ -53,7 +53,7 @@ class FirmaUSIGNClient
     //     "rejections": [],
     //     "message": "active",
     //     "status": "active",
-    //     "token": "04395C728ECE08155A2883D4416C114E0C6C9E7648E6698AAD3E8AF9135DB73D"
+    //     "token": ""
     //   }
      public function processStatus($token)
      {        
@@ -112,9 +112,8 @@ class FirmaUSIGNClient
     //** 
     /* Esempio di richesta di upload
     /* header 
-    /* --header 'Content-Type: multipart/form-data' --header 'Accept: application/json' --header 'Authorization: Basic dW5pY29udHIyX3VzaWduX3dzOldpQnkzWkNWQm0qRW1QQFQ=' {"type":"formData"} 
-    /*
-    /* https://uniurb.webfirma.pp.cineca.it:443/my-web-firma/api/public/upload/04395C728ECE08155A2883D4416C114E0C6C9E7648E6698AAD3E8AF9135DB73D?typeFirma=PADES&isChild=false&flMarcaTemporale=false&isNote=false&signature_page=3&signature_bottom=100&signature_left=200&signature_width=300&signature_height=400
+    /* --header 'Content-Type: multipart/form-data' --header 'Accept: application/json' --header 'Authorization: Basic =' {"type":"formData"} 
+    /*    
     /* 
         {
         "code": 200,

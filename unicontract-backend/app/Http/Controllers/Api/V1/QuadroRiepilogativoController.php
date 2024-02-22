@@ -43,6 +43,9 @@ class QuadroRiepilogativoController extends Controller
             ->leftJoin('table_validation', function($join) {
                 $join->on('table_validation.insegn_id', '=', 'precontr.insegn_id');
             })
+            ->leftJoin('table_titulus_ref', function($join) {
+                $join->on('table_titulus_ref.insegn_id', '=', 'precontr.insegn_id');
+            })
             ->where('precontr.insegn_id', $id);
             $datiGenerali = $queryBuilder->first(
                 ['users.id AS userid',
@@ -58,7 +61,9 @@ class QuadroRiepilogativoController extends Controller
                  'p1_insegnamento.coper_id',
                  'p2_natura_rapporto.natura_rapporto',
                  'a1_anagrafica.sesso',
-                 'table_validation.*'
+                 'table_validation.*',
+                 'table_titulus_ref.num_protocollo',
+                 'table_titulus_ref.num_repertorio'
                  ]);
  
 

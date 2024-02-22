@@ -13,6 +13,10 @@
     </app-list-item>
     <app-list-item label="{{ '00_int6' | translate }}" value="{{ tools.tipoConferimento(items.motivo_atto) }}">
     </app-list-item>
+    
+    <!-- <app-list-item *ngIf="items.num_protocollo" label="Numero protocollo" value="{{ items.num_protocollo }}">
+    </app-list-item> -->
+
   </app-riquadro-wrapper>
 
   <div *ngxPermissionsOnly="['OP_APPROVAZIONE_AMM', 'OP_APPROVAZIONE_ECONOMICA', 'SUPER-ADMIN']">
@@ -221,7 +225,7 @@
             <span *ngIf="isValidatoEconomica()">{{ 'summary_txt3_contratto' | translate }}</span>
           </a>
           <a href="javascript:void(0)" *ngIf="items.flag_accept === 1" (click)="downloadContrattoFirma()" title="">
-            <span *ngIf="isFirmato()">{{ 'summary_txt4_firmato' | translate }}</span>
+            <span *ngIf="isFirmato()">{{ 'summary_txt4_firmato' | translate }} ({{ items.num_protocollo ? items.num_protocollo : '' }})</span>
             <span *ngIf="items.stato == 0 || items.stato == 2">{{ 'summary_txt4' | translate }}</span>
           </a>
         </td>

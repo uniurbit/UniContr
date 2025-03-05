@@ -1,7 +1,7 @@
 <div class="modal-header">
   <h4 class="modal-title">{{ title }}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="btn-close" aria-label="Close" (click)="dismiss()">
+       
     </button>
 </div>
 <div class="modal-body">
@@ -12,7 +12,7 @@
     <div [innerHTML]="messageHtml">                           
     </div>    
   </div>  
-  <div *ngIf="pdfFilevalue" style="height: 45vh;" class="ml-3 mr-3">       
+  <div *ngIf="pdfFilevalue" style="height: 45vh;" class="ms-3 me-3">       
     <ng-container *ngIf="pdfFilevalue | async as _pdfFilevalue; else loading">           
       <app-pdf-view [pdfSrc]="_pdfFilevalue"></app-pdf-view>       
     </ng-container>

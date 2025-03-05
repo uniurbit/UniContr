@@ -7,7 +7,7 @@ import { FieldType } from '@ngx-formly/core';
     <div>
       <button [type]="to.type" title="{{to.title}}" [ngClass]="'btn btn-' + to.btnType" [disabled]="to.disabled" (click)="onClick($event)">
         <span *ngIf="to.icon" class="{{to.icon}}"></span>  
-        <span *ngIf="to.text" class="ml-2">{{ to.text }}</span>          
+        <span *ngIf="to.text" class="ms-2">{{ to.text }}</span>          
       </button>
     </div>
   `,

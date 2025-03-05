@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ContentChild, TemplateRef, ViewChild, ContentChildren, QueryList } from '@angular/core';
-import { FormGroup, FormControl, FormArray, NgForm, Validators } from '@angular/forms';
+import { UntypedFormGroup, FormControl, UntypedFormArray, NgForm, Validators } from '@angular/forms';
 import { ControlBase } from './control-base';
 import ControlUtils from './control-utils';
 
@@ -11,13 +11,13 @@ import ControlUtils from './control-utils';
 export class ControlGenericListComponent implements OnInit {
 
   //controllo padre che descrive il FormArray
-  @Input() control: ControlBase<FormArray>;
+  @Input() control: ControlBase<UntypedFormArray>;
   //insieme di controlli che formano l'item dell'array
   @Input() controls: {[key: string]: ControlBase<any>};
   //la form contenitore
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
         
-  @ContentChild(TemplateRef,  {static: false}) itemTemplate:  TemplateRef<any>;
+  @ContentChild(TemplateRef) itemTemplate:  TemplateRef<any>;
    
   metadata: ControlBase<any>[];
 
@@ -32,7 +32,7 @@ export class ControlGenericListComponent implements OnInit {
   }
 
   add(){
-      let fa = this.form.get(this.control.key) as FormArray;
+      let fa = this.form.get(this.control.key) as UntypedFormArray;
       fa.push(ControlUtils.toFormGroup(this.metadata));
   }
  

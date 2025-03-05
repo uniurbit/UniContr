@@ -6,7 +6,7 @@
     <p class="mb-0 text-justify">{{ 'e_premessa1' | translate }}</p>
     <div class="row">
       <div class="col">         
-        <span class="oi oi-check iconic pl-1 pr-2"></span>
+        <span class="oi oi-check iconic ps-1 pe-2"></span>
         <span *ngIf="items.cod_limite_reddito === 'NASL'">{{ 'e_txt1' | translate }}</span>
         <span *ngIf="items.cod_limite_reddito === 'AGR'">{{ 'e_txt2' | translate : {'compensi' : items.importo | mycurrency} }} </span>
         <span *ngIf="items.cod_limite_reddito === 'ASLR'">{{ 'e_txt4' | translate }}</span>                           
@@ -24,7 +24,7 @@
         <p class="mb-0 text-justify">{{ 'e_premessa2' | translate }}</p>
       <div class="row" >        
         <div class="col">         
-          <span class="oi oi-check iconic pl-1 pr-2"></span>
+          <span class="oi oi-check iconic ps-1 pe-2"></span>
           <span *ngIf="items.gestione_separata === 1">{{ 'e_txt5_bis' | translate }} {{ 'cassa'+items.cod_cassa_previdenziale | translate }}</span>
           <span *ngIf="items.gestione_separata === 6">{{ 'e_txt6' | translate }}</span>
           <span *ngIf="items.gestione_separata === 2">{{ 'e_txt7' | translate }}</span>   
@@ -46,11 +46,11 @@
   </app-riquadro-wrapper>
 
 
-  <div class="form-footer text-right"> 
+  <div class="form-footer text-end"> 
     <app-barra-comandi *ngIf="items" [item]="items" [type]="'E'"></app-barra-comandi> 
   
     <app-termina-button [item]="items" *ngIf="items.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>
-    <!-- <button type="button" class="btn btn-outline-secondary rounded mr-1" *ngIf="items.flag_submit === 0" (click)="termina(items.insegn_id)" title="{{ 'btn_end_title' | translate }}" >{{ 'btn_end' | translate }}</button> -->
+    <!-- <button type="button" class="btn btn-outline-secondary rounded me-1" *ngIf="items.flag_submit === 0" (click)="termina(items.insegn_id)" title="{{ 'btn_end_title' | translate }}" >{{ 'btn_end' | translate }}</button> -->
   </div>
 
 </div>

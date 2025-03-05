@@ -37,9 +37,9 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
         label: 'Contratto in contabilità',
         required: true,
         options: [
-          {key: 'compensidaemettere', value: 'Compensi da emettere'}, //tutti
-          {key: 'ordinatividaemettere', value: 'Ordinativi da emettere'}, //tutti
-          {key: 'compensioordinativiemettere', value: 'Compensi o ordinativi da emettere'}     
+          {value: 'compensidaemettere', label: 'Compensi da emettere'}, //tutti
+          {value: 'ordinatividaemettere', label: 'Ordinativi da emettere'}, //tutti
+          {value: 'compensioordinativiemettere', label: 'Compensi o ordinativi da emettere'}     
         ]
       }
     },   
@@ -59,13 +59,13 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
       templateOptions: {
         label: 'Dipartimento',
         options: [
-          { key: '005019', value: this.translateService.instant('005019_disb') },
-          { key: '004919', value: this.translateService.instant('004919_dispea')},
-          { key: '004419', value: this.translateService.instant('004419_digiur') },
-          { key: '004940', value: this.translateService.instant('004940_discui') },
-          { key: '005579', value: this.translateService.instant('005579_discui') },
-          { key: '004939', value: this.translateService.instant('004939_distum') },
-          { key: '004424', value: this.translateService.instant('004424_desp') }
+          { value: '005019', label: this.translateService.instant('005019_disb') },
+          { value: '004919', label: this.translateService.instant('004919_dispea')},
+          { value: '004419', label: this.translateService.instant('004419_digiur') },
+          { value: '004940', label: this.translateService.instant('004940_discui') },
+          { value: '005579', label: this.translateService.instant('005579_discui') },
+          { value: '004939', label: this.translateService.instant('004939_distum') },
+          { value: '004424', label: this.translateService.instant('004424_desp') }
         ]
       }
     },
@@ -105,11 +105,11 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
       templateOptions: {
         label: 'Natura del rapporto',
         options: [
-          { key: 'PRPR', value: this.translateService.instant('p3_radio1') },
-          { key: 'COCOCO', value: this.translateService.instant('p3_radio2')},
-          { key: 'PLAO', value: this.translateService.instant('p3_radio3') },
-          { key: 'PTG', value: this.translateService.instant('p3_radio4') },
-          { key: 'ALD', value: this.translateService.instant('p3_radio5') }
+          { value: 'PRPR', label: this.translateService.instant('p3_radio1') },
+          { value: 'COCOCO', label: this.translateService.instant('p3_radio2')},
+          { value: 'PLAO', label: this.translateService.instant('p3_radio3') },
+          { value: 'PTG', label: this.translateService.instant('p3_radio4') },
+          { value: 'ALD', label: this.translateService.instant('p3_radio5') }
         ],
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -130,8 +130,8 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
       templateOptions: {
         label: 'Rinuncia al compenso',
         options: [
-          { key: true, value: this.translateService.instant('txt_si') },
-          { key: false, value: this.translateService.instant('txt_no')},
+          { value: true, label: this.translateService.instant('txt_si') },
+          { value: false,label: this.translateService.instant('txt_no')},
         ],
         required: true,
         column: { cellTemplate: 'valuecolumn'}

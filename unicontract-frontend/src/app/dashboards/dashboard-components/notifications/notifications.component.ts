@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../dashboard.service';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { tap, map } from 'rxjs/operators';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { not } from '@angular/compiler/src/output/output_ast';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../notification.service';
 @Component({
@@ -21,7 +20,7 @@ export class NotificationsComponent implements OnInit{
 
   constructor(private service: NotificationService, private modalService: NgbModal, public activeModal: NgbActiveModal, protected router: Router) {}
 
-  form =  new FormGroup({});
+  form =  new UntypedFormGroup({});
   modelNotification: any = {};
   options: FormlyFormOptions = {};
 

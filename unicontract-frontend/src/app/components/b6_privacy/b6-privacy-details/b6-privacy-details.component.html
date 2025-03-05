@@ -7,11 +7,11 @@
       <div class="col">
         <div *ngIf="items.flag1 === 1; then thenBlock1 else elseBlock1"></div>
         <ng-template #thenBlock1>
-          <span class="oi oi-check iconic pl-1 pr-2"></span>
+          <span class="oi oi-check iconic ps-1 pe-2"></span>
           {{ 'b6_txt1' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }}
         </ng-template>
         <ng-template #elseBlock1>
-          <span class="oi oi-minus iconic pl-1 pr-2"></span>
+          <span class="oi oi-minus iconic ps-1 pe-2"></span>
           {{ 'b6_txt1b' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }}
         </ng-template>        
       </div>
@@ -20,11 +20,11 @@
       <div class="col">
         <div *ngIf="items.flag2 === 1; then thenBlock2 else elseBlock2"></div>
         <ng-template #thenBlock2>
-          <span class="oi oi-check iconic pl-1 pr-2"></span>
+          <span class="oi oi-check iconic ps-1 pe-2"></span>
           {{ 'b6_txt2' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }}
         </ng-template>
         <ng-template #elseBlock2>
-          <span class="oi oi-minus iconic pl-1 pr-2"></span>
+          <span class="oi oi-minus iconic ps-1 pe-2"></span>
           {{ 'b6_txt2b' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }}
         </ng-template>
       </div>
@@ -44,7 +44,7 @@
     <p class="mb-0 text-center text-info" >{{ 'end1' | translate }} <br> {{ 'end2' | translate }} <br> {{ 'end3' | translate }}</p>
   </app-riquadro-wrapper>
 
-  <div class="form-footer text-right"> 
+  <div class="form-footer text-end"> 
     <app-barra-comandi *ngIf="items" [item]="items" [type]="'B6'"></app-barra-comandi>
     
     

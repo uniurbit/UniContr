@@ -310,7 +310,10 @@ class QueryBuilder
     private function addWhereHas($funct,$key){
         
         if (is_callable($funct)){
-            $this->query->whereHas($key,$funct);
+            //aggiungo il whereHas solo per le relazioni che hanno una clausola where
+            if (array_key_exists($key, $this->withwheres)){
+                $this->query->whereHas($key,$funct);
+            }         
         }else{        
             $key = $funct;
             $wheres = array_key_exists($key, $this->withwheres) ? $this->withwheres[$key] : [];

@@ -7,7 +7,7 @@ import { FieldWrapper } from '@ngx-formly/core';
     <div class="card">
       <h4 class="card-header">
         {{ to.label }}
-        <button class="btn btn-sm btn-link float-right" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">         
+        <button class="btn btn-sm btn-link float-end" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">         
           <span *ngIf="isCollapsed" class="oi oi-chevron-top"></span>
           <span *ngIf="!isCollapsed" class="oi oi-chevron-bottom"></span>
         </button>              

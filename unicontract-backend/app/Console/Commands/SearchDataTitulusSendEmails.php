@@ -16,6 +16,8 @@ use App\Precontrattuale;
 use App\Exceptions\Handler;
 use Illuminate\Container\Container;
 use App\Service\PrecontrattualeService;
+use App\Mail\ErrorNotificationMail;
+use Illuminate\Support\Facades\Mail;
 
 class SearchDataTitulusSendEmails extends Command
 {
@@ -61,7 +63,12 @@ class SearchDataTitulusSendEmails extends Command
                 $sc = new SoapControllerTitulus(new SoapWrapper);                            
                 $response = $sc->loadDocument($ref->physdoc,false);    
                 Log::info('Risposta loadDocument [ SearchDataTitulusSendEmails ] [' . $response . ']');   
-                $obj = simplexml_load_string($response);    
+                $obj = simplexml_load_string($response);                    
+                if (!$obj) {
+                    Log::error('Failed to parse XML response. [ insegn_id =' . $ref->insegn_id . ']');
+                    continue;
+                }
+
                 $document = $obj->Document;    
                 $doc = $document->doc;
             
@@ -77,7 +84,18 @@ class SearchDataTitulusSendEmails extends Command
                     foreach ($doc->files->children('xw',true) as $file) {
                         // downloading file
                         $file == null;
+                        //il file principale deve risultare firmato (firmaio, usign o grafometrica)
                         $signed = (string) $file->attributes()->signed;
+
+                        // Genera un'eccezione se il primo file non è firmato
+                        if ($signed === 'false') {
+                            $errorMessage = 'Il file principale non è firmato. [ insegn_id =' . $ref->insegn_id . '] [ physdoc = ' . $ref->physdoc . ']';
+                            // Send error email
+                            Mail::to(['marco.cappellacci@uniurb.it', 'enrico.oliva@uniurb.it'])->send(new ErrorNotificationMail($errorMessage));                            
+
+                            throw new Exception($errorMessage);
+                        }
+
                         if ($signed == 'false'){
                             foreach ($file->children('xw',true) as $internalfile) {
                                 $signed = (string) $internalfile->attributes()->signed;
@@ -86,8 +104,7 @@ class SearchDataTitulusSendEmails extends Command
                                     $file =  $sc->getAttachment($fileId);                                                            
                                 }
                             }
-                        } 
-                        if ($signed == 'true'){
+                        } else if ($signed == 'true'){
                             foreach ($file->children('xw',true) as $internalfile) {
                                 $signed = (string) $internalfile->attributes()->signed;
                                 if ($signed == 'true'){
@@ -130,12 +147,15 @@ class SearchDataTitulusSendEmails extends Command
                                 
                 }
                 
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 Log::info('Errore [ SearchDataTitulusSendEmails ] [ insegn_id =' . $ref->insegn_id . ']'); 
-                if ($response) 
-                    Log::info($response);                            
+                Log::error($e);
+                                     
                 $handler = new Handler(Container::getInstance());
                 $handler->report($e);
+
+                // Continue to the next record
+                continue;
             }
 
         }

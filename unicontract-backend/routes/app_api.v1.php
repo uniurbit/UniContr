@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 //php artisan api:update
 
 
-Route::group(['middleware' => ['cors','auth:api','log','role:super-admin','check'],  'namespace'=>'Api\V1'], function () {
+Route::group(['middleware' => ['cors','auth.api_or_apikey','log','role:super-admin','check'],  'namespace'=>'Api\V1'], function () {
 
     Route::get('mappingruoli', 'MappingRuoloController@index');
     Route::get('mappingruoli/{id}', 'MappingRuoloController@show');
@@ -53,6 +53,11 @@ Route::group(['middleware' => ['cors','auth:api','log','role:super-admin','check
     Route::post('precontrattuale/cancellazioneistanzafirmautente','PrecontrattualeController@cancellazioneIstanzaFirmaUtente'); 
   
     
+});
+
+Route::group(['middleware' => ['cors','auth.api_or_apikey','log','check'], 'namespace'=>'Api\V1'],function(){    
+    Route::post('mappinguffici/query', 'MappingUfficioController@query'); 
+    Route::post('notifiche/query', 'NotificaController@query'); 
 });
 
 Route::group(['middleware' => ['cors','auth:api','log'], 'namespace'=>'Api\V1'], function() {
@@ -109,6 +114,8 @@ Route::group(['middleware' => ['cors','auth:api','log'], 'namespace'=>'Api\V1'],
     Route::post('precontrattuale/annullaamm','PrecontrattualeController@annullaAmm');    
     Route::post('precontrattuale/annullaeconomica','PrecontrattualeController@annullaEconomica');    
     Route::post('precontrattuale/presavisioneaccettazione','PrecontrattualeController@presaVisioneAccettazione'); 
+    Route::post('precontrattuale/firmagrafometrica','PrecontrattualeController@firmaGrafometrica'); 
+    
     Route::post('precontrattuale/richiestafirmaio','PrecontrattualeController@richiestaFirmaIO'); 
     Route::post('precontrattuale/richiestafirmausign','PrecontrattualeController@richiestaFirmaUSIGN'); 
         
@@ -122,8 +129,14 @@ Route::group(['middleware' => ['cors','auth:api','log'], 'namespace'=>'Api\V1'],
     Route::post('precontrattuale/updateinsegnamentofromugov', 'PrecontrattualeController@updateInsegnamentoFromUgov'); 
     Route::post('precontrattuale/changecoperturafromugov', 'PrecontrattualeController@changeCoperturaFromUgov'); 
     Route::post('precontrattuale/changecontatoreinsegnamentimanuale', 'PrecontrattualeController@changeContatoreInsegnamentiManuale'); 
+    Route::post('precontrattuale/changerinnovo', 'PrecontrattualeController@changerinnovo'); 
+    
     Route::get('precontrattuale/downloadcontrattofirmato/{id}', 'PrecontrattualeController@downloadContrattoFirmato'); 
     
+
+    Route::post('precontrattualedocente/query','PrecontrattualeDocenteController@query');
+    Route::post('precontrattualedocente/export','PrecontrattualeDocenteController@export'); 
+    Route::post('precontrattualedocente/exportxls','PrecontrattualeDocenteController@exportxls'); 
     //USIGN
     Route::get('firma/certificato/otpType/{token}', 'FirmaUSIGNController@otpType');
     Route::post('firma/sendOtp/{token}', 'FirmaUSIGNController@sendOtp');
@@ -280,7 +293,7 @@ Route::group(['middleware' => ['cors','auth:api','log'], 'namespace'=>'Api\V1'],
     //mapping uffici
     Route::get('mappinguffici', 'MappingUfficioController@index');
     Route::get('mappinguffici/{id}', 'MappingUfficioController@show');
-    Route::post('mappinguffici/query', 'MappingUfficioController@query'); 
+    //Route::post('mappinguffici/query', 'MappingUfficioController@query'); 
     Route::post('mappinguffici', 'MappingUfficioController@store');
     Route::put('mappinguffici/{id}', 'MappingUfficioController@update');
     Route::delete('mappinguffici/{id}', 'MappingUfficioController@delete');
@@ -288,7 +301,7 @@ Route::group(['middleware' => ['cors','auth:api','log'], 'namespace'=>'Api\V1'],
     // NOTIFICHE
     Route::get('notifiche', 'NotificaController@index');
     Route::get('notifiche/{id}', 'NotificaController@show');
-    Route::post('notifiche/query', 'NotificaController@query'); 
+    //Route::post('notifiche/query', 'NotificaController@query');  sopra
     Route::post('notifiche', 'NotificaController@store');
     Route::put('notifiche/{id}', 'NotificaController@update');
     Route::delete('notifiche/{id}', 'NotificaController@delete');

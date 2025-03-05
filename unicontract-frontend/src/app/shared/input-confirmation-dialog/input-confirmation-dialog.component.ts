@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 
 
@@ -33,10 +33,9 @@ export class InputConfirmationDialogComponent implements OnInit {
   public get extraData(): any {
     return this._extraData;
   }
-  @Input() pdfFilevalue = null;
 
 
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   model: any = {};
   options: FormlyFormOptions = {
     formState: {
@@ -66,9 +65,10 @@ export class InputConfirmationDialogComponent implements OnInit {
     }
   ]; 
 
-  constructor(private activeModal: NgbActiveModal) { }
+  constructor(private activeModal: NgbActiveModal, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.cdr.detectChanges();
   }
 
   public decline() {

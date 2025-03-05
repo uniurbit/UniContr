@@ -1,6 +1,6 @@
 import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
@@ -24,7 +24,6 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { QueryBuilderComponent } from './query-builder/query-builder.component';
 import { GenericTypeComponent } from './dynamic-form/generic-type.component';
 import { ExternalTypeComponent } from './dynamic-form/external-type.component';
-import { LoadingModule } from 'ngx-loading';
 import { LookupComponent } from './lookup/lookup.component';
 import { ExternalqueryComponent } from './query-builder/externalquery.component';
 import { TableLookupTypeComponent } from './dynamic-form/tablelookup-type.component';
@@ -57,9 +56,6 @@ import { AccordionInfoWrapperComponent } from './dynamic-form/wrapper/accordioni
 import { FormlyFieldTypeahead } from './dynamic-form/typehead-type.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { RightaddonsWrapperComponent } from './dynamic-form/wrapper/rightaddons-wrapper.component';
-import { GridFormlyCellComponent } from './dynamic-form/ag-grid/grid-formly-cell.component';
-import { GridTypeComponent } from './dynamic-form/ag-grid/grid.type';
-import { AgGridModule } from 'ag-grid-angular';
 import { TableGroupTypeComponent } from './dynamic-form/tablegroup-type.component';
 import { MycurrencyPipe } from './pipe/custom.currencypipe';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
@@ -74,7 +70,6 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { registerTranslateExtension } from './translate.extension';
 import { HttpClient } from '@angular/common/http';
-import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { MyTranslatePipe } from './pipe/custom.translatepipe';
 import { FormlyMaskTypeComponent } from './dynamic-form/formly-mask-type/formly-mask-type.component';
 
@@ -100,8 +95,12 @@ import { PdfViewComponent } from './pdf-view/pdf-view.component';
 import { SafePipe } from './pipe/safe.pipe';
 import { ToastsContainer } from './toasts-container/toasts-container.component';
 import { ToastService } from './toast-service';
-import { SignNamiral } from './dynamic-form/sign-namiral.component';
+import { FormlyFieldSignNamiral } from './dynamic-form/sign-namiral.component';
 import { SignNamiralService } from './sign-namirial.service';
+import { StoryHelperProcessService } from './storyHelperProcess.service';
+import { NgxLoadingModule } from 'ngx-loading';
+
+
 
 
 
@@ -117,11 +116,11 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/');
 }
 
-export function minlengthValidationMessage(err, field) {
+export function minLengthValidationMessage(err, field) {
   return `Inserire almeno ${field.templateOptions.minLength} caratteri`;
 }
 
-export function maxlengthValidationMessage(err, field) {
+export function maxLengthValidationMessage(err, field) {
   return `Inserire un valore inferiore a ${field.templateOptions.maxLength} caratteri`;
 }
 
@@ -157,316 +156,299 @@ export const customCurrencyMaskConfig = {
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    NgbModule,
-    NgbTooltipModule,    
-    FormsModule,
-    ReactiveFormsModule,
-    NgxDatatableModule,
-    RouterModule,
-    NgxPermissionsModule,
-    LoadingModule,
-    PerfectScrollbarModule,
-    NgSelectModule,
-    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
-    AgGridModule.withComponents([GridFormlyCellComponent]),
-    FormlyModule.forRoot({
-      types: [
-        {
-          name: 'signnamirial', 
-          component: SignNamiral,            
-        }, 
-        {
-          name: 'button',
-          component: FormlyFieldButton,
-          wrappers: ['form-field'],
-          defaultOptions: {
-            templateOptions: {
-              btnType: 'default',
-              type: 'button',
-            },
-          },
-        },
-      { name: 'maskcurrency', component: FormlyMaskTypeComponent, wrappers: ['form-field'] },
-      { name: 'template', component: FormlyFieldTemplate },
-      { name: 'pdfviewerinput', component: PdfTypeInputComponent, wrappers: ['form-field']},
-      { name: 'pdfviewer', component: PdfTypeComponent, wrappers: ['form-field']},
-      { name: 'fileinput', component: InputFileComponent },
-      { name: 'generic', component: GenericTypeComponent, wrappers: ['form-field'] },
-      { name: 'external', component: ExternalTypeComponent },
-      { name: 'externalquery', component: ExternalqueryComponent },
-      { name: 'externalobject', component: ExternalobjTypeComponent },
-      { name: 'selectinfra', component: SelectTypeComponent },
-      { name: 'tabinfra', component: TabTypeComponent },
-      { name: 'string', extends: 'input' },
-      { name: 'typeahead', component: FormlyFieldTypeahead },
-      {
-        name: 'number',
-        extends: 'input',
-        defaultOptions: {
-          templateOptions: {
-            type: 'number',
-          },
-        },
-      },
-      {
-        name: 'integer',
-        extends: 'input',
-        defaultOptions: {
-          templateOptions: {
-            type: 'number',
-          },
-        },
-      },
-      { name: 'object', extends: 'formly-group' },
-      { name: 'boolean', extends: 'checkbox' },
-      { name: 'enum', extends: 'select' },
-      { name: 'selectrelation', extends: 'select' },
-      { name: 'datepicker', component: DatepickerTypeComponent, wrappers: ['form-field'],
-        defaultOptions: {
-         templateOptions: {
-          datepickerOptions:{            
-            }
-          }
-        }
-      },
-      { name: 'date', extends: 'datepicker'},
-      { name: 'repeat', component: RepeatTypeComponent },
-      { name: 'datatable',
-        component: TableTypeComponent,
-        defaultOptions: {
-          templateOptions: {
-            columnMode: 'force',
-            rowHeight: 'auto',
-            headerHeight: '30',
-            footerHeight: '30',
-            limit: '5',
-            scrollbarH: 'true',
-            reorderable: 'reorderable'
-          },
-        },
-      },
-      {
-        name: 'provincia',
-        extends: 'input',       
-        defaultOptions: {     
-          name: 'province',               
-          templateOptions: {
-            required: true,                      
-            label: 'b4_txt16',
-            minLength: 2,
-            maxLength: 2,           
-          },
-          validators: {
-            prov: {
-              expression: validationProvincia,
-              message: provinciaValidationMessage,
-            }
-          }          
-        },
-      },
-      {
-        name: 'datatablelookup',
-        component: TableLookupTypeComponent,
-        defaultOptions: {
-          templateOptions: {
-            columnMode: 'force',
-            rowHeight: 'auto',
-            headerHeight: '30',
-            footerHeight: '30',
-            limit: '100',
-            scrollbarH: 'true',
-            reorderable: 'reorderable'
-          },
-        },
-      },
-      {
-        name: 'datatablegroup',
-        component: TableGroupTypeComponent,
-        defaultOptions: {
-          templateOptions: {
-            columnMode: 'force',
-            rowHeight: 'auto',
-            headerHeight: '30',
-            footerHeight: '30',
-            limit: '100',
-            scrollbarH: 'true',
-            reorderable: false,
-          },
-        },
-      },
-      {
-        name: 'gridtable',
-        component: GridTypeComponent,
-        defaultOptions: {
-          className: 'ag-theme-bootstrap',
-          // className: 'ag-theme-balham',
-          templateOptions: {
-            width: '100%',
-            height: '400px',
-          },
-        },
-      },
-      ],
-      wrappers: [
-        { name: 'panel', component: PanelWrapperComponent },
-        { name: 'accordion', component: AccordionWrapperComponent },
-        { name: 'riquadro', component: FormlyRiquadroWrapperComponent },
-        { name: 'accordioninfo', component: AccordionInfoWrapperComponent },
-        { name: 'form-field-horizontal', component: FormlyHorizontalWrapper },
-        { name: 'tooltip', component: TooltipWrapperComponent },
-        { name: 'addonRights', component: RightaddonsWrapperComponent },
-      ],
-      validationMessages: [
-        { name: 'required', message: 'Campo richiesto' },
-        { name: 'notfound', message: 'Non trovato' },
-        { name: 'filevalidation', message: 'Documento non valido' },
-        { name: 'pattern', message: 'Formato non valido' },
-        { name: 'minlength', message: minlengthValidationMessage },
-        { name: 'maxlength', message: maxlengthValidationMessage },
-        { name: 'min', message: minValidationMessage },
-        { name: 'max', message: maxValidationMessage },
-      ]
-    }),
-    FormlyBootstrapModule,
-    PdfViewerModule,
-    TranslateModule,
-  ],
-  providers: [
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },    
-    NotificaService,
-    ToastService,
-    SignNamiralService
-  ],
-  exports: [    
-    UserLoginComponent,
-    ShowErrorsComponent,
-    DynamicFormComponent,
-    MessageComponent,
-    ControlGenericListComponent,
-    DynamicTableComponent,
-    DatepickerTypeComponent,
-    RepeatTypeComponent,
-    FormlyModule,
-    NgxPermissionsModule,
-    QueryBuilderComponent,
-    NgbModule,
-    GenericTypeComponent,
-    ExternalTypeComponent,
-    LookupComponent,
-    ExternalqueryComponent,
-    TableLookupTypeComponent,
-    ExternalobjTypeComponent,
-    SelectTypeComponent,
-    NavstepperWrapperComponent,
-    TabTypeComponent,
-    TableTypeComponent,
-    FormInfraComponent,
-    InputFileComponent,
-    PdfInfraComponent,
-    PdfTypeComponent,
-    FormlyFieldButton,
-    FormlyHorizontalWrapper,
-    BaseEntityComponent,
-    BaseResearchComponent,
-    FullComponent,
-    BlankComponent,
-    HeaderNavigationComponent,
-    NavigationComponent,
-    BreadcrumbComponent,
-    SidebarComponent,
-    TooltipWrapperComponent,
-    FormlyFieldTypeahead,
-    RightaddonsWrapperComponent,
-    GridTypeComponent,
-    GridFormlyCellComponent,
-    TableGroupTypeComponent,
-    MycurrencyPipe,
-    MyTranslatePipe,
-    MyDiffdatePipe,
-    UniqueName,
-    UniqueYear,
-    ToDateObjPipe,
-    SafePipe,
-    ConfirmationDialogComponent,
-    FormlyFieldTemplate,
-    SystemErrorComponent,
-    CollapseWrapperComponent,
-    TranslateModule,
-    BaseComponent,
-    RiquadroWrapperComponent,
-    TranslateSelectPipe,    
-    ReplacePipe,
-    CollapseRiquadroWrapperComponent,
-    InputConfirmationDialogComponent,
-    ViewListComponent,
-    ListItemComponent,
-    ViewNotificheComponent,
-    PdfViewComponent,
-    ToastsContainer,
-    SignNamiral
-  ],
-  declarations: [
-    UserLoginComponent, UserLoginComponent, ShowErrorsComponent,
-    DynamicFormComponent, MessageComponent, ControlGenericListComponent, DynamicTableComponent,
-    DatepickerTypeComponent, RepeatTypeComponent, PanelWrapperComponent, AccordionWrapperComponent,
-    QueryBuilderComponent, GenericTypeComponent, ExternalTypeComponent, LookupComponent, ExternalqueryComponent,
-    TableLookupTypeComponent, ExternalobjTypeComponent, SelectTypeComponent, NavstepperWrapperComponent, TabTypeComponent,
-    TableTypeComponent,
-    FormInfraComponent,
-    InputFileComponent,
-    PdfInfraComponent,
-    PdfTypeComponent,
-    PdfTypeInputComponent,
-    FormlyFieldButton,
-    FormlyHorizontalWrapper,
-    BaseEntityComponent,
-    BaseResearchComponent,
-    FullComponent,
-    BlankComponent,
-    HeaderNavigationComponent,
-    NavigationComponent,
-    BreadcrumbComponent,
-    SidebarComponent,
-    TooltipWrapperComponent,
-    AccordionInfoWrapperComponent,
-    FormlyFieldTypeahead,
-    RightaddonsWrapperComponent,
-    GridTypeComponent,
-    GridFormlyCellComponent,
-    TableGroupTypeComponent,
-    MycurrencyPipe,
-    MyTranslatePipe,
-    MyDiffdatePipe,
-    UniqueName,
-    UniqueYear,
-    ToDateObjPipe,
-    SafePipe,
-    ConfirmationDialogComponent,
-    FormlyFieldTemplate,
-    SystemErrorComponent,
-    CollapseWrapperComponent,
-    FormlyMaskTypeComponent,
-    BaseComponent,
-    RiquadroWrapperComponent,    
-    TranslateSelectPipe,
-    ReplacePipe,
-    FormlyRiquadroWrapperComponent,
-    CollapseRiquadroWrapperComponent,
-    InputConfirmationDialogComponent,
-    ViewListComponent,
-    ListItemComponent,
-    ViewNotificheComponent,
-    PdfViewComponent,
-    ToastsContainer,
-    SignNamiral
-  ],
-  entryComponents: [LookupComponent]
+    imports: [
+        CommonModule,
+        NgbModule,
+        NgbTooltipModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxDatatableModule,
+        RouterModule,
+        NgxPermissionsModule,
+        NgxLoadingModule,
+        PerfectScrollbarModule,
+        NgSelectModule,
+        NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
+        FormlyModule.forRoot({
+            types: [
+                {
+                    name: 'signnamirial',
+                    component: FormlyFieldSignNamiral,
+                },
+                {
+                    name: 'button',
+                    component: FormlyFieldButton,
+                    wrappers: ['form-field'],
+                    defaultOptions: {
+                        templateOptions: {
+                            btnType: 'default',
+                            type: 'button',
+                        },
+                    },
+                },
+                { name: 'maskcurrency', component: FormlyMaskTypeComponent, wrappers: ['form-field'] },
+                { name: 'template', component: FormlyFieldTemplate },
+                { name: 'pdfviewerinput', component: PdfTypeInputComponent, wrappers: ['form-field'] },
+                { name: 'pdfviewer', component: PdfTypeComponent, wrappers: ['form-field'] },
+                { name: 'fileinput', component: InputFileComponent,  wrappers: ['form-field'] },
+                { name: 'generic', component: GenericTypeComponent, wrappers: ['form-field'] },
+                { name: 'external', component: ExternalTypeComponent },
+                { name: 'externalquery', component: ExternalqueryComponent },
+                { name: 'externalobject', component: ExternalobjTypeComponent },
+                { name: 'selectinfra', component: SelectTypeComponent },
+                { name: 'tabinfra', component: TabTypeComponent },
+                { name: 'string', extends: 'input' },
+                { name: 'typeahead', component: FormlyFieldTypeahead },
+                {
+                    name: 'number',
+                    extends: 'input',
+                    defaultOptions: {
+                        templateOptions: {
+                            type: 'number',
+                        },
+                    },
+                },
+                {
+                    name: 'integer',
+                    extends: 'input',
+                    defaultOptions: {
+                        templateOptions: {
+                            type: 'number',
+                        },
+                    },
+                },
+                { name: 'object', extends: 'formly-group' },
+                { name: 'boolean', extends: 'checkbox' },
+                { name: 'enum', extends: 'select' },
+                { name: 'selectrelation', extends: 'select' },
+                { name: 'datepicker', component: DatepickerTypeComponent, wrappers: ['form-field'],
+                    defaultOptions: {
+                        templateOptions: {
+                            datepickerOptions: {}
+                        }
+                    }
+                },
+                { name: 'date', extends: 'datepicker' },
+                { name: 'repeat', component: RepeatTypeComponent },
+                { name: 'datatable',
+                    component: TableTypeComponent,
+                    defaultOptions: {
+                        templateOptions: {
+                            columnMode: 'force',
+                            rowHeight: 'auto',
+                            headerHeight: '30',
+                            footerHeight: '30',
+                            limit: '5',
+                            scrollbarH: 'true',
+                            reorderable: 'reorderable'
+                        },
+                    },
+                },
+                {
+                    name: 'provincia',
+                    extends: 'input',
+                    defaultOptions: {
+                        name: 'province',
+                        templateOptions: {
+                            required: true,
+                            label: 'b4_txt16',
+                            minLength: 2,
+                            maxLength: 2,
+                        },
+                        validators: {
+                            prov: {
+                                expression: validationProvincia,
+                                message: provinciaValidationMessage,
+                            }
+                        }
+                    },
+                },
+                {
+                    name: 'datatablelookup',
+                    component: TableLookupTypeComponent,
+                    defaultOptions: {
+                        templateOptions: {
+                            columnMode: 'force',
+                            rowHeight: 'auto',
+                            headerHeight: 40,
+                            footerHeight: 50,
+                            limit: '100',
+                            scrollbarH: 'true',
+                            reorderable: 'reorderable'
+                        },
+                    },
+                },
+                {
+                    name: 'datatablegroup',
+                    component: TableGroupTypeComponent,
+                    defaultOptions: {
+                        templateOptions: {
+                            columnMode: 'force',
+                            rowHeight: 'auto',
+                            headerHeight: '30',
+                            footerHeight: '30',
+                            limit: '100',
+                            scrollbarH: 'true',
+                            reorderable: false,
+                        },
+                    },
+                },
+            ],
+            wrappers: [
+                { name: 'panel', component: PanelWrapperComponent },
+                { name: 'accordion', component: AccordionWrapperComponent },
+                { name: 'riquadro', component: FormlyRiquadroWrapperComponent },
+                { name: 'accordioninfo', component: AccordionInfoWrapperComponent },
+                { name: 'form-field-horizontal', component: FormlyHorizontalWrapper },
+                { name: 'tooltip', component: TooltipWrapperComponent },
+                { name: 'addonRights', component: RightaddonsWrapperComponent },
+            ],
+            validationMessages: [
+                { name: 'required', message: 'Campo richiesto' },
+                { name: 'notfound', message: 'Non trovato' },
+                { name: 'filevalidation', message: 'Documento non valido' },
+                { name: 'pattern', message: 'Formato non valido' },
+                { name: 'minLength', message: minLengthValidationMessage },
+                { name: 'maxLength', message: maxLengthValidationMessage },
+                { name: 'min', message: minValidationMessage },
+                { name: 'max', message: maxValidationMessage },
+            ]
+        }),
+        FormlyBootstrapModule,
+        PdfViewerModule,
+        TranslateModule,
+    ],
+    providers: [
+        { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
+        NotificaService,
+        ToastService,
+        SignNamiralService,
+        StoryHelperProcessService
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    exports: [
+        UserLoginComponent,
+        ShowErrorsComponent,
+        DynamicFormComponent,
+        MessageComponent,
+        ControlGenericListComponent,
+        DynamicTableComponent,
+        DatepickerTypeComponent,
+        RepeatTypeComponent,
+        FormlyModule,
+        NgxPermissionsModule,
+        QueryBuilderComponent,
+        NgbModule,
+        GenericTypeComponent,
+        ExternalTypeComponent,
+        LookupComponent,
+        ExternalqueryComponent,
+        TableLookupTypeComponent,
+        ExternalobjTypeComponent,
+        SelectTypeComponent,
+        NavstepperWrapperComponent,
+        TabTypeComponent,
+        TableTypeComponent,
+        FormInfraComponent,
+        InputFileComponent,
+        PdfInfraComponent,
+        PdfTypeComponent,
+        FormlyFieldButton,
+        FormlyHorizontalWrapper,
+        BaseEntityComponent,
+        BaseResearchComponent,
+        FullComponent,
+        BlankComponent,
+        HeaderNavigationComponent,
+        NavigationComponent,
+        BreadcrumbComponent,
+        SidebarComponent,
+        TooltipWrapperComponent,
+        FormlyFieldTypeahead,
+        RightaddonsWrapperComponent,
+        TableGroupTypeComponent,
+        MycurrencyPipe,
+        MyTranslatePipe,
+        MyDiffdatePipe,
+        UniqueName,
+        UniqueYear,
+        ToDateObjPipe,
+        SafePipe,
+        ConfirmationDialogComponent,
+        FormlyFieldTemplate,
+        SystemErrorComponent,
+        CollapseWrapperComponent,
+        TranslateModule,
+        BaseComponent,
+        RiquadroWrapperComponent,
+        TranslateSelectPipe,
+        ReplacePipe,
+        CollapseRiquadroWrapperComponent,
+        InputConfirmationDialogComponent,
+        ViewListComponent,
+        ListItemComponent,
+        ViewNotificheComponent,
+        PdfViewComponent,
+        ToastsContainer,
+        FormlyFieldSignNamiral
+    ],
+    declarations: [
+        UserLoginComponent, UserLoginComponent, ShowErrorsComponent,
+        DynamicFormComponent, MessageComponent, ControlGenericListComponent, DynamicTableComponent,
+        DatepickerTypeComponent, RepeatTypeComponent, PanelWrapperComponent, AccordionWrapperComponent,
+        QueryBuilderComponent, GenericTypeComponent, ExternalTypeComponent, LookupComponent, ExternalqueryComponent,
+        TableLookupTypeComponent, ExternalobjTypeComponent, SelectTypeComponent, NavstepperWrapperComponent, TabTypeComponent,
+        TableTypeComponent,
+        FormInfraComponent,
+        InputFileComponent,
+        PdfInfraComponent,
+        PdfTypeComponent,
+        PdfTypeInputComponent,
+        FormlyFieldButton,
+        FormlyHorizontalWrapper,
+        BaseEntityComponent,
+        BaseResearchComponent,
+        FullComponent,
+        BlankComponent,
+        HeaderNavigationComponent,
+        NavigationComponent,
+        BreadcrumbComponent,
+        SidebarComponent,
+        TooltipWrapperComponent,
+        AccordionInfoWrapperComponent,
+        FormlyFieldTypeahead,
+        RightaddonsWrapperComponent,
+        TableGroupTypeComponent,
+        MycurrencyPipe,
+        MyTranslatePipe,
+        MyDiffdatePipe,
+        UniqueName,
+        UniqueYear,
+        ToDateObjPipe,
+        SafePipe,
+        ConfirmationDialogComponent,
+        FormlyFieldTemplate,
+        SystemErrorComponent,
+        CollapseWrapperComponent,
+        FormlyMaskTypeComponent,
+        BaseComponent,
+        RiquadroWrapperComponent,
+        TranslateSelectPipe,
+        ReplacePipe,
+        FormlyRiquadroWrapperComponent,
+        CollapseRiquadroWrapperComponent,
+        InputConfirmationDialogComponent,
+        ViewListComponent,
+        ListItemComponent,
+        ViewNotificheComponent,
+        PdfViewComponent,
+        ToastsContainer,
+        FormlyFieldSignNamiral
+    ]
 })
 
 export class SharedModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<SharedModule> {
     return {
       ngModule: SharedModule,
       providers: [

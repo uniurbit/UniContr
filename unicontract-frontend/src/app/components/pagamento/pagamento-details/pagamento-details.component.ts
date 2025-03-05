@@ -7,7 +7,7 @@ import { Precontrattuale } from './../../../classes/precontrattuale';
 import { PrecontrattualeService } from './../../../services/precontrattuale.service';
 import { Upda2 } from './../../../classes/precontrattuale';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { A2ModPagamento } from 'src/app/interface/pagamento';
 import ControlUtils from 'src/app/shared/dynamic-form/control-utils';
@@ -69,7 +69,7 @@ export class PagamentoDetailsComponent extends BaseComponent {
       isLoading: this.isLoading,
     },
   };
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
 
   fields: FormlyFieldConfig[] = [
     // scelta modalità di pagamento
@@ -92,8 +92,8 @@ export class PagamentoDetailsComponent extends BaseComponent {
           expressionProperties: {
             'templateOptions.options': (model: any, formState: any, field: FormlyFieldConfig) => {
               return [
-                { key: 'ACIC', value: this.translateService.instant('a2_check2') },
-                { key: 'AGBM', value: this.translateService.instant('a2_check1') },
+                { value: 'ACIC', label: this.translateService.instant('a2_check2') },
+                { value: 'AGBM', label: this.translateService.instant('a2_check1') },
               ];
             },
             'templateOptions.description': (model: any, formState: any, field: FormlyFieldConfig) => {

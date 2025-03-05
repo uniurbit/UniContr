@@ -86,7 +86,7 @@ export class MappingUfficiTitulus extends BaseResearchComponent {
   constructor(protected service: MappingUfficioService, router: Router, route: ActivatedRoute,)  {    
     super(router,route);    
     
-    this.resultMetadata[0].fieldArray.fieldGroup = service.getMetadata();        
+    this.resultMetadata[0].fieldArray = { fieldGroup: service.getMetadata()};         
 
     this.routeAbsolutePath = 'home/mappinguffici'     
     

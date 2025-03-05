@@ -4,25 +4,25 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	  
   <link href="{{ public_path('css\\contratto_styles.css') }}" rel="stylesheet" type="text/css">
 	<style type="text/css">
-    @page {            
-        footer: myFooter1;
-        header: myHeader1;
+    @page {                   
+        header: html_myHeader1;
+        footer: html_myFooter1; 
         margin-top: 2.54cm;
         margin-bottom: 2.54cm;
         margin-left: 3.175cm;
         margin-right: 3.175cm;
-    }
+    } 
 
     @page informativa {   
-      header: myHeader2;
-      margin-top: 2cm;
+      header: html_myHeader2;
+      margin-top: 0cm;
       margin-bottom: 2cm;
       margin-left: 2cm;
       margin-right: 2cm;
     }
 
     div.onitsside {
-      page: informativa;
+      page: informativa;    
     }
 
 
@@ -36,13 +36,13 @@
   </htmlpageheader>
 
   <htmlpageheader name="myHeader1">
-    <img src="{{public_path('img\\logo_uniurb_1.jpg')}}" style="height: 80px; margin-top: 7px;"/>     
+    <img src="{{public_path('img\\logo_info.jpg')}}" style="height: 80px; margin-top: 7px;"/>     
   </htmlpageheader>
 
   <htmlpagefooter name="myFooter1">
     <div style="text-align: right; padding-bottom: 30px">{PAGENO}</div>   
   </htmlpagefooter>
-
+  
   <div class="lastpage">
   
   <h4>CONTRATTO DI DIRITTO PRIVATO PER ATTIVITÀ DI INSEGNAMENTO 
@@ -117,10 +117,10 @@
     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOwAAABoCAIAAAB9kIuNAAABhWlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV/Tav2oONhBxCFDdbKLFnEsVSyChdJWaNXB5NIvaNKQpLg4Cq4FBz8Wqw4uzro6uAqC4AeIq4uToouU+L+00CLGg+N+vLv3uHsHCI0KU01fFFA1y0jFY2I2tyr6X9EPHwbRi4jETD2RXszAdXzdw8PXuzDPcj/35xhS8iYDPCJxlOmGRbxBPLtp6Zz3iYOsJCnE58RTBl2Q+JHrcovfOBcdFnhm0Mik5omDxGKxi+UuZiVDJY4QhxRVo3wh22KF8xZntVJj7XvyFwby2kqa6zTHEccSEkhChIwayqjAQphWjRQTKdqPufjHHH+SXDK5ymDkWEAVKiTHD/4Hv7s1CzPTraRADOh5se2PCcC/CzTrtv19bNvNE8D7DFxpHX+1Acx9kl7vaKEjYHgbuLjuaPIecLkDjD7pkiE5kpemUCgA72f0TTlg5BYYWGv11t7H6QOQoa6Wb4CDQ2CySNnrLu/u6+7t3zPt/n4Ah9dyr47mXvwAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAHdElNRQfnCQQLCQ5/yA0TAAAA2UlEQVR42u3SQQ0AAAjEMMC/5+OLBZJWwrJOUvDZSICJwcRgYkwMJgYTg4kxMZgYTAwmxsRgYjAxmBgTg4nBxGBiTAwmBhODiTExmBhMDCbGxGBiMDGYGBODicHEYGJMDCYGE4OJMTGYGEwMJsbEYGIwMZgYE4OJwcRgYkwMJgYTg4kxMZgYTAwmxsRgYjAxmBgTg4nBxGBiTAwmBhODiTExmBhMDCbGxGBiMDGYGBODicHEYGJMDCYGE4OJMTGYGEwMJsbEYGIwMZgYE4OJwcRgYkwMJgYTw7UOkwPNFPSfiwAAAABJRU5ErkJggg==">                        
     {{-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOMAAACECAYAAABif5yuAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAGgSURBVHhe7dMxAYAwEMDABx0d698ZGmDBQzPcLVGQ61n7HeC4+y9wmBkhwowQYUaIMCNEmBEizAgRZoQIM0KEGSHCjBBhRogwI0SYESLMCBFmhAgzQoQZIcKMEGFGiDAjRJgRIswIEWaECDNChBkhwowQYUaIMCNEmBEizAgRZoQIM0KEGSHCjBBhRogwI0SYESLMCBFmhAgzQoQZIcKMEGFGiDAjRJgRIswIEWaECDNChBkhwowQYUaIMCNEmBEizAgRZoQIM0KEGSHCjBBhRogwI0SYESLMCBFmhAgzQoQZIcKMEGFGiDAjRJgRIswIEWaECDNChBkhwowQYUaIMCNEmBEizAgRZoQIM0KEGSHCjBBhRogwI0SYESLMCBFmhAgzQoQZIcKMEGFGiDAjRJgRIswIEWaECDNChBkhwowQYUaIMCNEmBEizAgRZoQIM0KEGSHCjBBhRogwI0SYESLMCBFmhAgzQoQZIcKMEGFGiDAjRJgRIswIEWaECDNChBkhwowQYUaIMCNEmBEizAgRZoQIM0KEGSHCjJAw8wG8ygM01E6mjAAAAABJRU5ErkJggg==">                         --}}
     </div>
-    </div>
-    {{-- INFORMATIVA SULLA PRIVACY --}}
-    <div class="onitsside" >   
-        @include( 'contratto.informativa', $pre)	    
-    </div>
+    </div>    
+    {{-- INFORMATIVA SULLA PRIVACY --}}   
+     {{-- <div class="onitsside" >
+      @include( 'contratto.informativa', $pre)	    
+    </div> --}}
 </body>
 </html>

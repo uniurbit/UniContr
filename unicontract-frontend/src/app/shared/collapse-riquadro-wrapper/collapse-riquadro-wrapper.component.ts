@@ -9,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
     'bg-light-warning': options.type == 'warning',
     'bg-light-info': options.type == 'info'
   }">         
-      <button class="btn btn-sm btn-link float-right" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseComp">         
+      <button class="btn btn-sm btn-link float-end" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseComp">         
         <span *ngIf="isCollapsed" class="oi oi-chevron-top"></span>
         <span *ngIf="!isCollapsed" class="oi oi-chevron-bottom"></span>
 

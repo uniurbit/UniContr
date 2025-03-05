@@ -82,6 +82,7 @@ class A2ModalitaPagamentoController extends Controller
         $dati = [];
         $message = '';
         
+            //lettura dati iban da Ugov, viene cercato l'iban dell'ultimo pagamento
             $dati = AnagraficaUgov::leftJoin('PAGAMENTI', function($join) {
                 $join->on('PAGAMENTI.MATRICOLA', '=', 'ANAGRAFICA.MATRICOLA');              
             })

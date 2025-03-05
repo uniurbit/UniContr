@@ -107,23 +107,33 @@ class UnitaOrganizzativa extends Model
         }
     }
 
+
     private function listaDipartimenti($id_ab)
     {
-        //Plesso Economico - Umanistico (DESP-DISTUM)
-        if ($id_ab == 26618){
-            return ['004424','004939'];
-        }
-        //Plesso Giuridico-Umanistico (DIGIUR-DISCUI)
-        if ($id_ab == 26616){
-            return ['004419','005579'];
-        }
-        //Plesso Scientifico (DiSPeA-DiSB)
-        if ($id_ab == 32718){
-            return ['004919','005019'];
-        }         
-
-        return [];  
+            //Plesso Economico - Umanistico (DESP-DISTUM)
+            if ($id_ab == 26618){
+                return ['004424','004939'];
+            }
+            //Plesso Giuridico-Umanistico (DIGIUR-DISCUI)
+            if ($id_ab == 26616){
+                return ['004419','005579'];
+            }
+            //Plesso Scientifico (DiSPeA-DiSB)
+            if ($id_ab == 32718){
+                return ['004919','005019'];
+            }         
+            //Plesso Umanistico (DISTUM)
+            if ($id_ab == 120524){
+                return ['004939'];
+            }
+            //Plesso Economico (DESP)
+            if ($id_ab == 120525){
+                return ['004424'];
+            }
+    
+            return [];  
     }
+  
 
     public static function allDipartimenti(){
         return ['004424','004939','004419','004940','004919','005019'];

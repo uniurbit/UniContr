@@ -11,7 +11,7 @@ File: scss
 @import 'theme-colors/dark-theme';
 
 // Import Bootstrap source files (Required file)
-@import '~bootstrap/scss/bootstrap.scss';
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss'; 
 
 //This is for the components (Required file)
 @import 'components';

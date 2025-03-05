@@ -17,11 +17,11 @@
       <input class="form-control" [formControlName]="control.key" [id]="control.key" [displayMonths]="displayMonths" [navigation]="navigation"
           [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers" ngbDatepicker="" #d="ngbDatepicker" 
           [ngClass]="{'is-invalid': form.controls[control.key].invalid && (form.controls[control.key].dirty || form.controls[control.key].touched)}">
-        <div class="input-group-append">
+        
           <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
             <img src="assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
           </button>
-      </div>
+     
     </div>    
   </div> 
 

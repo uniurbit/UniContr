@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs/operators';
+import { BreadcrumbService } from 'src/app/services/breadcrumb.service';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -13,7 +14,8 @@ export class BreadcrumbComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private titleService: Title
+    private titleService: Title,
+    private breadcrumbService: BreadcrumbService
   ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -30,8 +32,14 @@ export class BreadcrumbComponent implements OnInit {
       .pipe(mergeMap(route => route.data))
       .subscribe(event => {
         this.titleService.setTitle(event['title']);
-        this.pageInfo = event;
+        this.breadcrumbService.updateBreadcrumb(event);
+        //this.pageInfo = event;
       });
   }
-  ngOnInit() {}
+  ngOnInit() {
+      // Subscribe to breadcrumb updates from the service
+      this.breadcrumbService.breadcrumb$.subscribe(breadcrumb => {
+        this.pageInfo = breadcrumb; // Update breadcrumbUrls with the new data
+      });
+  }
 }

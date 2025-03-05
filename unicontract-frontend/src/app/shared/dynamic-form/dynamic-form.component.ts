@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ControlBase } from './control-base';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 export class DynamicFormComponent implements OnInit {
 
   @Input() control: ControlBase<any>;
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
   get isValid() { return this.form.controls[this.control.key].valid; }
   
   constructor() {}

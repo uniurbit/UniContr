@@ -4,11 +4,10 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError, Subject } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { Cacheable, CacheBuster } from 'ngx-cacheable';
+import { Cacheable, CacheBuster } from 'ts-cacheable';
 import { ServiceQuery, ServiceEntity } from '../query-builder/query-builder.interfaces';
 import { MessageService } from '../message.service';
 import { AppConstants } from 'src/app/app-constants';
-import { create } from 'domain';
 import { ConfirmationDialogService } from '../confirmation-dialog/confirmation-dialog.service';
 
 const httpOptions = {
@@ -70,7 +69,7 @@ export class CoreSevice {
   }
 }
 
-export const cacheBusterNotifier = new Subject();
+export const cacheBusterNotifier = new Subject<void>();
 @Injectable()
 export class BaseService extends CoreSevice implements ServiceQuery, ServiceEntity {
 
@@ -88,9 +87,9 @@ export class BaseService extends CoreSevice implements ServiceQuery, ServiceEnti
     .get(this._baseURL +  `/${basePath}/` + id.toString(), httpOptions).pipe(
       tap(sub => {
         if (sub) {
-          this.messageService.info('Lettura permesso effettuata con successo');
+          this.messageService.info('Lettura effettuata con successo');
         } else {
-          this.messageService.info('Permesso non trovato');
+          this.messageService.info('Non trovato');
         }
       }),
       catchError(this.handleError('getById'))

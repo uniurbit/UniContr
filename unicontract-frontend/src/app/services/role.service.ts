@@ -5,7 +5,7 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { MessageService, ServiceQuery, ServiceEntity, BaseService } from '../shared';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { AppConstants } from '../app-constants';
-import { Cacheable } from 'ngx-cacheable';
+import { Cacheable } from 'ts-cacheable';
 import { ConfirmationDialogService } from '../shared/confirmation-dialog/confirmation-dialog.service';
 
 

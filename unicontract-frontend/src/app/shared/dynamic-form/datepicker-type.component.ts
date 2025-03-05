@@ -24,11 +24,11 @@ import { DatePipe } from '@angular/common';
         ngbDatepicker #d="ngbDatepicker"   
         [class.is-invalid]="showError"    
        >
-      <div class="input-group-append">
+     
         <button class="btn btn-outline-secondary input-group-text oi oi-calendar" (click)="d.toggle()" type="button">
          
         </button>
-    </div>
+
   </div>
   `,
   styles: []

@@ -1,13 +1,13 @@
 
-  <div class="ml-3 mb-3 mr-3 pr-2 btn-toolbar text-right"  *ngIf="pdfSrc" role="toolbar">
-    <div class="btn-group ml-auto">
+  <div class="ms-3 mb-3 me-3 pe-2 btn-toolbar text-end"  *ngIf="pdfSrc" role="toolbar">
+    <div class="btn-group ms-auto">
         <button  class="btn btn-sm btn-outline-secondary rounded-lg" title="Scarica" (click)="onDownload()" >              
             <span class="oi oi-data-transfer-download"></span>
-            <!-- <span class="ml-2">Scarica</span> -->
+            <!-- <span class="ms-2">Scarica</span> -->
         </button> 
-        <button class="btn btn-sm btn-outline-secondary rounded-lg ml-1" title="Apri" (click)="onOpen()">
+        <button class="btn btn-sm btn-outline-secondary rounded-lg ms-1" title="Apri" (click)="onOpen()">
             <span class="oi oi-external-link"></span>
-            <!-- <span class="ml-2">Apri</span> -->
+            <!-- <span class="ms-2">Apri</span> -->
         </button>
     </div>
 </div>

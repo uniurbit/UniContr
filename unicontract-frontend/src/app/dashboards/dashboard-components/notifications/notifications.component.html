@@ -14,13 +14,13 @@
                     <li class="list-group-item list-group-item-action  todo-item" data-role="notification" >                          
                         <div class="todo-label" style="padding-left: 25px;">
                             <span class="todo-desc">{{ notification.data.message }}</span>
-                            <span *ngIf="notification.type == 'App\\\Notifications\\\ConvenzioneApprovata'" class="badge badge-pill badge-success float-right">Convenzione Approvata</span>
-                            <span *ngIf="notification.type == 'App\\\Notifications\\\ConvenzioneRepertoriata'" class="badge badge-pill badge-success float-right">Convenzione Repertoriata</span>                           
+                            <span *ngIf="notification.type == 'App\\\Notifications\\\ConvenzioneApprovata'" class="badge badge-pill badge-success float-end">Convenzione Approvata</span>
+                            <span *ngIf="notification.type == 'App\\\Notifications\\\ConvenzioneRepertoriata'" class="badge badge-pill badge-success float-end">Convenzione Repertoriata</span>                           
                         </div>         
 
                         <div class="item-date">{{notification.created_at | toDateObj | date:'d MMMM, yyyy'}}</div>   
                                                 
-                            <div class="button-group mt-1 pt-1 ml-4">
+                            <div class="button-group mt-1 pt-1 ms-4">
                             <button type="button" class="btn btn-sm btn-outline-secondary" (click)="open(content, notification)" data-toggle="tooltip" title="Apre attività">
                                 Dettagli
                                 <i class="ti-pencil-alt"></i>
@@ -35,14 +35,14 @@
             </ul>
         </div>       
     </div>
-    <ngb-pagination *ngIf="page" class="mr-3 d-flex justify-content-end" [collectionSize]="page.totalElements" [pageSize]="page.size" [(page)]="page.pageNumber" [maxSize]="7" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+    <ngb-pagination *ngIf="page" class="me-3 d-flex justify-content-end" [collectionSize]="page.totalElements" [pageSize]="page.size" [(page)]="page.pageNumber" [maxSize]="7" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination>
 </div>
 
 <ng-template #content let-c="close">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Dettagli notifica</h4>
-      <button type="button" class="close" aria-label="Close" (click)="c('Close click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="c('Close click')">
+         
       </button>
     </div>        
     <div class="modal-body">

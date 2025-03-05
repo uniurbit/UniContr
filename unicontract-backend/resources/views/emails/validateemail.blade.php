@@ -8,11 +8,11 @@ dell'Università degli Studi di Urbino Carlo Bo,<br>
 La informiamo che la modulistica precontrattuale da Lei compilata<br>
 è stata verificata e validata dagli uffici competenti, pertanto<br>
 La invitiamo a prendere visione del contratto in tutte le sue parti<br>
-e a confermare la sua accettazione **il più presto possibile**<br>
+e a confermare la sua accettazione con la firma **il più presto possibile**<br>
 collegandosi di nuovo alla piattaforma [UniContr]({{$urlUniContr}}):
 
 @component('mail::button', ['url' => $urlUniContr])
-Visione e accettazione contratto 
+Accedi alla piattaforma per firmare il contratto
 @endcomponent
 
 Per eventuali informazioni o richieste di chiarimento,<br>

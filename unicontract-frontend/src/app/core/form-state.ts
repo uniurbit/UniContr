@@ -1,8 +1,8 @@
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { BaseEntity } from './base-entity';
 
 export class FormState {
-    form: FormControl;
+    form: UntypedFormControl;
     model: BaseEntity;
     constructor(form, model: BaseEntity) {
         this.form = form;

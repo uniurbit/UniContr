@@ -78,6 +78,11 @@ class PrecontrattualeController extends Controller
         return compact('data', 'message', 'success');
     }
 
+    public function show($id){
+        $precontr = Precontrattuale::with(['insegnamento'])->withoutGlobalScopes()->where('id', $id)->first(); 
+        return $precontr;
+    }
+
     /**
      * Update the specific resource in storage.
      *
@@ -480,7 +485,7 @@ class PrecontrattualeController extends Controller
             //     }
             // }
 
-            if ($request->insegnamento['motivo_atto']=='CONF_INC'){                
+            if ($request->insegnamento['motivo_atto']=='CONF_INC'){                       
                 //nuovo
                 $docente = User::where('v_ie_ru_personale_id_ab', $request->docente['v_ie_ru_personale_id_ab'])->first();     
                 $force = false;
@@ -496,12 +501,13 @@ class PrecontrattualeController extends Controller
                     $handler = new Handler(Container::getInstance());
                     $handler->report(new Exception('Importato contratto con contatore a 0  [ coper_id =' . $request->insegnamento['coper_id'] . ']'));
 
-                    if (!$force){
-                        $data = null;
-                        $message = 'Insegnamento non importabile come RINNOVO CONTRATTO: non ci sono precedenti insegnamenti corrispondenti. Verificare esistenza di un bando precedente. Verificare sede, che corrisponda con i precedenti insegnamenti.';
-                        $success = false;            
-                        return compact('data', 'message', 'success');
-                    }
+                    //aggiunte informazioni id_sorgente_rinnovo e motivazione_sorgente_rinnovo
+                    // if (!$force){
+                    //     $data = null;
+                    //     $message = 'Insegnamento non importabile come RINNOVO CONTRATTO: non ci sono precedenti insegnamenti corrispondenti. Verificare esistenza di un bando precedente. Verificare sede, che corrisponda con i precedenti insegnamenti.';
+                    //     $success = false;            
+                    //     return compact('data', 'message', 'success');
+                    // }
                     
                 }else{
                     Log::info('Importato contratto [ coper_id =' . $request->insegnamento['coper_id'] . '] [contatore insegnamenti = '.$contatore);
@@ -551,6 +557,83 @@ class PrecontrattualeController extends Controller
 
         return compact('data', 'message', 'success');
 
+    }
+
+
+    public function changeRinnovo(Request $request){
+        $data = [];
+        $success = true;
+        $message = 'Operazione di modifica riferimento rinnovo completata con successo';
+      
+        
+        $message = '';
+        $postData = $request->except('id', '_method');
+
+        //verificare stato della precontrattuale se è già validata non è aggiornabile...      
+        $precontr = PrecontrattualePerGenerazione::with(['validazioni','insegnamento','p2naturarapporto'])->where('insegn_id', $request->insegn_id)->first();
+        
+        if (!(Auth::user()->hasRole('super-admin') || Auth::user()->hasRole('op_dipartimentale'))){
+            abort(403, trans('global.utente_non_autorizzato'));  
+        }
+        
+        if (isset($postData['entity']['id_sorgente_rinnovo'])) {
+            //se impostata una id_sorgente verfico che esista e non sia annullata
+            $sorgente_precontr = PrecontrattualePerGenerazione::with(['validazioni', 'insegnamento', 'p2naturarapporto'])->withoutGlobalScopes()
+                ->where('id', $postData['entity']['id_sorgente_rinnovo'])
+                ->first();
+                        
+            if ($sorgente_precontr) {
+                if ($sorgente_precontr->isAnnullata()){
+                    $data = [];
+                    $message =  'Operazione di modifica non eseguibile: sorgente del rinnovo annullata';
+                    $success = false;
+                    return compact('data', 'message', 'success');   
+                }  
+                
+                $existingPrecontr = PrecontrattualePerGenerazione::withoutGlobalScopes()->where('id_sorgente_rinnovo', $sorgente_precontr->id)                                
+                    ->where('id', '!=', $precontr->id)
+                    ->where('stato', '<', 2)
+                    ->count();
+
+                if ($existingPrecontr > 0) {  
+                    $data = [];
+                    $message =  'Operazione di modifica non eseguibile: sorgente del rinnovo già usata';
+                    $success = false;
+                    return compact('data', 'message', 'success');   
+                }
+
+            }else {
+                $data = [];
+                $message =  'Operazione di modifica non eseguibile: sorgente del rinnovo non trovata';
+                $success = false;
+                return compact('data', 'message', 'success');   
+            }
+
+         
+        }
+
+        // if ($precontr->isBlocked()){
+        //     $data = [];
+        //     $message = trans('global.aggiornamento_non_consentito');
+        //     $success = false;
+        //     return compact('data', 'message', 'success');   
+        // } 
+
+        // if ($precontr->validazioni->flag_amm == 1 || $precontr->validazioni->flag_upd == 1){
+        //     //se è validata non posso aggiornare  ... prima sblocca poi si rivalida ...
+        //     $data = [];
+        //     $success = false;
+        //     $message = 'Operazione di modifica non eseguibile: precontrattuale validata';
+        //     return compact('data', 'message', 'success');
+        // }
+
+        $message = '';
+        $postData = $request->except('id', '_method');
+            
+        $this->repo->changeRinnovo($postData);
+
+        return (new InsegnamentiController())->show($postData['insegn_id']);        
+        
     }
 
 
@@ -668,8 +751,15 @@ class PrecontrattualeController extends Controller
         //validata_amm
         $transitions = $valid->workflow_transitions();
         $valid->workflow_apply($transitions[0]->getName());
-
         $valid->save();
+
+
+        //Notifica validazione ufficio stipendi se la precontrattuale è ... Assimilato Lavoro Dipendente
+        if ($pre->p2naturarapporto && $pre->p2naturarapporto->natura_rapporto == 'ALD'){
+            EmailService::sendEmailRichiestaValidazione($pre,'ufficio_stipendi');
+        }
+       
+        
 
         $data = Validazioni::where('insegn_id',$request->insegn_id)->first();
 
@@ -889,9 +979,9 @@ class PrecontrattualeController extends Controller
 
     public function presaVisioneAccettazione(Request $request){
         
-        if (!Auth::user()->hasPermissionTo('presavisione precontrattuale')) {
+        //if (!Auth::user()->hasPermissionTo('presavisione precontrattuale')) {
             abort(403, trans('global.utente_non_autorizzato'));
-        }    
+        //}    
 
         $pre = Precontrattuale::with(['validazioni'])->where('insegn_id', $request->insegn_id)->first();
         if ($pre->isAnnullata()){
@@ -916,6 +1006,42 @@ class PrecontrattualeController extends Controller
         
         return compact('data', 'message', 'success');
     }
+
+    public function firmaGrafometrica(Request $request){
+                        
+        if (!Auth::user()->hasRole(['super-admin', 'op_approvazione_amm'])) {
+            abort(403, trans('global.utente_non_autorizzato'));
+        }
+        
+        $request->validate([
+            'entity.firma_dipendente.filevalue' => 'required'             
+        ]);
+
+        $pre = Precontrattuale::with(['validazioni'])->where('insegn_id', $request->insegn_id)->first();
+        if ($pre->isAnnullata()){
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito');
+            $success = false;
+            return compact('data', 'message', 'success');   
+        }
+
+        $success = true;
+        $message = ''; 
+        $data = [];
+        
+        if (!($pre->validazioni->current_place == 'validata_economica' && !$pre->validazioni->flag_accept)){
+            $data = [];
+            $message = trans('global.aggiornamento_non_consentito').' precontrattuale in validazione';
+            $success = false;
+            return compact('data', 'message', 'success'); 
+        }
+
+        $postData = $request->except('id', '_method');
+        $data = $this->service->firmaGrafometrica($request->insegn_id, base64_decode($postData['entity']['firma_dipendente']['filevalue']));        
+        
+        return compact('data', 'message', 'success');
+    }
+
 
 
     public function richiestaFirmaIO(Request $request){
@@ -1151,7 +1277,7 @@ class PrecontrattualeController extends Controller
             //se ha il ruolo docente e il 
             //e ruolo operatore dipartimentale
             //nel caso multiruolo devo scegliere un ruolo
-            if (Auth::user()->hasRole('op_docente')){
+            if (Auth::user()->hasRole('op_docente') && !Auth::user()->hasRole('op_dipartimentale')){
                 array_push($parameters['rules'],[
                     "operator" => "=",
                     "field" => "user.v_ie_ru_personale_id_ab",                
@@ -1197,8 +1323,9 @@ class PrecontrattualeController extends Controller
 
     public function export(Request $request){
         //prendi i parametri 
+        //non includo insegnamento.corsodistudio per problemi di connessione
         $findparam = $this->queryparameter($request);                  
-        $findparam['includes'] = 'insegnamento,insegnamento.corsodistudio,user,validazioni,p2naturarapporto,d1inps,d4fiscali,d2inail,d6familiari'; 
+        $findparam['includes'] = 'insegnamento,user,validazioni,p2naturarapporto,d1inps,d4fiscali,d2inail,d6familiari'; 
 
         return (new PrecontrattualeExport($request,$findparam))->download('precontrattuali.csv', \Maatwebsite\Excel\Excel::CSV,  [
             'Content-Type' => 'text/csv',
@@ -1209,7 +1336,7 @@ class PrecontrattualeController extends Controller
     public function exportxls(Request $request){
         //prendi i parametri 
         $findparam = $this->queryparameter($request);                  
-        $findparam['includes'] = 'insegnamento,insegnamento.corsodistudio,user,validazioni,p2naturarapporto,d1inps,d4fiscali,d2inail,d6familiari'; 
+        $findparam['includes'] = 'insegnamento,user,validazioni,p2naturarapporto,d1inps,d4fiscali,d2inail,d6familiari'; 
 
         return (new PrecontrattualeExport($request,$findparam))->download('precontrattuali.xlsx');     
     }

@@ -3,7 +3,6 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, Htt
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap, catchError, switchMap, filter, take, flatMap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
-import { error } from 'util';
 import { AppConstants } from '../app-constants';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -25,7 +24,10 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    //    return next.handle(req);
+    const token = this.auth.getToken();
+    if (token != null) {
+      req = this.addToken(req, this.auth.getToken());
+    }
 
     return next.handle(req).pipe(
       tap((ev: HttpEvent<any>) => {
@@ -128,7 +130,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     return request.clone({
       setHeaders: {
-        Authorization: `bearer ${token}`
+        Authorization: `Bearer ${token}`
       }
     });
   }

@@ -2,11 +2,11 @@
     <div class="btn-group">    
         <button type="button" class="btn btn-outline-primary" (click)="add()"  >              
             <span class="oi oi-plus"></span>
-            <span class="ml-2">Aggiungi</span>
+            <span class="ms-2">Aggiungi</span>
         </button>    
         <button type="button" class="btn btn-outline-primary" [disabled]="selected.length == 0" (click)="remove()"  >              
             <span class="oi oi-trash"></span>  
-            <span class="ml-2">Rimuovi</span>
+            <span class="ms-2">Rimuovi</span>
         </button>
     </div>
 </div>
@@ -49,11 +49,11 @@
             [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers" placement="top" ngbDatepicker #d="ngbDatepicker" 
             [ngClass]="getCellClass(rowIndex,column)">
         
-        <div class="input-group-append">
+        
         <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
             <img src="assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
         </button>
-        </div>
+        
     </div>    
     <app-show-errors [control]="getControl(rowIndex,column)"></app-show-errors>             
     </ng-template>      

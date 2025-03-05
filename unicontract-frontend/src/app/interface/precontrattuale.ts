@@ -117,6 +117,7 @@ export interface IPrecontrattuale {
     anagrafica?: AnagraficaInterface;
     docente?: DocenteInterface;
     conflittointeressi?: B1ConflittoInterface;
+    precontrattuale_sorgente?: any;
 }
 
 export interface InfraResponse<T> {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from '../message.service';
 import { InfraMessageType, InfraMessage } from './message';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Observable } from 'rxjs';
 
@@ -24,7 +24,7 @@ import { Observable } from 'rxjs';
 export class MessageComponent implements OnInit {
     isCollapsed = false;
 
-    form = new FormGroup({});
+    form = new UntypedFormGroup({});
 
     protected model = {};
 

@@ -15,7 +15,7 @@ import { CoreSevice } from '../shared/base-service/base.service';
 import { B2IncompatibilitaInterface } from '../interface/b2incompatibilita.interface';
 import { B6InformativaInterface } from '../interface/b6informativa.interface';
 import { D1InpsInterface } from '../interface/d1inps.interface';
-import { Cacheable } from 'ngx-cacheable';
+import { Cacheable } from 'ts-cacheable';
 
 
 const httpOptions = {
@@ -117,10 +117,128 @@ export class PrecontrattualeService extends CoreSevice implements ServiceQuery {
   }
 
   getById(id: any): Observable<any> {
+    return this.http.get(this._baseURL + '/' + id).pipe(catchError(this.handleError('getById')));
     throw new Error('Method not implemented.');
   }
+
   getMetadata(): FormlyFieldConfig[] {
-    throw new Error('Method not implemented.');
+    return this.getQueryMetadata().concat( 
+      {
+        key: 'user.name',
+        type: 'string',
+        templateOptions: {
+          label: 'Docente',
+          required: true,
+        }
+      },
+      {
+        key: 'insegnamento.tipo_atto',
+        type: 'string',
+        templateOptions: {
+          label: 'Tipo atto',
+          required: true,
+        }
+      },
+      {
+        key: 'insegnamento.num_delibera',
+        type: 'string',
+        templateOptions: {
+          label: 'Numero',
+          required: true,
+        }
+      },
+      {
+        key: 'sorgente_rinnovo_per_id',
+        type: 'string',
+        templateOptions: {
+          label: 'Sorgente per',
+          required: true,
+        }
+      },      
+      {
+      key: 'currentState',
+      type: 'select',
+      templateOptions: {
+        label: 'Stato corrente',
+        required: true,
+        options: [         
+          {value: 'annullata',    label: 'Annullata'},
+        ]
+      }
+    });
+  }
+
+  getQueryMetadata(): FormlyFieldConfig[] {
+     return [
+      {
+        key: 'id',
+        type: 'number',
+        templateOptions: {
+          label: '#',        
+        }
+      },    
+      {
+        key: 'insegnamento.coper_id',
+        type: 'number',
+        templateOptions: {
+          label: 'Copertura',
+          required: true,       
+        }
+      },
+      {
+        key: 'insegnamento.aa',
+        type: 'input',
+        templateOptions: {
+          label: 'Anno',
+          valueProp: 'value',
+          labelProp: 'label',
+          disabled: true, //perchè fixed property nella finestra di scelta delle precontr sorgente, andrebbe collegato alla proprietà fixed property
+          options: this.getAnniAccademici()
+        }
+      },
+      {
+        key: 'insegnamento.insegnamento',
+        type: 'string',
+        templateOptions: {
+          label: 'Insegnamento',
+          required: true,
+        }
+      },
+      {
+        key: 'insegnamento.motivo_atto',
+        type: 'string',
+        templateOptions: {
+          label: 'Motivo Atto',
+          required: true,
+        }
+      },
+      {
+        key: 'insegnamento.data_ini_contr',
+        type: 'date',
+        templateOptions: {
+          label: 'Data inizio',
+          required: true,
+        }
+      },
+      {
+        key: 'insegnamento.data_fine_contr',
+        type: 'date',
+        templateOptions: {
+          label: 'Data fine',
+          required: true,    
+        }
+      },    
+      {
+        key: 'user.v_ie_ru_personale_id_ab',
+        type: 'string',
+        templateOptions: {
+          label: 'Codice docente',
+          required: true,
+          disabled: true
+        }
+      },
+     
+     ]
   }
 
   downloadContrattoFirmato(id): Observable<any>{

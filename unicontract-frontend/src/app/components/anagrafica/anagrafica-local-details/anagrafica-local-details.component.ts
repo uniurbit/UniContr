@@ -9,6 +9,7 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { encode, decode } from 'base64-arraybuffer';
 import { FormGroup } from '@angular/forms';
 import { tipotitoli } from '../anagrafica-details/anagrafica-details.component';
+import * as saveAs from 'file-saver';
 
 @Component({
   selector: 'app-anagrafica-local-details',

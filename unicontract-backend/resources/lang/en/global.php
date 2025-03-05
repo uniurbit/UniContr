@@ -231,9 +231,15 @@ return [
     "d4_nota3"=>"- l'aliquota IRPEF del 23% riguarda i contribuenti con un reddito compreso tra € 0,00 e € 15.000,00",
     "d4_nota4"=>"- l'aliquota IRPEF del 27% riguarda i contribuenti con un reddito compreso tra € 15.000,01 e € 28.000,00",
     "d4_nota5"=>"- l'aliquota IRPEF del 38% riguarda i contribuenti con un reddito compreso tra € 28.000,01 e € 55.000,00",
+    
     "d4_nota4_2022" => "- l'aliquota IRPEF del 25% riguarda i contribuenti con un reddito compreso tra € 15.000,01 e € 28.000,00",
     "d4_nota5_2022" => "- l'aliquota IRPEF del 35% riguarda i contribuenti con un reddito compreso tra € 28.000,01 e € 50.000,00",
     "d4_nota6_2022" => "- l'aliquota IRPEF del 43% riguarda i contribuenti con un reddito superiore a € 50.000,00",
+
+    "d4_nota3_2025"=>"- l'aliquota IRPEF del 23% per redditi fino a € 28.000,00",
+    "d4_nota4_2025" => "- l'aliquota IRPEF del 35% per redditi tra € 28.000,00 e € 50.000,00",    
+    "d4_nota5_2025" => "- l'aliquota IRPEF del 43% per redditi superiori a € 50.000,00",
+
     "d4_nota6"=>"- l'aliquota IRPEF del 41% riguarda i contribuenti con un reddito compreso tra € 55.000,01 e € 75.000,00",
     "d4_nota7"=>"- l'aliquota IRPEF del 43% riguarda i contribuenti con un reddito superiore a € 75.000,00",
     "d4_nota8"=>"Nota informativa",

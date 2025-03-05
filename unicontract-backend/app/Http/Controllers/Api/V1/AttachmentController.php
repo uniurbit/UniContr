@@ -163,6 +163,17 @@ class AttachmentController extends Controller
             //$pdf->getMpdf()->SetKeywords(utf8_encode($ctr->keyword)); 
             return $pdf->output();
         }
+        if ($tipo_modello == 'dichiarazione_firma_grafometrica') {
+            //uniurb-informativa_firma_grafometrica
+            $filePath = 'documents/uniurb-'.$tipo_modello.'.pdf';
+            if (!Storage::exists($filePath)) {
+                abort(404, 'File not found');
+            }            
+            $pdf = Storage::get($filePath);
+            return $pdf;
+            //$this->data = $this->returnAttach($tipo, 'Informativa firma grafometrica', $pdf);                                
+        }
+
         return null;
     }
 

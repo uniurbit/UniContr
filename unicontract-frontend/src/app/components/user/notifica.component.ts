@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
-import { FormGroup, FormArray } from '@angular/forms';
-
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseEntityComponent } from 'src/app/shared';
-import { SourceMapGenerator } from '@angular/compiler/src/output/source_map';
 import { Location } from '@angular/common';
 import { NotificaService } from '../../shared/notifica.service';
 import { TranslateService } from '@ngx-translate/core';

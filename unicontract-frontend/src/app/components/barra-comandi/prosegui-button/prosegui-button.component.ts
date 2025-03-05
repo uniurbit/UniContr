@@ -32,9 +32,9 @@ export class ProseguiButtonComponent implements OnInit {
 
   getClassName() {
     if (this.isCompilato()) {
-      return 'btn btn-outline-secondary btn-warning rounded mr-1';
+      return 'btn btn-outline-secondary btn-warning rounded me-1';
     }
-    return 'btn btn-outline-secondary rounded mr-1';
+    return 'btn btn-outline-secondary rounded me-1';
   }
 
   // stati

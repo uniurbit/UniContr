@@ -309,6 +309,11 @@ return [
     "dichiaro_RF02"=> "essere professionista rientrante nel regime fiscale contribuenti minimi (art.1, commi 96-117, legge n. 244/2007)",
     "dichiaro_RF19"=> "essere professionista rientrante nel regime fiscale forfettario (art.1, commi 54-89, legge n. 190/2014)",
 
+    "dichiaro_descr_RF01"=> "ordinario",
+    "dichiaro_descr_RF02"=> "contribuenti minimi",
+    "dichiaro_descr_RF19"=> "fiscale forfettario",
+
+
     "due_rate"=> "Due rate",
     "una_rata"=> "Unica rata"
 ];

@@ -1,5 +1,5 @@
 import { Component, Injectable, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, TemplateRef } from '@angular/core';
-import { NgxDatatableModule, DatatableComponent } from '@swimlane/ngx-datatable';
+import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { TableColumn } from '@swimlane/ngx-datatable';
 
 import { Observable } from 'rxjs';
@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { GridModel } from './grid-model'
 import { ControlBase } from './control-base';
-import { FormArray, FormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 import ControlUtils from './control-utils';
 
 @Injectable()
@@ -25,12 +25,12 @@ export class DynamicTableComponent<T> implements OnInit, OnDestroy {
     @Input() metadata: ControlBase<any>[];        
     
 
-    _controls: FormArray
+    _controls: UntypedFormArray
     @Input()
-    set controls(controls: FormArray){
+    set controls(controls: UntypedFormArray){
         this._controls = controls;
     };    
-    get controls():FormArray{
+    get controls():UntypedFormArray{
         return this._controls;
     }
     
@@ -45,7 +45,7 @@ export class DynamicTableComponent<T> implements OnInit, OnDestroy {
     }
     
     //la form contenitore
-    @Input() form: FormGroup;
+    @Input() form: UntypedFormGroup;
     
     @Input() columnMode: any = "force";    
     @Input() rowHeight: any = "auto" ;    

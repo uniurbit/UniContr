@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { InsegnUgovInterface } from './../interface/insegn-ugov';
 import { InsegnUgov } from './../classes/insegn-ugov';
 import { AppConstants } from 'src/app/app-constants';
-import { Cacheable } from 'ngx-cacheable';
+import { Cacheable } from 'ts-cacheable';
 import { CoreSevice } from '../shared/base-service/base.service';
 import { MessageService } from '../shared/message.service';
 import { catchError, tap } from 'rxjs/operators';

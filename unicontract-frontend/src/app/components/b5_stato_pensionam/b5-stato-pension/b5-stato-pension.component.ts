@@ -11,7 +11,7 @@ import { Updb5 } from './../../../classes/precontrattuale';
 import { B5StatoPensionamento } from './../../../classes/b5statoPensionamento';
 import { B5StatoPensionamentoService } from './../../../services/b5statoPensionam.service';
 
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import ControlUtils from 'src/app/shared/dynamic-form/control-utils';
 import { Observable, of, Subject } from 'rxjs';
@@ -33,7 +33,7 @@ export class B5StatoPensionComponent extends BaseComponent {
   story: StoryProcess;
   update: boolean = true;
 
-  formAttch = new FormGroup({});
+  formAttch = new UntypedFormGroup({});
   model: any = {};
   options: FormlyFormOptions = {
     formState: {
@@ -41,6 +41,9 @@ export class B5StatoPensionComponent extends BaseComponent {
       isLoading: this.isLoading,
     },
   };
+
+
+
 
   fields1: FormlyFieldConfig[] = [
     {
@@ -54,10 +57,10 @@ export class B5StatoPensionComponent extends BaseComponent {
         'templateOptions.label': () => this.translateService.instant('b5_txt1', { s: ControlUtils.genderTranslate(this.items.sesso) }),
         'templateOptions.options': () =>
           [
-            { key: 'PNDA', value: this.translateService.instant('b5_txt2',  { s: ControlUtils.genderTranslate(this.items.sesso) }) },
-            { key: 'CSPA', value: this.translateService.instant('b5_txt3',  { s: ControlUtils.genderTranslate(this.items.sesso) }) },
-            { key: 'CVPA', value: this.translateService.instant('b5_txt4',  { s: ControlUtils.genderTranslate(this.items.sesso) }) },
-            { key: 'RURL', value: this.translateService.instant('b5_txt5',  { s: ControlUtils.genderTranslate(this.items.sesso) }) },
+            { value: 'PNDA', label: this.translateService.instant('b5_txt2',  { s: ControlUtils.genderTranslate(this.items.sesso) }) },
+            { value: 'CSPA', label: this.translateService.instant('b5_txt3',  { s: ControlUtils.genderTranslate(this.items.sesso) }) },
+            { value: 'CVPA', label: this.translateService.instant('b5_txt4',  { s: ControlUtils.genderTranslate(this.items.sesso) }) },
+            { value: 'RURL', label: this.translateService.instant('b5_txt5',  { s: ControlUtils.genderTranslate(this.items.sesso) }) },
           ]                      
       },
       validators: {
@@ -85,6 +88,17 @@ export class B5StatoPensionComponent extends BaseComponent {
       }
     },
   ];
+
+  fields: FormlyFieldConfig[] = [   
+    {
+      wrappers: ['riquadro'],
+      fieldGroup: this.fields1
+    },
+    {
+      wrappers: ['riquadro'],
+      fieldGroup: this.fields2
+    }
+  ]
 
   constructor(private route: ActivatedRoute,
               private router: Router,

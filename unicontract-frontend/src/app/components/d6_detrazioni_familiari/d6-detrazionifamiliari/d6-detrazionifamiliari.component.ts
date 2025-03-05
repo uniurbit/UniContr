@@ -9,7 +9,7 @@ import { UpdD6 } from './../../../classes/precontrattuale';
 import { D6DetrazioniFamiliari } from './../../../classes/d6detrazioniFamiliari';
 import { D6DetrazioniFamiliariService } from './../../../services/d6detrazioniFamiliari.service';
 
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { encode, decode } from 'base64-arraybuffer';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
@@ -32,7 +32,7 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
     {familiare: 'A', name: 'Altro familiare'}
   ];
 
-  formAttch = new FormGroup({});
+  formAttch = new UntypedFormGroup({});
   model: any = {};
   options: FormlyFormOptions = {
     formState: {
@@ -122,8 +122,8 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
             translate: true,
             label: 'd6_label6',
             options: [
-              {key: 0, value: 'No'},
-              {key: 1, value: 'Sì'}
+              {value: 0, label: 'No'},
+              {value: 1, label: 'Sì'}
             ]
           },
         },
@@ -149,17 +149,18 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
       template: '<h5>' + this.translateService.instant('d6_intest') + '</h5>',
     },
     {
-      fieldGroupClassName: 'row',
+      //fieldGroupClassName: 'row',
       fieldGroup: [
         {
           type: 'checkbox',
           key: 'flag_richiesta_detrazioni',
-          className: 'custom-switch pl-4 pr-2 pt-1',
+          //className: 'custom-switch ps-4 pe-2 pt-1',
           defaultValue: false,
           validation: {
             show: true,
           }, 
           templateOptions: {
+            formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_richiesta_detrazioni === false || field.model.flag_richiesta_detrazioni === 0) {
                 this.model.flag_coniuge_carico = false;

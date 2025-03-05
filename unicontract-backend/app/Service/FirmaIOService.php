@@ -91,6 +91,14 @@ class FirmaIOService implements CancellazioneServiceInterface
 
                 case 'CANCELLED':
                     return $this->createSuccessResponse('Richiesta di firma cancellata.', $firma);
+
+                case 'EXPIRED':
+                     
+                    $pre->storyprocess()->save(
+                        PrecontrattualeService::createStoryProcess('Scaduta richiesta di firma su FirmaIO', $pre->insegn_id, $pre->user)
+                    );
+
+                    return $this->createSuccessResponse('Processo di firma scaduto.', $firma);  
             }
         }else{
             return $this->creareFirmaIO($pre);
@@ -131,6 +139,15 @@ class FirmaIOService implements CancellazioneServiceInterface
 
             $data = $response->json(); //json_decode($response, true);                 
             
+            // Extract the expiration date and convert it to the Rome timezone
+            $expiresAt = Carbon::parse($data['expires_at'])->setTimezone('Europe/Rome');
+            // Get the current date and time in the Rome timezone
+            $now = Carbon::now('Europe/Rome');
+            // Compare expiration date with the current date and time
+            if ($now->gt($expiresAt)) {
+                $data['status'] = 'EXPIRED';
+            }
+
             //Aggiorno la richiesta e valuto gli step successivi            
             $firma->update([
                 'tipo' => 'FIRMAIO',               
@@ -138,7 +155,7 @@ class FirmaIOService implements CancellazioneServiceInterface
                 'document_id' =>  $data['documents'][0]['id'], //id del primo documento
                 'contenuto' => $response->getBody(),
                 'stato' => $data['status'], //stato della richiesta
-                'rejected_reason' => ($data['status'] =='REJECTED' ? $data['rejected_reason'] : null),
+                'rejected_reason' => ($data['status'] =='REJECTED' ? $data['reject_reason'] : null),
             ]);         
         }
 
@@ -160,7 +177,7 @@ class FirmaIOService implements CancellazioneServiceInterface
         $response = $this->client->getSigner($cf);
        
         if (!$response->successful()){
-            return $this->createErrorResponse('E\' necessario, prima di prodere con la firma, installare l\'App IO (https://io.italia.it) ed effettuare un primo accesso. All\'App IO si accede con lo SPID.'); // ('.$response->getReasonPhrase().')');
+            return $this->createErrorResponse('Prima di procedere con la firma, è necessario installare l\'app IO sul proprio dispositivo mobile (https://io.italia.it) ed effettuare il primo accesso. Per accedere all\'app IO, è richiesto lo SPID.'); // ('.$response->getReasonPhrase().')');
         }
         //leggi il signer_id del cittadino
         $signer_id = $response->object()->id;  
@@ -191,10 +208,13 @@ class FirmaIOService implements CancellazioneServiceInterface
             'document_id' =>  $documentId, //id del primo documento
             'contenuto' => $response->getBody(),
             'stato' => $data['status'], //stato della richiesta
-            'rejected_reason' => ($data['status'] =='REJECTED' ? $data['rejected_reason'] : null),
+            'rejected_reason' => ($data['status'] =='REJECTED' ? $data['reject_reason'] : null),
         ]);
         $pre->FirmaIO()->save($firma);
-
+        $validazioni = $pre->validazioni;    
+        $validazioni->tipo_accettazione = 'FIRMAIO';  
+        $validazioni->save();
+        
         return $this->uploadDocumentiPubblicazioneRichiestaAggiornamento($signatureRequestId, $documentId, $pdf, $firma, $pre);
     }
 
@@ -365,6 +385,10 @@ class FirmaIOService implements CancellazioneServiceInterface
             $pre->insegn_id)
         );
 
+        $validazioni = $pre->validazioni;                    
+        $validazioni->tipo_accettazione = null;  
+        $validazioni->save();
+        //aggiorno
         return $this->richiestaFirmaIO($pre, $firma);
     }
 

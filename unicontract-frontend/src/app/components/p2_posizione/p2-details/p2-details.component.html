@@ -1,12 +1,12 @@
 <ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
 <div class="container-fluid" *ngIf="item">
     <app-riquadro-wrapper>
-      
+      <button type="button" class="btn icon_info" popoverTitle="Dettagli" ngbPopover="Dichiarazione resa da {{ item.nome }} {{ item.cognome }} in data {{item.createdDate | toDateObj | date: 'dd-MM-yyyy'}} alle ore {{item.createdDate | toDateObj | date: 'HH:mm'}}">
+        <span class="oi oi-info iconic icon-top"></span>
+      </button>
+
       <div class="row">
-        <app-list-item class="col-md-12" label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ item.nome | uppercase }} {{ item.cognome | uppercase }}</span></app-list-item>            
-        <button type="button" class="btn icon_info" placement="left" popoverTitle="Dettagli" ngbPopover="Dichiarazione resa da {{ item.nome }} {{ item.cognome }} in data {{item.createdDate | toDateObj | date: 'dd-MM-yyyy'}} alle ore {{item.createdDate | toDateObj | date: 'HH:mm'}}">
-          <span class="oi oi-info iconic icon-top"></span>
-        </button>
+        <app-list-item class="col-md-12" label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ item.nome | uppercase }} {{ item.cognome | uppercase }}</span></app-list-item>                   
       </div>
     
       <app-list-item label="{{ '00_int2' | translate }}" value="{{ item.insegnamento | uppercase }}"></app-list-item>
@@ -18,57 +18,57 @@
 
   <app-riquadro-wrapper>
     <h5>{{ 'p2_title1' | translate }}</h5>    
-    <div class="row">
+    <div class="flex">
       <div *ngIf="item.flag_rapp_studio_univ == 1; then thenBlock1 else elseBlock1"></div>
       <ng-template #thenBlock1>
         <span style="padding: 3px 15px 0 15px;" class="oi oi-check iconic"></span>
-        <div>{{ 'p2_check1' | translate }}</div>  
+        <span>{{ 'p2_check1' | translate }}</span>  
       </ng-template>
       <ng-template #elseBlock1>
         <span style="padding: 3px 15px 0 15px;" class="oi oi-minus iconic"></span>
-        <div>{{ 'p2_check1b' | translate }}</div>
+        <span>{{ 'p2_check1b' | translate }}</span>
       </ng-template>      
     </div>
 
-    <div class="row">
+    <div class="flex">
       <div *ngIf="item.flag_dipend_pubbl_amm == 1; then thenBlock2 else elseBlock2"></div>
       <ng-template #thenBlock2>
         <span style="padding: 3px 15px 0 15px;" class="oi oi-check iconic"></span>
-        <div>{{ 'p2_check2' | translate }}</div>
+        <span>{{ 'p2_check2' | translate }}</span>
       </ng-template>
       <ng-template #elseBlock2>
         <span style="padding: 3px 15px 0 15px;" class="oi oi-minus iconic"></span>
-        <div>{{ 'p2_check2b' | translate }}</div>
+        <span>{{ 'p2_check2b' | translate }}</span>
       </ng-template>  
     </div>
 
-    <div class="row">
+    <div class="flex">
       <div *ngIf="item.flag_titolare_pensione == 1; then thenBlock3 else elseBlock3"></div>
       <ng-template #thenBlock3>
         <span style="padding: 3px 15px 0 15px;" class="oi oi-check iconic"></span>
-        <div>{{ 'p2_check3' | translate }}</div> 
+        <span>{{ 'p2_check3' | translate }}</span> 
       </ng-template>
       <ng-template #elseBlock3>
         <span style="padding: 3px 15px 0 15px;" class="oi oi-minus iconic"></span>
-        <div>{{ 'p2_check3b' | translate }}</div>   
+        <span>{{ 'p2_check3b' | translate }}</span>   
       </ng-template>  
     </div>
   </app-riquadro-wrapper>
 
   <app-riquadro-wrapper>
     <h5>{{ 'p2_title2' | translate }}</h5>
-    <div class="row">
+    <div class="flex">
       <span style="padding: 3px 15px 0 15px;" class="oi oi-check iconic"></span>
-      <div>{{ tools.naturaRapporto(item.natura_rapporto) }}</div>
+      <span>{{ tools.naturaRapporto(item.natura_rapporto) }}</span>
     </div>
     <div class="row">
-      <div class="col ml-1">
+      <div class="col ms-1">
           {{tools.descrizioneRapporto(item.natura_rapporto)}}
       </div>      
     </div>
   </app-riquadro-wrapper>
 
-  <div class="form-footer text-right">
+  <div class="form-footer text-end">
     <app-barra-comandi *ngIf="item" [item]="item" [type]="'P2'"></app-barra-comandi>  
            
     <app-termina-button [item]="item" *ngIf="item.validazioni.flag_submit === 0 && tools.termina(item) === true" (update)="isLoadingChange($event)"></app-termina-button>

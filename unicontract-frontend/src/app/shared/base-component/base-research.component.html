@@ -6,7 +6,7 @@
     <div class="btn-group">  
       <button class="btn btn-outline-primary rounded-lg" type="button" (click)="onNew($event)">
         <span class="oi oi-document"></span>
-        <span class="ml-2">Nuovo</span>
+        <span class="ms-2">Nuovo</span>
       </button>  
     </div>
 </div>  
@@ -24,14 +24,14 @@
     </div>
     -->
     <div class="col">
-      <div *ngIf="enabledExport" class="btn-group float-right pl-2" role="group">  
+      <div *ngIf="enabledExport" class="btn-group float-end ps-2" role="group">  
         <button type="button"  [disabled]="model.data.length==0" class="btn btn-outline-primary rounded-lg " (click)="onExport()">
           <span class="oi oi-document"></span>
-          <span class="ml-2">Scarica CSV</span>
+          <span class="ms-2">Scarica CSV</span>
         </button>  
-        <button type="button"  [disabled]="model.data.length==0" class="ml-2 btn btn-outline-primary rounded-lg " title="Scarica file per Excel" (click)="onExportXLS()">
+        <button type="button"  [disabled]="model.data.length==0" class="ms-2 btn btn-outline-primary rounded-lg " title="Scarica file per Excel" (click)="onExportXLS()">
           <span class="oi oi-document"></span>
-          <span class="ml-2">Scarica XLS</span>
+          <span class="ms-2">Scarica XLS</span>
         </button>
       </div>
     </div>
@@ -49,7 +49,7 @@
 <ng-template #comandi ngx-datatable-cell-template let-row="row" let-rowIndex="rowIndex" let-value="value">
   <div class="btn-group" data-toggle="button" > 
     <button type="button" class="btn btn-sm btn-outline-secondary oi oi-external-link" title="{{ prefix ? (prefix+'_apri' | translate) : 'Apri' }}" (click)="rowSelection(row)"></button>  
-    <button type="button" class="btn btn-sm btn-outline-secondary shadow-none oi oi-data-transfer-download ml-1" title="{{ prefix ? (prefix+'_download' | translate) : 'Scarica' }}" (click)="downloadSelection(row)" [disabled]="downloadDisabled(row)"></button>  
+    <button type="button" class="btn btn-sm btn-outline-secondary shadow-none oi oi-data-transfer-download ms-1" title="{{ prefix ? (prefix+'_download' | translate) : 'Scarica' }}" (click)="downloadSelection(row)" [disabled]="downloadDisabled(row)"></button>  
   </div>
 </ng-template>
 

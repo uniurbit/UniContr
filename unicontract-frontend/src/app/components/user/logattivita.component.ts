@@ -44,7 +44,7 @@ export class LogAttivitaComponent extends BaseResearchComponent {
     super(router,route);    
     
     this.fieldsRow = service.getQueryMetadata();
-    this.resultMetadata[0].fieldArray.fieldGroup = service.getMetadata();        
+    this.resultMetadata[0].fieldArray = { fieldGroup: service.getMetadata()};         
 
     this.routeAbsolutePath = 'home/logattivita'     
     //this.title = 'Tipo pagamenti'

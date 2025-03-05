@@ -359,9 +359,15 @@ class SoapControllerTitulus implements iSearch
    * @return void
    */
   public function deleteDocument($id){
+    Log::info("[deleteDocument] Attempting deleteDocument with ID $id");                   
+   
     $response = $this->soapWrapper->call('titulus.deleteDocument', [
       'id' => $id          
     ]);
+
+    // Log the response received from the SOAP service
+    Log::info("Response from deleting document with ID $id: " . json_encode($response));
+
     return $response;
   }
 

@@ -249,7 +249,7 @@ class FirmaUSIGNClient
     }
 
 
-    //ESEMPIO ENRICO 
+    //ESEMPIO ENRICO userinfo
     // {
     //     "id": 53000,
     //     "username": "enrico.oliva",

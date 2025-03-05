@@ -9,7 +9,7 @@ import { UpdC } from './../../../classes/precontrattuale';
 import { CPrestazProfess } from './../../../classes/cPrestazProfess';
 import { CPrestazProfessService } from './../../../services/cPrestazProfess.service';
 
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 import { B2IncompatibilitaInterface } from 'src/app/interface/b2incompatibilita.interface';
@@ -27,7 +27,7 @@ export class CPrestazProfessComponent extends BaseComponent {
   private precontr: UpdC;
   idins: number;
 
-  formAttch = new FormGroup({});
+  formAttch = new UntypedFormGroup({});
   model: any = {};
   options: FormlyFormOptions = {
     formState: {
@@ -86,8 +86,8 @@ export class CPrestazProfessComponent extends BaseComponent {
           // },
           templateOptions: {
             options: [
-              {key: 0, value: this.translateService.instant('c_label4')},
-              {key: 1, value: this.translateService.instant('c_label5')}
+              {value: 0, label: this.translateService.instant('c_label4')},
+              {value: 1, label: this.translateService.instant('c_label5')}
             ],
             required: true,
             translate: true,
@@ -105,15 +105,16 @@ export class CPrestazProfessComponent extends BaseComponent {
         {
           type: 'checkbox',
           key: 'flag_albo',
-          className: 'custom-switch pl-4 pr-2 pt-1',
+          className: 'col',
           defaultValue: false,
           templateOptions: {
+            formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_albo === false || field.model.flag_albo === 0) {
-                this.model.denominazione_albo = null;
-                this.model.provincia_albo = null;
-                this.model.num_iscrizione_albo = null;
-                this.model.data_iscrizione_albo = null;
+                // this.model.denominazione_albo = null;
+                // this.model.provincia_albo = null;
+                // this.model.num_iscrizione_albo = null;
+                // this.model.data_iscrizione_albo = null;
               }
             }
           },
@@ -144,6 +145,11 @@ export class CPrestazProfessComponent extends BaseComponent {
             translate: true,
             label: 'c_label6',
             required: true,
+          },
+          expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
+              return model.flag_albo;
+            }
           }
         },
         {
@@ -154,6 +160,11 @@ export class CPrestazProfessComponent extends BaseComponent {
             translate: true,
             label: 'c_label7',
             required: true,
+          },
+          expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
+              return model.flag_albo;
+            }
           }
         },
         {
@@ -164,6 +175,11 @@ export class CPrestazProfessComponent extends BaseComponent {
             translate: true,
             label: 'c_label8',
             required: true,
+          },
+          expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
+              return model.flag_albo;
+            }
           }
         },
         {
@@ -174,13 +190,16 @@ export class CPrestazProfessComponent extends BaseComponent {
             translate: true,
             label: 'c_label9',
             required: true,
+          },
+          expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
+              return model.flag_albo;
+            }
           }
         }
       ],
       hideExpression: (model: any, formState: any) => {
-        if (model.flag_albo === 0 || model.flag_albo === false) {
-          return model;
-        }
+        return (model.flag_albo === 0 || model.flag_albo === false); 
       },
     }
   ];
@@ -192,9 +211,10 @@ export class CPrestazProfessComponent extends BaseComponent {
         {
           type: 'checkbox',
           key: 'flag_cassa',
-          className: 'custom-switch pl-4 pr-2 pt-1',
+          className: 'col',
           defaultValue: false,
           templateOptions: {
+            formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_cassa === false || field.model.flag_cassa === 0) {
                 this.model.denominazione_cassa = null;
@@ -229,28 +249,32 @@ export class CPrestazProfessComponent extends BaseComponent {
             translate: true,
             label: 'c_label10',
             required: true,
+          },
+          expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
+              return model.flag_cassa;
+            }
           }
         },
       ],
       hideExpression: (model: any, formState: any) => {
-        if (model.flag_cassa === 0 || model.flag_cassa === false) {
-          return model;
-        }
+        return (model.flag_cassa === 0 || model.flag_cassa === false);
       },
     },
     {
-      fieldGroupClassName: 'row',
+      //fieldGroupClassName: 'row',
       fieldGroup: [
         {
           type: 'radio',
           key: 'contributo_cassa',
-          className: 'col-md-6',
+          //className: 'col-md-6',
           defaultValue: 0,
           templateOptions: {
+            required: true,
             formCheck: 'inline',
             options: [
-              {key: 1, value: '2%'},
-              {key: 0, value: '4%'}
+              {value: 1, label: '2%'},
+              {value: 0, label: '4%'}
             ],
             translate: true,
             label: 'c_label11'
@@ -258,9 +282,7 @@ export class CPrestazProfessComponent extends BaseComponent {
         }
       ],
       hideExpression: (model: any, formState: any) => {
-        if (model.flag_cassa === 0 || model.flag_cassa === false) {
-          return model;
-        }
+        return (model.flag_cassa === 0 || model.flag_cassa === false);
       },
     }
   ];
@@ -272,9 +294,10 @@ export class CPrestazProfessComponent extends BaseComponent {
         {
           type: 'checkbox',
           key: 'flag_rivalsa',
-          className: 'custom-switch pl-4 pr-2 pt-1',
+          className: 'col',
           defaultValue: false,
           templateOptions: {
+            formCheck: 'switch',
           },
           expressionProperties: {
             'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
@@ -300,9 +323,7 @@ export class CPrestazProfessComponent extends BaseComponent {
         }
       ],
       hideExpression: (model: any, formState: any) => {
-        if (model.flag_rivalsa === 0 || model.flag_rivalsa === false) {
-          return model;
-        }
+        return (model.flag_rivalsa === 0 || model.flag_rivalsa === false);
       },
     }
   ];
@@ -314,9 +335,10 @@ export class CPrestazProfessComponent extends BaseComponent {
         {
           type: 'checkbox',
           key: 'flag_regime_fiscale',
-          className: 'custom-switch pl-4 pr-2 pt-1',
+          className: 'col',
           defaultValue: false,
           templateOptions: {
+            formCheck: 'switch',
           },
           expressionProperties: {
             'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
@@ -342,9 +364,7 @@ export class CPrestazProfessComponent extends BaseComponent {
         }
       ],
       hideExpression: (model: any, formState: any) => {
-        if (model.flag_regime_fiscale === 0 || model.flag_regime_fiscale === false) {
-          return true;
-        }
+        return (model.flag_regime_fiscale === 0 || model.flag_regime_fiscale === false);
       },
     }
   ];
@@ -365,9 +385,9 @@ export class CPrestazProfessComponent extends BaseComponent {
             translate: true,
             required: true,
             options: [
-              {key: 'RF01', value: 'Ordinario'},
-              {key: 'RF02', value: 'Contribuenti minimi (art.1, commi 96-117, legge n. 244/2007)'},
-              {key: 'RF19', value: 'Forfettario (art.1, commi 54-89, legge n. 190/2014)'}
+              {value: 'RF01', label: 'Ordinario'},
+              {value: 'RF02', label: 'Contribuenti minimi (art.1, commi 96-117, legge n. 244/2007)'},
+              {value: 'RF19', label: 'Forfettario (art.1, commi 54-89, legge n. 190/2014)'}
             ],          
           },       
         },       
@@ -404,8 +424,9 @@ export class CPrestazProfessComponent extends BaseComponent {
         //solo se è valorizzato il flag_regime_ficale
         if (model.id == null || model.flag_regime_fiscale == null) {
           model.flag_regime_fiscale = null;
-          return true;
+          return true;        
         }
+        return false;
       },
     },
     //field5 e 6 sono alternativi
@@ -413,9 +434,7 @@ export class CPrestazProfessComponent extends BaseComponent {
       wrappers: ['riquadro'],
       fieldGroup: this.fields6,
       hideExpression: (model: any, formState: any) => {
-        if (model.id != null && model.flag_regime_fiscale != null) {
-          return true;
-        }
+        return (model.id != null && model.flag_regime_fiscale != null);
       },
     },
   ];

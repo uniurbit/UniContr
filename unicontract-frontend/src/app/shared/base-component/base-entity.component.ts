@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
-import { FormGroup, FormArray } from '@angular/forms';
+import { UntypedFormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceEntity } from '../query-builder/query-builder.interfaces';
 import { Subject, Observable, Subscription } from 'rxjs';
@@ -20,7 +20,7 @@ export class BaseEntityComponent implements OnInit, OnDestroy {
   protected onDestroy$ = new Subject<void>();
   isLoading = true;
 
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
 
   model: any = {};
 

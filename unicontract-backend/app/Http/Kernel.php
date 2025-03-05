@@ -79,5 +79,6 @@ class Kernel extends HttpKernel
         'storeudate' => \App\Http\Middleware\StoreUdatePrecontrattuale::class,
 
         'ownermiddleware' => \App\Http\Middleware\OwnerMiddleware::class,
+        'auth.api_or_apikey' => \App\Http\Middleware\AuthApiOrApiKey::class,
     ];
 }

@@ -63,7 +63,10 @@ class Handler extends ExceptionHandler
     {
         try {
 
-            $e = FlattenException::create($exception);
+            // Use 'Exception' for compatibility with FlattenException.
+            $exceptionToSend = $exception instanceof Exception ? $exception : new Exception($exception->getMessage(), $exception->getCode(), $exception);
+
+            $e = FlattenException::create($exceptionToSend);
             $handler = new HtmlErrorRenderer(true); // boolean, true raises debug flag...
 
             #$e = FlattenException::create($exception);

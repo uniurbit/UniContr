@@ -1,27 +1,27 @@
 <ng-container *ngxPermissionsOnly="['OP_DOCENTE','SUPER-ADMIN']">
- <button *ngIf="type && type!='P1' &&!isBlocked()" class="btn btn-outline-secondary rounded mr-1" [disabled]="disabledUpdate()" (click)="update()" >
+ <button *ngIf="type && type!='P1' &&!isBlocked()" class="btn btn-outline-secondary rounded me-1" [disabled]="disabledUpdate()" (click)="update()" >
     <span class="oi oi-pencil iconic"  title="{{ 'btn_edita_title' | translate }}"></span>
-    <span class="ml-2">{{ 'btn_edita' | translate }}</span>
+    <span class="ms-2">{{ 'btn_edita' | translate }}</span>
   </button>
 </ng-container>
-  <button class="btn btn-outline-secondary rounded mr-2" (click)="goto.summary(item.insegn_id)" >
+  <button class="btn btn-outline-secondary rounded me-2" (click)="goto.summary(item.insegn_id)" >
     <span class="oi oi-list-rich iconic"  title="{{ 'btn_smm_title' | translate }}"></span>
   </button>
 
   <ng-container *ngxPermissionsOnly="['OP_DIPARTIMENTALE','OP_APPROVAZIONE_AMM','OP_APPROVAZIONE_ECONOMICA','SUPER-ADMIN']">
-    <button *ngIf="!item?.validazioni?.flag_submit && isDisabled('P1')" class="btn btn-outline-secondary rounded mr-1"  (click)="sendEmail.emit()" >
+    <button *ngIf="!item?.validazioni?.flag_submit && isDisabled('P1')" class="btn btn-outline-secondary rounded me-1"  (click)="sendEmail.emit()" >
       <span class="oi oi-envelope-closed iconic"  title="{{ 'btn_email_title' | translate }}"></span>    
     </button>
   </ng-container>
 
   <ng-container  *ngxPermissionsOnly="['OP_DIPARTIMENTALE','SUPER-ADMIN']">
-    <button type="button" class="btn btn-outline-secondary rounded mr-1" *ngIf="isDisabled('P1')" (click)="updateInsegnamento.emit(item.insegn_id)">
+    <button type="button" class="btn btn-outline-secondary rounded me-1" *ngIf="isDisabled('P1')" (click)="updateInsegnamento.emit(item.insegn_id)">
       <span class="oi oi-reload iconic"  title="{{ 'btn_refresh' | translate }}"></span>
     </button>
   </ng-container>
 
   <ng-container  *ngxPermissionsOnly="['SUPER-ADMIN']">
-    <button type="button" class="btn btn-outline-secondary rounded mr-1" *ngIf="isDisabled('P1')" (click)="changeCopertura.emit(item.insegn_id)">
+    <button type="button" class="btn btn-outline-secondary rounded me-1" *ngIf="isDisabled('P1')" (click)="changeCopertura.emit(item.insegn_id)">
       <span class="oi oi-pencil iconic"  title="Cambia codice di copertura"></span>
     </button>
   </ng-container>

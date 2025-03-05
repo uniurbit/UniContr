@@ -93,7 +93,7 @@ export class DocumentiTitulus extends BaseResearchComponent {
 
   constructor(protected service: DocumentoService, router: Router, route: ActivatedRoute) {
     super(router, route);
-    this.resultMetadata[0].fieldArray.fieldGroup = service.getMetadata();
+    this.resultMetadata[0].fieldArray = { fieldGroup: service.getMetadata()}; 
     this.enableNew = false;
     this.routeAbsolutePath = 'home/documenti';
     // this.title = 'Tipo pagamenti'

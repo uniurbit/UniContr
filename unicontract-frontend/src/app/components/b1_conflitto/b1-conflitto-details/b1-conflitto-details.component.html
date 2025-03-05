@@ -33,7 +33,7 @@
     
     <table class="table table-sm" *ngIf="items.flag_cariche === 1">
         <thead>
-            <tr class="row ml-1 mr-1">
+            <tr class="row ms-1 me-1">
               <th class="col-sm-2">Denominazione ente</th>
               <th class="col-sm-2">Tipologia carica</th>
               <th class="col-sm-4">Oggetto</th>
@@ -42,7 +42,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="row ml-1 mr-1" *ngFor="let item of items.cariche">
+            <tr class="row ms-1 me-1" *ngFor="let item of items.cariche">
               <td class="col-sm-2">{{ item.ente }}</td>
               <td class="col-sm-2">{{ item.carica }}</td>
               <td class="col-sm-4">{{ item.oggetto }}</td>
@@ -60,7 +60,7 @@
     </table>
     <table class="table table-sm" *ngIf="items.flag_incarichi === 1">
         <thead>
-            <tr class="row ml-1 mr-1">
+            <tr class="row ms-1 me-1">
               <th class="col-sm-2">Denominazione ente</th>
               <th class="col-sm-2">Tipologia incarico</th>
               <th class="col-sm-4">Oggetto</th>
@@ -69,7 +69,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="row ml-1 mr-1" *ngFor="let item of items.incarichi">
+            <tr class="row ms-1 me-1" *ngFor="let item of items.incarichi">
               <td class="col-sm-2">{{ item.ente }}</td>
               <td class="col-sm-2">{{ item.incarico }}</td>
               <td class="col-sm-4">{{ item.oggetto }}</td>
@@ -116,7 +116,7 @@
     </table>  
   </app-riquadro-wrapper>
 
-  <div class="form-footer text-right">  
+  <div class="form-footer text-end">  
     <app-barra-comandi *ngIf="items" [item]="items" [type]="'B1'"></app-barra-comandi> 
     
         

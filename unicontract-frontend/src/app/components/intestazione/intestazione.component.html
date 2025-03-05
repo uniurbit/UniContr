@@ -1,12 +1,10 @@
 <app-riquadro-wrapper *ngIf="item">    
+  
+  <button type="button" class="btn icon_info" popoverTitle="Dettagli" ngbPopover="Dichiarazione resa da {{ item.nome }} {{ item.cognome }} in data {{dateInfo | toDateObj | date: 'dd-MM-yyyy'}} alle ore {{dateInfo | toDateObj | date: 'HH:mm'}}">
+    <span class="oi oi-info iconic icon-top"></span>
+  </button>
 
-  <div class="row">
-    <app-list-item class="col-md-12" label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ item.nome | uppercase }} {{ item.cognome | uppercase }}</span></app-list-item>            
-    <button type="button" class="btn icon_info" placement="left" popoverTitle="Dettagli" ngbPopover="Dichiarazione resa da {{ item.nome }} {{ item.cognome }} in data {{dateInfo | toDateObj | date: 'dd-MM-yyyy'}} alle ore {{dateInfo | toDateObj | date: 'HH:mm'}}">
-      <span class="oi oi-info iconic icon-top"></span>
-    </button>
-  </div>
-
+  <app-list-item label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ item.nome | uppercase }} {{ item.cognome | uppercase }}</span></app-list-item>            
   <app-list-item label="{{ '00_int2' | translate }}" value="{{ item.insegnamento | uppercase }}"></app-list-item>
   <app-list-item label="{{ '00_int3' | translate }}" value="{{ item.aa }} / {{ tools.annoAccademico(item.aa) }}"></app-list-item>     
 </app-riquadro-wrapper>

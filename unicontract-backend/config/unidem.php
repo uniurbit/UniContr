@@ -39,6 +39,11 @@ return [
     //configurazione email
     
     /**
+     * Ufficio per validazione contratti ALD
+     */
+    'ufficio_stipendi' => ['ufficio.stipendi@uniurb.it'],
+
+    /**
      * Lista email separate da , per amministratori di sistema
      */
     'administrator_email' =>  explode(',',env('ADMINISTRATOR_EMAIL', 'enrico.oliva@uniurb.it')),   
@@ -70,5 +75,5 @@ return [
      */
     'ins_iban_ugov' => env('INS_IBAN_UGOV',false),
 
-    'tipi_firma_attivi' =>  array_map('trim',explode(',',env('TIPI_FIRMA_ATTIVI', 'FIRMAIO, USIGN'))),  // , PRESA_VISIONE
+    'tipi_firma_attivi' =>  array_map('trim',explode(',',env('TIPI_FIRMA_ATTIVI', 'FIRMAIO, USIGN, FIRMA_GRAFOMETRICA'))),  // , PRESA_VISIONE
 ];

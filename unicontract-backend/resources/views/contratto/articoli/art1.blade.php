@@ -18,7 +18,7 @@ Il presente contratto non può protrarsi oltre il periodo sopraindicato.
 {{$pre->genere['str0']}} {{$pre->genere['str5']}} si impegna a prestare, in favore dell'Università degli Studi di Urbino Carlo Bo, 
 la propria opera intellettuale quale professore a contratto dell'insegnamento di alta qualificazione {{$pre->insegnamentoDescr}}{{$pre->settore}}, {{$pre->cfu}} corso di laurea in {{$pre->cdl}} nel {{$pre->dipartimento}}, 
 per l'anno accademico {{$pre->aa}}, {{$pre->periodo}}, comprensivo della sessione straordinaria d'esame.
-<br>Il presente contratto non può protrarsi oltre il periodo sopraindicato.
+<br>Il presente contratto, eventualmente rinnovabile, non può protrarsi oltre il periodo sopraindicato.
 @else
 <!--RINNOVO-->
 {{$pre->genere['str0']}} {{$pre->genere['str5']}} a seguito di {{$pre->rinnovo['text_rinnovo_3']}} del contratto 
@@ -26,7 +26,7 @@ di insegnamento {{$pre->rinnovo['text_rinnovo_4']}} per il precedente anno accad
 in favore dell'Università degli Studi di Urbino Carlo Bo, la propria opera intellettuale quale professore a contratto 
 dell'insegnamento di alta qualificazione di {{$pre->insegnamentoDescr}}{{$pre->settore}}, {{$pre->cfu}} corso di 
 laurea in {{$pre->cdl}} nel {{$pre->dipartimento}} per l'anno accademico {{$pre->aa}}, {{$pre->periodo}}, comprensivo della sessione straordinaria d'esame.
-<br>Il presente contratto non può protrarsi oltre il periodo sopraindicato.
+<br>Il presente contratto, eventualmente rinnovabile, non può protrarsi oltre il periodo sopraindicato.
 @endif
 </p>
 @elseif ($pre->isDidatticaUfficiale())
@@ -36,7 +36,7 @@ laurea in {{$pre->cdl}} nel {{$pre->dipartimento}} per l'anno accademico {{$pre-
 {{$pre->genere['str0']}} {{$pre->genere['str5']}} si impegna a prestare, in favore dell'Università degli Studi di Urbino Carlo Bo, 
 la propria opera intellettuale quale professore a contratto dell'insegnamento ufficiale di {{$pre->insegnamentoDescr}}{{$pre->settore}}, {{$pre->cfu}} corso di laurea in {{$pre->cdl}} nel {{$pre->dipartimento}}, 
 per l'anno accademico {{$pre->aa}}, {{$pre->periodo}}, comprensivo della sessione straordinaria d'esame.
-<br>Il presente contratto non può protrarsi oltre il periodo sopraindicato.
+<br>Il presente contratto, eventualmente rinnovabile, non può protrarsi oltre il periodo sopraindicato.
 @else 
 <!--RINNOVO-->
 {{$pre->genere['str0']}} {{$pre->genere['str5']}}, a seguito di {{$pre->rinnovo['text_rinnovo_3']}} del contratto 
@@ -45,7 +45,7 @@ in favore dell'Università degli Studi di Urbino Carlo Bo, la propria opera inte
 dell'insegnamento ufficiale di {{$pre->insegnamentoDescr}}{{$pre->settore}}, {{$pre->cfu}} corso di 
 laurea in {{$pre->cdl}} nel {{$pre->dipartimento}} per l'anno accademico {{$pre->aa}}, {{$pre->periodo}}, 
 comprensivo della sessione straordinaria d'esame.
-<br>Il presente contratto non può protrarsi oltre il periodo sopraindicato.
+<br>Il presente contratto, eventualmente rinnovabile, non può protrarsi oltre il periodo sopraindicato.
 @endif
 </p>
 @elseif ($pre->isDidatticaIntegrativa())
@@ -56,7 +56,7 @@ comprensivo della sessione straordinaria d'esame.
 la propria opera intellettuale quale professore a contratto per lo svolgimento del corso integrativo dell'insegnamento ufficiale 
 di {{$pre->insegnamentoDescr}}{{$pre->settore}}, {{$pre->ore}} ore, 
 corso di laurea in {{$pre->cdl}} nel {{$pre->dipartimento}}, per l'anno accademico {{$pre->aa}}, {{$pre->periodo}}.<br>
-Il presente contratto non può protrarsi oltre il periodo sopraindicato.
+Il presente contratto, eventualmente rinnovabile, non può protrarsi oltre il periodo sopraindicato.
 @else 
 <!-- RINNOVO -->
 {{$pre->genere['str0']}} {{$pre->genere['str5']}} a seguito di {{$pre->rinnovo['text_rinnovo_3']}} del contratto di 
@@ -64,7 +64,7 @@ insegnamento {{$pre->rinnovo['text_rinnovo_4']}} per il precedente anno accademi
 dell'Università degli Studi di Urbino Carlo Bo, la propria opera intellettuale quale professore a contratto per lo svolgimento 
 del corso integrativo dell'insegnamento ufficiale di {{$pre->insegnamentoDescr}}{{$pre->settore}}, {{$pre->ore}} ore, 
 corso di laurea in {{$pre->cdl}} nel {{$pre->dipartimento}} per l'anno accademico {{$pre->aa}}, {{$pre->periodo}}.
-<br>Il presente contratto non può protrarsi oltre il periodo sopraindicato.
+<br>Il presente contratto, eventualmente rinnovabile, non può protrarsi oltre il periodo sopraindicato.
 @endif
 </p>
 @elseif ($pre->isSupportoDidattica())
@@ -75,7 +75,7 @@ corso di laurea in {{$pre->cdl}} nel {{$pre->dipartimento}} per l'anno accademic
 la propria opera intellettuale quale professore a contratto per lo svolgimento di attività di supporto alla didattica 
 all'insegnamento ufficiale di {{$pre->insegnamentoDescr}}{{$pre->settore}}, {{$pre->ore}} ore, 
 corso di laurea in {{$pre->cdl}} nel {{$pre->dipartimento}}, per l'anno accademico {{$pre->aa}}, {{$pre->periodo}}.
-<br>Il presente contratto non può protrarsi oltre il periodo sopraindicato.
+<br>Il presente contratto, eventualmente rinnovabile, non può protrarsi oltre il periodo sopraindicato.
 @else 
 <!-- RINNOVO -->
 {{$pre->genere['str0']}} {{$pre->genere['str5']}} a seguito di {{$pre->rinnovo['text_rinnovo_3']}} del contratto di 
@@ -83,7 +83,7 @@ insegnamento {{$pre->rinnovo['text_rinnovo_4']}} per il precedente anno accademi
 Urbino Carlo Bo, la propria opera intellettuale quale professore a contratto per lo svolgimento di attività di supporto alla didattica all'insegnamento 
 ufficiale di {{$pre->insegnamentoDescr}}{{$pre->settore}}, {{$pre->ore}} ore, 
 corso di laurea in {{$pre->cdl}} nel {{$pre->dipartimento}} per l'anno accademico {{$pre->aa}}, {{$pre->periodo}}.
-<br>Il presente contratto non può protrarsi oltre il periodo sopraindicato.
+<br>Il presente contratto, eventualmente rinnovabile, non può protrarsi oltre il periodo sopraindicato.
 @endif
 </p>
 @endif

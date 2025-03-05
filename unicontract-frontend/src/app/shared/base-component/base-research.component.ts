@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
 import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceQuery } from '../query-builder/query-builder.interfaces';
 import { saveAs } from 'file-saver';
@@ -23,7 +23,7 @@ export class BaseResearchComponent implements OnInit {
 
   builderoptions: FormlyTemplateOptions;
 
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
 
   public rules;
 

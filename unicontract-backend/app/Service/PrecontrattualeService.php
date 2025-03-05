@@ -40,6 +40,7 @@ use App\Soap\Request\WsdtoPagamento;
 use PHP_IBAN\IBAN;
 use Exception;
 use App\Http\Controllers\FirmaIOClient;
+use Illuminate\Support\Facades\Storage;
 
 
 class PrecontrattualeService implements ApplicationService
@@ -61,7 +62,7 @@ class PrecontrattualeService implements ApplicationService
         if (Auth::user()){
             $sp->user_id = Auth::user()->id;
         } else {
-            $sp->user_id = $user->id;
+            $sp->user_id = $user ? $user->id : null;
         }
         return $sp;
     }
@@ -146,7 +147,16 @@ class PrecontrattualeService implements ApplicationService
             'contratto', 
             ['pre' => $pre, 'type'=>$type],
             [], 
-            $config);                 
+            $config);            
+            
+        //DOVREMMO POTER AGGIUNGERE L'INFORMATIVA SE NON PRESENTE NEL CONTRATTO  e dipende dalla tipologia
+        // Determine the path of the data informativa PDF based on the contractual type
+        $pdf2Path = self::getDataInformativaPdfPath();
+        if ($pdf2Path){
+            // Merge the PDFs
+            $mergedPdf = self::mergePdfs($pdf, $pdf2Path);           
+            return $mergedPdf;
+        }
 
         return $pdf;
 
@@ -169,21 +179,61 @@ class PrecontrattualeService implements ApplicationService
         // return $pdf;
     }
 
+    
+    private static function  getDataInformativaPdfPath()
+    {
+        // Logic to determine the path of the data informativa PDF based on the contractual type
+        return 'documents/Uniurb-informativa privacy 2024 RTD-assegni di ricerca-insegnamento.pdf';             
+    }
+    
+        
+    private static function mergePdfs($pdf1, $pdf2Path)
+    {                    
+        //$blankImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOMAAACECAIAAADtHQv5AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFiSURBVHhe7dIBDQAADMOg+ze962gCGrhBgak0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpNJhKg6k0mEqDqTSYSoOpFGwPFXnZUGYn22MAAAAASUVORK5CYII=";
+        // Import pages from the second PDF
+        // Add a new page with the custom @page style applied
+        $pdf1->getMpdf()->AddPageByArray([
+            'pageselector' => 'informativa'                    
+        ]); 
+        //per disabilitare header sulle nuove pagine con addpage. Fatto in html
+        //$pdf1->getMpdf()->AddPage('','','','','','','','','','','', '', '', '', '', -1, 0, -1, 0);      
+        $pageCount =  $pdf1->getMpdf()->setSourceFile(Storage::path($pdf2Path));                               
+        for ($i = 1; $i <= $pageCount; $i++) {
+            $tplId = $pdf1->getMpdf()->importPage($i);
+            $pdf1->getMpdf()->useTemplate($tplId);
+            //$pdf1->getMpdf()->Image($blankImage,  0, 0, 80, 30, 'png', '', true, false);
+            if ($i < $pageCount) {                
+                // Add a new page with the custom @page style applied
+                $pdf1->getMpdf()->AddPageByArray([
+                    'pageselector' => 'informativa'                    
+                ]);
+            }
+        }
+        return $pdf1;
+    }
+    
 
     public static function previewContratto($insegn_id){
         $pre = PrecontrattualePerGenerazione::with(['anagrafica','user','insegnamento','p2naturarapporto','validazioni'])->where('insegn_id',$insegn_id)->first();       
         if ($pre->isBozza()){
             return PrecontrattualeService::createContratto($pre,'CONTR_BOZZA');
         }else{
-            return PrecontrattualeService::createContratto($pre,'CONTR_FIRMA');
+            return PrecontrattualeService::createContratto($pre,'CONTR_FIRMA', true);
         } 
     }
 
-    public static function createContratto($pre, $type){
+    public static function createContratto($pre, $type, $calculatePosition = false){
         
         $attach = null;
         $pdf = PrecontrattualeService::makePdfForContratto($pre, $type);
-      
+        
+        if ($calculatePosition){
+            //calcolo posizione firma per grafometrica
+            $position = PdfSignService::getSignPosition($pdf,false,false)[0];
+            $attach['widgetPDFSignaturePosition'] = $position;
+        }
+        
+
         $attach['attachmenttype_codice'] =  $type;
         $attach['filename'] = 'Contratto'. $pre->user->nameTutorString() .'.pdf';
         try {
@@ -223,6 +273,20 @@ class PrecontrattualeService implements ApplicationService
         $data['tipo_accettazione'] = 'PRESA_VISIONE';
         //aggiorna titulus ref e attachment
         $result = $this->repo->newPresavisioneAccettazione($data, $pre);
+        // email segreteria del rettore catia rossi
+        EmailService::sendEmailByType($insegn_id,'APP_FIRMA');
+
+        return $result;
+    }
+
+    public function firmaGrafometrica($insegn_id, $pdfOutput){
+
+        $pre = PrecontrattualePerGenerazione::with(['anagrafica','user','insegnamento','p2naturarapporto'])->where('insegn_id',$insegn_id)->first();  
+        //salva documento in Titulus in stato di bozza
+        $data = PrecontrattualeService::saveContrattoBozzaTitulus($pre, $pdfOutput);
+        $data['tipo_accettazione'] = 'FIRMA_GRAFOMETRICA';
+        //aggiorna titulus ref e attachment
+        $result = $this->repo->newPresavisioneAccettazione($data, $pre, 'Firmato');
         // email segreteria del rettore catia rossi
         EmailService::sendEmailByType($insegn_id,'APP_FIRMA');
 

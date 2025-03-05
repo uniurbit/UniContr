@@ -1,11 +1,6 @@
 import { Component, OnInit, Input, ViewChild, TemplateRef, KeyValueDiffers } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormlyFieldConfig, FieldArrayType, FormlyFormBuilder } from '@ngx-formly/core';
+import { FormlyFieldConfig, FieldArrayType, FormlyFormBuilder, FieldGroupTypeConfig } from '@ngx-formly/core';
 import { TableColumn } from '@swimlane/ngx-datatable';
-import { Router } from '@angular/router';
-import { Page, PagedData } from '../lookup/page';
-import { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } from 'constants';
-import { NgbStringAdapter } from 'src/app/NgbStringAdapter';
 
 @Component({
   selector: 'app-tablelookup-type',
@@ -25,7 +20,10 @@ import { NgbStringAdapter } from 'src/app/NgbStringAdapter';
   [reorderable]="to.reorderable"    
   [externalSorting]="true"
   [selected]="to.selected"
-  [selectionType]="'single'"
+  [selectionType]="to.selectionType ? to.selectionType : 'single'"  
+  [displayCheck]="to.displayCheck ? to.displayCheck : null"
+   
+
   (sort)="onSort($event)"
   (select)='onSelect($event)'
   (activate)='onEvents($event)'
@@ -60,13 +58,13 @@ import { NgbStringAdapter } from 'src/app/NgbStringAdapter';
 `
 })
 
+//<h1>Model</h1>
+//<pre>{{ model | json }}</pre>
 
 export class TableLookupTypeComponent extends FieldArrayType {  
 
   @ViewChild('table', { static: true }) table: any;
   @ViewChild('expaderdetailcolumn', { static: true }) public expaderdetailcolumn: TemplateRef<any>;     
-
-  adapter = new NgbStringAdapter();   
 
   constructor(private differs: KeyValueDiffers) {    
     super();          
@@ -76,8 +74,7 @@ export class TableLookupTypeComponent extends FieldArrayType {
     this.setPage({ offset: this.to.page.pageNumber ? this.to.page.pageNumber : 0, limit: this.to.page.size});
 
     if(this.to.detailRow){
-      //template only getter
-      //this.table.rowDetail.template = this.to.detailRow;
+      this.table.rowDetail.template = this.to.detailRow;
     }
 
     if (!('selected' in this.to)){
@@ -106,7 +103,8 @@ export class TableLookupTypeComponent extends FieldArrayType {
         //   { name: 'Nome utente', prop: 'name' },
         //   { name: 'Email', prop: 'email' },
         // ],          
-      this.to.columns =  this.field.fieldArray.fieldGroup.map(el => {      
+      const field = this.field.fieldArray as FormlyFieldConfig;
+      this.to.columns =  field.fieldGroup.map(el => {      
         
         let c = { 
           name: el.templateOptions.label, 
@@ -159,33 +157,32 @@ export class TableLookupTypeComponent extends FieldArrayType {
   }
 
   onSort(event) {
-    if (this.to.onSort){
-      this.to.onSort(event);
-    }else{
-      const sort = event.sorts[0];      
+    const sort = event.sorts[0];
+    this.model.sort((a , b) => {   
+        const valuea = this.getDescendantProp(a,sort.prop);
+        const valueb = this.getDescendantProp(b,sort.prop);
+        if (valuea != null && valueb != null){             
+          if (typeof valuea ===  "number"){
+              return ((valuea>valueb ? 1 : valuea<valueb ? -1 : 0) * (sort.dir === 'desc' ? -1 : 1));  
+          }    
+          return (valuea.localeCompare(valueb) * (sort.dir === 'desc' ? -1 : 1));    
+        }
+    });          
 
-      this.table.rows.sort((a , b) => {   
-          const valuea = this.getDescendantProp(a,sort.prop);
-          const valueb = this.getDescendantProp(b,sort.prop);
-          if (valuea != null && valueb != null){             
-            if (typeof valuea ===  "number" && typeof valueb === "number"){
-                //return (valuea > valueb) * (sort.dir === 'desc' ? -1 : 1);  
-                return ((valuea>valueb ? 1 : valuea<valueb ? -1 : 0) * (sort.dir === 'desc' ? -1 : 1));  
-            } else if (event.column.type  && event.column.type == "date"){
-              const da = this.adapter.fromModel(valuea);
-              const db = this.adapter.fromModel(valueb);
-              return (<any>new Date(da.year,da.month-1,da.day) - <any>new Date(db.year,db.month-1,db.day)) * (sort.dir === 'desc' ? -1 : 1);
-            }    
-            return (valuea.localeCompare(valueb) * (sort.dir === 'desc' ? -1 : 1));    
-          }
-      });        
-    }
-
-    this.table.offset = this.to.page.pageNumber; 
+    this.formControl.patchValue(this.model);   
   }
 
   onSelect({ selected }) {
-      //console.log('Select Event', selected, this.selected);
+    if (this.to.selected){
+      this.to.selected.splice(0, this.to.selected.length);
+      this.to.selected.push(...selected);
+      
+      if (typeof this.to.onSelect === 'function') {
+        this.to.onSelect(this.field, selected);
+      }       
+      this.formControl.markAsTouched();
+      this.formControl.updateValueAndValidity();      
+    }    
   }
 
   onEvents(event) {

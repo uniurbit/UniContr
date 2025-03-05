@@ -1,6 +1,7 @@
 import { InsegnUgovInterface } from './../interface/insegn-ugov';
 
 export class InsegnUgov implements InsegnUgovInterface {
+    id_ab?: string;
     coper_id: number;
     dip_des: string;
     nome_cds: string;
@@ -28,7 +29,8 @@ export class InsegnUgov implements InsegnUgovInterface {
     motivo_atto_cod: string;
     numero: string;
     data: string;
-    contatore_insegnamenti?: number;
+    contatore_insegnamenti?: any;
+    contratti_precedenti?: any;
     cds_cod: string;
 
     constructor() {

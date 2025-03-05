@@ -10,7 +10,7 @@
     <h5>{{ 'story_title' | translate }}</h5>
     <table class="table table-sm">
       <thead>
-        <tr class="row ml-1 mr-1">
+        <tr class="row ms-1 me-1">
           <th class="col-sm-7">AZIONE</th>
           <th class="col-sm-2">UTENTE</th>
           <th class="col-sm-2 text-center">DATA</th>
@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="row ml-1 mr-1" *ngFor="let item of items | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+        <tr class="row ms-1 me-1" *ngFor="let item of items | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
           <td class="col-sm-7">{{ item.descrizione }}</td>
           <td class="col-sm-2" *ngIf="item.user_id">{{ item.name | titlecase }}</td>
           <td class="col-sm-2" *ngIf="!item.user_id">Sistema</td>
@@ -32,8 +32,8 @@
     </div>
 
   </app-riquadro-wrapper>
-  <div class="form-footer text-right">
-    <button class="btn btn-outline-secondary rounded mr-2" (click)="summary()" title="TORNA AL QUADRO RIEPILOGATIVO">Torna al sommario</button>
+  <div class="form-footer text-end">
+    <button class="btn btn-outline-secondary rounded me-2" (click)="summary()" title="TORNA AL QUADRO RIEPILOGATIVO">Torna al sommario</button>
 
   </div>
 </div>

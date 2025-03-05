@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use App\Service\UtilService;
+use Exception;
 
 class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
 {
@@ -105,6 +106,41 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'COCOCO') && $precontr->d6familiari
                 ?  ($precontr->d6familiari->flag_richiesta_detrazioni == 0 ? 'no' : 'si') : '',
 
+            //partita iva
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'PRPR') && $precontr->cPrestazioneProfessionale ? 
+                $precontr->cPrestazioneProfessionale->piva : '',
+            //intestazione
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'PRPR') && $precontr->cPrestazioneProfessionale ? 
+                $precontr->cPrestazioneProfessionale->intestazione : '', 
+            //tipologia
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'PRPR') && $precontr->cPrestazioneProfessionale ? 
+                ($precontr->cPrestazioneProfessionale->tipologia == 0 ? 'individuale' : 'studio associato') : '',
+
+            //albo
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'PRPR') && $precontr->cPrestazioneProfessionale ?
+                ($precontr->cPrestazioneProfessionale->flag_albo == 0 ? 'no' : 'si') : '', //albo professionale
+            //denominazione
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'PRPR') && $precontr->cPrestazioneProfessionale ?
+                ($precontr->cPrestazioneProfessionale->flag_albo == 0 ? '' : $precontr->cPrestazioneProfessionale->denominazione_albo) : '', //denominazione
+
+            //cassa
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'PRPR') && $precontr->cPrestazioneProfessionale ?
+                ($precontr->cPrestazioneProfessionale->flag_cassa == 0 ? 'no' : 'si') : '', //cassa
+            //denominazione
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'PRPR') && $precontr->cPrestazioneProfessionale ?
+                ($precontr->cPrestazioneProfessionale->flag_cassa == 0 ? '' : $precontr->cPrestazioneProfessionale->denominazione_cassa) : '', //denominazione cassa
+            //contributo
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'PRPR') && $precontr->cPrestazioneProfessionale ?
+                ($precontr->cPrestazioneProfessionale->flag_cassa == 0 ? '' : ($precontr->cPrestazioneProfessionale->contributo_cassa==0 ? '%4' : '%2')) : '',
+            
+            //rivalsa
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'PRPR') && $precontr->cPrestazioneProfessionale ?
+                ($precontr->cPrestazioneProfessionale->flag_rivalsa == 0 ? 'no' : 'si') : '',
+
+            //regime fiscale
+            ($precontr->p2naturarapporto && $precontr->p2naturarapporto->natura_rapporto === 'PRPR') && $precontr->cPrestazioneProfessionale ?
+                ($precontr->cPrestazioneProfessionale->regime_fiscale ? __('global.dichiaro_descr_'.$precontr->cPrestazioneProfessionale->regime_fiscale)  : '') : '',
+
             $precontr->currentState,         
             
             $precontr->flag_no_compenso == 0 ? '' : 'si'
@@ -165,6 +201,17 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
             'Detrazione L. 21/2020',
             'Detrazioni familiari',
 
+            'Partita Iva',
+            'Intestazione',
+            'Tipologia',
+            'Albo',
+            'Denominazione',
+            'Cassa',
+            'Denominazione',
+            'Contributo',
+            'Rivalsa',
+            'Regime Fiscale',
+
             'Stato corrente',
             'Rinuncia al compenso'
         ];
@@ -191,17 +238,21 @@ class PrecontrattualeExport implements FromCollection, WithMapping, WithHeadings
     //             ($precontr->insegnamento->corsodistudio->where('aa', $this->annoAccademico((int)$precontr->insegnamento->aa))->first() ? $precontr->insegnamento->corsodistudio->where('aa', $this->annoAccademico((int)$precontr->insegnamento->aa))->first()->scuola->scuola_nome : ''  ): '' ): '',
     public function getScuola($precontr){
         $result = '';
-        if ($precontr->insegnamento) {
-            if ($precontr->insegnamento->corsodistudio) {
-                $corsodistudio = $precontr->insegnamento->corsodistudio->where('aa', $this->annoAccademico((int)$precontr->insegnamento->aa))->first();
-                
-                if ($corsodistudio) {
-                    $result = $corsodistudio->scuola->scuola_nome;
+        try{
+            if ($precontr->insegnamento) {
+                if ($precontr->insegnamento->corsodistudio) {
+                    $corsodistudio = $precontr->insegnamento->corsodistudio->where('aa', $this->annoAccademico((int)$precontr->insegnamento->aa))->first();
+                    
+                    if ($corsodistudio) {
+                        $result = $corsodistudio->scuola->scuola_nome;
+                    }
                 }
             }
-        }
 
-        return $result;
+            return $result;
+        }catch (Exception $e) {
+            return 'Dato non reperibile';
+        } 
     }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FieldType, FormlyConfig, FormlyFieldConfig, Field } from '@ngx-formly/core';
+import { FieldType, FormlyConfig, FormlyFieldConfig } from '@ngx-formly/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LookupComponent } from '../lookup/lookup.component';
 
@@ -12,8 +12,7 @@ import { LookupComponent } from '../lookup/lookup.component';
     <ng-template #numberTmp>
       <input type="number" [formControl]="formControl" class="form-control" [formlyAttributes]="field" [class.is-invalid]="showError">
     </ng-template>          
-    <div class="input-group-addon input-group-append"
-      *ngIf="to.addonRight"
+    <div *ngIf="to.addonRight"
       [ngStyle]="{cursor: to.addonRight.onClick ? 'pointer' : 'inherit'}"
       (click)="addonRightClick($event)">
       <i class="input-group-text" [ngClass]="to.addonRight.class" *ngIf="to.addonRight.class"></i>
@@ -34,6 +33,15 @@ export class ExternalqueryComponent extends FieldType implements OnInit {
     this.field.wrappers = [];
     if (this.codeField == undefined) {      
       let tmpfield = this.field;      
+
+      //esempio di tipo external
+      // label: 'UserId',
+      // type: 'string',
+      // entityName: 'user',
+      // entityLabel: 'Utenti',
+      // codeProp: 'id',
+      // descriptionProp: 'name',
+
 
       tmpfield.templateOptions.keyup = (field, event: KeyboardEvent) => {
         if (event.key == "F4") {

@@ -72,7 +72,7 @@ export class MappingRuoli extends BaseResearchComponent {
 
   constructor(protected service: MappingRuoloService, router: Router, route: ActivatedRoute)  {
     super(router, route);
-    this.resultMetadata[0].fieldArray.fieldGroup = service.getMetadata();
+    this.resultMetadata[0].fieldArray = { fieldGroup: service.getMetadata()}; 
     this.routeAbsolutePath = 'home/mappingruoli';
   }
 

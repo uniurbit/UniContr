@@ -10,13 +10,14 @@ import { Updb4 } from './../../../classes/precontrattuale';
 import { B4RapportoPA } from './../../../classes/b4rappPA';
 import { B4RappPAService } from './../../../services/b4rappPA.service';
 
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { encode, decode } from 'base64-arraybuffer';
 import ControlUtils from 'src/app/shared/dynamic-form/control-utils';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 import { takeUntil, tap } from 'rxjs/operators';
 import { NgbStringAdapter } from 'src/app/NgbStringAdapter';
+import * as saveAs from 'file-saver';
 
 @Component({
   selector: 'app-b4-rapp-pa',
@@ -43,7 +44,7 @@ export class B4RappPaComponent extends BaseComponent {
     {time: 0, name: 'parziale'}
   ];
 
-  formAttch = new FormGroup({});
+  formAttch = new UntypedFormGroup({});
   model: any = {
     attachments: [
       {
@@ -491,10 +492,7 @@ export class B4RappPaComponent extends BaseComponent {
                   required: true,
                 },
                 hideExpression: (model: any, formState: any) => {
-                  if (this.model && this.model.tipo_rapporto === 'ASP') {
-                    return model;
-                  }
-                  return false;
+                  return (this.model && this.model.tipo_rapporto === 'ASP');
                 },
               },    
             ],

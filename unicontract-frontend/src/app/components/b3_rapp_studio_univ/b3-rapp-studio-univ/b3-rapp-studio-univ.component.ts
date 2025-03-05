@@ -8,7 +8,7 @@ import { PrecontrattualeService } from './../../../services/precontrattuale.serv
 import { Updb3 } from './../../../classes/precontrattuale';
 import { B3RapportoStudioUniversita } from './../../../classes/b3rappStudio';
 import { B3RappStudioUnivService } from './../../../services/b3rappStudio.service';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 
@@ -43,7 +43,7 @@ export class B3RappStudioUnivComponent extends BaseComponent {
     {legge: 'L. 449/1997, Art. 51', name: 'L. 449/1997, Art. 51'}
   ];
 
-  formAttch = new FormGroup({});
+  formAttch = new UntypedFormGroup({});
   model: any = {};
   options: FormlyFormOptions = {
     formState: {
@@ -118,6 +118,9 @@ export class B3RappStudioUnivComponent extends BaseComponent {
           }
         },
       ],
+      hideExpression: (model: any, formState: any) => {
+        return (model.tipologia_rapporto == '');                           
+      }
     },
 
     {
@@ -146,9 +149,7 @@ export class B3RappStudioUnivComponent extends BaseComponent {
           },
           */
           hideExpression: (model: any, formState: any) => {
-            if (model.tipologia_rapporto !== 'ADR') {
-              return model;
-            }
+            return (model.tipologia_rapporto !== 'ADR');                           
           }
         },
         {

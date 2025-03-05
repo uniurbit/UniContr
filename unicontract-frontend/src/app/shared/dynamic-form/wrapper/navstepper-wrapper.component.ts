@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterContentInit } from '@angular/core';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
-import { FormGroup, FormArray } from '@angular/forms';
-import { NgbTabset } from '@ng-bootstrap/ng-bootstrap';
+import { UntypedFormArray } from '@angular/forms';
+import { NgbNavModule, NgbNav  } from '@ng-bootstrap/ng-bootstrap';
 
 //ng g c shared/dynamic-form/navstepperWrapper -s true --spec false -t true
 
@@ -21,14 +21,14 @@ export interface StepType {
 //<i class="glyphicon glyphicon-user"></i>
 export class NavstepperWrapperComponent implements OnInit {
   
-  @ViewChild('tabs', { static: true }) tabs:NgbTabset;
+  @ViewChild('tabs', { static: true }) tabs:NgbNav;
 
   
   @Input()
   steps: StepType[];
 
   model={};
-  form = new FormArray([]);  
+  form = new UntypedFormArray([]);  
   options: FormlyFormOptions[];
   fields: FormlyFieldConfig;
 
@@ -43,7 +43,7 @@ export class NavstepperWrapperComponent implements OnInit {
   }
 
   ngOnInit() {            
-
+    //this.form = new FormArray(this.steps.map(()=> new FormGroup({})));
     this.options = this.steps.map(() => <FormlyFormOptions> {});
     
   }

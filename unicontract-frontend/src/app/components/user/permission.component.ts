@@ -41,7 +41,9 @@ export class PermissionComponent extends BaseEntityComponent {
           key: 'guard_name',
           type: 'input',
           className: 'col-md-5',
+          defaultValue: 'api',          
           templateOptions: {
+            readonly: true,
             label: 'Guardia',
             required: true
           },

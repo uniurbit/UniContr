@@ -9,7 +9,7 @@ import { UpdD2 } from './../../../classes/precontrattuale';
 import { D2Inail } from './../../../classes/d2Inail';
 import { D2InailService } from './../../../services/d2Inail.service';
 
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { encode, decode } from 'base64-arraybuffer';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
@@ -26,7 +26,7 @@ export class D2InailComponent extends BaseComponent {
   private precontr: UpdD2;
   idins: number;
 
-  formAttch = new FormGroup({});
+  formAttch = new UntypedFormGroup({});
   model: any = {};
   options: FormlyFormOptions = {
     formState: {
@@ -46,10 +46,10 @@ export class D2InailComponent extends BaseComponent {
           key: 'posizione_previdenziale',
           templateOptions: {
             options: [
-              {key: 'INAIL7', value: this.translateService.instant('d2_txt2')},
-              {key: 'INAIL10', value: this.translateService.instant('d2_txt3')},
-              {key: 'INAIL4', value: this.translateService.instant('d2_txt4')},
-              {key: 'NOINAIL', value: this.translateService.instant('d2_txt5')}
+              {value: 'INAIL7',  label: this.translateService.instant('d2_txt2')},
+              {value: 'INAIL10', label: this.translateService.instant('d2_txt3')},
+              {value: 'INAIL4',  label: this.translateService.instant('d2_txt4')},
+              {value: 'NOINAIL', label: this.translateService.instant('d2_txt5')}
             ],
             required: true,
             translate: true,

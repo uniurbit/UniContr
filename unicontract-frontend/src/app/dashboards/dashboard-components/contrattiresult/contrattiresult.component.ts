@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { Page } from 'src/app/shared/lookup/page';
 import { Router } from '@angular/router';
 import { DatePipe, TitleCasePipe } from '@angular/common';
@@ -24,7 +24,7 @@ export class ConvenzioniresultComponent implements OnInit {
   @Input() querymodel: any;
   @Input() postname = null;
 
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   model = {
     data: new Array<any>(),
   };

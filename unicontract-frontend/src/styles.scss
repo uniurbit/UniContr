@@ -1,15 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import "~bootstrap-italia/dist/css/bootstrap-italia.min.css";  */
 
-@import '~bootstrap/scss/bootstrap.scss'; 
+//@import '../node_modules/bootstrap/scss/bootstrap.scss'; 
 
-@import '~@swimlane/ngx-datatable/index.css';
-@import '~@swimlane/ngx-datatable/themes/bootstrap.css';
-@import '~@swimlane/ngx-datatable/assets/icons.css';
-@import "~@ng-select/ng-select/themes/default.theme.css";
+@import '@swimlane/ngx-datatable/index.css';
+@import '@swimlane/ngx-datatable/themes/bootstrap.css';
+@import '@swimlane/ngx-datatable/assets/icons.css';
+@import "@ng-select/ng-select/themes/default.theme.css";
 
-@import '~ag-grid-community/dist/styles/ag-grid.css'; 
-@import '~ag-grid-community/dist/styles/ag-theme-balham.css'; 
 
 
 .display-flex { display: flex; }
@@ -59,6 +57,10 @@
 .ngx-datatable .datatable-body-row.active,	
 .ngx-datatable .datatable-body-row.active .datatable-row-group  {
 	background-color: #d8d2fa;
+}
+
+.ngx-datatable.bootstrap .datatable-footer {
+  overflow: hidden; /* Prevent overflow to hide the scrollbar */
 }
 
 .ng-select.custom {
@@ -116,4 +118,48 @@
     border: none; 
     font-size: 13px;
     color: #328ba8;
-}
+  }
+
+
+  .angular-with-newlines {
+    white-space: pre-wrap;
+  }
+
+  
+  app-form-wysiwyg-type {
+    div.is-invalid,
+    div.ng-invalid {
+      border:1px solid #dc3545;
+    }
+  }
+
+  app-form-wysiwyg-type {
+    b, strong {
+      font-weight: bold
+    }
+  }
+
+  .ed_blade_cmt{
+    color: #008000
+  }
+
+  .ed_blade_code{
+    color: #0000ff
+  }
+
+  .ed_blade_control{
+    color: #e90
+  }
+
+  .hugeModal > .modal-dialog {
+    max-width: 80% !important;
+ 
+  }
+
+  .mymark {
+    border-radius: 3px;
+    color: transparent;
+    padding: 0;
+    background-color: #b1d5e5;
+  }
+  

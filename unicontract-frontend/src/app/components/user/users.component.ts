@@ -37,6 +37,15 @@ export class UsersComponent extends BaseResearchComponent {
             }
           },
           {
+            key: 'cf',
+            type: 'string',
+            templateOptions: {
+              label: 'Codice fiscale',
+              required: true,
+              column: { cellTemplate: 'valuecolumn'}
+            }
+          },
+          {
             key: 'email',
             type: 'string',
             templateOptions: {
@@ -81,9 +90,11 @@ export class UsersComponent extends BaseResearchComponent {
         onSetPage: (pageInfo) => this.onSetPageWithInit(pageInfo),
         columns: [
           { name: '#', prop: 'id', width: 80, maxWidth: 100 },
-          { name: 'Nome utente', prop: 'name' },
+          { name: 'Nome utente', prop: 'name' },          
           { name: 'Email', prop: 'email' },
-          { name: 'Data blocco', prop: 'blocked_date'},
+          { name: 'Codice fiscale', prop: 'cf' },          
+          { name: 'Data blocco', prop: 'blocked_date', maxWidth: 150 },
+          { name: 'Codice personale Ugov', prop: 'v_ie_ru_personale_id_ab' },          
           { name: 'Lista ruoli', prop:  'listaruoli'}
         ]
       },

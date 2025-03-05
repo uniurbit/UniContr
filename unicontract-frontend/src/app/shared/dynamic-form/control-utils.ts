@@ -1,16 +1,13 @@
 import { ControlBase } from "..";
-import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { Observable } from "rxjs";
-import { getDocument, PDFJSStatic } from "pdfjs-dist";
+import { getDocument } from "pdfjs-dist";
 import { FormlyFieldConfig } from "@ngx-formly/core/lib/core";
 
 export interface ResultParse{
   docnumber: string;
   converted: string;
 }
-
-const PDFJS: PDFJSStatic = require('pdfjs-dist');
-
 export default class ControlUtils {
 
   static getServiceName(entityName: string) {
@@ -22,12 +19,12 @@ export default class ControlUtils {
 
     controls.forEach(ctrl => {
       if (ctrl.controlType === 'array') {
-        group[ctrl.key] = new FormArray([]);
+        group[ctrl.key] = new UntypedFormArray([]);
       } else {
-        group[ctrl.key] = new FormControl(ctrl.value || '', this.mapValidators(ctrl.validation));
+        group[ctrl.key] = new UntypedFormControl(ctrl.value || '', this.mapValidators(ctrl.validation));
       }
     });
-    return new FormGroup(group);
+    return new UntypedFormGroup(group);
   }
 
   static normalizeArray<T>(array: Array<T>, indexKey: keyof T) {

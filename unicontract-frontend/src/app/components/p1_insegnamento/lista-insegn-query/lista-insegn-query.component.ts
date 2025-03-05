@@ -8,7 +8,6 @@ import { DatePipe, TitleCasePipe } from '@angular/common';
 import { InsegnUgovService } from 'src/app/services/insegn-ugov.service';
 import { MyTranslatePipe } from 'src/app/shared/pipe/custom.translatepipe';
 import { TranslateService } from '@ngx-translate/core';
-import { NoRowsOverlayComponent } from 'ag-grid-community/dist/lib/rendering/overlays/noRowsOverlayComponent';
 import { annoAccademicoCorrente } from 'src/app/shared/dynamic-form/utils';
 
 @Component({
@@ -109,13 +108,13 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
       templateOptions: {
         label: 'Dipartimento',        
         options: [
-          { key: '005019', value: this.translateService.instant('005019_disb') },
-          { key: '004919', value: this.translateService.instant('004919_dispea')},
-          { key: '004419', value: this.translateService.instant('004419_digiur') },
-         // { key: '004940', value: this.translateService.instant('004940_discui') },
-          { key: '005579', value: this.translateService.instant('005579_discui') },
-          { key: '004939', value: this.translateService.instant('004939_distum') },
-          { key: '004424', value: this.translateService.instant('004424_desp') }
+          { value: '005019', label: this.translateService.instant('005019_disb') },
+          { value: '004919', label: this.translateService.instant('004919_dispea')},
+          { value: '004419', label: this.translateService.instant('004419_digiur') },
+         // valueey: '004940'labelue: this.translateService.instant('004940_discui') },
+          { value: '005579', label: this.translateService.instant('005579_discui') },
+          { value: '004939', label: this.translateService.instant('004939_distum') },
+          { value: '004424', label: this.translateService.instant('004424_desp') }
         ]      
       }
     },
@@ -196,7 +195,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
           { name: 'Fine', prop: 'data_fine_contratto', wrapper: 'value',  width: 80, maxWidth: 150, type: 'date'},
           { name: 'Insegnamento', prop: 'af_gen_des', wrapper: 'value', minWidth:400, width: 400},
           { name: 'Motivo Atto', prop: 'motivo_atto_cod', wrapper: 'value', pipe: this.translate, minWidth: 100, maxWidth: 150},
-          { name: '', prop: 'coper_id',  minWidth: 120, cellTemplate: this.seleziona },
+          { name: '', prop: 'coper_id',  minWidth: 120, cellTemplate: this.seleziona, sortable: false },
         ]
       },
       fieldArray: {

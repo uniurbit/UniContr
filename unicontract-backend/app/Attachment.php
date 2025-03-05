@@ -16,6 +16,8 @@ use App\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use DateTimeInterface;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class Attachment extends Model
 
@@ -159,12 +161,26 @@ class Attachment extends Model
         $driver = Storage::disk($this->disk);
         
         $this->filepath = $this->filepath ?: ($this->getStorageDirectory() . $this->getPartitionDirectory() . $this->getDiskName());
-        //$driver->putStream(, $stream);       
+        //$driver->putStream(, $stream);     
+        if ($this->disk=='local'){
+            $directory = dirname($this->filepath);
+            // Check if the directory exists
+            if (!Storage::exists($directory)) {
+                try{
+                    // Create the directory with recursive flag set to true
+                    Storage::makeDirectory($directory, 0775, true);
+                }catch (Exception $e) {
+                    Log::error($e);
+                }   
+            }
+            //$driver->getAdapter()->setVisibility(dirname($this->filepath), 'public'); // Change group permissions to allow group write
+        }        
+        
         $driver->put(
             $this->filepath,
             base64_decode($stream)
         );
-
+       
         $this->filesize = $driver->size($this->filepath);
         $this->filetype = $driver->mimeType($this->filepath);
         return $this;
@@ -192,11 +208,26 @@ class Attachment extends Model
         $this->attachmenttype_codice = $attachmenttype->codice;
         $this->filename = $filename;
         $this->filepath = $this->filepath ?: ($this->getStorageDirectory() . $this->getPartitionDirectory() . $this->getDiskName());
-        //$driver->putStream(, $stream);       
+        //$driver->putStream(, $stream); 
+
+        if ($this->disk=='local'){
+            $directory = dirname($this->filepath);
+            // Check if the directory exists
+            if (!Storage::exists($directory)) {
+                try{
+                    // Create the directory with recursive flag set to true
+                    Storage::makeDirectory($directory, 0775, true);
+                }catch (Exception $e) {
+                    Log::error($e);
+                }   
+            }
+            //$driver->getAdapter()->setVisibility(dirname($this->filepath), 'public'); // Change group permissions to allow group write
+        }
+        
         $driver->put(
             $this->filepath,
             base64_decode($stream)
-        );
+        );       
 
         $this->filesize = $driver->size($this->filepath);
         $this->filetype = $driver->mimeType($this->filepath);

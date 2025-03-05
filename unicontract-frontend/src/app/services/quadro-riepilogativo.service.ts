@@ -7,6 +7,7 @@ import { CoreSevice } from '../shared';
 import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { PrecontrattualeInterface, InfraResponse } from '../interface/precontrattuale';
+import { Cacheable } from 'ts-cacheable';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -36,6 +37,13 @@ export class SummaryService extends CoreSevice {
             return this.http.get( AppConstants.baseApiURL + '/attachments/download/' + id.toString()).pipe(catchError(this.handleError('download', null, false)));
         }
         return of([]);
+    }
+
+    @Cacheable()
+    getTitulusDocumentURL(id): Observable<any> {
+      return this.http.get(AppConstants.baseApiURL + '/precontrattuale/gettitulusdocumenturl/' + id.toString(), httpOptions).pipe(
+        catchError(this.handleError('getTitulusDocumentURL', null, true))
+      );
     }
 
     previewContratto(insegn_id): Observable<any>{
@@ -76,6 +84,12 @@ export class SummaryService extends CoreSevice {
         return this.http.post(AppConstants.baseApiURL + '/precontrattuale/presavisioneaccettazione', data, httpOptions)
             .pipe(catchError(this.handleError('presaVisione', null, false)));
     }
+
+    firmaGrafometrica(data) {
+        return this.http.post(AppConstants.baseApiURL + '/precontrattuale/firmagrafometrica', data, httpOptions)
+            .pipe(catchError(this.handleError('presaVisione', null, false)));
+    }
+
 
     richiestafirmaio(data) {
         return this.http.post(AppConstants.baseApiURL + '/precontrattuale/richiestafirmaio', data, httpOptions)

@@ -1,5 +1,9 @@
 <ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
 
+<ng-template #apri ngx-datatable-cell-template let-row="row" let-rowIndex="rowIndex" let-value="value">
+  <button type="button" class="btn btn-sm btn-outline-secondary oi oi-external-link d-flex align-items-center"
+    title="{{ prefix ? (prefix+'_apri' | translate) : 'Apri' }}" (click)="rowSelection(row)"></button>
+</ng-template>
 
 <div class="container-fluid" *ngIf="item">
   <app-riquadro-wrapper>
@@ -34,13 +38,30 @@
 
   <app-riquadro-wrapper *ngIf="item.motivo_atto_cod == 'CONF_INC'">
     <h5>Storico</h5>
-    <p>Il presente insegnamento è stato già precedentemente attribuito a <b>{{ item.nome | titlecase }} {{ item.cognome | titlecase }}</b> {{item.contatore_insegnamenti}} volte.</p>
+    <p>Il presente insegnamento è stato già precedentemente attribuito a <b>{{ item.nome | titlecase }} {{ item.cognome | titlecase }}
+    </b> {{item.contatore_insegnamenti.counter}} volte.
+    <span *ngIf="item.contatore_insegnamenti.method === 'complete_chain'; else incompleteChain">
+      (Questo conteggio si basa su una catena di rinnovi completa.)
+    </span>
+    <ng-template #incompleteChain>
+      (Calcolo basato sui dati di insegnamento)
+    </ng-template>
+  </p>
   </app-riquadro-wrapper>
 
   <app-riquadro-wrapper *ngIf="checkEmail(item.email, item.e_mail, item.e_mail_privata) === false">
     <h5 style="color: red">ATTENZIONE</h5>
     <p style="color: red" class="mb-0">Al collaboratore non è associato un indirizzo email istituzionale. Pertanto, non è possibile procedere con l'operazione di importazione dell'insegnamento.</p>
   </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="shouldDisplayFormPrecontrattualiPrecedenti()" >
+    <h5>Precontrattuali del precedente anno accademico con riferimento al medesimo insegnamento e docente</h5>
+    <form *ngIf="shouldDisplayFormPrecontrattualiPrecedenti()" [formGroup]="formContrattiPrecedenti" >
+      <formly-form [model]="item" [fields]="fieldContrattiPrecedenti" [form]="formContrattiPrecedenti" [options]="options">  
+      </formly-form> 
+    </form>
+  </app-riquadro-wrapper>
+
 
   <form class="form" #f="ngForm" >
     <input type="hidden" name="coper_id" [(ngModel)]="item.coper_id" >
@@ -67,12 +88,10 @@
     <input type="hidden" name="dip_cod" [(ngModel)]="item.dip_cod">    
     <input type="hidden" name="cds_cod" [(ngModel)]="item.cds_cod">    
 
-    <div class="form-footer text-right">
-      <button *ngIf="checkEmail(item.email, item.e_mail, item.e_mail_privata)" class="btn btn-outline-secondary rounded mr-1" (click)="saveIns(f.value, item.nome, item.cognome, item.cod_fis, item.id_ab, email(item.email, item.e_mail, item.e_mail_privata))" title="IMPORTA IL PRESENTE INSEGNAMENTO">IMPORTA</button>
+    <div class="form-footer text-end">
+      <button *ngIf="checkEmail(item.email, item.e_mail, item.e_mail_privata)" [disabled]="!formContrattiPrecedenti.valid" class="btn btn-outline-secondary rounded me-1" (click)="saveIns(f.value, item.nome, item.cognome, item.cod_fis, item.id_ab, email(item.email, item.e_mail, item.e_mail_privata))" title="IMPORTA IL PRESENTE INSEGNAMENTO">IMPORTA</button>
     </div>
     
   </form>
-
 </div>
-
 

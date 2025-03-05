@@ -67,7 +67,7 @@ export class StruttureInterneTitulus extends BaseResearchComponent {
   constructor(protected service: StrutturaInternaService, router: Router, route: ActivatedRoute) {
     super(router, route);
     this.enableNew = false;
-    this.resultMetadata[0].fieldArray.fieldGroup = service.getMetadata();
+    this.resultMetadata[0].fieldArray = { fieldGroup: service.getMetadata()}; 
 
     this.routeAbsolutePath = 'home/struttureinterne';
     // this.title = 'Tipo pagamenti'

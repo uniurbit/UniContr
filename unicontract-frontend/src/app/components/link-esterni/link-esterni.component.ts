@@ -3,8 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { encode, decode } from 'base64-arraybuffer';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { PDFAnnotationData, PDFDocumentProxy } from 'pdfjs-dist';
+import { PDFDocumentProxy } from 'pdfjs-dist';
 import { PrecontrattualeService } from 'src/app/services/precontrattuale.service';
+import * as saveAs from 'file-saver';
 
 
 @Component({
@@ -34,6 +35,10 @@ export class LinkEsterniComponent implements OnInit {
           this.routeCompilazione();
         } else if (params.get('val') === 'firma') {
           this.routeFirma();
+        } else if (params.get('val') === 'firmagrafometrica') {
+          this.routeFirmaGrafometrica();
+        } else if (params.get('val') === 'calcolo') {
+          this.routeCalcolo();
         } else if (params.get('val') == 'download') {
           const buff = decode(params.get('id'));
           const id = new TextDecoder("utf-8").decode(buff);         
@@ -42,7 +47,6 @@ export class LinkEsterniComponent implements OnInit {
       }
     );
   }
-
 
 
   downloadSelection(id){
@@ -93,6 +97,16 @@ export class LinkEsterniComponent implements OnInit {
   routeFirma() {
     this.isLoading = true;
     this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/firma_contratto_docenti.pdf';
+  }
+
+  routeFirmaGrafometrica() {
+    this.isLoading = true;
+    this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/firma_grafometrica_contratto.pdf';
+  }
+
+  routeCalcolo() {
+    this.isLoading = true;
+    this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/calcolo_modifica_numero_attribuzioni.pdf';
   }
 
 

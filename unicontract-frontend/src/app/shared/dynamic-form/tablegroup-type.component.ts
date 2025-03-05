@@ -1,18 +1,15 @@
+import { style } from '@angular/animations';
 import { Component, OnInit, Input, ViewChild, TemplateRef, KeyValueDiffers } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FieldArrayType, FormlyFormBuilder } from '@ngx-formly/core';
-import { TableColumn } from '@swimlane/ngx-datatable';
-import { Router } from '@angular/router';
-import { Page, PagedData } from '../lookup/page';
-import { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } from 'constants';
-import { DatatableRowDetailDirective } from '@swimlane/ngx-datatable';
+
 
 @Component({
   selector: 'app-tablegroup-type',
   template: `  
 
 <ngx-datatable
-  #grouptable  class="bootstrap expandable" 
+  #grouptable  class="bootstrap" 
   [messages]="{emptyMessage: 'NODATA' | translate, totalMessage: 'TOTAL' | translate,  selectedMessage: false}"
   [rows]="model"
   [groupRowsBy]="to.groupRowsBy"
@@ -37,20 +34,20 @@ import { DatatableRowDetailDirective } from '@swimlane/ngx-datatable';
 <ngx-datatable-row-detail  [rowHeight]="'auto'" #myDetailRow>
 </ngx-datatable-row-detail>
 
-<!-- Group Header Template -->
+<!-- Group Header Template commentato per disabilitarlo
 <ngx-datatable-group-header [rowHeight]="70" #myGroupHeader (toggle)="onDetailToggle($event)">
-  <ng-template let-group="group" let-expanded="expanded" ngx-datatable-group-header-template>
-    <div style="padding-left:5px;">
+<ng-template let-group="group" let-expanded="expanded" ngx-datatable-group-header-template>
+  <div style="padding-left:5px;">
+  <b>{{ getGroupHeaderTitle(group) }}</b>  
       <a    
         [class.datatable-icon-right]="!expanded"
         [class.datatable-icon-down]="expanded"
         title="Expand/Collapse Group"
-        (click)="toggleExpandGroup(group)">
-        <b>{{ getGroupHeaderTitle(group) }}</b>
-      </a>                          
+        (click)="toggleExpandGroup(group)">         
+      </a>             
     </div>
   </ng-template>
-</ngx-datatable-group-header>
+</ngx-datatable-group-header>-->
 
 </ngx-datatable>
 
@@ -77,6 +74,7 @@ import { DatatableRowDetailDirective } from '@swimlane/ngx-datatable';
 `
 })
 
+
 //<h1>Model</h1>
 //<pre>{{ model | json }}</pre>
 
@@ -86,7 +84,7 @@ export class TableGroupTypeComponent extends FieldArrayType {
   @ViewChild('colDetail', { static: true }) colDetail: any;
 
   constructor(builder: FormlyFormBuilder, private differs: KeyValueDiffers) {    
-    super(builder);        
+    super();        
   
   }
         
@@ -102,10 +100,12 @@ export class TableGroupTypeComponent extends FieldArrayType {
     }
 
     if(this.to.headerColGroupTemplate){
+      console.log('headerColGroupTemplate');
       this.table.groupHeader.template = this.to.headerColGroupTemplate;
     }
   
     if (this.to.rowDetailTemplate){
+      console.log('rowDetailTemplate');
       //aggiunta della colonna per aprire il dettaglio
       (this.to.columns as Array<any>).splice(0,0,{
         'maxwith': 50,
@@ -130,7 +130,7 @@ export class TableGroupTypeComponent extends FieldArrayType {
       //costruzione dinamica delle colonne partendo dai campi aggiunta eventuali proprietà 
       //di colonna all'interno delle template option dei campi
       //
-      this.to.columns =  this.field.fieldArray.fieldGroup.map(el => {      
+      this.to.columns =   (this.field.fieldArray as FormlyFieldConfig).fieldGroup.map(el => {      
         
         let c = { 
           name: el.templateOptions.label, 
@@ -157,6 +157,7 @@ export class TableGroupTypeComponent extends FieldArrayType {
   }
   
   getGroupRowHeight(group, rowHeight) {
+    console.log('getGroupRowHeight');
     let style = {};
 
     style = {
@@ -168,6 +169,7 @@ export class TableGroupTypeComponent extends FieldArrayType {
   }
 
   toggleExpandGroup(group) {
+    this.to.groupExpansionDefaultStatus = false;
     //console.log('Toggled Expand Group!', group);
     this.table.groupHeader.toggleExpandGroup(group);
   }  
@@ -190,7 +192,9 @@ export class TableGroupTypeComponent extends FieldArrayType {
       return this.to.groupHeaderTitle(group)
     }
     //<b>Stato: {{group.value[0].state}}</b>
-    return group.value[0];
+    //Cannot read properties of undefined (reading '0')
+    console.log(group);
+    return group?.value?.[0] ?? null
   }
 
  }

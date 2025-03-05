@@ -2,7 +2,7 @@
         <!-- *ngIf="messageService.messages.length" -->
         <h5 class="card-header">
                 Area messaggi <span *ngIf="length > 0" class="badge badge-primary badge-pill">{{length}}</span>
-                <button class="btn btn-sm btn-link float-right" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+                <button class="btn btn-sm btn-link float-end" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
                         aria-controls="collapseMessage">
                         <span *ngIf="isCollapsed" class="oi oi-chevron-top"></span>
                         <span *ngIf="!isCollapsed" class="oi oi-chevron-bottom"></span>
@@ -26,8 +26,8 @@
 <ng-template #content let-c="close">
         <div class="modal-header">
           <h4 class="modal-title" id="modal-basic-title">Dettagli errore</h4>
-          <button type="button" class="close" aria-label="Close" (click)="c('Close click')">
-            <span aria-hidden="true">&times;</span>
+          <button type="button" class="btn-close" aria-label="Close" (click)="c('Close click')">
+             
           </button>
         </div>        
         <div class="modal-body">

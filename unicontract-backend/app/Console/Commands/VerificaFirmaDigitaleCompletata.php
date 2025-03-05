@@ -21,6 +21,7 @@ use Carbon\Carbon;
 use App\Service\PrecontrattualeService;
 use App\Models\FirmaUtenteInterface;
 use App\Repositories\PrecontrattualeRepository;
+use App\Service\FirmaUSIGNService;
 use Storage;
 
 class VerificaFirmaDigitaleCompletata extends Command
@@ -103,6 +104,27 @@ class VerificaFirmaDigitaleCompletata extends Command
                             //nei dati ci può essere FirmaIO, FirmaUSIGN o la Precontrattuale solo se ritorna la Precontrattuale il contratto è firmato
                             if ($result['data'] instanceof Precontrattuale){
                                 Log::info('Contratto firmato [ precontr_id =' . $pre->id . '] '); 
+                            }else{
+                                //TODO VERIFICARE DA QUANTO TEMPO è PRESENTE L'ISTANZA DI FIRMA 
+                                $createdAt = $firmaUtente->created_at;
+                                $currentDate = Carbon::now();
+                                 // Calculate the number of days since the firma was created
+                                $daysDifference = $createdAt->diffInDays($currentDate);
+                                if ($daysDifference > 15) {
+                                    $localService = null;
+                                    if ($firmaUtente->nomeProvider == 'FIRMAIO'){             
+                                        //impostata scadenza di firma a 15 giorni sulla richiesta                      
+                                        //$service = new FirmaIOService();                                    
+                                    }else if ($firmaUtente->nomeProvider == 'USIGN'){                                    
+                                        $localService = new FirmaUSIGNService();      
+                                        // Log before calling cancellazioneIstanza
+                                        Log::info('Calling cancellazioneIstanza for firmaUtente ID: ' . $firmaUtente->id . ' with provider: ' . $firmaUtente->nomeProvider);
+                                        // Call the cancellazioneIstanza method
+                                        $localService->cancellazioneIstanza($firmaUtente->id, $pre);                                  
+                                    } else {
+                                        Log::info('Nome provider non trovato [ nomeProvider =' . $firmaUtente->nomeProvider . ']'); 
+                                    }                                                                                            
+                                }                                    
                             }
                         }else{
                             Log::error('Errore nella verifica aggiornamento [ precontr_id =' . $pre->id . '] '.$result['message']); 

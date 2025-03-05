@@ -12,13 +12,14 @@ import { PrecontrattualeService } from './../../../services/precontrattuale.serv
 import { Upda1 } from './../../../classes/precontrattuale';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { encode, decode } from 'base64-arraybuffer';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ConfirmationDialogService } from './../../../shared/confirmation-dialog/confirmation-dialog.service';
 import { TranslateService } from '@ngx-translate/core';
 import ControlUtils from 'src/app/shared/dynamic-form/control-utils';
 import { TranslateSelectPipe } from 'src/app/shared/pipe/translate-select.pipe';
 import { StoryProcess } from './../../../classes/storyProcess';
 import { StoryProcessService } from './../../../services/storyProcess.service';
+import * as saveAs from 'file-saver';
 
 
 
@@ -91,7 +92,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
       isLoading: this.isLoading,
     },
   };
-  formAnagrafica =  new FormGroup({});
+  formAnagrafica =  new UntypedFormGroup({});
   fieldsAnagrafica: FormlyFieldConfig[] = [
     {
       wrappers: ['riquadro'],
@@ -191,7 +192,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
                 'templateOptions.required': (model: any, formState: any, field: FormlyFieldConfig) => {
                   return (model.stato_civile === 'C' || model.stato_civile === 'Z');
                 },
-                'templateOptions.readonly': (model: any, formState: any, field: FormlyFieldConfig) => {
+                'templateOptions.disabled': (model: any, formState: any, field: FormlyFieldConfig) => {
                   return (model.stato_civile !== 'C' && model.stato_civile !== 'Z');
                 },
               }
@@ -712,7 +713,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
                     type: 'input',
                     readonly: true,
                     placeholder: 'Carica il documento . . . ',
-                    description: 'N.B. Il Curriculum Vitae da caricare deve essere in formato PDF e privo di dati sensibili. Dimensione massima 2MB.',
+                    description: 'N.B. Il Curriculum Vitae da caricare deve essere in formato PDF e privo di dati sensibili. Dimensione massima 5MB.',
                     accept: 'application/pdf',
                     maxLength: 255,
                     required: true,
@@ -720,7 +721,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
                   },
                   validators: {
                     maxsize: {
-                      expression: (c,f) => (f.model._filesize && f.model._filesize > 2720000) ? false : true,
+                      expression: (c,f) => (f.model._filesize && f.model._filesize > 5720000 ) ? false : true, //2720000
                       message: (error, field) => `La dimensione del file eccede la dimensione massima consentita `,
                     },
                     filetype: {
@@ -733,7 +734,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
 
                 // bottoni azione
                 {
-                  fieldGroupClassName: 'btn-toolbar',
+                  fieldGroupClassName:  'btn-toolbar',
                   className: 'col-md-2 btn-group',
                   fieldGroup: [
                     {
@@ -799,7 +800,11 @@ export class AnagraficaDetailsComponent extends BaseComponent {
   }
 
   setMetada(metadata) {
-    ControlUtils.getField('stato_civile', this.fieldsAnagrafica).templateOptions.options = metadata.stato_civile;
+    //stato_civile ritorna { key: string, value: string }
+    ControlUtils.getField('stato_civile', this.fieldsAnagrafica).templateOptions.options = metadata.stato_civile.map(item => ({
+      label: item.value,
+      value: item.key
+    }));
   }
 
   // tslint:disable-next-line:use-life-cycle-interface

@@ -63,7 +63,7 @@ export class D6DetrazionifamiliariDetailsComponent extends BaseComponent {
     if (value === 0) {
       return 'NO';
     } else {
-      return 'SI';
+      return 'SÌ';
     }
   }
 

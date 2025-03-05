@@ -11,11 +11,10 @@ import { D4FiscaliService } from './../../../services/d4fiscali.service';
 import { StoryProcessService } from './../../../services/storyProcess.service';
 import { StoryProcess } from './../../../classes/storyProcess';
 
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { encode, decode } from 'base64-arraybuffer';
-import ControlUtils from 'src/app/shared/dynamic-form/control-utils';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+ 
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 
 @Component({
@@ -34,7 +33,7 @@ export class D4FiscaliComponent extends BaseComponent {
   // Legge di bilancio 2022 cambio delle aliquote fiscali commentante quelle modifiche e eliminate
   aliquote: Array<Object> = [
     {aliquota: '23', name: '23 %'},
-    {aliquota: '25', name: '25 %'},
+    //{aliquota: '25', name: '25 %'},
     //{aliquota: '27', name: '27 %'},
     {aliquota: '35', name: '35 %'},
     //{aliquota: '38', name: '38 %'},
@@ -42,7 +41,7 @@ export class D4FiscaliComponent extends BaseComponent {
     {aliquota: '43', name: '43 %'},
   ];  
 
-  formAttch = new FormGroup({});
+  formAttch = new UntypedFormGroup({});
   model: any = {};
   options: FormlyFormOptions = {
     formState: {
@@ -80,11 +79,11 @@ export class D4FiscaliComponent extends BaseComponent {
       fieldGroup: [
         {
           //Modifiche _2022 dovute alla modifica delle aliquote fiscali Legge bilancio 2022
+          //Modifiche _2025 
           template: '<p><b>' + this.translateService.instant('d4_nota1') + '</b><br>'
-          + this.translateService.instant('d4_nota3') + '<br>'
-          + this.translateService.instant('d4_nota4_2022') + '<br>'
-          + this.translateService.instant('d4_nota5_2022') + '<br>'
-          + this.translateService.instant('d4_nota6_2022') + '</p>',
+          + this.translateService.instant('d4_nota3_2025') + '<br>'
+          + this.translateService.instant('d4_nota4_2025') + '<br>'
+          + this.translateService.instant('d4_nota5_2025') + '<br>',          
           //+ this.translateService.instant('d4_nota7') + '</p>',
           className: 'col-auto'
         }
@@ -98,14 +97,15 @@ export class D4FiscaliComponent extends BaseComponent {
       template: '<h5>' + this.translateService.instant('d4_intest2_1') + '</h5>',
     },
     {
-      fieldGroupClassName: 'row',
+      //fieldGroupClassName: 'row',
       fieldGroup: [
         {
           type: 'checkbox',
           key: 'flag_detrazioni',
-          className: 'custom-switch pl-4 pr-2 pt-1',
+          //className: 'custom-switch ps-4 pe-2 pt-1',
           defaultValue: false,
           templateOptions: {
+            formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_detrazioni === false || field.model.flag_detrazioni === 0) {
                 //field.model.detrazioni = null;
@@ -160,10 +160,11 @@ export class D4FiscaliComponent extends BaseComponent {
         {
           type: 'radio',
           key: 'detrazioni',
+          resetOnHide: true,
           templateOptions: {
             options: [
-              {key: 'RCC', value: this.translateService.instant('d4_txt5')},
-              {key: 'RCD', value: this.translateService.instant('d4_txt6')}
+              {value: 'RCC', label: this.translateService.instant('d4_txt5')},
+              {value: 'RCD', label: this.translateService.instant('d4_txt6')}
             ],
             required: true,
             translate: true,
@@ -172,8 +173,8 @@ export class D4FiscaliComponent extends BaseComponent {
           },
         }
       ],
-      hideExpression: (model, formstate) => {
-        return (this.model.flag_detrazioni === 0 || this.model.flag_detrazioni === false);
+      hideExpression: (model, formstate, field: FormlyFieldConfig) => {
+        return (field.model.flag_detrazioni === 0 || field.model.flag_detrazioni === false);
       }
     },
     {
@@ -215,14 +216,15 @@ export class D4FiscaliComponent extends BaseComponent {
       template: '<h5>' + this.translateService.instant('d4_intest3_1') + '</h5>',
     },
     {
-      fieldGroupClassName: 'row',
+     //fieldGroupClassName: 'row',
       fieldGroup: [
         {
           type: 'checkbox',
           key: 'flag_bonus_renzi',
-          className: 'custom-switch pl-4 pr-2 pt-1',
+          //className: 'custom-switch ps-4 pe-2 pt-1',
           defaultValue: false,       
-          templateOptions: {            
+          templateOptions: {           
+            formCheck: 'switch',
           },
           hooks: {
             onInit(field) {
@@ -284,14 +286,15 @@ export class D4FiscaliComponent extends BaseComponent {
       template: '<h5>' + this.translateService.instant('d4_intest4_1') + '</h5>',
     },
     {
-      fieldGroupClassName: 'row',
+      //fieldGroupClassName: 'row',
       fieldGroup: [
         {
           type: 'checkbox',
           key: 'flag_detrazioni_21_2020',
-          className: 'custom-switch pl-4 pr-2 pt-1',
+          //className: 'custom-switch ps-4 pe-2 pt-1',
           defaultValue: false,
           templateOptions: {
+            formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_detrazioni_21_2020 === false || field.model.flag_detrazioni_21_2020 === 0) {
                 this.model.detrazioni_21_2020 = null;

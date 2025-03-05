@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
@@ -11,7 +11,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { DashboardRoutes } from './dashboard.routing';
 import { InfocardComponent } from './dashboard-components/info-card/info-card.component';
 import { DashboardService } from './dashboard.service';
-import { LoadingModule } from 'ngx-loading';
+
 import { NotificationsComponent } from './dashboard-components/notifications/notifications.component';
 import { SharedModule } from '../shared';
 import { TableTypeComponent } from '../shared/dynamic-form/table-type.component';
@@ -20,6 +20,7 @@ import { DashboardUffDocentiComponent } from './dashboard-uff-docenti/dashboard-
 import { DashboardUffTrattamentiComponent } from './dashboard-uff-trattamenti/dashboard-uff-trattamenti.component';
 import { ConvenzioniresultComponent } from './dashboard-components/contrattiresult/contrattiresult.component';
 import { DashboardDipartimentiComponent } from './dashboard-dipartimenti/dashboard-dipartimenti.component';
+import { NgxLoadingModule } from 'ngx-loading';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { DashboardDipartimentiComponent } from './dashboard-dipartimenti/dashboa
     ReactiveFormsModule,
     CommonModule,
     NgbModule,
-    LoadingModule,
+    NgxLoadingModule.forRoot({}),
     RouterModule.forChild(DashboardRoutes),
     PerfectScrollbarModule,
     NgxDatatableModule,
@@ -42,6 +43,7 @@ import { DashboardDipartimentiComponent } from './dashboard-dipartimenti/dashboa
     ConvenzioniresultComponent,
     DashboardDipartimentiComponent,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     DashboardService,
     NotificationService,

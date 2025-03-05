@@ -6,6 +6,7 @@ import { MessageService, BaseComponent } from './../../../shared';
 import { RouteMetods } from './../../../classes/routeMetods';
 import { InsegnamTools } from './../../../classes/insegnamTools';
 import { encode, decode } from 'base64-arraybuffer';
+import * as saveAs from 'file-saver';
 
 @Component({
   selector: 'app-b1-conflitto-details',

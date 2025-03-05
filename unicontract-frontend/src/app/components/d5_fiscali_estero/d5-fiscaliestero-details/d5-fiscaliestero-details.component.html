@@ -6,17 +6,17 @@
     <p class="mb-0">{{ 'd5_premessa' | translate }}</p>
     <div class="row">
       <div class="col">
-        <span class="oi oi-check iconic pl-1 pr-2"></span>
+        <span class="oi oi-check iconic ps-1 pe-2"></span>
         <span >{{ 'd5_txt1' | translate }}</span>
       </div>
     </div>
 
-    <p class="mb-0 pl-4 text-justify" *ngIf="items.flag_convenzione_bilaterale === 1">- {{ 'd5_txt2' | translate }}</p>
-    <p class="mb-0 pl-4 text-justify" *ngIf="items.flag_convenzione_bilaterale === 0">- {{ 'd5_txt3' | translate }}</p>
+    <p class="mb-0 ps-4 text-justify" *ngIf="items.flag_convenzione_bilaterale === 1">- {{ 'd5_txt2' | translate }}</p>
+    <p class="mb-0 ps-4 text-justify" *ngIf="items.flag_convenzione_bilaterale === 0">- {{ 'd5_txt3' | translate }}</p>
 
     <div class="row">
       <div class="col">
-        <span class="oi oi-check iconic pl-1 pr-2"></span>
+        <span class="oi oi-check iconic ps-1 pe-2"></span>
         <span *ngIf="items.flag_gestione_separata === 1">{{ 'd5_txt7' | translate }}</span>
         <span *ngIf="items.flag_gestione_separata === 0">{{ 'd5_txt8' | translate }}</span>
       </div>
@@ -28,7 +28,7 @@
       <p class="mb-0">{{ 'd5_txt4' | translate }} <br> {{ 'd5_txt5' | translate }} <br> {{ 'd5_txt6' | translate }}</p>
   </app-riquadro-wrapper>
 
-  <div class="form-footer text-right"> 
+  <div class="form-footer text-end"> 
     <app-barra-comandi *ngIf="items" [item]="items" [type]="'D5'"></app-barra-comandi>  
         
     <app-termina-button [item]="items" *ngIf="items.validazioni.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>

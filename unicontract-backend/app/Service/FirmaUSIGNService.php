@@ -78,7 +78,7 @@ class FirmaUSIGNService implements CancellazioneServiceInterface
         }
         
         if ($firma){  
-            //Restituisce lo stato del processo identificato dal token, che può assumere 
+            //Dalla documentazion di U-Sign viene usato il termine stato per identificare sia lo step che lo stato: Restituisce lo stato del processo identificato dal token, che può assumere 
             //i seguenti valori: Upload, Confirm, Sent-to-user, Otp, Completed .
             //lo step va su refused
             $result = $this->updateFirmaWithStep($firma->process_id, $firma);
@@ -133,14 +133,24 @@ class FirmaUSIGNService implements CancellazioneServiceInterface
                     return $this->documentoFirmato($pre->insegn_id, $firma->process_id, $firma->file_id);        
 
                 case 'finished':
+                    if ($firma->stato == 'success'){
                         // Completed: il processo è terminato e tutti i documenti sono stati firmati.                        
                         return $this->documentoFirmato($pre->insegn_id, $firma->process_id, $firma->file_id);         
+                    }else {
+                        return $this->createSuccessResponse('Processo di firma fallito.', $firma);  
+                    }                        
 
                 case 'refused':
                     return $this->createSuccessResponse('Processo di firma rifiutato dal docente. '.$firma->rejections, $firma);   
 
                 case 'cancelled':
-                        return $this->createSuccessResponse('Processo di firma cancellato. '.$firma->rejections, $firma);   
+                    return $this->createSuccessResponse('Processo di firma cancellato. '.$firma->rejections, $firma);   
+
+                case 'expired':
+                    return $this->createSuccessResponse('Processo di firma scaduto.', $firma);  
+
+                case 'failed':
+                    return $this->createSuccessResponse('Processo di firma fallito. '.$firma->rejections, $firma); 
                    
             }
         }else{
@@ -172,19 +182,54 @@ class FirmaUSIGNService implements CancellazioneServiceInterface
             //     "certificateName": "CPPMRC87H26L500A_UNIURB"
             //   },           
         }
+        $cf_custom = $pre->user->getCodiceFiscaleUSign();
+        if ($cf_custom){
+            Log::info('Letto codice_fiscale_usign: '.$cf_custom.' per '.$pre->user->name);
+            $cf = $cf_custom;
+        }
 
+        // Check if the user is authorized and has signing capabilities
         $response = $this->client->userAuthorization($cf);
-        if (!$response->successful()){          
-            return $this->createErrorResponse('Utente non abilitato al processo di firma su U-Sign. '.$response->getReasonPhrase(), [ 'code' => 'userAuthorization']);
-        }else{
+        if (!$response->successful()) {
+            return $this->createErrorResponse('Utente non abilitato al processo di firma su U-Sign. ' . $response->getReasonPhrase(), ['code' => 'userAuthorization']);
+        }
+        
+        $data = $response->json();
+        if (!$data['canSign']) {
+            return $this->createErrorResponse('Utente non abilitato al processo di firma su U-Sign.', ['code' => 'canSign']);
+        }
+        
+        $certificateName = $data['certificateName'] ?? null;
+        if (!$certificateName) {
+            return $this->createErrorResponse('Utente non ha un certificato di firma associato in U-Sign.', ['code' => 'certificateName']);
+        }
+        
+        if (!App::environment(['local', 'preprod', 'testing'])) {
+            // Retrieve user information and verify certificate details
+            $response = $this->client->userInfo($email);
+            if (!$response->successful()) {
+                return $this->createErrorResponse('Utente non abilitato al processo di firma su U-Sign. ' . $response->getReasonPhrase(), ['code' => 'userInfo']);
+            }
+            
             $data = $response->json();
-            if (!($data['canSign'])){
-                return $this->createErrorResponse('Utente non abilitato al processo di firma su U-Sign.', [ 'code' => 'canSign']);
+            $certificate = $data['certificate'] ?? null;
+            if (!$certificate) {
+                return $this->createErrorResponse('Utente non ha un certificato di firma associato in U-Sign.', ['code' => 'certificate']);
             }
-            if (!($data['certificateName'])){
-                return $this->createErrorResponse('Utente non ha un certificato di firma associato in U-Sign.', [ 'code' => 'certificateName']);
+            
+            // Validate certificate details
+            if ($certificateName !== $certificate['aliasCertificato']) {
+                return $this->createErrorResponse('Utente ha nome certificato e alias certificato non corrispondenti nella configurazione U-Sign.', ['code' => 'certificateMismatch']);
             }
-        }        
+            
+            if ($certificate['status'] === 'EXPIRED') {
+                return $this->createErrorResponse('Utente ha un certificato di firma scaduto associato in U-Sign.', ['code' => 'certificateExpired']);
+            }
+            
+            if ($certificate['status'] !== 'VALID') {
+                return $this->createErrorResponse('Utente ha un certificato di firma non valido associato in U-Sign.', ['code' => 'certificateNotValid']);
+            }
+        }
 
         $response = $this->client->createProcess($email, $name, true);
         if (!$response->successful()){          
@@ -195,14 +240,17 @@ class FirmaUSIGNService implements CancellazioneServiceInterface
         $processId = $data['message'];
      
         $firma = new FirmaUSIGN([
-            'tipo' => 'FIRMAIO',
+            'tipo' => 'USIGN',
             'process_id' => $processId, //token
             'assignee_email' => $email,                     
             'document_type' => 'ALTRO',           
         ]);
 
         $pre->firmaUSIGN()->save($firma);
-        
+        $validazioni = $pre->validazioni;                    
+        $validazioni->tipo_accettazione = 'USIGN';  
+        $validazioni->save();
+
         $this->updateFirmaWithStep($processId, $firma);    
         //rileggo lo stato per eventuali errori
         $response = $this->updateFirmaWithStatus($processId, $firma);
@@ -417,6 +465,10 @@ class FirmaUSIGNService implements CancellazioneServiceInterface
             PrecontrattualeService::createStoryProcess('Cancellata richiesta di firma su U-Sign', 
             $pre->insegn_id)
         );
+
+        $validazioni = $pre->validazioni;                    
+        $validazioni->tipo_accettazione = null;  
+        $validazioni->save();
 
         return $this->createSuccessResponse('Cancellato processo di firma.', $response);
     }

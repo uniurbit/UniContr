@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Injector } from '@angular/core';
 import {NgbModal, ModalDismissReasons, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { ServiceQuery, IQueryMetadata } from '..';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import ControlUtils from '../dynamic-form/control-utils';
 import { Page } from './page';
@@ -25,7 +25,7 @@ export class LookupComponent implements OnInit {
   service: ServiceQuery;
 
   researchMetadata: FormlyFieldConfig[];
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
 
   model = {    
     data: new Array<any>(),
@@ -41,7 +41,7 @@ export class LookupComponent implements OnInit {
     this.service = this.injector.get(servicename) as ServiceQuery;
     
     if ('getQueryMetadata' in this.service ){
-      this.researchMetadata = (this.service as IQueryMetadata).getQueryMetadata();
+      this.researchMetadata = (this.service as any).getQueryMetadata();
     }else {
       this.researchMetadata = this.service.getMetadata();
     }

@@ -79,7 +79,7 @@ export class PersoneinterneTitulus extends BaseResearchComponent {
   constructor(protected service: PersonaInternaService, router: Router, route: ActivatedRoute)  {
     super(router, route);
     this.enableNew = false;
-    this.resultMetadata[0].fieldArray.fieldGroup = service.getMetadata();
+    this.resultMetadata[0].fieldArray = { fieldGroup: service.getMetadata()}; 
 
     this.routeAbsolutePath = 'home/personeinterne';
     // this.title = 'Tipo pagamenti'

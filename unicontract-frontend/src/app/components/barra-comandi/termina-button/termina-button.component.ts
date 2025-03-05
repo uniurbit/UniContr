@@ -8,7 +8,7 @@ import { ConfirmationDialogService } from 'src/app/shared/confirmation-dialog/co
 @Component({
   selector: 'app-termina-button',
   template: `
-  <button type="button" class="btn btn-outline-secondary btn-warning rounded mr-1 ml-2" (click)="termina(item.insegn_id)" title="{{ 'btn_end_title' | translate }}" >{{ 'btn_end' | translate }}</button>
+  <button type="button" class="btn btn-outline-secondary btn-warning rounded me-1 ms-2" (click)="termina(item.insegn_id)" title="{{ 'btn_end_title' | translate }}" >{{ 'btn_end' | translate }}</button>
   `,
   styleUrls: [],
   styles: []

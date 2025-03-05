@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { InsegnamTools } from 'src/app/classes/insegnamTools';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+ 
 
 @Component({
   selector: 'app-intestazione',

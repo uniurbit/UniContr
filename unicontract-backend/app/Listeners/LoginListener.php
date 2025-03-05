@@ -72,8 +72,22 @@ class LoginListener
             $userData->name = $user->displayName[0];
             $userData->email = $user->email[0];
             Log::info('email [' . $userData->email . ']');   
-            $userData->ruolo = $user->ruolo[0];            
-            Log::info('ruolo [' . $userData->ruolo . ']');   
+            // Check if the email domain is unauthorized
+            if (strpos($userData->email, '@campus.uniurb.it') !== false) {
+                // If the email domain is unauthorized, log it and return an error
+                Log::info('Unauthorized user with email: ' . $userData->email);
+                abort(401, trans('global.utente_non_autorizzato'));
+            }
+            
+            // Check if the "ruolo" attribute exists and is not empty
+            if (isset($user->ruolo[0]) && !empty($user->ruolo[0])) {
+                $userData->ruolo = $user->ruolo[0];            
+                Log::info('ruolo [' . $userData->ruolo . ']');   
+            } else {
+                // If "ruolo" is missing or empty, return an error
+                throw new Exception('Ruolo non presente o vuoto');
+            }
+    
             $userData->eduPersonScopedAffiliation = $user->eduPersonScopedAffiliation;
             $userData->password =Hash::make($user->codiceFiscale[0]);
             $userData->assertion = $user->getRawSamlAssertion();

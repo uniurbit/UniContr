@@ -10,7 +10,7 @@ import { Updb6 } from './../../../classes/precontrattuale';
 import { B6Informativa } from './../../../classes/b6informativa';
 import { B6InformativaService } from './../../../services/b6informativa.service';
 
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 import { B6InformativaInterface } from 'src/app/interface/b6informativa.interface';
@@ -27,7 +27,7 @@ export class B6PrivacyComponent extends BaseComponent {
   idins: number;
  
 
-  formAttch = new FormGroup({});
+  formAttch = new UntypedFormGroup({});
   model: any = {};
   options: FormlyFormOptions = {
     formState: {

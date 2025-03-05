@@ -67,7 +67,7 @@ export class StruttureEsterneTitulus extends BaseResearchComponent {
   constructor(protected service: StrutturaEsternaService, router: Router, route: ActivatedRoute) {
     super(router, route);
     this.enableNew = false;
-    this.resultMetadata[0].fieldArray.fieldGroup = service.getMetadata();
+    this.resultMetadata[0].fieldArray = { fieldGroup: service.getMetadata()}; 
 
     this.routeAbsolutePath = 'home/struttureesterne';
     // this.title = 'Tipo pagamenti'

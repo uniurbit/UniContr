@@ -18,6 +18,7 @@ use App\Mail\ValidateEmail;
 use App\Mail\FirmaEmail;
 use App\Mail\ContrattoEmail;
 use App\Mail\InfoEmail;
+use App\Mail\RichiestaValidazioneEmail;
 use Illuminate\Support\Facades\Mail;
 use DB;
 use Exception;
@@ -200,6 +201,32 @@ class EmailService implements ApplicationService
         } else {
             throw new Exception('Al '.$pre->user->nameTutorString().' non è associata una email istituzionale');
         }
+    }
+
+
+    public static function sendEmailRichiestaValidazione($pre, $ufficio){                
+        $email = new RichiestaValidazioneEmail($pre);
+        //uni_users.email        
+        if (App::environment(['local','preprod'])) {
+            Mail::to(Auth::user())->send($email);
+        } else {            
+            //['unicontract@uniurb.it','amministrazione.reclutamento.pdoc@uniurb.it']
+            Mail::to(config('unidem.ufficio_stipendi'))
+                ->bcc(config('unidem.administrator_email'))->send($email);
+        }        
+        
+        $sendEmail = new SendEmail();
+        $sendEmail->sender_user_id = Auth::user()->id;
+        $sendEmail->receiver = 'Ufficio Stipendi';
+        $sendEmail->codifica = "RICV";
+        $sendEmail->oggetto = $email->subject;
+
+        if ($pre instanceof \App\Precontrattuale) {
+            $sendEmail->model()->associate($pre);
+        }
+        
+        $sendEmail->save();
+
     }
 
     public static function sendEmailByType($insegn_id,$kind){

@@ -10,11 +10,11 @@ import { TableColumn } from '@swimlane/ngx-datatable';
     <div class="btn-group btn-group-sm">    
         <button type="button" class="btn btn-outline-primary border-0 rounded-0" (click)="addFirst()"  >              
             <span class="oi oi-plus"></span>
-            <span class="ml-2">Aggiungi</span>
+            <span class="ms-2">Aggiungi</span>
         </button>    
         <button type="button" class="btn btn-outline-primary border-0 rounded-0" [disabled]="to.selected.length == 0" (click)="removeSelected()"  >              
             <span class="oi oi-trash"></span>  
-            <span class="ml-2">Rimuovi</span>
+            <span class="ms-2">Rimuovi</span>
         </button>
     </div>
 </div>
@@ -122,7 +122,7 @@ export class TableTypeComponent extends FieldArrayType {
       //costruzione dinamica delle colonne partendo dai campi aggiunta eventuali proprietà 
       //di colonna all'interno delle template option dei campi
       //
-      this.to.columns =  this.field.fieldArray.fieldGroup.map(el => {      
+      this.to.columns =  (this.field.fieldArray as FormlyFieldConfig).fieldGroup.map(el => {      
         
         let c = { 
           name: el.templateOptions.label, 
@@ -170,13 +170,15 @@ export class TableTypeComponent extends FieldArrayType {
         }
     });          
 
+    //this.formControl.reset();
     this.formControl.patchValue(this.model);   
   }
 
   onSelect(selected) {
-    if (this.to.onSelected){
-      this.to.onSelected(selected);
-    } 
+      if (this.to.onSelected){
+        this.to.onSelected(selected);
+      } 
+      //console.log('Select Event', selected, this.selected);
   }
 
   onEvents(event) {
@@ -199,11 +201,15 @@ export class TableTypeComponent extends FieldArrayType {
   }
 
   ngDoCheck() {    
+
+    //fix per la tabella di risultato query
+    //let ma = this.model as Array<any>;    
+    //this.model = ma.filter(x => Object.keys(x).length !== 0);    
      
   }
 
   onDetailToggle(event) {
-
+    //console.log('Detail Toggled', event);
   }
 
   toggleExpandRow(row) {

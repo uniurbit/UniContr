@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
     <div *ngIf="to.label">{{to.label}} </div> 
     <button *ngIf="!to.btnHidden" type="button" [disabled]="checkAddButtonDisability()" class="btn btn-sm btn-outline-primary rounded-lg" (click)="onAddNew()"  >              
       <span class="oi oi-plus"></span>
-      <span class="ml-2">Aggiungi</span>
+      <span class="ms-2">Aggiungi</span>
     </button>  
   </div>   
   <div *ngFor="let subfield of field.fieldGroup; let i = index;">
@@ -21,7 +21,7 @@ import { map } from 'rxjs/operators';
       <div *ngIf="!to.btnRemoveHidden" class="mb-2">
         <button *ngIf="!btnRemoveHiddenFunc(model[i])" type="button" class="btn btn-sm btn-primary rounded-lg" (click)="onRemoveRepeat(i)"  >              
           <span class="oi oi-trash"></span>  
-          <span class="ml-2">Rimuovi</span>
+          <span class="ms-2">Rimuovi</span>
         </button>
       </div>    
       <div *ngIf="subfield.template" [innerHTML]="subfield.template">                           

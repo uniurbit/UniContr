@@ -4,7 +4,6 @@ import { FormGroup, FormArray } from '@angular/forms';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseEntityComponent } from 'src/app/shared';
-import { SourceMapGenerator } from '@angular/compiler/src/output/source_map';
 import {Location} from '@angular/common';
 import { RoleService } from '../../services/role.service';
 

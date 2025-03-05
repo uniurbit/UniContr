@@ -9,7 +9,7 @@ import { UpdE } from './../../../classes/precontrattuale';
 import { EOccasionale } from './../../../classes/eOccasionale';
 import { EOccasionaleService } from './../../../services/eOccasionale.service';
 
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { encode, decode } from 'base64-arraybuffer';
 
@@ -61,7 +61,7 @@ export class EOccasionaleComponent extends BaseComponent {
     {gestione: '601', name: '601 : Lavoratori Poste Italiane S.p.A.', group: 'IPOST'}
   ];
 
-  formAttch = new FormGroup({});
+  formAttch = new UntypedFormGroup({});
   model: any = {};
   options: FormlyFormOptions = {
     formState: {
@@ -78,9 +78,9 @@ export class EOccasionaleComponent extends BaseComponent {
           key: 'cod_limite_reddito',
           templateOptions: {
             options: [
-              {key: 'NASL', value: this.translateService.instant('e_txt1')},
-              {key: 'AGR', value: this.translateService.instant('e_txt2')},
-              {key: 'ASLR', value: this.translateService.instant('e_txt4')}
+              {value: 'NASL', label: this.translateService.instant('e_txt1')},
+              {value: 'AGR',  label: this.translateService.instant('e_txt2')},
+              {value: 'ASLR', label: this.translateService.instant('e_txt4')}
             ],
             required: true,
           },
@@ -102,9 +102,7 @@ export class EOccasionaleComponent extends BaseComponent {
         }
       ],
       hideExpression: (model: any, formState: any) => {
-        if (model.cod_limite_reddito !== 'AGR') {
-          return model;
-        }
+        return (model.cod_limite_reddito !== 'AGR')
       },
     },
   ];
@@ -117,12 +115,12 @@ export class EOccasionaleComponent extends BaseComponent {
           key: 'gestione_separata',
           templateOptions: {
             options: [
-              {key: 1, value: this.translateService.instant('e_txt5')},
-              {key: 6, value: this.translateService.instant('e_txt6')},
-              {key: 2, value: this.translateService.instant('e_txt7')},
-              {key: 3, value: this.translateService.instant('e_txt8')},
-              {key: 4, value: this.translateService.instant('e_txt9')},
-              {key: 5, value: this.translateService.instant('e_txt10')}
+              {value: 1, label: this.translateService.instant('e_txt5')},
+              {value: 6, label: this.translateService.instant('e_txt6')},
+              {value: 2, label: this.translateService.instant('e_txt7')},
+              {value: 3, label: this.translateService.instant('e_txt8')},
+              {value: 4, label: this.translateService.instant('e_txt9')},
+              {value: 5, label: this.translateService.instant('e_txt10')}
             ],
             translate: true,
             label: 'e_premessa2',
@@ -160,9 +158,7 @@ export class EOccasionaleComponent extends BaseComponent {
         }
       ],
       hideExpression: (model: any, formState: any) => {
-        if (model.gestione_separata !== 1) {
-          return model;
-        }
+        return (model.gestione_separata !== 1);
       },
     }
   ];

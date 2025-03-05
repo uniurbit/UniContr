@@ -200,7 +200,7 @@ class PdfSignService
      * @param  mixed $pdf
      * @return array img_position, img_page_number
      */
-    public static function getSignPosition($pdf, $multi=false, $search = 'data ultima sottoscrizione digitale in ordine cronologico'){
+    public static function getSignPosition($pdf, $multi=false, $firmaio=true, $search = 'data ultima sottoscrizione digitale in ordine cronologico'){
         $img_position=null;      
         $obj_page = null;
         $page_number = null;
@@ -237,7 +237,12 @@ class PdfSignService
                         $img_position = $m;     
                         $obj_page = $obj;                        
                         $page_number = $key+1;
-                        array_push($result, PdfSignService::getWidgetPDFSignaturePosition($img_position, $page_number));
+                        if ($firmaio){
+                            array_push($result, PdfSignService::getWidgetPDFSignaturePositionFirmaIO($img_position, $page_number));                            
+                        }else{
+                            array_push($result, PdfSignService::getWidgetPDFSignaturePosition($img_position, $page_number));
+                        }
+                        
                         if (!$multi){                            
                             break;
                         }                            
@@ -262,7 +267,7 @@ class PdfSignService
      * @param  mixed $obj_page
      * @return $attrs posizione firma in formato Firma con IO
      */
-    public static function getWidgetPDFSignaturePosition($img_position, $obj_page){
+    public static function getWidgetPDFSignaturePositionFirmaIO($img_position, $obj_page){
         //Image width, 0, 0, image height, X, Y
         //array img_position 170.25 99.0 90.0 222.511 cm
 
@@ -288,6 +293,19 @@ class PdfSignService
         return $attrs;      
     }
 
+        // page|x|y|width|height|ppi 
+    // list of value separed by a pipe; 
+    // x,y,width,height expressend in pixel ,  ppi expressed in  "pixel per inch" if not set will be used op
+    public static function getWidgetPDFSignaturePosition($img_position, $obj_page){
+        //Image width, image height, X, Y
+        $factor = 96/72;
+        $h_pts = 842;
+        $y_dallalto = ($h_pts*$factor)-($img_position[4]*$factor)-($img_position[2]*$factor);
+        $adapt_px = 50; 
+        //page|x|y|width|height|ppi 
+        return $obj_page.'|'.intval($img_position[3]*$factor).'|'.(intval($y_dallalto)-$adapt_px).'|'.intval($img_position[1]*$factor).'|'.(intval($img_position[2]*$factor)+$adapt_px).'|96';
+
+    }    
 
 
     public static function sign($pdf, $signature_data, $ctr){     

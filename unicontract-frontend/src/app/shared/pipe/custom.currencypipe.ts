@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { formatCurrency, getCurrencySymbol } from '@angular/common';
-import { isString } from 'util';
+
 
 @Pipe({
     name: 'mycurrency',
@@ -18,7 +18,7 @@ import { isString } from 'util';
         digitsInfo: string = '3.2-2',
         locale: string = 'it-IT',
     ): string | null {
-        if (isString(value) && (value as string).indexOf('€') > 0) {
+        if (typeof value === 'string' && (value as string).indexOf('€') > 0) {
             return value;
         }
         return formatCurrency(

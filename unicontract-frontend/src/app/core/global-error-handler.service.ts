@@ -2,15 +2,13 @@ import { Injectable, ErrorHandler, Injector } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AppConstants } from '../app-constants';
-import { ToastrService, Toast } from 'ngx-toastr';
-
 
 @Injectable()
 export class GlobalErrorHandlerService implements ErrorHandler {
 
     static readonly DEFAULT_ERROR_TITLE: string = 'Qualcosa è andato storto';
 
-    constructor(private injector: Injector, private toastr: ToastrService) {}
+    constructor(private injector: Injector) {}
 
     handleError(error: any) {
      const router = this.injector.get(Router);
@@ -22,20 +20,20 @@ export class GlobalErrorHandlerService implements ErrorHandler {
         const httpErrorCode = error.error.httpErrorCode;
         switch (httpErrorCode) {
             case 401: // UNAUTHORIZED:
-                this.toastr.error('Richiesta autenticazione', 'Oops!');
+               //this.toastr.error('Richiesta autenticazione', 'Oops!');
                 router.navigateByUrl(AppConstants.baseApiURL + '/loginSaml');
                 break;
             case 403: // FORBIDDEN:
-                this.toastr.error('Richiesta non permessa', 'Oops!');
-                router.navigateByUrl('/unauthorized');
+                // this.toastr.error('Richiesta non permessa', 'Oops!');
+                //outer.navigateByUrl('/unauthorized');
                 break;
             case 400: // BAD_REQUEST:
                 // this.showError(error.message);
-                this.toastr.error('Richiesta errata', 'Oops!');
+               //this.toastr.error('Richiesta errata', 'Oops!');
                 break;
             case 500:
                 if (error.error.message) {
-                    this.toastr.error(error.error.message);
+                    //this.toastr.error(error.error.message);
                     // outer.navigateByUrl("/unauthorized");
                 }
             default:

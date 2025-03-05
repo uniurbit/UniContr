@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BaseComponent } from './../../../shared/base-component/base.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { UpdD1 } from './../../../classes/precontrattuale';
 import { D1Inps } from './../../../classes/d1inps';
 import { D1InpsService } from './../../../services/d1inps.service';
 
-import { FormGroup } from '@angular/forms';
+import { FormGroup, UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { encode, decode } from 'base64-arraybuffer';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
@@ -28,40 +28,40 @@ export class D1InpsComponent extends BaseComponent {
   idins: number;
 
   gestioni: Array<Object> = [
-    {gestione: '', name: ''},
-    {gestione: '002', name: '002 : Pensionati di tutti gli Enti pensionistici obbligatori', group: 'Pensionati'},
-    {gestione: '101', name: '101 : Fondo Pensioni Lavoratori Dipendenti', group: 'INPS'},
-    {gestione: '102', name: '102 : Artigiani', group: 'INPS'},
-    {gestione: '103', name: '103 : Commercianti', group: 'INPS'},
-    {gestione: '104', name: '104 : Coltivatori diretti, mezzadri e coloni', group: 'INPS'},
-    {gestione: '105', name: '105 : Versamenti volontari', group: 'INPS'},
-    {gestione: '106', name: '106 : Versamenti Figurativi (CIG, ecc...)', group: 'INPS'},
-    {gestione: '107', name: '107 : Fondi speciali', group: 'INPS'},
-    {gestione: '201', name: '201 : Dipendenti Enti Locali e Amministrazioni dello Stato', group: 'EX INPDAP'},
-    {gestione: '301', name: '301 : Dottori commercialisti', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '302', name: '302 : Ragionieri', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '303', name: '303 : Ingegneri e Architetti', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '304', name: '304 : Geometri', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '305', name: '305 : Avvocati', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '306', name: '306 : Consulenti del lavoro', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '307', name: '307 : Notai', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '308', name: '308 : Medici', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '309', name: '309 : Farmacisti', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '310', name: '310 : Veterinari', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '311', name: '311 : Chimici', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '312', name: '312 : Agronomi', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '313', name: '313 : Geologi', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '314', name: '314 : Attuari', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '315', name: '315 : Infermieri professionali, Ass. sanitari, Vigilatrici infanzia', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '316', name: '316 : Psicologi', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '317', name: '317 : Biologi', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '318', name: '318 : Periti industriali', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '319', name: '319 : Agrotecnici, Periti agrari', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '320', name: '320 : Giornalisti (INPGI)', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '321', name: '321 : Spedizionieri', group: 'Casse Previdenziali Professionisti Autonomi'},
-    {gestione: '401', name: '401 : Dirigenti d\'azienda', group: 'EX INPDAI'},
-    {gestione: '501', name: '501 : Lavoratori dello spettacolo', group: 'ENPALS'},
-    {gestione: '601', name: '601 : Lavoratori Poste Italiane S.p.A.', group: 'IPOST'}
+    { gestione: '', name: '' },
+    { gestione: '002', name: '002 : Pensionati di tutti gli Enti pensionistici obbligatori', group: 'Pensionati' },
+    { gestione: '101', name: '101 : Fondo Pensioni Lavoratori Dipendenti', group: 'INPS' },
+    { gestione: '102', name: '102 : Artigiani', group: 'INPS' },
+    { gestione: '103', name: '103 : Commercianti', group: 'INPS' },
+    { gestione: '104', name: '104 : Coltivatori diretti, mezzadri e coloni', group: 'INPS' },
+    { gestione: '105', name: '105 : Versamenti volontari', group: 'INPS' },
+    { gestione: '106', name: '106 : Versamenti Figurativi (CIG, ecc...)', group: 'INPS' },
+    { gestione: '107', name: '107 : Fondi speciali', group: 'INPS' },
+    { gestione: '201', name: '201 : Dipendenti Enti Locali e Amministrazioni dello Stato', group: 'EX INPDAP' },
+    { gestione: '301', name: '301 : Dottori commercialisti', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '302', name: '302 : Ragionieri', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '303', name: '303 : Ingegneri e Architetti', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '304', name: '304 : Geometri', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '305', name: '305 : Avvocati', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '306', name: '306 : Consulenti del lavoro', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '307', name: '307 : Notai', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '308', name: '308 : Medici', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '309', name: '309 : Farmacisti', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '310', name: '310 : Veterinari', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '311', name: '311 : Chimici', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '312', name: '312 : Agronomi', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '313', name: '313 : Geologi', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '314', name: '314 : Attuari', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '315', name: '315 : Infermieri professionali, Ass. sanitari, Vigilatrici infanzia', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '316', name: '316 : Psicologi', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '317', name: '317 : Biologi', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '318', name: '318 : Periti industriali', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '319', name: '319 : Agrotecnici, Periti agrari', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '320', name: '320 : Giornalisti (INPGI)', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '321', name: '321 : Spedizionieri', group: 'Casse Previdenziali Professionisti Autonomi' },
+    { gestione: '401', name: '401 : Dirigenti d\'azienda', group: 'EX INPDAI' },
+    { gestione: '501', name: '501 : Lavoratori dello spettacolo', group: 'ENPALS' },
+    { gestione: '601', name: '601 : Lavoratori Poste Italiane S.p.A.', group: 'IPOST' }
 
   ];
 
@@ -87,11 +87,13 @@ export class D1InpsComponent extends BaseComponent {
         {
           type: 'checkbox',
           key: 'flag_obbligo_contributivo',
-          className: 'custom-switch pl-4 pr-2 pt-1',
+          className: 'col',
           defaultValue: false,
           templateOptions: {
+            formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_obbligo_contributivo === false || field.model.flag_obbligo_contributivo === 0) {
+                //field.form.get('specif_obbligo_contributivo').setValue(null);
                 this.model.specif_obbligo_contributivo = null;
               }
             }
@@ -101,7 +103,7 @@ export class D1InpsComponent extends BaseComponent {
               if (model.flag_obbligo_contributivo === false || model.flag_obbligo_contributivo === 0) {
                 return 'NO';
               } else {
-                return 'SI';
+                return 'SÌ';
               }
             }
           }
@@ -114,25 +116,30 @@ export class D1InpsComponent extends BaseComponent {
     },
     //specif_obbligo_contributivo
     {
-      fieldGroup: [
-        {
-          type: 'radio',
-          key: 'specif_obbligo_contributivo',
-          templateOptions: {
-            options: [
-              {key: 'D1A', value: this.translateService.instant('d1_txt2')},
-              {key: 'D1B', value: this.translateService.instant('d1_txt3')},
-              {key: 'D1C', value: this.translateService.instant('d1_txt4')}
-            ],
-            required: true,
-            translate: true,
-            label: 'd1_txt1'
+      //fieldGroup: [
+      //  {
+      type: 'radio',
+      key: 'specif_obbligo_contributivo',
+      resetOnHide: true,
+      templateOptions: {
+        options: [
+          { value: 'D1A', label: this.translateService.instant('d1_txt2') },
+          { value: 'D1B', label: this.translateService.instant('d1_txt3') },
+          { value: 'D1C', label: this.translateService.instant('d1_txt4') }
+        ],
+        required: true,
+        translate: true,
+        label: 'd1_txt1'
+      },
+      expressions: {
+        hide: (field: any) => {
+          if (field.model.flag_obbligo_contributivo === false || field.model.flag_obbligo_contributivo === 0) {
+            return true;
           }
-        }
-      ],
-      hideExpression: (model: any, formState: any) => {
-        if (model.flag_obbligo_contributivo === false || model.flag_obbligo_contributivo === 0) {
-          return model;
+          return false;
+        },
+        'templateOptions.required': (field: FormlyFieldConfig) => {
+          return !field.hide;
         }
       },
     }
@@ -145,13 +152,15 @@ export class D1InpsComponent extends BaseComponent {
         {
           type: 'checkbox',
           key: 'flag_gestione_separata',
-          className: 'custom-switch pl-4 pr-2 pt-1',
+          className: 'col',
           defaultValue: false,
           templateOptions: {
+            formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_gestione_separata === false || field.model.flag_gestione_separata === 0) {
                 this.model.specif_gestione_separata = null;
               }
+              field.form.updateValueAndValidity();
             }
           },
           expressionProperties: {
@@ -159,7 +168,7 @@ export class D1InpsComponent extends BaseComponent {
               if (model.flag_gestione_separata === false || model.flag_gestione_separata === 0) {
                 return 'NO';
               } else {
-                return 'SI';
+                return 'SÌ';
               }
             }
           }
@@ -177,20 +186,27 @@ export class D1InpsComponent extends BaseComponent {
           key: 'specif_gestione_separata',
           templateOptions: {
             options: [
-              {key: 'D2A', value: this.translateService.instant('d1_txt6')},
-              {key: 'D2B', value: this.translateService.instant('d1_txt7')}
+              { value: 'D2A', label: this.translateService.instant('d1_txt6') },
+              { value: 'D2B', label: this.translateService.instant('d1_txt7') }
             ],
             required: true,
             translate: true,
             label: 'd1_txt5'
           },
-        }
+          expressions: {
+            hide: (field: any) => {
+              if (field.model.flag_gestione_separata === false || field.model.flag_gestione_separata === 0) {
+                return true;
+              }
+              return false;
+            },
+            'templateOptions.required': (field: FormlyFieldConfig) => {
+              return !field.hide;
+            }
+          },
+        },
       ],
-      hideExpression: (model: any, formState: any) => {
-        if (model.flag_gestione_separata === false || model.flag_gestione_separata === 0) {
-          return model;
-        }
-      },
+
     }
   ];
 
@@ -201,15 +217,17 @@ export class D1InpsComponent extends BaseComponent {
         {
           type: 'checkbox',
           key: 'flag_misura_ridotta',
-          className: 'custom-switch pl-4 pr-2 pt-1',
+          className: 'col',
           defaultValue: false,
           templateOptions: {
+            formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_misura_ridotta === false || field.model.flag_misura_ridotta === 0) {
                 this.model.specif_misura_ridotta = null;
                 this.model.cassa_gestioni_previdenziali = null;
                 this.model.data_pensione = null;
               }
+              field.form.updateValueAndValidity();
             }
           },
           expressionProperties: {
@@ -217,7 +235,7 @@ export class D1InpsComponent extends BaseComponent {
               if (model.flag_misura_ridotta === false || model.flag_misura_ridotta === 0) {
                 return 'NO';
               } else {
-                return 'SI';
+                return 'SÌ';
               }
             }
           }
@@ -230,25 +248,28 @@ export class D1InpsComponent extends BaseComponent {
     },
     //specif_misura_ridotta
     {
-      fieldGroup: [
-        {
-          type: 'radio',
-          key: 'specif_misura_ridotta',
-          templateOptions: {
-            options: [
-              {key: 'D3A', value: this.translateService.instant('d1_txt9')},
-              {key: 'D3B', value: this.translateService.instant('d1_txt11')},
-              {key: 'D3C', value: this.translateService.instant('d1_txt13')},
-            ],
-            required: true,
-            translate: true,
-            label: 'd1_txt8'
-          },
-        }
-      ],
-      hideExpression: (model: any, formState: any) => {
-        if (model.flag_misura_ridotta === false || model.flag_misura_ridotta === 0) {
-          return model;
+
+      type: 'radio',
+      key: 'specif_misura_ridotta',
+      templateOptions: {
+        options: [
+          { value: 'D3A', label: this.translateService.instant('d1_txt9') },
+          { value: 'D3B', label: this.translateService.instant('d1_txt11') },
+          { value: 'D3C', label: this.translateService.instant('d1_txt13') },
+        ],
+        required: true,
+        translate: true,
+        label: 'd1_txt8'
+      },
+      expressions: {
+        hide: (field: any) => {
+          if (field.model.flag_misura_ridotta === false || field.model.flag_misura_ridotta === 0) {
+            return true;
+          }
+          return false;
+        },
+        'templateOptions.required': (field: FormlyFieldConfig) => {
+          return !field.hide;
         }
       },
     },
@@ -267,14 +288,21 @@ export class D1InpsComponent extends BaseComponent {
             labelProp: 'name',
             label: this.translateService.instant('d1_title5'),
             required: true,
-          }
+          },
+          expressions: {
+            hide: (field: any) => {
+              if (field.model.specif_misura_ridotta !== 'D3C' || field.model.flag_misura_ridotta === 0 || field.model.flag_misura_ridotta === false) {
+                return true;
+              }
+              return false;
+            },
+            'templateOptions.required': (field: FormlyFieldConfig) => {
+              return !field.hide;
+            }
+          },
         }
       ],
-      hideExpression: (model: any, formState: any) => {
-        if (model.specif_misura_ridotta !== 'D3C' || model.flag_misura_ridotta === 0 || model.flag_misura_ridotta === false) {
-          return model;
-        }
-      },
+
     },
     //data_pensione
     {
@@ -289,15 +317,21 @@ export class D1InpsComponent extends BaseComponent {
             translate: true,
             label: 'd1_txt16',
             required: true,
+          },
+          expressions: {
+            hide: (field: any) => {
+              if ((field.model.specif_misura_ridotta !== 'D3A' && field.model.specif_misura_ridotta !== 'D3B') || (field.model.flag_misura_ridotta === 0 || field.model.flag_misura_ridotta === false)) {
+                return true;
+              }
+              return false;
+            },
+            'templateOptions.required': (field: FormlyFieldConfig) => {
+              return !field.hide;
+            }
           }
         },
       ],
-      hideExpression: (model: any, formState: any) => {
-        // tslint:disable-next-line:max-line-length
-        if ((model.specif_misura_ridotta !== 'D3A' && model.specif_misura_ridotta !== 'D3B') || (model.flag_misura_ridotta === 0 || model.flag_misura_ridotta === false)) {
-          return model;
-        }
-      },
+
     }
   ];
 
@@ -308,16 +342,17 @@ export class D1InpsComponent extends BaseComponent {
         {
           type: 'checkbox',
           key: 'flag_partita_iva',
-          className: 'custom-switch pl-4 pr-2 pt-1',
+          className: 'col',
           defaultValue: false,
           templateOptions: {
+            formCheck: 'switch',
           },
           expressionProperties: {
             'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_partita_iva === false || model.flag_partita_iva === 0) {
                 return 'NO';
               } else {
-                return 'SI';
+                return 'SÌ';
               }
             }
           }
@@ -336,9 +371,14 @@ export class D1InpsComponent extends BaseComponent {
           template: '<p>' + this.translateService.instant('d1_txt14') + '</p>',
         }
       ],
-      hideExpression: (model: any, formState: any) => {
-        if (model.flag_partita_iva === false || model.flag_partita_iva === 0) {
-          return model;
+      expressions: {
+        hide: (field: any) => {
+          if (field.model.flag_partita_iva === false || field.model.flag_partita_iva === 0) {
+            return true;
+          }
+        },
+        'templateOptions.required': (field: FormlyFieldConfig) => {
+          return !field.hide;
         }
       },
     },
@@ -367,10 +407,10 @@ export class D1InpsComponent extends BaseComponent {
                 key: 'attachmenttype_codice',
                 type: 'input',
                 defaultValue: 'DOM_GS',
-               
+
                 templateOptions: {
                   type: 'hidden',
-                 //label: 'Tipo documento',
+                  //label: 'Tipo documento',
                 }
               },
               // filename
@@ -399,21 +439,21 @@ export class D1InpsComponent extends BaseComponent {
                 key: 'filevalue',
                 type: 'input',
                 templateOptions: {
-                  type: 'hidden'        
+                  type: 'hidden'
                 },
               },
               {
                 key: 'id',
                 type: 'input',
                 templateOptions: {
-                  type: 'hidden'        
+                  type: 'hidden'
                 },
               },
             ],
           },
-          ],
-        },
+        ],
       },
+    },
   ];
 
   fields: FormlyFieldConfig[] = [
@@ -445,6 +485,7 @@ export class D1InpsComponent extends BaseComponent {
     private d1inpsService: D1InpsService,
     private precontrattualeService: PrecontrattualeService,
     protected translateService: TranslateService,
+    private cdr: ChangeDetectorRef,
     private tools: InsegnamTools) { super(messageService); }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -463,7 +504,7 @@ export class D1InpsComponent extends BaseComponent {
               }
               this.idins = +params.get('id');
 
-              if (response.message){
+              if (response.message) {
                 this.messageService.info(response.message)
               }
             },
@@ -507,13 +548,13 @@ export class D1InpsComponent extends BaseComponent {
         if (response['success']) {
           this.messageService.info('Modello D.1: Dichiarazione ai fini previdenziali creato con successo');
           // AGGIORNA LO SCHEMA PRECONTRATTUALE PASSANDO L'ID DELL'INSEGNAMENTO
-          this.precontr = response['data'];          
-          this.router.navigate(['home/inps/details',  this.precontr.d1_inps_id ]);
+          this.precontr = response['data'];
+          this.router.navigate(['home/inps/details', this.precontr.d1_inps_id]);
 
         } else {
           this.messageService.error(response['message']);
         }
-       
+
       }
     );
   }
@@ -527,7 +568,7 @@ export class D1InpsComponent extends BaseComponent {
           this.messageService.info('Modello D.1: Dichiarazione ai fini previdenziali aggiornato con successo');
         } else {
           this.messageService.error(response['message']);
-        }        
+        }
         this.router.navigate(['home/inps/details', idD1]);
       }
     );

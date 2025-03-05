@@ -1,8 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
@@ -126,6 +125,8 @@ export class AuthService {
             this.router.navigate(['home/lineeguida/precontreditabile']);
         }else if (permissions['VIEWER']){
             this.router.navigate(['home']);
+        }else if (permissions['OP_DOCENTE']){
+            this.router.navigate(['home/lista-doc-precontr-query']);
         }else{
             this.router.navigate(['home/lista-precontr-query']);
         }
@@ -206,6 +207,6 @@ export class AuthService {
         //   errMessage = err.message ? err.message : err.toString();
         // }
 
-        return Observable.throw(errMessage);
+        return throwError(errMessage);
     }
 }

@@ -6,7 +6,7 @@ import { MessageService, BaseService } from '../shared';
 import { ArrayControl } from '../shared/dynamic-form/control-array';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { AppConstants } from '../app-constants';
-import { Cacheable } from 'ngx-cacheable';
+import { Cacheable } from 'ts-cacheable';
 import { ConfirmationDialogService } from '../shared/confirmation-dialog/confirmation-dialog.service';
 
 

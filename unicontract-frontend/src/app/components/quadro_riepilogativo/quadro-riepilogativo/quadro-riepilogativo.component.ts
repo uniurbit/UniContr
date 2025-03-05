@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BaseComponent } from './../../../shared/base-component/base.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { SummaryService } from './../../../services/quadro-riepilogativo.service
 import { RouteMetods } from './../../../classes/routeMetods';
 import { encode, decode } from 'base64-arraybuffer';
 
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 import { ConfirmationDialogService } from 'src/app/shared/confirmation-dialog/confirmation-dialog.service';
@@ -26,6 +26,8 @@ import { AuthService } from 'src/app/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ToastService } from 'src/app/shared/toast-service';
+import * as saveAs from 'file-saver';
+import { BreadcrumbService } from 'src/app/services/breadcrumb.service';
 //import { IOSignElement } from 'src/assets/js/io-sign.js';
 
 //importata dalla lib js api-client-lib di U-Sign
@@ -39,7 +41,7 @@ declare var SDK: any;
 export class QuadroRiepilogativoComponent extends BaseComponent implements AfterViewInit {
 
   public firmaio: ElementRef;
-  @ViewChild('btnfirmaio', { static: false }) set setfirmaio(content: ElementRef) {
+  @ViewChild('btnfirmaio') set setfirmaio(content: ElementRef) {
     this.firmaio = content;
     if (this.firmaio) {
       this.firmaio.nativeElement.addEventListener("io-sign.cta.click", this.eventListener);
@@ -59,37 +61,49 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
         this.isLoading = false;
         if (response.success) {
           this.messageService.clear();
-          if (response.message){
+          if (response.message) {
             this.messageService.info(response.message);
           }
 
-          if (response.data.validazioni){
+          if (response.data.validazioni) {
             //se restituisce la tabella validazioni aggiorno la precontrattuale e esco          
             this.items = { ...this.items, ...response.data.validazioni };
             this.items.attachments = response.data.attachments;
             this.sessionStorageService.removeItem('visualizzaContratto' + this.items.id);
             this.messageService.info('Operazione firma contratto terminata con successo');
-          }else{
-           
-            if (response.data.stato == 'WAIT_FOR_QTSP'){
+          } else {
+
+            if (response.data.stato == 'WAIT_FOR_QTSP') {
               this.firmaio.nativeElement.reset();
               const msg = "Siamo in attesa che venga completato il processo di firma dal fornitore del servizio. Riprovare più tardi."
-              this.confirmationDialogService.confirm('Firma con IO', msg, null, 'Chiudi', 'lg').then((confirmed) => {}, ()=> {});
-            
-            }else{
+              this.confirmationDialogService.confirm('Firma con IO', msg, null, 'Chiudi', 'lg').then((confirmed) => { }, () => { });
+
+            } else {
               //visualizza il QR
-              this.items.firmaUtente = response.data;           
+              this.items.firmaUtente = response.data;
               this.firmaio.nativeElement.redirectOrShowQrCode(response.data.signature_request_id);
-              setTimeout(() => { if (this.firmaio && this.firmaio.nativeElement) { console.log('timeout chiusura'); this.firmaio.nativeElement.reset();} }, 180000);
+              setTimeout(() => { if (this.firmaio && this.firmaio.nativeElement) { console.log('timeout chiusura'); this.firmaio.nativeElement.reset(); } }, 180000);
               //this.toastService.show(response.message, { classname: 'bg-success text-light', delay: 6000 });
             }
           }
-          
-        
+
+
         } else {
           this.firmaio.nativeElement.reset();
-          const msg = this.getAllertMessage(response.message);          
-          this.confirmationDialogService.confirm('Firma con IO',null , null, 'Chiudi', 'lg', msg).then((confirmed) => {}, ()=> {});
+          const msg = this.getAllertMessage(response.message);
+
+          const badges = `
+          <span>Non hai l’app IO? Scaricala ora</span>
+          <div style="display:flex;flex-direction:row;align-items:center;padding:10px">
+            <a href="https://apps.apple.com/it/app/io/id1501681835" style="display:inline-block;overflow:hidden;border-radius:13px">
+              <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/it-it?size=250x83&releaseDate=1586995200" alt="Download on the App Store" style="border-radius:13px;height:40px;width:120px">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=it.pagopa.io.app">
+              <img alt="Disponibile su Google Play" style="height:50px;width:130px" src="https://play.google.com/intl/en_us/badges/static/images/badges/it_badge_web_generic.png">
+            </a>
+          </div>`
+
+          this.confirmationDialogService.confirm('Firma con IO', null, null, 'Chiudi', 'lg', msg + badges).then((confirmed) => { }, () => { });
           //this.toastService.show(response.message, { classname: 'bg-danger text-light', delay: 5000 })
           this.messageService.error(response.message);
         }
@@ -137,7 +151,7 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
   items: any = null;
   idins: number;
 
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   model: any = {};
   options: FormlyFormOptions = {
     formState: {
@@ -214,10 +228,12 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
     private permissionsService: NgxPermissionsService,
     private sessionStorageService: SessionStorageService,
     private notificaService: NotificaService,
-    private goto: RouteMetods) { 
-      super(messageService); 
-      
-    }
+    private goto: RouteMetods,
+    private cdr: ChangeDetectorRef,
+    private breadcrumbService: BreadcrumbService) {
+    super(messageService);
+
+  }
 
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -226,9 +242,12 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
     this.route.paramMap.subscribe(
       (params) => {
         this.isLoading = true;
+      
         this.summaryService.getSummary(+params.get('id')).subscribe(
           response => {
             this.items = response['datiGenerali'];
+            this.breadcrumbService.updateWithId(this.items.id);
+            
             this.idins = +params.get('id');
 
             this.permissionsService.hasPermission(['OP_APPROVAZIONE_AMM', 'OP_APPROVAZIONE_ECONOMICA', 'SUPER-ADMIN']).then(
@@ -259,8 +278,8 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
     // })});
   }
 
-  getAllertMessage(msg: string){
-    return '<div class="alert alert-danger"><span class="label label-danger mr-1">Attenzione</span> '+msg+'</div>' 
+  getAllertMessage(msg: string) {
+    return '<div class="alert alert-danger"><span class="label label-danger me-1">Attenzione</span> ' + msg + '</div>'
   }
 
   getOrdinativi(compenso: any) {
@@ -274,7 +293,7 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
       },
       (error) => this.handleError(error),
       () => this.messageService.info('Lettura effettuata con successo')
-      
+
     );
   }
 
@@ -532,47 +551,47 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
     del contratto di insegnamento e di averlo accettato in tutte le sue parti.</p>`;
 
     //caricare la preview del contratto    
-    const filevalue$ = this.summaryService.previewContratto(this.idins).pipe(map(file => {        
-        //console.log(file);
-        if (file && file.filevalue) {                                    
-          const decoded = decode(file.filevalue);          
-          return decoded;
-        }         
-        return null;     
-      },
-      e => {        
+    const filevalue$ = this.summaryService.previewContratto(this.idins).pipe(map(file => {
+      //console.log(file);
+      if (file && file.filevalue) {
+        const decoded = decode(file.filevalue);
+        return decoded;
+      }
+      return null;
+    },
+      e => {
         this.messageService.error('Errore caricamento contratto');
         console.log(e);
-    }));
+      }));
 
     this.confirmationDialogService.confirm('Accettazione contratto', null, 'Accetta', 'Annulla', 'lg', message, filevalue$)
-    .then((confirmed) => {
-      if (confirmed) {
-        const data: IPrecontrStore<any> = {
-          insegn_id: this.idins,
-          entity: {
-            flag_accept: true,
-          }
-        };
-
-        this.isLoading = true;
-        this.summaryService.presaVisioneAccettazione(data).subscribe(
-          response => {
-            this.isLoading = false;
-            if (response.success) {
-              this.items = { ...this.items, ...response.data.validazioni };
-              this.items.attachments = response.data.attachments;
-              this.sessionStorageService.removeItem('visualizzaContratto' + this.items.id);
-              this.messageService.info('Operazione di presa visione e accettazione terminata con successo');
-              //this.storyProcess('Presa visione e accettazione del contratto da parte del docente');
-            } else {
-              this.messageService.error(response.message);
+      .then((confirmed) => {
+        if (confirmed) {
+          const data: IPrecontrStore<any> = {
+            insegn_id: this.idins,
+            entity: {
+              flag_accept: true,
             }
-          }
-        );
-      }
-    },
-    () => {});
+          };
+
+          this.isLoading = true;
+          this.summaryService.presaVisioneAccettazione(data).subscribe(
+            response => {
+              this.isLoading = false;
+              if (response.success) {
+                this.items = { ...this.items, ...response.data.validazioni };
+                this.items.attachments = response.data.attachments;
+                this.sessionStorageService.removeItem('visualizzaContratto' + this.items.id);
+                this.messageService.info('Operazione di presa visione e accettazione terminata con successo');
+                //this.storyProcess('Presa visione e accettazione del contratto da parte del docente');
+              } else {
+                this.messageService.error(response.message);
+              }
+            }
+          );
+        }
+      },
+        () => { });
 
   }
 
@@ -586,20 +605,20 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
             entity: this.model
           };
 
-        this.isLoading = true;
-        this.summaryService.annullaContratto(data).subscribe(
-          response => {
-            this.isLoading = false;
-            if (response.success) {
-              this.items = {...this.items, ...response.data};
-              this.messageService.info('Operazione di '+(this.model.tipo_annullamento=='REVOC' ? 'revoca' : 'rinuncia')+' terminata con successo');
-            } else {
-              this.messageService.error(response.message);
+          this.isLoading = true;
+          this.summaryService.annullaContratto(data).subscribe(
+            response => {
+              this.isLoading = false;
+              if (response.success) {
+                this.items = { ...this.items, ...response.data };
+                this.messageService.info('Operazione di ' + (this.model.tipo_annullamento == 'REVOC' ? 'revoca' : 'rinuncia') + ' terminata con successo');
+              } else {
+                this.messageService.error(response.message);
+              }
             }
-          }
-        );
-      }
-    });
+          );
+        }
+      });
   }
 
   annullaAnnullaContratto() {
@@ -733,13 +752,13 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
   isAnnullabile() {
     return this.items.stato < 1;
   }
-  
-  isStepFirma(){
+
+  isStepFirma() {
     return this.isStepPresaVisione() && !this.items.firmaUtente;
   }
 
-  isStepFirmaProvider(nomeProvider = null){
-    if (nomeProvider){
+  isStepFirmaProvider(nomeProvider = null) {
+    if (nomeProvider) {
       return this.isStepPresaVisione() && this.items.firmaUtente && this.items.firmaUtente.nomeProvider == nomeProvider;
     }
     return this.isStepPresaVisione() && this.items.firmaUtente != null;
@@ -750,14 +769,17 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
     //se è gia aperto e il tipo è diverso dal corrente 
     if (this.gestioneannulamento && this.model.tipo_annullamento && this.model.tipo_annullamento != tipo) {
       this.model.tipo_annullamento = tipo;
+      this.cdr.detectChanges();
     } else {
       this.model.tipo_annullamento = tipo;
       this.gestioneannulamento = !this.gestioneannulamento;
+      this.cdr.detectChanges();
     }
   }
 
   toggleGestioneInformazioni() {
     this.gestioneinformazioni = !this.gestioneinformazioni;
+    this.cdr.detectChanges();
   }
 
   sendInfoEmail() {
@@ -803,6 +825,20 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
     );
   }
 
+  apriPaginaEsterna() {
+    const attach = this.items['attachments'].find(x => x.attachmenttype_codice === 'CONTR_FIRMA');
+    if (attach) {
+      let titulus = window.open('', '_blank');
+      this.summaryService.getTitulusDocumentURL(attach.id).subscribe(
+        (data) => titulus.location.href = data.url,
+        (error) => {
+          titulus.close();
+          console.log(error);
+        }
+      );
+    }
+  }
+
   getUgovIddg(coper_id) {
     // let iddg = null;
     this.summaryService.getIddg(coper_id).subscribe(
@@ -815,8 +851,8 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
   }
 
 
-  richiestaFirmaUSIGN(){
-    
+  richiestaFirmaUSIGN() {
+
     const data: IPrecontrStore<any> = {
       insegn_id: this.idins,
       entity: {}
@@ -827,27 +863,27 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
     //chiamata per la richiesta di firma con app IO ... 
     this.summaryService.richiestafirmausign(data).subscribe(
       response => {
-        
+
         this.isLoading = false;
 
         if (response.success) {
           this.messageService.clear();
-          if (response.message){
+          if (response.message) {
             this.messageService.info(response.message);
           }
 
-          if (response.data.validazioni){
+          if (response.data.validazioni) {
             //se restituisce la tabella validazioni aggiorno la precontrattuale e esco          
             this.items = { ...this.items, ...response.data.validazioni };
             this.items.attachments = response.data.attachments;
             this.sessionStorageService.removeItem('visualizzaContratto' + this.items.id);
             this.messageService.info('Operazione firma contratto terminata con successo');
-          }else{            
-            if (response.data.stato == 'rejected'){
+          } else {
+            if (response.data.stato == 'rejected') {
               this.items.firmaUtente = null;
               this.toastService.show(response.message, { classname: 'bg-warning text-light', delay: 5000 })
               this.messageService.info(response.message);
-            }else{
+            } else {
 
               // let message: string =
               // `<div>
@@ -855,29 +891,38 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
               // <a align="text-center" class="btn btn-primary btn-lg active" role="button" target="_blank" href="${response.data.link}">Firma</a>
               //  <p align="justify" class="mt-3"><small>oppure copiare e incollare questo indirizzo in una nuova finestra del broswer ${response.data.link}</small></p>
               // </div>`;
-                                          
-              this.confirmationDialogService.inputConfirm('Firma contratto', null, null, 'Chiudi', 'lg', null,this.fieldFirmaUSign(response.data.link))
-                .then((confirmed) => {}, ()=>{});
-              
-              this.items.firmaUtente = response.data;           
+
+              this.confirmationDialogService.inputConfirm('Firma contratto', null, null, 'Chiudi', 'lg', null, this.fieldFirmaUSign(response.data.link))
+                .then((confirmed) => { }, () => { });
+
+              this.items.firmaUtente = response.data;
               //visualizza la form di inserimento dell'OTP
               // process_id == token per U-Sing
               //CASO PROCEDURE DI FIRMA SINCRONA
               //this.showFormUSING(response.data.process_id);
             }
           }
-                   
+
         } else {
-          if (response.data && response.data.code){           
-            const msg = this.getAllertMessage(this.translateService.instant('errori.'+response.data.code));              
-            this.confirmationDialogService.confirm('Firma con U-Sign', null, null, 'Chiudi', 'lg',msg)
-              .then((confirmed) => {}, ()=>{});
-          
+          if (response.data && response.data.code) {
+            const translationKey = 'errori.' + response.data.code;
+            const translatedMsg = this.translateService.instant(translationKey);
+
+            // Use the translated message if it exists, otherwise fallback to response.data.message or a generic message.
+            const baseMsg = translatedMsg !== translationKey 
+                ? translatedMsg 
+                : response.message || translationKey;
+
+            const msg = this.getAllertMessage(baseMsg);
+            //const msg = this.getAllertMessage(this.translateService.instant('errori.' + response.data.code));
+            this.confirmationDialogService.confirm('Firma con U-Sign', null, null, 'Chiudi', 'lg', msg)
+              .then((confirmed) => { }, () => { });
+
             this.messageService.info(response.message);
-          }else {
+          } else {
             this.toastService.show(response.message, { classname: 'bg-danger text-light', delay: 5000 })
             this.messageService.error(response.message);
-          }          
+          }
         }
       },
       (error: any) => {
@@ -901,70 +946,116 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
                 ordinefirma: 0,
                 required: true,
                 translate: true,
-                label: 'Firma contratto'             
+                label: 'Firma contratto'
               },
+              hooks: {
+                onInit: (field) => {
+                  //carica il pdf              
+                  setTimeout(() => {
+                    this.isLoading = true;
+                  });
+
+                  this.summaryService.previewContratto(this.idins).subscribe(file => {
+                    this.isLoading = false;
+                    if (file && file.filevalue) {
+                      field.options.formState.pdfSrc = of(decode(file.filevalue));
+                    }
+                    field.options.formState.widgetPDFSignaturePosition = file.widgetPDFSignaturePosition ? file.widgetPDFSignaturePosition : null;
+                  });
+                }
+              }
             },
           ],
         },
+
       ],
     }
   ];
+
+  firmaGrafometrica() {
+    const message: string =
+      `<p align="justify">Premi il bottone di firma e firma sul dispositivo.</p>`;
+
+    this.confirmationDialogService.inputConfirm('Firma Grafometrica', null, 'Accetta', 'Annulla', 'lg', message, this.fieldfirmacontratto(), null, {
+      ctr: this.items
+    })
+      .then((confirmed) => {
+        if (confirmed.result) {
+          const data: IPrecontrStore<any> = {
+            insegn_id: this.idins,
+            entity: confirmed.entity
+          };
+          this.isLoading = true;
+          this.summaryService.firmaGrafometrica(data).subscribe(
+            response => {
+              this.isLoading = false;
+              if (response.success) {
+                this.items = { ...this.items, ...response.data.validazioni };
+                this.items.attachments = response.data.attachments;
+                this.messageService.info('Operazione di firma terminata con successo');
+              } else {
+                this.messageService.error(response.message);
+              }
+            });
+        }
+      });
+  }
 
   firmaSmartcard() {
     const message: string =
       `<p align="justify">Posiziona la carta di firma sul lettore.</p>`;
 
     //caricare la preview del contratto    
-    const filevalue$ = this.summaryService.previewContratto(this.idins).pipe(map(file => {        
-        //console.log(file);
-        if (file && file.filevalue) {                                    
-          const decoded = decode(file.filevalue);          
-          return decoded;
-        }         
-        return null;     
-      },
-      e => {        
+    const filevalue$ = this.summaryService.previewContratto(this.idins).pipe(map(file => {
+      //console.log(file);
+      if (file && file.filevalue) {
+        const decoded = decode(file.filevalue);
+        return decoded;
+      }
+      return null;
+    },
+      e => {
         this.messageService.error('Errore caricamento contratto');
         console.log(e);
-    }));
+      }));
 
-    this.confirmationDialogService.inputConfirm('Firma con SmartCard', null, 'Accetta', 'Annulla', 'lg', message, this.fieldfirmacontratto(), filevalue$,  {
+    this.confirmationDialogService.inputConfirm('Firma con SmartCard', null, 'Accetta', 'Annulla', 'lg', message, this.fieldfirmacontratto(), filevalue$, {
       ctr: this.items
     })
-    .then((confirmed) => {
-      if (confirmed) {
-        const data: IPrecontrStore<any> = {
-          insegn_id: this.idins,
-          entity: {
-            flag_accept: true,
-          }
-        };
+      .then((confirmed) => {
+        if (confirmed) {
+          const data: IPrecontrStore<any> = {
+            insegn_id: this.idins,
+            entity: {
+              flag_accept: true,
+            }
+          };
 
-        //TODO leggi file firmato e fai l'upload
+          //TODO leggi file firmato e fai l'upload
 
-        // this.isLoading = true;
-        // this.summaryService.presaVisioneAccettazione(data).subscribe(
-        //   response => {
-        //     this.isLoading = false;
-        //     if (response.success) {
-        //       this.items = { ...this.items, ...response.data.validazioni };
-        //       this.items.attachments = response.data.attachments;
-        //       this.sessionStorageService.removeItem('visualizzaContratto' + this.items.id);
-        //       this.messageService.info('Operazione di presa visione e accettazione terminata con successo');
-        //       //this.storyProcess('Presa visione e accettazione del contratto da parte del docente');
-        //     } else {
-        //       this.messageService.error(response.message);
-        //     }
-        //   }
-        // );
-      }
-    },
-    () => {});
+          // this.isLoading = true;
+          // this.summaryService.presaVisioneAccettazione(data).subscribe(
+          //   response => {
+          //     this.isLoading = false;
+          //     if (response.success) {
+          //       this.items = { ...this.items, ...response.data.validazioni };
+          //       this.items.attachments = response.data.attachments;
+          //       this.sessionStorageService.removeItem('visualizzaContratto' + this.items.id);
+          //       this.messageService.info('Operazione di presa visione e accettazione terminata con successo');
+          //       //this.storyProcess('Presa visione e accettazione del contratto da parte del docente');
+          //     } else {
+          //       this.messageService.error(response.message);
+          //     }
+          //   }
+          // );
+        }
+      },
+        () => { });
 
   }
 
 
-  cancellazioneIstanzaFirmaUtente(){
+  cancellazioneIstanzaFirmaUtente() {
     const data: IPrecontrStore<any> = {
       insegn_id: this.idins,
       entity: this.items.firmaUtente
@@ -978,13 +1069,13 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
         this.isLoading = false;
         if (response.success) {
           this.messageService.clear();
-          if (response.message){
+          if (response.message) {
             this.items.firmaUtente = null;
             this.messageService.info(response.message);
           }
-        } else {          
+        } else {
           this.toastService.show(response.message, { classname: 'bg-danger text-light', delay: 5000 })
-          this.messageService.error(response.message);                   
+          this.messageService.error(response.message);
         }
       },
       (error: any) => {
@@ -992,26 +1083,26 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
       });
   }
   //finestra pop apertura esterna u-sing 
-  fieldFirmaUSign = (url): FormlyFieldConfig[] => [    
-    {     
+  fieldFirmaUSign = (url): FormlyFieldConfig[] => [
+    {
       fieldGroup: [
         {
           template: `<p align="justify">Il processo di firma è stato attivato con successo. Per procedere con la firma, utilizzare il seguente pulsante: </p>`
         },
         {
-          type: 'button',          
+          type: 'button',
           templateOptions: {
             btnType: 'btn btn-primary btn-lg active',
-            text: 'Firma',
+            text: 'Vai alla Firma',
             // icon: 'oi oi-data-transfer-download'
-            onClick: ($event, model, field: FormlyFieldConfig) => {            
-              window.open(url);              
+            onClick: ($event, model, field: FormlyFieldConfig) => {
+              window.open(url);
               field.options.formState.container.dismiss();
             },
-          },       
+          },
         },
         {
-          template: `<p align="justify" class="mt-3"><small>oppure copiare e incollare questo indirizzo in una nuova finestra del broswer ${url}</small></p>`
+          template: `<p align="justify" class="mt-3"><small>apre la pagina di U-Sign oppure copiare e incollare questo indirizzo in una nuova finestra del broswer ${url}</small></p>`
         }
       ],
     }
@@ -1022,25 +1113,25 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
     //'3F217368CE026D965DDF278C3B1D60EC2B9396AD7ACDEA37C5189BF87257D487',
     const payload = {
       token: token,
-      auth_token: `bearer ${this.auth.getToken()}`
+      auth_token: `Bearer ${this.auth.getToken()}`
     };
 
     const config = {
       headers: {
         "Content-Type": "application/json",
-        //"Authorization": `bearer ${this.auth.getToken()}`
+        //"Authorization": `Bearer ${this.auth.getToken()}`
       }
     };
 
     console.log(SDK.config);
-    
+
     SDK.requestAndProcessOTP(payload, config, this.firmaSuccess, this.firmaError);
 
 
     //test FEA 
     // const otp_payload = {
     //     'process_token': payload.token, //payload.process_token
-    //     'auth_token': `bearer ${this.auth.getToken()}`
+    //     'auth_token': `Bearer ${this.auth.getToken()}`
     // };
 
     // const otp_config = {
@@ -1049,7 +1140,7 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
     //     'iframeParent': this.configValue('iframeParent'),
     //     'modal_show_func': this.configValue('modal_show_func'),
     // };    
-    
+
     // SDK.config.CLIENT_OTP_URL = AppConstants.baseApiURL+'/otp/';
     // // on success completion open OTP and PIN page submission
     // console.log("Chiamata: OTP_FEA_Init");
@@ -1073,13 +1164,13 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
   };
 
   successCallback(resp) {    /* success callback: request OTP and open form to sign */
-      var payloadOTP = {
-              'process_token' : resp.token,
-              'successCallback': this.firmaSuccess,
-              'errorCallback': this.firmaError
-              
-      };
-      this.firmaSuccess(resp);
+    var payloadOTP = {
+      'process_token': resp.token,
+      'successCallback': this.firmaSuccess,
+      'errorCallback': this.firmaError
+
+    };
+    this.firmaSuccess(resp);
   }/*, 
 
 

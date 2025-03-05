@@ -49,6 +49,7 @@ class Insegnamenti extends Model {
         'user_role',
         'dip_cod',
         'contatore_insegnamenti_manuale',
+        'motivazione_contatore',
         'cds_cod'
     ];
 
@@ -238,11 +239,31 @@ class Insegnamenti extends Model {
         return $tipo_atto." n. ".$this->num_delibera." del ". $this->dataDelibera()." dal ".$tipo_emitt." del ".$this->dipartimento;          
     }
 
-    public function contatore(){    
+    public function contatore()
+    {
+        // Use the new method to get both counter and method
+        $result = $this->contatoreAndMethod();
+        
+        // Return only the counter value
+        return $result['counter'];
+    }
+
+    public function contatoreAndMethod(){    
 
         //return InsegnamUgovController::contatoreInsegnamenti($this->coper_id);
         if ($this->contatore_insegnamenti_manuale != null){
-            return $this->contatore_insegnamenti_manuale;
+            return [
+                'counter' => $this->contatore_insegnamenti_manuale,
+                'method' => 'manual'
+            ];
+        }
+
+        // First, check if the chain is complete
+        if ($this->precontr->isCompleteChain()) {
+            return [
+                'counter' => $this->precontr->countSorgenteRinnovo(),
+                'method' => 'complete_chain'
+            ];
         }
 
         $coper_id = $this->coper_id;
@@ -250,7 +271,10 @@ class Insegnamenti extends Model {
             return InsegnamUgovController::contatoreInsegnamenti($coper_id);
         });
 
-        return $value;
+        return [
+            'counter' => $value,
+            'method' => 'cached_calculation'
+        ];
     }
 
      // RESTITUISCE L'EPIGRAFE DEL RUOLO DOCENTE

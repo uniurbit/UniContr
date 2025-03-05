@@ -3,9 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { encode, decode } from 'base64-arraybuffer';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { FormlyFieldConfig, Field, FormlyFormOptions } from '@ngx-formly/core';
-import { FieldExpressionExtension } from '@ngx-formly/core/lib/extensions/field-expression/field-expression';
-import { FormGroup } from '@angular/forms';
+import * as saveAs from 'file-saver';
 
 //https://github.com/VadimDez/ng2-pdf-viewer/issues/715
 //https://github.com/stephanrauh/ngx-extended-pdf-viewer/issues/263

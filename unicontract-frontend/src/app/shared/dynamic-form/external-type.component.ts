@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, Injector, ChangeDetectorRef } from '@angular/core';
 import { FieldType, FormlyConfig, FormlyFieldConfig } from '@ngx-formly/core';
-import { FormlyFieldInput } from '@ngx-formly/bootstrap';
 import { takeUntil, startWith, tap, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { FormControl } from '@angular/forms';
@@ -16,7 +15,7 @@ import { Router } from '@angular/router';
 
   <div  style="position: relative">
   <ngx-loading [show]="isLoading" [config]="{  fullScreenBackdrop: false, backdropBorderRadius: '4px' }"></ngx-loading>    
-    <div *ngIf="codeField" class="row" [class.has-error]="showError">               
+    <div *ngIf="codeField" class="row mb-3" [class.has-error]="showError">               
       <div class="col-md-4" > 
       <div class="form-group"> 
         <label [attr.for]="id" class="form-control-label control-label" *ngIf="to.label">
@@ -28,18 +27,18 @@ import { Router } from '@angular/router';
           <ng-template #numberTmp>
             <input type="number" [formControl]="formControl" class="form-control" [formlyAttributes]="field" [class.is-invalid]="showError">
           </ng-template>                    
-          <div class="input-group-addon  input-group-append" *ngIf="to.addonRights" > 
+          <ng-container *ngIf="to.addonRights" > 
             <ng-container *ngFor="let item of to.addonRights; index as i;">    
               <button type="button" class="input-group-text" [disabled]="to.disabled && !item.alwaysenabled" 
                   title="{{item.text}}" [ngClass]="item.class" *ngIf="item.class"  (click)="addonRightClick($event,i)"></button>               
             </ng-container>
-          </div>          
+          </ng-container>          
         </div>
         <div *ngIf="showError">
         <small class="text-danger invalid-feedback" [style.display]="'block'" role="alert" [id]="validationId">
           <formly-validation-message [field]="field"></formly-validation-message>
-        </small>
-        </div>
+        </small>             
+        </div>       
         </div>
       </div>    
 
@@ -47,6 +46,7 @@ import { Router } from '@angular/router';
         <Label *ngIf="descriptionField.templateOptions.label">{{ descriptionField.templateOptions.label }} </Label>
         <input type="text" class="form-control" [value]="extDescription"  readonly>    
       </div>    
+      <small *ngIf="to.description" class="form-text text-muted">{{ to.description }}</small>
    </div>  
    </div> 
    
@@ -64,7 +64,7 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
 
   nodecode = false;
 
-  constructor(private formlyConfig: FormlyConfig, private injector: Injector, private modalService: NgbModal, public activeModal: NgbActiveModal, protected router: Router) {
+  constructor(private formlyConfig: FormlyConfig, private cdr: ChangeDetectorRef, private injector: Injector, private modalService: NgbModal, public activeModal: NgbActiveModal, protected router: Router) {
     super();
   }
 
@@ -109,15 +109,15 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
     this.field.formControl.valueChanges.pipe(
       distinctUntilChanged(),
       takeUntil(this.onDestroy$),
-      //startWith(this.field.formControl.value),
       tap(selectedField => {        
         if (!this.initdesc)
           return this.init();
 
-        if (this.formControl.value && !this.nodecode) {          
-          setTimeout(() => { this.isLoading = true; }, 0);
-          this.service.getById(this.formControl.value).subscribe((data) => {
-            setTimeout(() => { this.isLoading = false; }, 0);
+        if ((this.field.templateOptions.type =="number" && this.formControl.value != null && !this.nodecode) || 
+          (this.field.templateOptions.type != "number" && this.formControl.value && !this.nodecode)) { 
+          this.isLoading= true;         
+          this.service.getById(this.formControl.value).subscribe((data) => {            
+            this.isLoading = false;
             if (data == null) {
               this.extDescription = null;
               this.formControl.setErrors({ notfound: true });
@@ -125,12 +125,12 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
             }
             //il parametro decriptionProp contiene il nome della proprità che contiene la descrizione            
             this.setresult(data);
+            //this.cdr.detectChanges(); // Manually trigger change detection
           });
 
         } else {
           //codizione di empty
           this.extDescription = null;
-          //this.field.formControl.markAsDirty();
         }
       }),
     ).subscribe();
@@ -138,7 +138,6 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
     
     this.codeField = this.field;
 
-    //non è usato formly-field
     this.descriptionField = {
       type: 'string',
       wrappers: ['form-field'],
@@ -153,7 +152,7 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
   private initdesc = false;
   init(){   
     //verifico in caso di cache e non se il modello è inizializzato
-    if (!this.initdesc && this.field.key in this.model && this.model[this.field.key]){    
+    if (!this.initdesc && (this.field.key as string) in this.model && this.model[(this.field.key as string)]){    
       this.initdesc = true;
       
       if (this.field.templateOptions.initdescription in this.model){      
@@ -162,9 +161,10 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
           this.extDescription = this.field.templateOptions.descriptionFunc(this.model);    
       } else if (!this.extDescription){
         //far scattare la decodifica 
-        setTimeout(() => { this.isLoading = true; }, 0);
+        this.isLoading = true;
+        //this.formControl.value è vuoto non deve ricercare  
         this.service.getById(this.formControl.value).subscribe((data) => {
-          setTimeout(() => { this.isLoading = false; }, 0);
+          this.isLoading = false;
           if (data == null) {
             this.extDescription = null;
             this.formControl.setErrors({ notfound: true });
@@ -200,8 +200,10 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
 
   setcode(data: any) {
     if (this.field.templateOptions.codeProp in data){
-      this.codeField.formControl.setValue(data[this.field.templateOptions.codeProp]);
-      this.field.formControl.markAsDirty();
+      if (this.codeField){
+        this.codeField.formControl.setValue(data[this.field.templateOptions.codeProp]);
+        this.field.formControl.markAsDirty();
+      }
     }
   }
 
@@ -214,6 +216,7 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
       Object.keys(result).forEach( x=> this.model[x] = result[x]);      
     }
     this.nodecode = false
+    this.cdr.detectChanges(); // Manually trigger change detection
   }
 
   ngOnDestroy(): void {

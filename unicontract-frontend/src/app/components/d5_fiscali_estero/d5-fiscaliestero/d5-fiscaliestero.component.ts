@@ -11,7 +11,7 @@ import { D5FiscaliEsteroService } from './../../../services/d5fiscaliEstero.serv
 import { StoryProcessService } from './../../../services/storyProcess.service';
 import { StoryProcess } from './../../../classes/storyProcess';
 
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { encode, decode } from 'base64-arraybuffer';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
@@ -30,7 +30,7 @@ export class D5FiscaliesteroComponent extends BaseComponent {
   convenzioneBilaterale: number;
   story: StoryProcess;
 
-  formAttch = new FormGroup({});
+  formAttch = new UntypedFormGroup({});
   model: any = {};
   options: FormlyFormOptions = {
     formState: {
@@ -51,8 +51,8 @@ export class D5FiscaliesteroComponent extends BaseComponent {
           key: 'flag_gestione_separata',
           templateOptions: {
             options: [
-              {key: 1, value: this.translateService.instant('d5_txt7')},
-              {key: 0, value: this.translateService.instant('d5_txt8')}
+              {value: 1, label: this.translateService.instant('d5_txt7')},
+              {value: 0, label: this.translateService.instant('d5_txt8')}
             ],
             required: true
           },
@@ -74,8 +74,8 @@ export class D5FiscaliesteroComponent extends BaseComponent {
           key: 'flag_convenzione_bilaterale',
           templateOptions: {
             options: [
-              {key: 1, value: this.translateService.instant('d5_a') + ' ' + this.translateService.instant('d5_txt2')},
-              {key: 0, value: this.translateService.instant('d5_b') + ' ' + this.translateService.instant('d5_txt3')}
+              {value: 1, label: this.translateService.instant('d5_a') + ' ' + this.translateService.instant('d5_txt2')},
+              {value: 0, label: this.translateService.instant('d5_b') + ' ' + this.translateService.instant('d5_txt3')}
             ],
             required: true,
             translate: true,
@@ -85,11 +85,11 @@ export class D5FiscaliesteroComponent extends BaseComponent {
             'templateOptions.options': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_gestione_separata === 1) {
                 field.formControl.setValue(0);
-                return [{ key: 0, value: this.translateService.instant('d5_b') + ' ' + this.translateService.instant('d5_txt3') }];                
+                return [{ value: 0, label: this.translateService.instant('d5_b') + ' ' + this.translateService.instant('d5_txt3') }];                
               } else {
                 return [
-                  {key: 1, value: this.translateService.instant('d5_a') + ' ' + this.translateService.instant('d5_txt2')},
-                  {key: 0, value: this.translateService.instant('d5_b') + ' ' + this.translateService.instant('d5_txt3')}
+                  {value: 1, label: this.translateService.instant('d5_a') + ' ' + this.translateService.instant('d5_txt2')},
+                  {value: 0, label: this.translateService.instant('d5_b') + ' ' + this.translateService.instant('d5_txt3')}
                 ];
               }
             }

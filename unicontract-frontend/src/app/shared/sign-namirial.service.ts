@@ -7,24 +7,14 @@ import { AppConstants } from "../app-constants";
 import { AuthService } from "../core/auth.service";
 import { MessageService } from "./message.service";
 import { BaseService } from "./base-service/base.service";
+import { ISignResponse } from "./sign-namirial-smart-card.service";
+import * as saveAs from "file-saver";
 
 
-
-export const ReaderName: string = 'Hamlet HUSCR-NFC 0';
-export const TabletName: string = 'tdWacomSTU430';
-
-
-export interface ISignResponse {
-    document?: string;
-    signedDocument?: string;
-    errorCode: string;
-    errorMessage: string;
-    success: string;
-    successMessage: string;
-}
-
-declare var fcHttpServerOfflineCallback: any; 
+declare var fcHttpServerOfflineCallback; 
 declare var fcsign: any;
+export const ReaderName: string = 'Firma GrafoCerta (FEA) Demo';
+export const TabletName: string = 'tdWacomSTU430';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -77,8 +67,8 @@ export class SignNamiralService extends BaseService {
         }
 
 
-        fcsign.extraParams = '';   
-        fcsign.extraParams += "BiometricData=0;"; // Instruct the process to capture biometrica data (pressure, speed, acceleration, graphic stroke)
+        fcsign.extraParams = ''; //'UrlTSA=https://timestamp.firmacerta.it;UsernameTSA=demo;PasswordTSA=l4C4s0n010';     
+        fcsign.extraParams += "BiometricData=1;"; // Instruct the process to capture biometrica data (pressure, speed, acceleration, graphic stroke)
 
         if (widgetPDFSignaturePosition){
             fcsign.extraParams += 'WidgetPDFSignaturePosition='+widgetPDFSignaturePosition;
@@ -87,13 +77,12 @@ export class SignNamiralService extends BaseService {
         // sSignatureParameters += "BiometricData=1;";                // Instruct the process to capture biometrica data (pressure, speed, acceleration, graphic stroke)
         // sSignatureParameters += "AdvancedSignature.TabletModel=tdWacomSTU530;";  // Specify with device use to capture the signature
         // sSignatureParameters += "Signature.NoPdfSignInfo=1;"; // Force the process to not require additional signature info after signature process
-        fcsign.extraParams += "Signature.MakePdfOriginal=1;"; // Specify the Pades signature
-        fcsign.extraParams += "Pdf.LogoAutoPosition=1;"; // Specify the Pades signature
+        // sSignatureParameters += "Signature.MakePdfOriginal=1;"; // Specify the Pades signature
         // sSignatureParameters += "SignedFile.SaveInSameFolder=1;"; // Specify to save the signed file in same folder of the original file
         // sSignatureParameters += "SignedFile.ForceOverwrite=1;"; // use this option if you want to overwrite the original file with signed file          
                             
-        fcsign.extraParams = fcsign.extraParams + ';ReaderName=' + ReaderName;
-        fcsign.sign(fileUrl, 'document.pdf', uploadUrl, '7302_Signed.pdf', 0);
+        fcsign.extraParams = fcsign.extraParams + ';AdvancedSignature.FromTabletPC=0;AdvancedSignature.TabletModel=' + TabletName;
+        fcsign.sign(fileUrl, '7301.pdf', uploadUrl, '7301_Signed.pdf');
       
     }
 

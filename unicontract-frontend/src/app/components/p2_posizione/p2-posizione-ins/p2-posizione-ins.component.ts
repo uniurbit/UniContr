@@ -14,7 +14,7 @@ import { PrecontrattualeService } from './../../../services/precontrattuale.serv
 import { Updp2 } from './../../../classes/precontrattuale';
 import { StoryProcess } from './../../../classes/storyProcess';
 
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -35,7 +35,7 @@ export class P2PosizioneInsComponent extends BaseComponent {
   idins: number;
   story: StoryProcess;
 
-  formAttch = new FormGroup({});
+  formAttch = new UntypedFormGroup({});
   model: any = {};
   options: FormlyFormOptions = {
     formState: {

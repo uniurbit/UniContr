@@ -7,8 +7,6 @@ import { ServiceQuery } from '../query-builder/query-builder.interfaces';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LookupComponent } from '../lookup/lookup.component';
 import ControlUtils from './control-utils';
-import { FileDetector } from 'protractor';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Router } from '@angular/router';
 
 
@@ -50,7 +48,6 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
     this.service = this.injector.get(servicename) as ServiceQuery;    
 
     this.extDescription = this.field.fieldGroup.find(x=>x.key == this.to.descriptionProp || x.key =='description')
-    this.extDescription.templateOptions.disabled =true;
 
     this.codeField = this.field.fieldGroup.find(x=>x.key == this.to.codeProp || x.key =='id')
     this.codeField.modelOptions.updateOn = 'blur';  
@@ -63,14 +60,17 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
           onClick: (to, fieldType, $event) => {if (!this.codeField.templateOptions.disabled) this.open();},
       }
     ];
-    
+    this.field.templateOptions.init = (result) => {
+      this.init(result);
+    }
+
     if (this.to.entityPath){
       //extra bottone sulla destra per aprire la gestione
       this.field.fieldGroup[0].templateOptions.addonRights = [
         ...this.field.fieldGroup[0].templateOptions.addonRights,
         {
           class: 'btn btn-outline-secondary oi oi-external-link d-flex align-items-center',    
-          alwaysenabled: true,
+          alwaysenabled: () => this.codeField.formControl.valid,
           text: 'Apri gestione',              
           onClick: (to, fieldType, $event) => { this.openEntity(); },
         }
@@ -78,7 +78,7 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
     }
 
     if (this.codeField.templateOptions.addonRights) {
-      this.codeField.wrappers = ['form-field','addonRights']; //[...(this.codeField.wrappers || []), 'addonRight1'];
+      this.codeField.wrappers = ['form-field','addonRights']; 
     }
 
     this.field.fieldGroup[0].templateOptions.keyup = (field, event: KeyboardEvent) => {
@@ -89,33 +89,38 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
         this.openEntity();
       }
     };
-
-
           
     this.field.fieldGroup[0].hooks = {                    
         onInit: (field) => {          
           this.codeField.formControl.valueChanges.pipe(            
-            distinctUntilChanged(),
+            //distinctUntilChanged(),
             takeUntil(this.onDestroy$),
             //filter(() => !this.options.formState.isLoading),            
             tap(selectedField => {
               if (!this.isInitValue() && !this.field.templateOptions.hidden){
-                if (field.formControl.value && !this.nodecode) {
+                if (field.formControl.value && !this.nodecode && field.formControl.valid) {
                   this.isLoading = true;
+                  field.formControl.setErrors({ waiting: true });  
                   this.service.getById(field.formControl.value).subscribe((data) => {
                     this.isLoading = false;
                     if (data == null) {
                       this.extDescription.formControl.setValue(null);
                       field.formControl.setErrors({ notfound: true });                    
                       return;
-                    }
+                    } 
                     //NB usare la stessa funzione richiamata dal ritorno della lookup
                     this.init(data);                  
+                  },
+                  (error) => {
+                    this.isLoading = false;
+                    field.formControl.setErrors({ notfound: true });                    
                   });
 
                 } else {
-                  //codizione di empty
-                  this.extDescription.formControl.setValue(null);
+                  //codizione di empty il codice deve essere vuoto oppure se c'è il valore senza errori non valido
+                  if (!field.formControl.value || (field.formControl.value && field.formControl.errors != null))
+                    this.extDescription.formControl.setValue(null);
+
                   this.codeField.formControl.markAsDirty();
                 }
               }
@@ -138,20 +143,18 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
     return false;
   }
 
+  //ATTENZIONE lo scope di esecuzione della onPopulate è esterno a questa classe.
   onPopulate(field: FormlyFieldConfig) {
 
     if (field.fieldGroup) {
       return;
     }
     
-    if (field.model && !field.model[field.key as string] ){
-      field.model[field.key as string] = new Object();
+    if (field.key && field.model && !field.model[(field.key as string)] ){
+      field.model[(field.key as string)] = new Object();
     }
 
-    field.templateOptions.init = (result) => {
-      this.init(result);
-    }
-
+   
     field.fieldGroupClassName = 'row'        
     field.fieldGroup = [    
       {
@@ -161,32 +164,32 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
         templateOptions: {
           label: field.templateOptions.label,
           type: 'input',
+          pattern: field.templateOptions.subpattern ? field.templateOptions.subpattern : null,
           placeholder: 'Inserisci codice',     
           required: field.templateOptions.required == undefined ? false : field.templateOptions.required,
-          disabled: field.templateOptions.disabled == undefined ? false : field.templateOptions.disabled,             
+          disabled: field.templateOptions.disabled == undefined ? false : field.templateOptions.disabled,                
         },
         modelOptions: { updateOn: 'blur' },
       },
       {
         key: field.templateOptions.descriptionProp || 'description',
         type: 'input',
-        className: "col-md-8",        
+        className: "col-md-8",                        
         templateOptions: {
-          disabled: true,
+          readonly: true,          
           label: 'Descrizione'
-        },
-        expressionProperties: {
-          'templateOptions.disabled': () => true,
-        },
+        },      
       }
     ];
   }
 
   setDescription(data: any) {  
-    if (typeof this.field.templateOptions.descriptionFunc === 'function'){
+    if (this.field && typeof this.field.templateOptions.descriptionFunc === 'function'){
+      this.extDescription.formControl.setErrors(null);
       this.extDescription.formControl.setValue(this.field.templateOptions.descriptionFunc(data))
       this.codeField.formControl.markAsDirty();
-    } else if (this.field.templateOptions.descriptionProp in data){                      
+    } else if (this.field && this.field.templateOptions.descriptionProp in data){                      
+      this.extDescription.formControl.setErrors(null);
       //il parametro decriptionProp contiene il nome della proprità che contiene la descrizione
       this.extDescription.formControl.setValue(data[this.field.templateOptions.descriptionProp]);
       this.codeField.formControl.markAsDirty();
@@ -194,7 +197,9 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
   }
 
   setcode(data: any) {
-    if (this.field.templateOptions.codeProp in data){
+    if (this.field && this.field.templateOptions.codeProp in data){   
+      this.codeField.formControl.setErrors(null);
+      this.field.formControl.setErrors(null);
       this.codeField.formControl.setValue(data[this.field.templateOptions.codeProp]);
       this.codeField.formControl.markAsDirty();
     }
@@ -203,7 +208,7 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
   init(result){    
     this.nodecode = true  
     this.setcode(result);
-    this.setDescription(result);
+    this.setDescription(result);    
     Object.keys(result).forEach( x=> this.field.model[x] = result[x]);
     this.nodecode = false
   }
@@ -230,13 +235,21 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
 
   openEntity(){
     if (this.codeField.formControl.value && this.to.entityPath){
-      this.router.navigate([this.to.entityPath,this.codeField.formControl.value]);
+      this.router.navigate([this.to.entityPath,this.codeField.formControl.value,{from:'ext'}],{
+        queryParams: {
+          returnUrl: this.router.url,
+        }
+      });
     }
   }
 
   openNewEnity(){
     if (this.to.entityPath){
-      this.router.navigate([this.to.entityPath,'new']);
+      this.router.navigate([this.to.entityPath,'new',{from:'ext'}],{
+        queryParams: {
+          returnUrl: this.router.url,
+        }
+      });
     }
   }
 

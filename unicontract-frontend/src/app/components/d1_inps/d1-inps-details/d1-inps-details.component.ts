@@ -8,6 +8,7 @@ import { D1InpsService } from './../../../services/d1inps.service';
 import { DatePipe } from '@angular/common';
 import { PrecontrattualeService } from 'src/app/services/precontrattuale.service';
 import { encode, decode } from 'base64-arraybuffer';
+import * as saveAs from 'file-saver';
 
 @Component({
   selector: 'app-d1-inps-details',

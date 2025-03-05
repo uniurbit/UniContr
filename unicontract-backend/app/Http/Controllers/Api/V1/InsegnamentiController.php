@@ -124,18 +124,20 @@ class InsegnamentiController extends Controller
                                                       'a1_anagrafica.provincia_fiscale',
                                                       'precontr.*']);
 
-            $pre = Precontrattuale::with(['sendemailsrcp'])->where('insegn_id', $id)->first();                                                       
-            $datiInsegnamento['sendemailsrcp'] = $pre->sendemailsrcp;
-
-            $pre = Precontrattuale::with(['validazioni'])->where('insegn_id', $id)->first();                                                        
+            $pre = Precontrattuale::with(['sendemailsrcp','validazioni','sorgenteRinnovo.insegnamento'])->where('insegn_id', $id)->first();                                                       
+            $datiInsegnamento['sendemailsrcp'] = $pre->sendemailsrcp;            
             $datiInsegnamento['validazioni'] = $pre->validazioni;
+            $datiInsegnamento['sorgente_rinnovo'] = $pre->sorgenteRinnovo ? [$pre->sorgenteRinnovo] : [];
             $success = true;
 
             if ($datiInsegnamento['motivo_atto']=='CONF_INC'){
                 try{
-                    $datiInsegnamento['contatore_insegnamenti'] = Cache::remember('counter_'.$datiInsegnamento['coper_id'], 1, function () use($datiInsegnamento) {
-                        return InsegnamUgovController::contatoreInsegnamenti($datiInsegnamento['coper_id']);
-                    });
+
+                    $datiInsegnamento['contatore_insegnamenti'] = $pre->insegnamento->contatoreAndMethod();
+
+                    // $datiInsegnamento['contatore_insegnamenti'] = Cache::remember('counter_'.$datiInsegnamento['coper_id'], 1, function () use($datiInsegnamento) {
+                    //     return InsegnamUgovController::contatoreInsegnamenti($datiInsegnamento['coper_id']);
+                    // });
                 } catch (\Exception $e) {
                     Log::error($e);                           
                     $handler = new Handler(Container::getInstance());

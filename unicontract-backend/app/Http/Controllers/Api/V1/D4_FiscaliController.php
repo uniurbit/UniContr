@@ -63,6 +63,9 @@ class D4_FiscaliController extends Controller
                 if ($copy->percentuale_aliquota_irpef == '41'){
                     $copy->percentuale_aliquota_irpef = '43';
                 }
+                if ($copy->percentuale_aliquota_irpef == '25'){
+                    $copy->percentuale_aliquota_irpef = '23';
+                }
             }
             
             $datiPrecontrattuale['copy'] = $copy;

@@ -103,7 +103,7 @@ const routes: Routes = [
       url: externalLoginUrlProvider,
     },
     canActivate: [externalLoginUrlProvider],
-    component: NotFoundComponentComponent,
+    component: BlankComponent,
   },
 
   {
@@ -157,6 +157,19 @@ const routes: Routes = [
         component: ListaPrecontrQueryComponent, canActivate: [AuthGuard],
         data: {
           title: 'Lista precontrattuali',
+          service: 'precontrattuale',
+          urls: [
+            { title: 'Home', url: '/home' },
+            { title: 'Lista precontrattuali' }
+          ]
+        }
+      },
+      {
+        path: 'lista-doc-precontr-query',
+        component: ListaPrecontrQueryComponent, canActivate: [AuthGuard], 
+        data: {
+          title: 'Lista precontrattuali',
+          service: 'precontrattualedocente',
           urls: [
             { title: 'Home', url: '/home' },
             { title: 'Lista precontrattuali' }
@@ -200,7 +213,7 @@ const routes: Routes = [
               title: 'Parte 1: Dati relativi all\'insegnamento (precompilata)',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Parte 1' }
               ]
             }
@@ -212,7 +225,7 @@ const routes: Routes = [
               title: 'Parte 2: Posizione del collaboratore e natura del rapporto',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Parte 2' }
               ]
             }
@@ -224,7 +237,7 @@ const routes: Routes = [
               title: 'Quadro A.1: Dati anagrafici',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro A.1' }
               ]
             }
@@ -236,7 +249,7 @@ const routes: Routes = [
               title: 'Quadro A.2: Modalità di pagamento',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro A.2' }
               ]
             }
@@ -248,7 +261,7 @@ const routes: Routes = [
               title: 'Quadro B.1: Dichiarazione sul conflitto di interessi',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro B.1' }
               ]
             }
@@ -260,7 +273,7 @@ const routes: Routes = [
               title: 'Quadro B.2: Dichiarazione sulla incompatibilità',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro B.2' }
               ]
             }
@@ -272,7 +285,7 @@ const routes: Routes = [
               title: 'Quadro B.3: Rapporto di studio o lavoro con l\'Università',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro B.3' }
               ]
             }
@@ -284,7 +297,7 @@ const routes: Routes = [
               title: 'Quadro B.4: Rapporto di lavoro con la Pubblica Amministrazione',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro B.4' }
               ]
             }
@@ -296,7 +309,7 @@ const routes: Routes = [
               title: 'Quadro B.5: Stato di pensionamento',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro B.5' }
               ]
             }
@@ -308,7 +321,7 @@ const routes: Routes = [
               title: 'Quadro B.6: Trattamento dati e Informativa sulla privacy',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro B.6' }
               ]
             }
@@ -320,7 +333,7 @@ const routes: Routes = [
               title: 'Quadro C: Prestazione Professionale (art. 53, comma 1, D.P.R. 917/1986)',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro C' }
               ]
             }
@@ -332,7 +345,7 @@ const routes: Routes = [
               title: 'Quadro D.1 - Dichiarazione ai fini previdenziali',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro D.1' }
               ]
             }
@@ -344,7 +357,7 @@ const routes: Routes = [
               title: 'Quadro D.2 - Dichiarazione ai fini assicurativi INAIL',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro D.2' }
               ]
             }
@@ -356,7 +369,7 @@ const routes: Routes = [
               title: 'Quadro D.3 - Dichiarazione ai fini tributari',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro D.3' }
               ]
             }
@@ -368,7 +381,7 @@ const routes: Routes = [
               title: 'Quadro D.4 - Richiesta ai fini fiscali',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro D.4' }
               ]
             }
@@ -380,7 +393,7 @@ const routes: Routes = [
               title: 'Quadro D.5: Dichiarazione ai fini fiscali per i residenti all\'estero',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro D.5' }
               ]
             }
@@ -392,7 +405,7 @@ const routes: Routes = [
               title: 'Quadro D.6: Richiesta detrazioni fiscali per familiari a carico',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro D.6' }
               ]
             }
@@ -404,7 +417,7 @@ const routes: Routes = [
               title: 'Quadro E - Prestazione di Lavoro Autonomo Occasionale',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Quadro E' }
               ]
             }
@@ -419,7 +432,7 @@ const routes: Routes = [
           title: 'Parte 2: Posizione del collaboratore e natura del rapporto',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Parte 2' }
           ]
         }
@@ -431,7 +444,7 @@ const routes: Routes = [
           title: 'Quadro A.1: Dati anagrafici',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro A.1' }
           ]
         }
@@ -443,7 +456,7 @@ const routes: Routes = [
           title: 'Quadro A.2: Modalità di pagamento',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro A.2' }
           ]
         }
@@ -455,7 +468,7 @@ const routes: Routes = [
           title: 'Quadro A.2: Modalità di pagamento',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro A.2' }
           ]
         }
@@ -467,7 +480,7 @@ const routes: Routes = [
           title: 'Quadro B.1: Dichiarazione sul conflitto di interessi',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro B.1' }
           ]
         }
@@ -479,7 +492,7 @@ const routes: Routes = [
           title: 'Quadro B.2: Dichiarazione sulla incompatibilità',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro B.2' }
           ]
         }
@@ -491,7 +504,7 @@ const routes: Routes = [
           title: 'Quadro B.3: Rapporto di studio o lavoro con l\'Università',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro B.3' }
           ]
         }
@@ -503,7 +516,7 @@ const routes: Routes = [
           title: 'Quadro B.4: Rapporto di lavoro con la Pubblica Amministrazione',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro B.4' }
           ]
         }
@@ -515,7 +528,7 @@ const routes: Routes = [
           title: 'Quadro B.5: Stato di pensionamento',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro B.5' }
           ]
         }
@@ -527,7 +540,7 @@ const routes: Routes = [
           title: 'Quadro B.6: Trattamento dati e Informativa sulla privacy',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro B.6' }
           ]
         }
@@ -539,7 +552,7 @@ const routes: Routes = [
           title: 'Quadro C: Prestazione Professionale (art. 53, comma 1, D.P.R. 917/1986)',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro C' }
           ]
         }
@@ -551,7 +564,7 @@ const routes: Routes = [
           title: 'Quadro D.1 - Dichiarazione ai fini previdenziali',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro D.1' }
           ]
         }
@@ -564,7 +577,7 @@ const routes: Routes = [
           title: 'Quadro D.2 - Dichiarazione ai fini assicurativi INAIL',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro D.2' }
           ]
         }
@@ -578,7 +591,7 @@ const routes: Routes = [
           title: 'Quadro D.3 - Dichiarazione ai fini tributari',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro D.3' }
           ]
         }
@@ -593,7 +606,7 @@ const routes: Routes = [
           title: 'Quadro D.4 - Richiesta ai fini fiscali',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro D.4' }
           ]
         }
@@ -608,7 +621,7 @@ const routes: Routes = [
           title: 'Quadro D.5: Dichiarazione ai fini fiscali per i residenti all\'estero',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro D.5' }
           ]
         }
@@ -623,7 +636,7 @@ const routes: Routes = [
           title: 'Quadro D.6: Richiesta detrazioni fiscali per familiari a carico',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro D.6' }
           ]
         }
@@ -638,7 +651,7 @@ const routes: Routes = [
           title: 'Quadro E - Prestazione di Lavoro Autonomo Occasionale',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Quadro E' }
           ]
         }
@@ -657,7 +670,7 @@ const routes: Routes = [
               title: 'Sommario precontrattuale',
               urls: [
                 { title: 'Home', url: '/home' },
-                { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+                // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
                 { title: 'Sommario' }
               ]
             }
@@ -684,7 +697,7 @@ const routes: Routes = [
           title: 'Storia del processo',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Story process' }
           ]
         }
@@ -698,7 +711,7 @@ const routes: Routes = [
           title: 'Email list',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Email list' }
           ]
         }
@@ -712,7 +725,7 @@ const routes: Routes = [
           title: 'Sommario modulistica precontrattuale',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Sommario' }
           ]
         }
@@ -724,7 +737,7 @@ const routes: Routes = [
           title: 'Proceduralizzazione e dematerializzazione dei contratti di docenza',
           urls: [
             { title: 'Home', url: '/home' },
-            { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
+            // { title: 'Lista precontrattuali', url: '/home/lista-precontr-query' },
             { title: 'Proceduralizzazione' }
           ]
         }

@@ -155,7 +155,17 @@ class User extends Authenticatable implements JWTSubject
         return $dipartimenti;
     }
     
-
+    public function getCodiceFiscaleUSign(){        
+        $permissions = $this->getDirectPermissions();
+        $cf = null;
+        foreach ($permissions as $permission) {        
+            if (Str::startsWith($permission->name,'codice_fiscale_usign:')){
+                $cf = explode(':',$permission->name)[1];
+                return $cf; 
+            }
+        }
+        return $cf;
+    }
 
     /**
      * Set attribute to date format

@@ -39,17 +39,17 @@
         padding: 0px;
     }
 
-    .float-left {
+    .float-start {
         float: right!important;
     }
-    .float-right {
+    .float-end {
         float: left!important;
     }
 
     .text-left {
         text-align: right!important;
     }
-    .text-right {
+    .text-end {
         text-align: left!important;
     }
 
@@ -67,12 +67,12 @@
         margin-right: 0;
     }
 
-    .ml-auto {
+    .ms-auto {
         margin-right: auto!important;
         margin-left: 0px!important;
     }
 
-    .mr-auto {
+    .me-auto {
         margin-left: auto!important;
         margin-right: 0px!important;
     }

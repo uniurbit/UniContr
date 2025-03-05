@@ -43,8 +43,49 @@ class InsegnamUgovController extends Controller
             ->where('V_IE_DI_COPER.COPER_ID', $coper_id)            
             ->first(['ANAGRAFICA.ID_AB', 'ANAGRAFICA.EMAIL', 'ANAGRAFICA.E_MAIL', 'ANAGRAFICA.E_MAIL_PRIVATA', 'V_IE_DI_COPER.*']);            
                    
-        $datiUgov['contatore_insegnamenti'] = InsegnamUgovController::contatoreInsegnamenti($coper_id);
+       
         
+        //se è RINNOVO ricercare la lista delle precontrattuali dell'anno accademico precedente a quello inserito
+        //con lo stesso utente e nome dell'insegnamento
+        $datiUgov['contratti_precedenti'] = Precontrattuale::with(['insegnamento']) // Eager load the insegnamento relationship
+            ->whereHas('insegnamento', function ($query) use ($datiUgov){
+                $query->where('insegnamento','like', $datiUgov->af_gen_des.'%')  //case insensitive 
+                      ->where('aa', $datiUgov->aa_off_id - 1);      
+            })            
+            ->where('stato','<',2) //non annullata
+            ->where('docente_id', $datiUgov->id_ab)
+            ->get();  
+        
+        $datiUgov['contratti_precedenti']->each(function ($item) {
+            $item->append('is_not_referred'); // Ensure the custom attribute is included
+        });
+
+        // Filter the collection to find items where is_not_referred is true
+        $filteredItems = $datiUgov['contratti_precedenti']->filter(function ($item) {
+            return $item->is_not_referred === true; // Check if is_not_referred is true
+        });
+
+        // Initialize result variable
+        $result = null;
+        // Calculate contatoreAndMethod if there's exactly one such item
+        if ($filteredItems->count() === 1) {
+            $singleItem = $filteredItems->first(); // Get the single item
+            $result = $singleItem->insegnamento->contatoreAndMethod(); // Calculate contatoreAndMethod
+            // You can now use $result as needed
+             // Check if the method is different from 'cached_calculation'
+            if ($result['method'] !== 'cached_calculation') {
+                // Add one to the counter result
+                $result['counter'] += 1;
+            } else {
+                $result = null;
+            }
+        } 
+        
+        $datiUgov['contatore_insegnamenti'] = $result ? $result : [
+            'counter' => InsegnamUgovController::contatoreInsegnamenti($coper_id),
+            'method' => 'cached_calculation'
+        ];
+
         $success = true;
         return compact('datiUgov', 'message', 'success');
     }

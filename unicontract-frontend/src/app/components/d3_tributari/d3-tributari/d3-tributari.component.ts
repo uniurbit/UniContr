@@ -9,7 +9,7 @@ import { UpdD3 } from './../../../classes/precontrattuale';
 import { D3Tributari } from './../../../classes/d3tributari';
 import { D3TributariService } from './../../../services/d3tributari.service';
 
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { encode, decode } from 'base64-arraybuffer';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
@@ -28,7 +28,7 @@ export class D3TributariComponent extends BaseComponent {
   idins: number;
   adapter = new NgbStringAdapter();      
   
-  formAttch = new FormGroup({});
+  formAttch = new UntypedFormGroup({});
   model: any = {};
   options: FormlyFormOptions = {
     formState: {
@@ -144,8 +144,8 @@ export class D3TributariComponent extends BaseComponent {
           defaultValue: 0,
           templateOptions: {
             options: [
-              {key: 0, value: this.translateService.instant('d3_txt2')},
-              {key: 1, value: this.translateService.instant('d3_txt3')}
+              {value: 0, label: this.translateService.instant('d3_txt2')},
+              {value: 1, label: this.translateService.instant('d3_txt3')}
             ],
             required: true,
             translate: true,
@@ -163,8 +163,8 @@ export class D3TributariComponent extends BaseComponent {
           defaultValue: 0,
           templateOptions: {
             options: [
-              {key: 0, value: this.translateService.instant('d3_txt4')},
-              {key: 1, value: this.translateService.instant('d3_txt5')}
+              {value: 0, label: this.translateService.instant('d3_txt4')},
+              {value: 1, label: this.translateService.instant('d3_txt5')}
             ],
             required: true
           },
@@ -172,9 +172,7 @@ export class D3TributariComponent extends BaseComponent {
         }
       ],
       hideExpression: (model: any, formState: any) => {
-        if (model.flag_percepito === 0) {
-          return model;
-        }
+        return (model.flag_percepito === 0);
       },
     },
 

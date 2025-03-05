@@ -9,13 +9,13 @@ import { Component, OnInit, Input, ViewChild, ViewContainerRef } from '@angular/
       'bg-light-warning': options.type == 'warning',
       'bg-light-info': options.type == 'info'
     }">         
-        <button class="btn btn-sm btn-link float-right" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseComp">         
+        <button class="btn btn-sm btn-link float-end" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseComp">         
           <span *ngIf="isCollapsed" class="oi oi-chevron-top"></span>
           <span *ngIf="!isCollapsed" class="oi oi-chevron-bottom"></span>
 
         </button>          
         <div class="align-items-center">                  
-            <h4 class="card-title mr-4">{{options.title}}</h4>
+            <h4 class="card-title me-4">{{options.title}}</h4>
             <h5 *ngIf="options && options.subtitle" class="card-subtitle">{{options.subtitle}}</h5>            
         </div>   
     </div>

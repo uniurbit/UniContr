@@ -1,3 +1,4 @@
+
 /*******************************/
 
 // Custom Variables
@@ -101,21 +102,31 @@ $gray-700: #4f5467 !default;
 $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black: #000 !default;
-$blue: #4798e8 !default;
-$indigo: #6610f2 !default;
-$purple: #7460ee !default;
-$pink: #e83e8c !default;
-$red: #ef6e6e !default;
+$blue:    #0d6efd !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #d63384 !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #198754 !default;
+$teal:    #20c997 !default;
+$cyan:    #0dcaf0 !default;
+//$blue: #4798e8 !default;
+//$indigo: #6610f2 !default;
+//$purple: #7460ee !default;
+//$pink: #e83e8c !default;
+//$red: #ef6e6e !default;
 $light-info: #e6f2fa !default;
 $light-danger: #fae6e6 !default;
 $light-success: #e9f9f7 !default;
 $light-warning: #f8efd7 !default;
-$orange: #fb8c00 !default;
-$yellow: #ffbc34 !default;
-$green: #22c6ab !default;
-$teal: #20c997 !default;
-$cyan: #01c0c8 !default;
-$primary: #7460ee !default;
+//$orange: #fb8c00 !default;
+//$yellow: #ffbc34 !default;
+//$green: #22c6ab !default;
+//$teal: #20c997 !default;
+//$cyan: #01c0c8 !default;
+//$primary: #7460ee !default;
 $text-muted: $gray-500 !default;
 $colors: (
   blue: $blue,
@@ -196,7 +207,7 @@ $h3-font-size: 22px !default;
 $h4-font-size: 18px !default;
 $h5-font-size: 16px !default;
 $h6-font-size: 14px !default;
-$headings-margin-bottom: (1rem / 2) !default;
+$headings-margin-bottom: calc(1rem / 2) !default;
 $headings-font-weight: 500 !default;
 $headings-color: inherit !default;
 // Breadcrumbs
@@ -216,6 +227,7 @@ $btn-secondary-border: $gray-300;
 // Progress bars
 $progress-bg: $gray-100;
 // Tables
+$table-border-width: 0.5px !default;
 $table-bg-accent: $gray-100;
 $table-bg-hover: $gray-100;
 $table-hover-bg: $gray-100 !default;
@@ -241,7 +253,7 @@ $custom-select-focus-box-shadow: transparent !default;
 $custom-select-indicator: str-replace(url(''), '%23') !default;
 // Define common padding and border radius sizes and more.
 $border-width: 1px !default;
-$border-color: $gray-200 !default;
+$border-color: $gray-300 !default;
 $border-radius: 2px !default;
 $border-radius-lg: 2px !default;
 $border-radius-sm: 1px !default;

@@ -57,7 +57,7 @@ class Saml2AuthController extends Saml2Controller
         if ($redirectUrl !== null) {
             return redirect($redirectUrl.'?token='.$token.($redirectUrlFromLogin ? ('&redirect='.$redirectUrlFromLogin) : '') )             
                 ->header('token', $token)
-                ->header('token_type', 'bearer')
+                ->header('token_type', 'Bearer')
                 ->header('expires_in', Auth::guard()->factory()->getTTL() * 60);
             
         } else {

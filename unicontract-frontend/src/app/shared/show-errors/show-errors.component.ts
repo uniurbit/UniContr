@@ -13,8 +13,8 @@ export class ShowErrorsComponent implements OnInit {
 
   private static readonly errorMessages = {
     'required': () => 'Campo richiesto',
-    'minlength': (params) => 'Numero minimo di caratteri è ' + params.requiredLength,
-    'maxlength': (params) => 'Numero massimo di caratteri ammessi è ' + params.requiredLength,
+    'minLength': (params) => 'Numero minimo di caratteri è ' + params.requiredLength,
+    'maxLength': (params) => 'Numero massimo di caratteri ammessi è ' + params.requiredLength,
     'pattern': (params) => 'Il formato richiesto è ' + params.requiredPattern,
     'years': (params) => params.message,
     'countryCity': (params) => params.message,

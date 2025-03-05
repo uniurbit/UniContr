@@ -46,6 +46,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(SendSollecitoEmails::class, [])->timezone('Europe/Rome')->monthlyOn(10,'8:00');
         $schedule->command(VerificaFirmaDigitaleCompletata::class, [])->timezone('Europe/Rome')->dailyAt('10:40');
         $schedule->command(VerificaFirmaDigitaleCompletata::class, [])->timezone('Europe/Rome')->dailyAt('13:35');
+        $schedule->command(VerificaFirmaDigitaleCompletata::class, [])->timezone('Europe/Rome')->dailyAt('17:00');
     }
 
     /**

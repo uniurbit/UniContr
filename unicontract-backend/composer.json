@@ -8,30 +8,29 @@
         "php": "^8.0",
         "aacotroneo/laravel-saml2": "^2.1",
         "artisaninweb/laravel-soap": "0.3.0.10",
-        "barryvdh/laravel-snappy": "^0.4.6",
+        "barryvdh/laravel-snappy": "^1.0.0",
         "carlos-meneses/laravel-mpdf": "^2.1",
-        "doctrine/dbal": "^2.9",
-        "emadadly/laravel-uuid": "^1.2",
-        "fideloper/proxy": "^4.0",
+        "doctrine/dbal": "^3.0",
+        "emadadly/laravel-uuid": "^1.2",   
         "globalcitizen/php-iban": "^4.0",
         "guzzlehttp/guzzle": "^7.7",
         "h4cc/wkhtmltopdf-amd64": "0.12.x",
         "jenssegers/model": "^1.5",
-        "laravel/framework": "^8.0",
-        "league/flysystem": "^1.0.8",
-        "maatwebsite/excel": "3.1.33",
+        "laravel/framework": "^10.0",
+        "league/flysystem": "^3.0",
+        "maatwebsite/excel": "^3.1.33",
         "spatie/array-to-xml": "^2.8",
-        "spatie/laravel-permission": "^4.0.0",
-        "tymon/jwt-auth": "^1.0.0",
-        "yajra/laravel-oci8": "^8.0",
-        "zerodahero/laravel-workflow": "^3.3"
+        "spatie/laravel-permission": "^5.0.0",
+        "tymon/jwt-auth": "^2.0.0",
+        "yajra/laravel-oci8": "^10.0",
+        "zerodahero/laravel-workflow": "^4.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^4.1",
-        "phpunit/phpunit": "9.5"
+        "nunomaduro/collision": "^7.0",
+        "phpunit/phpunit": "^10.0"
     },
     "autoload": {        
         "psr-4": {

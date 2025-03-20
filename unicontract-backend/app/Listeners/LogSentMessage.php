@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Symfony\Component\Mime\Email;
 use Illuminate\Support\Facades\Log;
 
 class LogSentMessage
@@ -30,18 +31,22 @@ class LogSentMessage
         Log::info($this->getPlainTextFromMessage($event->message));
     }
 
-    public function getPlainTextFromMessage(\Swift_Message $message)
+    public function getPlainTextFromMessage(Email $message)
     {
-        $children = (array) $message->getChildren();
-
-        foreach ($children as $child) {
-            $childType = $child->getContentType();
-            if ($childType === 'text/plain' && $child instanceof \Swift_MimePart) {
-                return $child->getBody();
-            }
+        // Check if plain text body is available directly
+        $textBody = $message->getTextBody();
+        if (!empty($textBody)) {
+            return $textBody;
         }
 
-        return '';
+        // If the text body is missing, log the available parts
+        Log::info('No plain text body found. Available content types:');
+        
+        foreach ($message->getBody()->getParts() as $part) {
+            Log::info('Part content type: ' . $part->getMediaType() . '/' . $part->getMediaSubtype());
+        }
+
+        return ''; // Return empty string if no text/plain part is found
     }
 
 }

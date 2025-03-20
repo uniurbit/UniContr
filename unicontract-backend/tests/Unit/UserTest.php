@@ -12,6 +12,7 @@ use Faker\Generator as Faker;
 use App\Notifications\NotificaDocente;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\AnonymousNotifiable;
+use App\Service\ApiService;
 
 class UserTest extends TestCase
 {
@@ -192,5 +193,38 @@ class UserTest extends TestCase
         $this->assertTrue($response->getData()->success);
 
     }
+
+    // ./vendor/bin/phpunit  --testsuite Unit --filter testChiamaAPIMappingUfficio
+    public function testChiamaAPIMappingUfficio(){
+        // Arrange
+        $userIdAb = 'enrico.oliva@uniurb.it'; // Set a valid user ID for testing
+        $serviceName = 'uniric'; // The service you are calling
+        $endpoint = 'api/v1/mappinguffici/query'; 
+        $apiKey = env('API_KEY_UNIRIC'); 
+        // Define the array structure
+        $data = [
+            'rules' => [
+                [
+                    'operator' => '=',
+                    'field' => 'unitaorganizzativa_uo',
+                    'type' => 'string',
+                    'value' => '004919',
+                ],
+            ],
+            'limit' => 25,
+            'sessionId' => null,
+            'page' => null,
+        ];
+
+        //'{"rules":[{"operator":"=","field":"unitaorganizzativa_uo","type":"string","value":" 004919"}],"limit":25,"sessionId":null,"page":null}'
+
+        $apiService = new ApiService($serviceName); // Assuming 'uniric' is the service name
+        $response = $apiService->callApi($userIdAb, $endpoint, 'POST', $data);
+
+        // Assert
+        $this->assertArrayHasKey('data', $response);
+        $this->assertNotNull($response['data']);
+    }
+
 
 }

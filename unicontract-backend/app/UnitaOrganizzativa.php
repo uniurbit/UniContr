@@ -17,10 +17,6 @@ class UnitaOrganizzativa extends Model
     public $table = 'VISTA_ORG_ATTIVA';
     public $primaryKey = 'ID_AB';
 
-    protected $dates = [        
-        'data_fin'        
-    ];
-
     protected $casts = [
         'data_fin' => 'datetime:d-m-Y',
     ];

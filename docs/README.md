@@ -2,7 +2,7 @@
 
 # UniContr – Documentazione Tecnica
 
-Questa cartella contiene tutta la documentazione tecnica dell'applicazione **UniContr** in formato testuale, versionabile riga per riga (D.6).  
+Questa cartella contiene tutta la documentazione tecnica dell'applicazione **UniContr**.
 Licenza: **Creative Commons CC-BY 4.0**
 
 ---

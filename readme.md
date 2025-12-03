@@ -1,3 +1,5 @@
+<!-- SPDX-License-Identifier: CC-BY-4.0 -->
+
 UniContr è una applicazione web per la proceduralizzazione e dematerializzazione dei contratti di docenza. L'applicazione è basata su Web API e sviluppata sul framework Laravel per la parte backend, Angular per la parte frontend e Shibboleth come sistema di autenticazione.
 -------------------------------
 
@@ -137,8 +139,7 @@ Aprire il broswer all'indirizzo  `http://localhost:4200/`
 
 
 
-
-
-
 Happy coding! 
+
+Tutta la documentazione è sotto **[Creative Commons CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/)**. 
 

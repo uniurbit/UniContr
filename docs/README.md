@@ -11,11 +11,11 @@ L'applicazione utilizza **Web API**, con **Laravel** per il backend, **Angular**
 
 ## 📑 Sommario
 
-- [Panoramica del Progetto](#panoramica-del-progetto)  
-- [Funzionalità Applicative](#funzionalit%C3%A0-applicative)  
-- [Moduli / Struttura Precontrattuale](#moduli--struttura-precontrattuale)  
-- [Caratteristiche del Sistema](#caratteristiche-del-sistema)  
-- [Licenza](#licenza)  
+- Panoramica del Progetto 
+- Funzionalità Applicative 
+- Moduli / Struttura Precontrattuale  
+- Caratteristiche del Sistema 
+- Licenza
 
 ---
 

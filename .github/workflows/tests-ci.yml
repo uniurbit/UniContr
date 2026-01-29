@@ -75,7 +75,7 @@ jobs:
           DB_DATABASE: unicontr_test
           DB_USERNAME: root
           DB_PASSWORD: root
-        run: php artisan migrate --seed --env=testing     
+        run: php artisan migrate --seed    
         
       - name: Run GitHub Executable Tests Only
         working-directory: ./unicontract-backend

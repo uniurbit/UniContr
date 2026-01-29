@@ -47,7 +47,7 @@ jobs:
 
       - name: Install Dependencies
         working-directory: ./unicontract-backend
-        run: composer install --prefer-dist --no-progress --no-suggest
+        run: composer install --ignore-platform-req=ext-oci8 --prefer-dist --no-progress --no-suggest
 
       - name: Create ENV file
         working-directory: ./unicontract-backend

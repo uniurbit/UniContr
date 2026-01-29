@@ -5,7 +5,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { ControlBase, TextboxControl, DropdownControl, DateControl, MessageService, ServiceQuery, ServiceEntity, IQueryMetadata } from '../shared';
 import { ArrayControl } from '../shared/dynamic-form/control-array';
-import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig  } from '@ngx-formly/core';
 import { AppConstants } from '../app-constants';
 import { Cacheable } from 'ts-cacheable';
 import { BaseService } from '../shared/base-service/base.service';
@@ -25,7 +25,7 @@ export class DocumentoService extends BaseService implements IQueryMetadata{
       {
         key: 'docnumprot', // '/doc/@num_prot',
         type: 'string',
-        templateOptions: {
+        props: {
           type: 'index',
           label: 'Numero protocollo',
           required: true,
@@ -35,7 +35,7 @@ export class DocumentoService extends BaseService implements IQueryMetadata{
       {
         key: 'doc_tipo',
         type: 'select',
-        templateOptions: {
+        props: {
           label: 'Tipo',
           required: true,
           options: [
@@ -50,7 +50,7 @@ export class DocumentoService extends BaseService implements IQueryMetadata{
       {
         key: 'doc_anno',
         type: 'string',
-        templateOptions: {
+        props: {
           type: 'index',
           label: 'Anno',
           required: true,
@@ -60,7 +60,7 @@ export class DocumentoService extends BaseService implements IQueryMetadata{
       {
         key: 'doc_oggetto',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Oggetto',
           required: true,
           column: { cellTemplate: 'valuecolumn'}
@@ -69,7 +69,7 @@ export class DocumentoService extends BaseService implements IQueryMetadata{
       {
         key: 'doc_classifcod',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Classificazione',
           required: true,
           column: { cellTemplate: 'valuecolumn'}
@@ -83,7 +83,7 @@ export class DocumentoService extends BaseService implements IQueryMetadata{
       {
         key: 'oggetto',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Oggetto',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -92,7 +92,7 @@ export class DocumentoService extends BaseService implements IQueryMetadata{
       {
         key: 'num_prot',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Numero protocollo',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -101,7 +101,7 @@ export class DocumentoService extends BaseService implements IQueryMetadata{
       {
         key: 'data_prot',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Data registrazione',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -111,7 +111,7 @@ export class DocumentoService extends BaseService implements IQueryMetadata{
         key: 'tipo',
         type: 'string',
         hideExpression: false,
-        templateOptions: {
+        props: {
           label: 'Tipo',
           disabled: true,
           column: { width: 10, cellTemplate: 'valuecolumn' }

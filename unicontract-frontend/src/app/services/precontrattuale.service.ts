@@ -126,23 +126,23 @@ export class PrecontrattualeService extends CoreSevice implements ServiceQuery {
       {
         key: 'user.name',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Docente',
           required: true,
         }
       },
-      {
-        key: 'insegnamento.tipo_atto',
-        type: 'string',
-        templateOptions: {
-          label: 'Tipo atto',
-          required: true,
-        }
-      },
+      // {
+      //   key: 'insegnamento.tipo_atto',
+      //   type: 'string',
+      //   props: {
+      //     label: 'Tipo atto',
+      //     required: true,
+      //   }
+      // },
       {
         key: 'insegnamento.num_delibera',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Numero',
           required: true,
         }
@@ -150,7 +150,7 @@ export class PrecontrattualeService extends CoreSevice implements ServiceQuery {
       {
         key: 'sorgente_rinnovo_per_id',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Sorgente per',
           required: true,
         }
@@ -158,7 +158,7 @@ export class PrecontrattualeService extends CoreSevice implements ServiceQuery {
       {
       key: 'currentState',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Stato corrente',
         required: true,
         options: [         
@@ -173,14 +173,14 @@ export class PrecontrattualeService extends CoreSevice implements ServiceQuery {
       {
         key: 'id',
         type: 'number',
-        templateOptions: {
+        props: {
           label: '#',        
         }
       },    
       {
         key: 'insegnamento.coper_id',
         type: 'number',
-        templateOptions: {
+        props: {
           label: 'Copertura',
           required: true,       
         }
@@ -188,7 +188,7 @@ export class PrecontrattualeService extends CoreSevice implements ServiceQuery {
       {
         key: 'insegnamento.aa',
         type: 'input',
-        templateOptions: {
+        props: {
           label: 'Anno',
           valueProp: 'value',
           labelProp: 'label',
@@ -197,25 +197,49 @@ export class PrecontrattualeService extends CoreSevice implements ServiceQuery {
         }
       },
       {
-        key: 'insegnamento.insegnamento',
+        key: 'insegnamento.tipo_contratto',
         type: 'string',
-        templateOptions: {
-          label: 'Insegnamento',
+        props: {
+          label: 'Tipologia',
           required: true,
         }
       },
       {
         key: 'insegnamento.motivo_atto',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Motivo Atto',
           required: true,
         }
       },
       {
+        key: 'insegnamento.insegnamento',
+        type: 'string',
+        props: {
+          label: 'Insegnamento',
+          required: true,
+        }
+      },
+      {
+        key: 'insegnamento.cod_insegnamento',
+        type: 'string',
+        props: {
+          label: 'Codice attività formativa',
+          required: true,
+        }
+      },            
+      {
+        key: 'insegnamento.tipo_atto',
+        type: 'string',
+        props: {
+          label: 'Tipo atto',
+          required: true,
+        }
+      },      
+      {
         key: 'insegnamento.data_ini_contr',
         type: 'date',
-        templateOptions: {
+        props: {
           label: 'Data inizio',
           required: true,
         }
@@ -223,7 +247,7 @@ export class PrecontrattualeService extends CoreSevice implements ServiceQuery {
       {
         key: 'insegnamento.data_fine_contr',
         type: 'date',
-        templateOptions: {
+        props: {
           label: 'Data fine',
           required: true,    
         }
@@ -231,7 +255,7 @@ export class PrecontrattualeService extends CoreSevice implements ServiceQuery {
       {
         key: 'user.v_ie_ru_personale_id_ab',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Codice docente',
           required: true,
           disabled: true

@@ -9,9 +9,10 @@ import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
-  selector: 'app-pagamento-local-details',
-  templateUrl: './pagamento-local-details.component.html',
-  styleUrls: ['./pagamento-local-details.component.css']
+    selector: 'app-pagamento-local-details',
+    templateUrl: './pagamento-local-details.component.html',
+    styleUrls: ['./pagamento-local-details.component.css'],
+    standalone: false
 })
 
 export class PagamentoLocalDetailsComponent extends BaseComponent {

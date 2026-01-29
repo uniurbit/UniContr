@@ -7,8 +7,9 @@ import { BaseEntityComponent } from 'src/app/shared';
 import {Location} from '@angular/common';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: '../../shared/base-component/base-entity.component.html',
+    selector: 'app-user',
+    templateUrl: '../../shared/base-component/base-entity.component.html',
+    standalone: false
 })
 
 // ng g c application/components/user -s true --spec false -t true
@@ -24,7 +25,7 @@ export class UserComponent extends BaseEntityComponent {
           key: 'id',
           type: 'input',
           className: 'col-md-2',
-          templateOptions: {
+          props: {
             label: 'Id',
             disabled: true
           }
@@ -33,7 +34,7 @@ export class UserComponent extends BaseEntityComponent {
           key: 'name',
           type: 'input',
           className: 'col-md-5',
-          templateOptions: {
+          props: {
             label: 'Nome utente',
             required: true
           }
@@ -42,7 +43,7 @@ export class UserComponent extends BaseEntityComponent {
           key: 'email',
           type: 'input',
           className: 'col-md-5',
-          templateOptions: {
+          props: {
             label: 'Email',
             required: true
           },
@@ -56,7 +57,7 @@ export class UserComponent extends BaseEntityComponent {
           key: 'nome',
           type: 'input',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             label: 'Nome',
             required: true,
             // disabled: true
@@ -66,7 +67,7 @@ export class UserComponent extends BaseEntityComponent {
           key: 'cognome',
           type: 'input',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             label: 'Cognome',
             required: true,
             // disabled: true
@@ -81,7 +82,7 @@ export class UserComponent extends BaseEntityComponent {
           key: 'v_ie_ru_personale_id_ab',
           type: 'input',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             label: 'Codice personale per ufficio',
             required: true,
             // disabled: true
@@ -91,7 +92,7 @@ export class UserComponent extends BaseEntityComponent {
           key: 'blocked_date',
           type: 'date',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             label: 'Data di blocco utente',
             // disabled: true
           }
@@ -100,7 +101,7 @@ export class UserComponent extends BaseEntityComponent {
           key: 'cf',
           type: 'input',
           className: 'col-md-6',
-          templateOptions: {            
+          props: {            
             required: true,
             translate: true,
             label: 'a1_label5',
@@ -113,8 +114,9 @@ export class UserComponent extends BaseEntityComponent {
       key: 'roles',
       type: 'datatable',
       wrappers: ['accordion'],
-      templateOptions: {
+      props: {
         label: 'Ruoli',
+        disabled: false,
         columnMode: 'flex',
         scrollbarH: false,
         limit: '50',
@@ -126,7 +128,7 @@ export class UserComponent extends BaseEntityComponent {
           {
             key: 'name',
             type: 'select',
-            templateOptions: {
+            props: {
               options: this.service.getRoles(),
               valueProp: 'name',
               labelProp: 'name',
@@ -135,7 +137,7 @@ export class UserComponent extends BaseEntityComponent {
               column: { flexGrow: 3 },
             },
             expressionProperties: {
-              'templateOptions.disabled': (model: any, formState: any) => {
+              'props.disabled': (model: any, formState: any) => {
                 // access to the main model can be through `this.model` or `formState` or `model
                 return model.id;
               },
@@ -144,7 +146,7 @@ export class UserComponent extends BaseEntityComponent {
           // {
           //   type: 'button',
           //   //className: "col-md-4",
-          //   templateOptions: {
+          //   props: {
           //     icon: 'oi oi-external-link',
           //     btnType: 'btn-outline-primary',
           //     onClick: ($event) => {},
@@ -161,7 +163,7 @@ export class UserComponent extends BaseEntityComponent {
         key: 'permissions',
         type: 'datatable',
         wrappers: ['accordion'],
-        templateOptions: {
+        props: {
           label: 'Permessi',
           columnMode: 'force',
           scrollbarH: false,
@@ -174,7 +176,7 @@ export class UserComponent extends BaseEntityComponent {
             // {
             //   key: 'id',
             //   type: 'input',
-            //   templateOptions: {
+            //   props: {
             //     label: 'Id',
             //     disabled: true,
             //     column: { width: 5 }
@@ -183,7 +185,7 @@ export class UserComponent extends BaseEntityComponent {
             {
               key: 'name',
               type: 'select',
-              templateOptions: {
+              props: {
                 options: this.service.getPermissions(),
                 valueProp: 'name',
                 labelProp: 'name',
@@ -191,7 +193,7 @@ export class UserComponent extends BaseEntityComponent {
                 required: true
               },
               expressionProperties: {
-                'templateOptions.disabled': (model: any, formState: any) => {
+                'props.disabled': (model: any, formState: any) => {
                   // access to the main model can be through `this.model` or `formState` or `model
                   return model.id;
                 },
@@ -200,7 +202,7 @@ export class UserComponent extends BaseEntityComponent {
             // {
             //   key: 'guard_name',
             //   type: 'input',
-            //   templateOptions: {
+            //   props: {
             //     label: 'Guardia',
             //     disabled: true,
             //     required: false

@@ -19,7 +19,7 @@ import ControlUtils from 'src/app/shared/dynamic-form/control-utils';
 import { TranslateSelectPipe } from 'src/app/shared/pipe/translate-select.pipe';
 import { StoryProcess } from './../../../classes/storyProcess';
 import { StoryProcessService } from './../../../services/storyProcess.service';
-import * as saveAs from 'file-saver';
+import { saveAs } from 'file-saver';
 
 
 
@@ -50,9 +50,10 @@ export const tipotitoli: string[] = [
 
 
 @Component({
-  selector: 'app-anagrafica-details',
-  templateUrl: './anagrafica-details.component.html',
-  styleUrls: ['./anagrafica-details.component.css']
+    selector: 'app-anagrafica-details',
+    templateUrl: './anagrafica-details.component.html',
+    styleUrls: ['./anagrafica-details.component.css'],
+    standalone: false
 })
 
 export class AnagraficaDetailsComponent extends BaseComponent {
@@ -96,7 +97,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
   fieldsAnagrafica: FormlyFieldConfig[] = [
     {
       wrappers: ['riquadro'],
-      templateOptions: {
+      props: {
         title: this.translateService.instant('a1_title1')
       },
       fieldGroup: [
@@ -108,7 +109,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'comune_nascita',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 required: true,
                 translate: true,
                 label: 'a1_label1',
@@ -119,7 +120,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'provincia_nascita',
               type: 'provincia',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 maxLength: 2,
                 required: true,
                 translate: true,
@@ -131,7 +132,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'data_nascita',
               type: 'date',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 required: true,
                 translate: true,
                 label: 'a1_label3'
@@ -144,7 +145,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               validation: {
                 show: true,
               },
-              templateOptions: {
+              props: {
                 required: true,
                 options: [],
                 translate: true,
@@ -167,7 +168,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'cf',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 readonly: true,
                 required: true,
                 translate: true,
@@ -179,7 +180,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'cf_coniuge',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 minLength: 2,
                 maxLength: 16,
                 required: true,
@@ -189,10 +190,10 @@ export class AnagraficaDetailsComponent extends BaseComponent {
                 description: "Inserire EE per codici fiscali esteri"
               },
               expressionProperties: {
-                'templateOptions.required': (model: any, formState: any, field: FormlyFieldConfig) => {
+                'props.required': (model: any, formState: any, field: FormlyFieldConfig) => {
                   return (model.stato_civile === 'C' || model.stato_civile === 'Z');
                 },
-                'templateOptions.disabled': (model: any, formState: any, field: FormlyFieldConfig) => {
+                'props.disabled': (model: any, formState: any, field: FormlyFieldConfig) => {
                   return (model.stato_civile !== 'C' && model.stato_civile !== 'Z');
                 },
               }
@@ -207,7 +208,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'nazione_residenza',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 required: true,
                 translate: true,
                 label: 'a1_label7',
@@ -221,7 +222,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               validation: {
                 show: true,
               },
-              templateOptions: {
+              props: {
                 options: tipotitoli.map( x => {
                   return { key: x, name: this.translateService.instant('TITOLO.'+x) }
                 }),
@@ -245,7 +246,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
     // resisenza
     {
       wrappers: ['riquadro'],
-      templateOptions: {
+      props: {
         title: this.translateService.instant('a1_title2')
       },
       fieldGroup: [
@@ -258,7 +259,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               type: 'input',
               className: 'col-md-6',
               name: 'city ',
-              templateOptions: {
+              props: {
                 required: true,
                 translate: true,
                 label: 'a1_label9',
@@ -270,7 +271,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'provincia_residenza',
               type: 'provincia',
               className: 'col-md-3',              
-              templateOptions: {                              
+              props: {                              
                 maxLength: 2,
                 required: true,
                 translate: true,
@@ -284,7 +285,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               type: 'input',
               className: 'col-md-3',
               name: 'postal-code',
-              templateOptions: {
+              props: {
                 maxLength: 5,
                 required: true,
                 translate: true,
@@ -301,7 +302,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'indirizzo_residenza',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 required: true,
                 translate: true,
                 label: 'a1_label12',
@@ -313,7 +314,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'civico_residenza',
               type: 'input',
               className: 'col-md-3',
-              templateOptions: {
+              props: {
                 required: true,
                 maxLength: 10,
                 translate: true,
@@ -328,7 +329,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'data_variazione_residenza',
               type: 'date',
               className: 'col-md-3',
-              templateOptions: {
+              props: {
                 translate: true,
                 label: 'data_variazione_dom_fisc'
               },
@@ -340,7 +341,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
     // residenza fiscale
     {
       wrappers: ['riquadro'],
-      templateOptions: {
+      props: {
         title: this.translateService.instant('a1_title3')
       },
       fieldGroup: [
@@ -352,7 +353,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'comune_fiscale',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 required: true,
                 translate: true,
                 label: 'a1_label9',
@@ -364,7 +365,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'provincia_fiscale',
               type: 'provincia',
               className: 'col-md-3',              
-              templateOptions: {
+              props: {
                 attributes: {
                   autocomplete: 'fiscale',
                 },
@@ -380,7 +381,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'cap_fiscale',
               type: 'input',
               className: 'col-md-3',
-              templateOptions: {                
+              props: {                
                 attributes: {
                   autocomplete: 'fiscale',
                 },
@@ -400,7 +401,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'indirizzo_fiscale',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 attributes: {
                   autocomplete: 'fiscale',
                 },
@@ -415,7 +416,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'civico_fiscale',
               type: 'input',
               className: 'col-md-3',
-              templateOptions: {
+              props: {
                 required: true,
                 maxLength: 10,
                 translate: true,
@@ -430,7 +431,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'data_variazione_dom_fiscale',
               type: 'date',
               className: 'col-md-3',
-              templateOptions: {
+              props: {
                 translate: true,
                 label: 'data_variazione_dom_fisc'
               },
@@ -444,7 +445,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
     /*
     {
       wrappers: ['riquadro'],
-      templateOptions: {
+      props: {
         title: this.translateService.instant('a1_title7')
       },
       fieldGroup: [
@@ -456,7 +457,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'comune_comunicazioni',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 translate: true,
                 label: 'a1_label9',
               },
@@ -466,7 +467,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'provincia_comunicazioni',
               type: 'input',
               className: 'col-md-3',
-              templateOptions: {
+              props: {
                 maxLength: 2,
                 translate: true,
                 label: 'a1_label10',
@@ -477,7 +478,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'cap_comunicazioni',
               type: 'input',
               className: 'col-md-3',
-              templateOptions: {
+              props: {
                 maxLength: 5,
                 translate: true,
                 label: 'a1_label11',
@@ -493,7 +494,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'indirizzo_comunicazioni',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 translate: true,
                 label: 'a1_label12',
               },
@@ -503,7 +504,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'civico_comunicazioni',
               type: 'input',
               className: 'col-md-3',
-              templateOptions: {
+              props: {
                 maxLength: 10,
                 translate: true,
                 label: 'a1_label13',
@@ -517,7 +518,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
     // recapito telefonico
     {
       wrappers: ['riquadro'],
-      templateOptions: {
+      props: {
         title: this.translateService.instant('a1_title4')
       },
       fieldGroup: [
@@ -530,7 +531,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               type: 'input',
               className: 'col-md-6',
               name: 'mobile',
-              templateOptions: {
+              props: {
                 maxLength: 20,
                 required: true,
                 translate: true,
@@ -542,7 +543,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'telefono_abitazione', // 'tel_res',
               type: 'input',
               className: 'col-md-6',             
-              templateOptions: {
+              props: {
                 attributes: {
                   autocomplete: 'abitazione',
                 },
@@ -562,7 +563,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               type: 'input',
               className: 'col-md-6',
               name: 'phone',
-              templateOptions: {
+              props: {
                 attributes: {
                   autocomplete: 'ufficio',
                 },
@@ -579,7 +580,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
     // indirizzo email
     {
       wrappers: ['riquadro'],
-      templateOptions: {
+      props: {
         title: this.translateService.instant('a1_title5')
       },
       fieldGroup: [
@@ -590,14 +591,14 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'email',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 required: true,
                 translate: true,
                 label: 'a1_label17',
                 maxLength: 190,
               },
               expressionProperties: {
-                'templateOptions.readonly': (model: any, formState: any, field: FormlyFieldConfig) => {
+                'props.readonly': (model: any, formState: any, field: FormlyFieldConfig) => {
                   return (model.email !== '*@uniurb.it');
                 },
               }
@@ -606,10 +607,11 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               key: 'email_privata', // 'e_mail_privata',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 translate: true,
                 label: 'a1_label18',
                 maxLength: 190,
+                pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
               },
             },
           ]
@@ -619,7 +621,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
     // tutela lavoratrici madri
     {
       wrappers: ['riquadro'],
-      templateOptions: {
+      props: {
         title: this.translateService.instant('a1_title8')
       },
       fieldGroup: [
@@ -632,7 +634,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
               className: 'col-auto',
               defaultValue: false,             
               
-              templateOptions: {
+              props: {
                 indeterminate: false,
                 required: true,                
                 translate: true,
@@ -663,14 +665,14 @@ export class AnagraficaDetailsComponent extends BaseComponent {
     // allegati
     {
       wrappers: ['riquadro'],
-      templateOptions: {
+      props: {
         title: this.translateService.instant('a1_title6')
       },
       fieldGroup: [
         {
           key: 'attachments',
           type: 'repeat',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'a1_label19',
             min: 0,
@@ -688,7 +690,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
                   key: 'attachmenttype_codice',
                   type: 'input',
                   defaultValue: 'DOC_CV',
-                  templateOptions: {
+                  props: {
                     type: 'hidden',
                     options: [
                       { codice: 'DOC_CV', descrizione: 'Curriculum' },
@@ -708,7 +710,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
                   validation: {
                     show: true
                   },
-                  templateOptions: {
+                  props: {
                     label: 'Curriculum Vitae',
                     type: 'input',
                     readonly: true,
@@ -740,7 +742,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
                     {
                       type: 'button',
                       className: 'mt-4 pt-2',
-                      templateOptions: {
+                      props: {
                         btnType: 'primary oi oi-data-transfer-download',
                         title: 'Scarica il documento',
                         // icon: 'oi oi-data-transfer-download'
@@ -760,14 +762,14 @@ export class AnagraficaDetailsComponent extends BaseComponent {
                   {
                     key: 'filevalue',
                     type: 'input',
-                    templateOptions: {
+                    props: {
                       type: 'hidden'        
                     },
                   },
                   {
                     key: 'id',
                     type: 'input',
-                    templateOptions: {
+                    props: {
                       type: 'hidden'        
                     },
                   },
@@ -801,7 +803,7 @@ export class AnagraficaDetailsComponent extends BaseComponent {
 
   setMetada(metadata) {
     //stato_civile ritorna { key: string, value: string }
-    ControlUtils.getField('stato_civile', this.fieldsAnagrafica).templateOptions.options = metadata.stato_civile.map(item => ({
+    ControlUtils.getField('stato_civile', this.fieldsAnagrafica).props.options = metadata.stato_civile.map(item => ({
       label: item.value,
       value: item.key
     }));

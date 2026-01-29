@@ -29,7 +29,9 @@
         
     <app-list-item label="{{ '00_int12' | translate }}" value="{{ item.tipo_atto | uppercase }} NUM. {{ item.num_delibera }} DEL {{ item.data_delibera | toDateObj | date: 'dd-MM-yyyy' }}"></app-list-item>    
     <app-list-item label="{{ '00_int13' | translate }}" value="{{ item.emittente | uppercase }}"></app-list-item>    
-    <app-list-item label="{{ '00_int6' | translate }}" value="{{ tools.tipoConferimento(item.motivo_atto) }}"></app-list-item>       
+    <app-list-item label="{{ '00_int6' | translate }}" value="{{ tools.tipoConferimento(item.motivo_atto) }}"></app-list-item>    
+    
+    <app-list-item *ngIf="item.part_stu_des" label="Partizione" value="{{ item.part_stu_des }} "></app-list-item>   
   </app-riquadro-wrapper>
 
   <app-riquadro-wrapper>
@@ -41,20 +43,27 @@
     <app-riquadro-wrapper *ngIf="item.motivo_atto == 'CONF_INC'">
       
       <h5>Storico</h5>
-      <ng-container *ngIf="item.contatore_insegnamenti_manuale==null">
-      <p>Il presente insegnamento è stato già precedentemente attribuito a {{ item.nome }} {{ item.cognome  }} 
-        {{item.contatore_insegnamenti.counter}} volte.
-        <span *ngIf="item.contatore_insegnamenti.method === 'complete_chain'; else incompleteChain">
-          (Questo conteggio si basa su una catena di rinnovi completa.)
-        </span>
-        <ng-template #incompleteChain>
-          (Catena dei rinnovi incompleta, calcolo basato sui dati di insegnamento)
-        </ng-template>
-      </p>
-      </ng-container>
-      <ng-container *ngIf="item.contatore_insegnamenti_manuale!=null">
-      <p>E'stato inserito manualmente il numero delle precedentementi attribuzioni dell'insegnamento a {{ item.nome }} {{ item.cognome  }} {{item.contatore_insegnamenti_manuale}} volte.</p>
-      <p>Motivazione: {{item.motivazione_contatore}}</p>
+      <ng-container *ngIf="item?.contatore_insegnamenti_manuale == null">
+        <ng-container *ngIf="item?.contatore_insegnamenti as contatore">
+          <p>
+            Il presente insegnamento è stato già precedentemente attribuito a {{ item.nome }} {{ item.cognome }} 
+            {{ contatore.counter }} volte.
+            <span *ngIf="contatore.method === 'complete_chain'; else incompleteChain" class="text-success">
+              (Questo conteggio si basa su una catena di rinnovi completa.)
+            </span>
+            <ng-template #incompleteChain>
+              <span class="text-danger">
+                (Catena dei rinnovi incompleta o dati incoerenti su tipologia o codice attività formativa. Calcolo basato sui dati di insegnamento)
+              </span>
+            </ng-template>
+          </p>
+        </ng-container>
+      </ng-container>      
+      <ng-container *ngIf="item?.contatore_insegnamenti_manuale != null">
+        <p>
+          È stato inserito manualmente il numero delle precedenti attribuzioni dell'insegnamento a {{ item.nome }} {{ item.cognome }} {{ item.contatore_insegnamenti_manuale }} volte.
+        </p>
+        <p>Motivazione: {{ item.motivazione_contatore }}</p>
       </ng-container>
    
       <ng-container  *ngxPermissionsOnly="['SUPER-ADMIN','OP_DIPARTIMENTALE']">

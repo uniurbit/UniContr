@@ -29,17 +29,22 @@ class FirmaUSIGNService implements CancellazioneServiceInterface
     public function retry($func, array $args){
 
         $retries = 4;
+        $delay = 3;
         $response = null;
         for ($try = 0; $try < $retries; $try++) {
 
             $response =   $this->client->{$func}(...$args);
             if ($response->successful()){
+                Log::info("[Retry] {$func} successo al tentativo ".($try + 1));
                 return $response;                
             }
 
-            Log::info('[Retry] '.$try);                                                          
-            sleep(3);                            
+            Log::warning("[Retry] Tentativo ".($try + 1)." per {$func} fallito. Attesa {$delay}s. Risposta: ".$response?->getReasonPhrase());
+            sleep($delay);            
+            $delay *= 2; // backoff esponenziale                
         }
+
+        Log::error("[Retry] Tutti i tentativi per {$func} falliti.");
         return $response;
     }
 
@@ -101,14 +106,20 @@ class FirmaUSIGNService implements CancellazioneServiceInterface
             switch ($firma->step) {             
                 case 'upload':
                     //Upload: in questo step è possibile effettuare l’upload dei documenti;
-                    if ($firma->file_id== null){
-                        //occorre un certo tempo per fare la chiusura dell'upload ...
+                    if ($firma->file_id === null && $firma->stato_interno !== 'uploaded') {
+                        // Nessun file caricato → avvia upload
                         return $this->uploadAndFinish($firma->process_id, $pre, $firma);
+                    }
 
-                    } else {
-                        return $this->uploadFinished($firma->process_id, $pre, $firma);                        
-                    }                                                                                                                                                                         
-
+                    if ($firma->stato_interno === 'uploading') {
+                        // Upload già in corso → attendere
+                        return $this->createSuccessResponse(
+                            'Upload in corso, attendere il completamento.',
+                            $firma
+                        );
+                    }
+                    
+                    return $this->uploadFinished($firma->process_id, $pre, $firma);                        
                 case 'confirm':
                      // Confirm: in questo step è possibile vedere un riepilogo, ma non possono essere apportate modifiche;
                      return $this->createSuccessResponse('Richiesta di firma creata correttamente.', $firma);   
@@ -352,22 +363,28 @@ class FirmaUSIGNService implements CancellazioneServiceInterface
         //upload del file pdf
         $fileContent = $pdf->output();
 
+        // Blocca eventuali upload duplicati
+        $firma->update(['stato_interno' => 'uploading']);
+
         $response = $this->client->upload($processId,$fileContent,$attrs);                       
         if (!$response->successful()){
+            $firma->update(['stato_interno' => 'error_uploading']);
             return $this->createErrorResponse( 'Errore nel caricamento del contratto. '.$response->getReasonPhrase());              
         }
 
         $data = $response->json(); //json_decode($response, true);    
         $firma->update([
-            'file_id' => $data['message']
+            'file_id' => $data['message'],
+            'stato_interno' => 'uploaded'
         ]);                                         
         
         //chiudo il caricamento 
-        sleep(4);
+        //sleep(4);
         $response = $this->retry('uploadFinished', [ $processId ]);        
         if (!$response->successful()){
             $firma->update([
-                'rejections' => $response->getReasonPhrase()
+                'rejections' => $response->getReasonPhrase(),
+                'stato_interno' => 'error_uploadFinished'
             ]);             
             return $this->createErrorResponse('Errore chiusura documenti. '.$response->getReasonPhrase());              
         }                

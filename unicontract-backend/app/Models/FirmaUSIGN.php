@@ -25,7 +25,8 @@ class FirmaUSIGN extends Model implements FirmaUtenteInterface
         'contenuto',
         'file_id',
         'link',
-        'notify_assigned_user'
+        'notify_assigned_user',
+        'stato_interno'
     ];
 
     protected $appends = ['nomeProvider','isContrattoCaricato','descrizioneProvider'];

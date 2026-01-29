@@ -7,8 +7,9 @@ import { NotificaService } from '../../shared/notifica.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-notifica',
-  templateUrl: '../../shared/base-component/base-entity.component.html',
+    selector: 'app-notifica',
+    templateUrl: '../../shared/base-component/base-entity.component.html',
+    standalone: false
 })
 
 // ng g c submission/components/user -s true --spec false -t true
@@ -20,7 +21,7 @@ export class NotificaComponent extends BaseEntityComponent {
     {
       key: 'vincolo_anno',
       type: 'select',
-      templateOptions: {
+      props: {
         required: true,
         label: 'Vincolo minimo anno accademico',        
         options: this.service.getAnniAccademici()            
@@ -29,13 +30,13 @@ export class NotificaComponent extends BaseEntityComponent {
     {
       key: 'vincolo_natura_rapporto',
       type: 'select',
-      templateOptions: {
+      props: {
         required: true,
         label: 'Vincolo tipologia di prestazione',        
         options: []
       },
       expressionProperties: {
-        'templateOptions.options': (model: any, formState: any, field: FormlyFieldConfig) => {        
+        'props.options': (model: any, formState: any, field: FormlyFieldConfig) => {        
           return this.opt;
         },
       }
@@ -50,7 +51,7 @@ export class NotificaComponent extends BaseEntityComponent {
           key: 'id',
           type: 'input',
           className: 'col-md-2',
-          templateOptions: {
+          props: {
             label: 'Id',
             disabled: true,
           },
@@ -61,7 +62,7 @@ export class NotificaComponent extends BaseEntityComponent {
     {
       key: 'messaggio',
       type: 'textarea',
-      templateOptions: {
+      props: {
         rows: 3,
         label: 'Messaggio',
         required: true
@@ -70,7 +71,7 @@ export class NotificaComponent extends BaseEntityComponent {
     {
       key: 'riferimento',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Riferimento',
         valueProp: 'value',
         labelProp: 'label',
@@ -84,7 +85,7 @@ export class NotificaComponent extends BaseEntityComponent {
     {
       key: 'priorita',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Priorità',        
         options: [
           {value: 'primary', label: 'Primario'},
@@ -101,7 +102,7 @@ export class NotificaComponent extends BaseEntityComponent {
     {
       key: 'stato',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Stato',
         required: true,        
         options: [
@@ -117,7 +118,7 @@ export class NotificaComponent extends BaseEntityComponent {
           key: 'data_inizio',
           type: 'datepicker',
           className: 'col-md',
-          templateOptions: {
+          props: {
             required: true,
             translate: true,
             label: 'Data inizio',
@@ -127,7 +128,7 @@ export class NotificaComponent extends BaseEntityComponent {
           key: 'data_fine',
           type: 'datepicker',
           className: 'col-md',
-          templateOptions: {
+          props: {
             required: true,
             translate: true,
             label: 'Data fine',
@@ -138,7 +139,7 @@ export class NotificaComponent extends BaseEntityComponent {
     {
       key: 'tipo_vincolo',
       type: 'select',
-      templateOptions: {
+      props: {
         required: true,
         label: 'Vincolo',        
         options: [

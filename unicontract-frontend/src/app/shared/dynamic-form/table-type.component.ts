@@ -4,11 +4,11 @@ import { TableColumn } from '@swimlane/ngx-datatable';
 
 
 @Component({
-  selector: 'app-table-type',
-  template: `
+    selector: 'app-table-type',
+    template: `
   <div class="btn-toolbar mb-2" role="toolbar" *ngIf="!to.hidetoolbar">
     <div class="btn-group btn-group-sm">    
-        <button type="button" class="btn btn-outline-primary border-0 rounded-0" (click)="addFirst()"  >              
+        <button type="button" class="btn btn-outline-primary border-0 rounded-0" (click)="addFirst()" [disabled]="to?.disabled" >              
             <span class="oi oi-plus"></span>
             <span class="ms-2">Aggiungi</span>
         </button>    
@@ -69,7 +69,8 @@ import { TableColumn } from '@swimlane/ngx-datatable';
   </div> 
 </ng-template>
 
-`
+`,
+    standalone: false
 })
 
 // <h1>Model</h1>
@@ -125,19 +126,19 @@ export class TableTypeComponent extends FieldArrayType {
       this.to.columns =  (this.field.fieldArray as FormlyFieldConfig).fieldGroup.map(el => {      
         
         let c = { 
-          name: el.templateOptions.label, 
+          name: el.props.label, 
           prop: el.key,                                  
           cellTemplate: this.defaultColumn                  
         }
-        el.templateOptions.label = "";
+        el.props.label = "";
          
-        if ('column' in el.templateOptions){
+        if ('column' in el.props){
           //copio tutte le proprietà relativa alla colonna 
-          Object.keys(el.templateOptions.column).forEach(prop => {
+          Object.keys(el.props.column).forEach(prop => {
             if (prop=='cellTemplate'){
-              c.cellTemplate = this[el.templateOptions.column[prop]]
+              c.cellTemplate = this[el.props.column[prop]]
             }else{
-              c[prop] = el.templateOptions.column[prop]
+              c[prop] = el.props.column[prop]
             }
           }
           );

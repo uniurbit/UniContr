@@ -11,10 +11,11 @@ import { UpdSubmit } from './../../../classes/validazioni';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-b6-privacy-details',
-  templateUrl: './b6-privacy-details.component.html',
-  styleUrls: ['./b6-privacy-details.component.css'],
-  providers: [DatePipe]
+    selector: 'app-b6-privacy-details',
+    templateUrl: './b6-privacy-details.component.html',
+    styleUrls: ['./b6-privacy-details.component.css'],
+    providers: [DatePipe],
+    standalone: false
 })
 
 export class B6PrivacyDetailsComponent extends BaseComponent {

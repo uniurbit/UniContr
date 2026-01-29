@@ -3,9 +3,10 @@ import { DashboardService } from '../dashboard.service';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard-uff-docenti',
-  templateUrl: './dashboard-uff-docenti.component.html',
-  styles: []
+    selector: 'app-dashboard-uff-docenti',
+    templateUrl: './dashboard-uff-docenti.component.html',
+    styles: [],
+    standalone: false
 })
 export class DashboardUffDocentiComponent implements OnInit {
 

@@ -3,8 +3,8 @@ import { FormlyFieldConfig, FieldArrayType, FormlyFormBuilder, FieldGroupTypeCon
 import { TableColumn } from '@swimlane/ngx-datatable';
 
 @Component({
-  selector: 'app-tablelookup-type',
-  template: `  
+    selector: 'app-tablelookup-type',
+    template: `  
 
 <ngx-datatable
   #table  class="bootstrap" 
@@ -55,7 +55,8 @@ import { TableColumn } from '@swimlane/ngx-datatable';
   </div> 
 </ng-template>
 
-`
+`,
+    standalone: false
 })
 
 //<h1>Model</h1>
@@ -107,18 +108,18 @@ export class TableLookupTypeComponent extends FieldArrayType {
       this.to.columns =  field.fieldGroup.map(el => {      
         
         let c = { 
-          name: el.templateOptions.label, 
+          name: el.props.label, 
           prop: el.key,                                          
         }
-        el.templateOptions.label = "";                   
-        if ('column' in el.templateOptions){
+        el.props.label = "";                   
+        if ('column' in el.props){
           //copio tutte le proprietà relativa alla colonna 
-          Object.keys(el.templateOptions.column).forEach(prop => {
+          Object.keys(el.props.column).forEach(prop => {
             if (prop=='cellTemplate'){
-              if (this[el.templateOptions.column.cellTemplate])
-                c['cellTemplate'] = this[el.templateOptions.column.cellTemplate]
+              if (this[el.props.column.cellTemplate])
+                c['cellTemplate'] = this[el.props.column.cellTemplate]
             }else{
-              c[prop] = el.templateOptions.column[prop]
+              c[prop] = el.props.column[prop]
             }
           }
           );

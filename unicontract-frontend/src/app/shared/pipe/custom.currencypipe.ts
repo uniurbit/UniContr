@@ -4,7 +4,8 @@ import { formatCurrency, getCurrencySymbol } from '@angular/common';
 
 @Pipe({
     name: 'mycurrency',
-  })
+    standalone: false
+})
   export class MycurrencyPipe implements PipeTransform {
     transform(
         value: number,

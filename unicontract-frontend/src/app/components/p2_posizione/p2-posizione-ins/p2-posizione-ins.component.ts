@@ -21,11 +21,12 @@ import { Observable } from 'rxjs';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 
 @Component({
-  selector: 'app-p2-posizione-ins',
-  templateUrl: './p2-posizione-ins.component.html',
-  styleUrls: [
-    './p2-posizione-ins.component.css'
-  ]
+    selector: 'app-p2-posizione-ins',
+    templateUrl: './p2-posizione-ins.component.html',
+    styleUrls: [
+        './p2-posizione-ins.component.css'
+    ],
+    standalone: false
 })
 
 export class P2PosizioneInsComponent extends BaseComponent {
@@ -53,7 +54,7 @@ export class P2PosizioneInsComponent extends BaseComponent {
           type: 'checkbox',
           className: 'col-auto',
           defaultValue: false,                    
-          templateOptions: {
+          props: {
             translate: true,
             label: 'p2_check1',
             description: 'Per i titolari di assegno di ricerca, borsa di studio o borsa post-dottorato oppure iscritti ad un corso di Dottorato di Ricerca'
@@ -69,7 +70,7 @@ export class P2PosizioneInsComponent extends BaseComponent {
           type: 'checkbox',
           className: 'col-auto',
           defaultValue: false,
-          templateOptions: {
+          props: {
             translate: true,
             label: 'p2_check2'
           }
@@ -84,7 +85,7 @@ export class P2PosizioneInsComponent extends BaseComponent {
           type: 'checkbox',
           className: 'col-auto',
           defaultValue: false,
-          templateOptions: {
+          props: {
             translate: true,
             label: 'p2_check3'
           }
@@ -97,13 +98,13 @@ export class P2PosizioneInsComponent extends BaseComponent {
     {
       type: 'radio',
       key: 'natura_rapporto',
-      templateOptions: {
+      props: {
         options: [],
         required: true,
         label: 'Sezionare una opzione'
       },
       expressionProperties: {
-        'templateOptions.options': (model: any, formState: any, field: FormlyFieldConfig) => {
+        'props.options': (model: any, formState: any, field: FormlyFieldConfig) => {
           const opt =  [{ value: 'PRPR', label: this.translateService.instant('p3_radio1') }];
 
           if (this.tools.controlloCNA(this.items.tipo_contratto, this.items.ore)) {
@@ -118,7 +119,7 @@ export class P2PosizioneInsComponent extends BaseComponent {
           opt.push( { value: 'ALD', label: this.translateService.instant('p3_radio5') });
           return opt;
         },
-        'templateOptions.description': (model: any, formState: any, field: FormlyFieldConfig) => {
+        'props.description': (model: any, formState: any, field: FormlyFieldConfig) => {
           switch (model.natura_rapporto) {
             case 'PRPR': {
                return this.translateService.instant('p3_PRPR');

@@ -5,10 +5,11 @@ import { InsegnUgovService } from './../../../services/insegn-ugov.service';
 import { InsegnamTools } from './../../../classes/insegnamTools';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'tr[app-insegnamento-ugov]',
-  templateUrl: './insegnamento-ugov.component.html',
-  styleUrls: ['./insegnamento-ugov.component.css']
+    // tslint:disable-next-line:component-selector
+    selector: 'tr[app-insegnamento-ugov]',
+    templateUrl: './insegnamento-ugov.component.html',
+    styleUrls: ['./insegnamento-ugov.component.css'],
+    standalone: false
 })
 export class InsegnamentoUgovComponent implements OnInit {
 

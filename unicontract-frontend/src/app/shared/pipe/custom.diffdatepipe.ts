@@ -4,8 +4,9 @@ import ControlUtils from "../dynamic-form/control-utils";
 import { DatePipe } from "@angular/common";
 
 @Pipe({
-    name: 'mydiffdate',   
-  })
+    name: 'mydiffdate',
+    standalone: false
+})
  
 export class MyDiffdatePipe implements PipeTransform  {
   

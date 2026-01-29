@@ -10,7 +10,7 @@
     <h5>{{ 'p1_title1' | translate }}</h5>
     <app-list-item label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ item.nome | uppercase }} {{ item.cognome | uppercase }}</span></app-list-item>            
 
-    <app-list-item label="{{ '00_int2' | translate }}" value="{{ item.af_gen_des }}"></app-list-item>
+    <app-list-item label="{{ '00_int2' | translate }}" value="{{ item.af_gen_des }} ({{ item.af_gen_cod }})"></app-list-item>
     <app-list-item label="{{ '00_int7' | translate }}" value="{{ item.sett_des | replace:';':',' | uppercase }} ({{ item.sett_cod | replace:';':','}})"></app-list-item>
     <app-list-item label="{{ '00_int8' | translate }}" value="{{ item.coper_peso }} CFU / {{ item.ore }} ore"></app-list-item>
     <app-list-item label="{{ '00_int9' | translate }}" value="{{ item.dip_des | uppercase }}"></app-list-item>
@@ -28,6 +28,7 @@
     <app-list-item label="{{ '00_int17' | translate }}" value="{{ datoMancante(item.ruolo_doc_des | uppercase) }}"></app-list-item>
     <app-list-item label="{{ '00_int18' | translate }}" value="{{ datoMancante(item.sede_des | uppercase) }}"></app-list-item>
     
+    <app-list-item *ngIf="item.part_stu_des" label="Partizione" value="{{ item.part_stu_des }} "></app-list-item>
     
   </app-riquadro-wrapper>
 
@@ -38,15 +39,16 @@
 
   <app-riquadro-wrapper *ngIf="item.motivo_atto_cod == 'CONF_INC'">
     <h5>Storico</h5>
-    <p>Il presente insegnamento è stato già precedentemente attribuito a <b>{{ item.nome | titlecase }} {{ item.cognome | titlecase }}
-    </b> {{item.contatore_insegnamenti.counter}} volte.
-    <span *ngIf="item.contatore_insegnamenti.method === 'complete_chain'; else incompleteChain">
-      (Questo conteggio si basa su una catena di rinnovi completa.)
-    </span>
+    <ng-container *ngIf="item?.contatore_insegnamenti as contatore">
+      <p>Il presente insegnamento è stato già precedentemente attribuito a <b>{{ item.nome | titlecase }} {{ item.cognome | titlecase }}</b> {{ contatore.counter }} volte.
+        <span *ngIf="contatore.method === 'complete_chain'; else incompleteChain">
+          (Questo conteggio si basa su una catena di rinnovi completa.)
+        </span>
+      </p>
+    </ng-container>
     <ng-template #incompleteChain>
       (Calcolo basato sui dati di insegnamento)
     </ng-template>
-  </p>
   </app-riquadro-wrapper>
 
   <app-riquadro-wrapper *ngIf="checkEmail(item.email, item.e_mail, item.e_mail_privata) === false">
@@ -87,6 +89,8 @@
     <input type="hidden" name="cod_insegnamento" [(ngModel)]="item.af_gen_cod">    
     <input type="hidden" name="dip_cod" [(ngModel)]="item.dip_cod">    
     <input type="hidden" name="cds_cod" [(ngModel)]="item.cds_cod">    
+    <input type="hidden" name="part_stu_cod" [(ngModel)]="item.part_stu_cod">    
+    <input type="hidden" name="part_stu_des" [(ngModel)]="item.part_stu_des">    
 
     <div class="form-footer text-end">
       <button *ngIf="checkEmail(item.email, item.e_mail, item.e_mail_privata)" [disabled]="!formContrattiPrecedenti.valid" class="btn btn-outline-secondary rounded me-1" (click)="saveIns(f.value, item.nome, item.cognome, item.cod_fis, item.id_ab, email(item.email, item.e_mail, item.e_mail_privata))" title="IMPORTA IL PRESENTE INSEGNAMENTO">IMPORTA</button>

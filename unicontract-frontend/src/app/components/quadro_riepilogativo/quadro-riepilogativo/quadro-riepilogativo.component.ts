@@ -26,16 +26,20 @@ import { AuthService } from 'src/app/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ToastService } from 'src/app/shared/toast-service';
-import * as saveAs from 'file-saver';
+import { saveAs } from 'file-saver';
 import { BreadcrumbService } from 'src/app/services/breadcrumb.service';
+import { UserComponent } from '../../user/user.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicModalComponent } from 'src/app/shared/dynamic-modal/dynamic-modal.component';
 //import { IOSignElement } from 'src/assets/js/io-sign.js';
 
 //importata dalla lib js api-client-lib di U-Sign
 declare var SDK: any;
 @Component({
-  selector: 'app-quadro-riepilogativo',
-  templateUrl: './quadro-riepilogativo.component.html',
-  styleUrls: ['./quadro-riepilogativo.component.css']
+    selector: 'app-quadro-riepilogativo',
+    templateUrl: './quadro-riepilogativo.component.html',
+    styleUrls: ['./quadro-riepilogativo.component.css'],
+    standalone: false
 })
 
 export class QuadroRiepilogativoComponent extends BaseComponent implements AfterViewInit {
@@ -169,7 +173,7 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
           key: 'motivazione',
           type: 'textarea',
           className: 'col-md-12',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Motivazione',
             rows: 5,
@@ -178,7 +182,7 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
           },
 
           expressionProperties: {
-            'templateOptions.description': (model, formState) => {
+            'props.description': (model, formState) => {
               if (model.tipo_annullamento == 'REVOC') {
                 return 'Specificare il numero di decreto della revoca (lunghezza massima 450 caratteri)';
               }
@@ -200,7 +204,7 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
           key: 'corpo_testo',
           type: 'textarea',
           className: 'col-md-12',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Testo della richiesta',
             rows: 5,
@@ -222,6 +226,7 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
     private b1ConflittolService: B1ConflittoService,
     protected translateService: TranslateService,
     protected confirmationDialogService: ConfirmationDialogService,
+    private modalService: NgbModal,
     private emailService: EmailListService,
     private tools: InsegnamTools,
     private storyService: StoryProcessService,
@@ -648,12 +653,38 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
   }
 
   rinunciaCompenso() {
-    this.confirmationDialogService.confirm('Conferma', 'Procedere con l\'operazione di rinuncia?')
+    this.confirmationDialogService.inputConfirm('Conferma', 'Procedere con l\'operazione di rinuncia?','Si','No','lg',null,[
+      // motivazione
+      {
+        fieldGroupClassName: 'row',
+        fieldGroup: [
+          {
+            key: 'motivazione',
+            type: 'textarea',
+            className: 'col-md-12',
+            props: {
+              required: true,
+              label: 'Motivazione',
+              rows: 5,
+              maxLength: 450,
+              description: 'Lunghezza massima 450 caratteri',
+            },
+  
+            expressionProperties: {
+              'props.description': (model, formState) => {
+                  return 'Specificare il numero dell\'atto a supporto della rinuncia al compenso (lunghezza massima 450 caratteri)';
+              },
+  
+            }
+          },
+        ]}]
+        )
       .then((confirmed) => {
-        if (confirmed) {
+        if (confirmed.result) {
           const data: IPrecontrStore<any> = {
             insegn_id: this.idins,
             entity: {
+              ...confirmed.entity,
               flag_no_compenso: true
             }
           };
@@ -941,7 +972,7 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
               key: 'firma_dipendente',
               type: 'signnamirial',
               className: 'col-md-12',
-              templateOptions: {
+              props: {
                 tipo_modello: 'contratto',
                 ordinefirma: 0,
                 required: true,
@@ -1091,7 +1122,7 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
         },
         {
           type: 'button',
-          templateOptions: {
+          props: {
             btnType: 'btn btn-primary btn-lg active',
             text: 'Vai alla Firma',
             // icon: 'oi oi-data-transfer-download'
@@ -1192,4 +1223,12 @@ export class QuadroRiepilogativoComponent extends BaseComponent implements After
     var stringified = JSON.stringify(response);
     console.log("FIRMA ERROR: " + stringified);
   };
+
+  openUserModal(userId: number) {
+    const modalRef = this.modalService.open(DynamicModalComponent, { size: 'xl' });
+    modalRef.componentInstance.title = 'Dettaglio Utente';
+    modalRef.componentInstance.component = UserComponent;
+    modalRef.componentInstance.inputs = { idModal: userId };
+  }
+  
 }

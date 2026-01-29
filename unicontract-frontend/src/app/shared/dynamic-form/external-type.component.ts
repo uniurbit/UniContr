@@ -10,11 +10,11 @@ import ControlUtils from './control-utils';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-external-type',
-  template: `                
+    selector: 'app-external-type',
+    template: `                
 
   <div  style="position: relative">
-  <ngx-loading [show]="isLoading" [config]="{  fullScreenBackdrop: false, backdropBorderRadius: '4px' }"></ngx-loading>    
+  <ngx-loading [show]="isLoading" [config]="{  fullScreen: false, backdropBorderRadius: '4px' }"></ngx-loading>    
     <div *ngIf="codeField" class="row mb-3" [class.has-error]="showError">               
       <div class="col-md-4" > 
       <div class="form-group"> 
@@ -23,7 +23,7 @@ import { Router } from '@angular/router';
           <ng-container *ngIf="to.required && to.hideRequiredMarker !== true">*</ng-container>
         </label>
         <div class="input-group"> 
-          <input *ngIf="field.templateOptions.type !== 'number' else numberTmp" [type]="field.templateOptions.type" [formControl]="formControl" class="form-control" [formlyAttributes]="field" [class.is-invalid]="showError">
+          <input *ngIf="field.props.type !== 'number' else numberTmp" [type]="field.props.type" [formControl]="formControl" class="form-control" [formlyAttributes]="field" [class.is-invalid]="showError">
           <ng-template #numberTmp>
             <input type="number" [formControl]="formControl" class="form-control" [formlyAttributes]="field" [class.is-invalid]="showError">
           </ng-template>                    
@@ -43,7 +43,7 @@ import { Router } from '@angular/router';
       </div>    
 
       <div class="col-md-8">    
-        <Label *ngIf="descriptionField.templateOptions.label">{{ descriptionField.templateOptions.label }} </Label>
+        <Label *ngIf="descriptionField.props.label">{{ descriptionField.props.label }} </Label>
         <input type="text" class="form-control" [value]="extDescription"  readonly>    
       </div>    
       <small *ngIf="to.description" class="form-text text-muted">{{ to.description }}</small>
@@ -51,7 +51,8 @@ import { Router } from '@angular/router';
    </div> 
    
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 
 export class ExternalTypeComponent extends FieldType implements OnInit, OnDestroy {
@@ -60,7 +61,7 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
   extDescription = null;
   onDestroy$ = new Subject<void>();
   service: ServiceQuery;
-  public isLoading = false;
+  isLoading = false;
 
   nodecode = false;
 
@@ -73,7 +74,7 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
     this.service = this.injector.get(servicename) as ServiceQuery;
 
     this.field.wrappers = [];
-    this.field.templateOptions.
+    this.field.props.
       keyup = (field, event: KeyboardEvent) => {
         if (event.key == "F4") {
           this.open();
@@ -85,7 +86,7 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
         }
       };
 
-    this.field.templateOptions.addonRights = [{
+    this.field.props.addonRights = [{
       class: 'btn btn-outline-secondary oi oi-eye d-flex align-items-center',
       alwaysenabled: false,
       text: 'Ricerca',
@@ -93,8 +94,8 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
     }];
     if (this.to.entityPath){
       //extra bottone sulla destra per aprire la gestione
-      this.field.templateOptions.addonRights = [
-        ...this.field.templateOptions.addonRights,
+      this.field.props.addonRights = [
+        ...this.field.props.addonRights,
         {
           class: 'btn btn-outline-secondary oi oi-external-link d-flex align-items-center',    
           alwaysenabled: true,
@@ -113,8 +114,8 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
         if (!this.initdesc)
           return this.init();
 
-        if ((this.field.templateOptions.type =="number" && this.formControl.value != null && !this.nodecode) || 
-          (this.field.templateOptions.type != "number" && this.formControl.value && !this.nodecode)) { 
+        if ((this.field.props.type =="number" && this.formControl.value != null && !this.nodecode) || 
+          (this.field.props.type != "number" && this.formControl.value && !this.nodecode)) { 
           this.isLoading= true;         
           this.service.getById(this.formControl.value).subscribe((data) => {            
             this.isLoading = false;
@@ -141,7 +142,7 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
     this.descriptionField = {
       type: 'string',
       wrappers: ['form-field'],
-      templateOptions: {
+      props: {
         disabled: true,
         label: 'Descrizione'
       }
@@ -155,10 +156,10 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
     if (!this.initdesc && (this.field.key as string) in this.model && this.model[(this.field.key as string)]){    
       this.initdesc = true;
       
-      if (this.field.templateOptions.initdescription in this.model){      
-        this.extDescription = this.model[this.field.templateOptions.initdescription];        
-      }else if (typeof this.field.templateOptions.descriptionFunc === 'function'){        
-          this.extDescription = this.field.templateOptions.descriptionFunc(this.model);    
+      if (this.field.props.initdescription in this.model){      
+        this.extDescription = this.model[this.field.props.initdescription];        
+      }else if (typeof this.field.props.descriptionFunc === 'function'){        
+          this.extDescription = this.field.props.descriptionFunc(this.model);    
       } else if (!this.extDescription){
         //far scattare la decodifica 
         this.isLoading = true;
@@ -183,25 +184,25 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
   }
 
   setDescription(data: any) {
-    if (typeof this.field.templateOptions.descriptionFunc === 'function'){
-      this.extDescription = this.field.templateOptions.descriptionFunc(data);    
+    if (typeof this.field.props.descriptionFunc === 'function'){
+      this.extDescription = this.field.props.descriptionFunc(data);    
     } else if (data){
       //il parametro decriptionProp contiene il nome della proprità che contiene la descrizione
-      if (this.field.templateOptions.descriptionProp in data){
-        this.extDescription = data[this.field.templateOptions.descriptionProp];
-        if (this.field.templateOptions.initdescription in this.model)
-          this.model[this.field.templateOptions.initdescription] = data[this.field.templateOptions.descriptionProp];
+      if (this.field.props.descriptionProp in data){
+        this.extDescription = data[this.field.props.descriptionProp];
+        if (this.field.props.initdescription in this.model)
+          this.model[this.field.props.initdescription] = data[this.field.props.descriptionProp];
       } 
     }else{
-      if (this.field.templateOptions.initdescription in this.model)
-      this.model[this.field.templateOptions.initdescription] = '';
+      if (this.field.props.initdescription in this.model)
+      this.model[this.field.props.initdescription] = '';
     }     
   }
 
   setcode(data: any) {
-    if (this.field.templateOptions.codeProp in data){
+    if (this.field.props.codeProp in data){
       if (this.codeField){
-        this.codeField.formControl.setValue(data[this.field.templateOptions.codeProp]);
+        this.codeField.formControl.setValue(data[this.field.props.codeProp]);
         this.field.formControl.markAsDirty();
       }
     }
@@ -211,7 +212,7 @@ export class ExternalTypeComponent extends FieldType implements OnInit, OnDestro
     this.nodecode = true  
     this.setcode(result);
     this.setDescription(result);
-    if (this.field.templateOptions.copymodel){
+    if (this.field.props.copymodel){
       
       Object.keys(result).forEach( x=> this.model[x] = result[x]);      
     }

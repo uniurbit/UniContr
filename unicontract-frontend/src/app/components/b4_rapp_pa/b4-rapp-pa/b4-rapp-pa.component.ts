@@ -17,12 +17,13 @@ import ControlUtils from 'src/app/shared/dynamic-form/control-utils';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 import { takeUntil, tap } from 'rxjs/operators';
 import { NgbStringAdapter } from 'src/app/NgbStringAdapter';
-import * as saveAs from 'file-saver';
+import { saveAs } from 'file-saver';
 
 @Component({
-  selector: 'app-b4-rapp-pa',
-  templateUrl: './b4-rapp-pa.component.html',
-  styleUrls: ['./b4-rapp-pa.component.css']
+    selector: 'app-b4-rapp-pa',
+    templateUrl: './b4-rapp-pa.component.html',
+    styleUrls: ['./b4-rapp-pa.component.css'],
+    standalone: false
 })
 export class B4RappPaComponent extends BaseComponent {
 
@@ -68,7 +69,7 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'percentuale',
           type: 'input',
           className: 'col-md-4',
-          templateOptions: {
+          props: {
             label: 'Percentuale',
             required: true,
             placeholder: '. . . %',
@@ -84,14 +85,14 @@ export class B4RappPaComponent extends BaseComponent {
             return false;
           },
           expressionProperties: {
-            'model.percentuale': (model: any, formState: any, field: FormlyFieldConfig) => field.templateOptions.hidden ? null : model.percentuale,
+            'model.percentuale': (model: any, formState: any, field: FormlyFieldConfig) => field.props.hidden ? null : model.percentuale,
           }
         },
         {
           key: 'dal_giorno',
           type: 'date',
           className: 'col-md-4',
-          templateOptions: {
+          props: {
             label: 'dal giorno',
             required: true,
           },
@@ -109,7 +110,7 @@ export class B4RappPaComponent extends BaseComponent {
                 tap(val => {      
                   if (field.formControl.valid){
                     let al_giorno = field.parent.fieldGroup.find(x => x.key == 'al_giorno');
-                    al_giorno.templateOptions.datepickerOptions.minDate = this.adapter.fromModel(val); 
+                    al_giorno.props.datepickerOptions.minDate = this.adapter.fromModel(val); 
                     this.cdr.detectChanges();       
                     //console.warn(field,field.formControl.valid, val)
                   }                                       
@@ -122,7 +123,7 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'al_giorno',
           type: 'date',
           className: 'col-md-4',
-          templateOptions: {
+          props: {
             label: 'al giorno',
             required: true,
             // minDate: this.model.dal_giorno
@@ -145,7 +146,7 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'denominazione_pa',
           type: 'input',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             required: true,
             translate: true,
             label: 'b4_txt10'
@@ -158,7 +159,7 @@ export class B4RappPaComponent extends BaseComponent {
           validation: {
             show: true
           },
-          templateOptions: {
+          props: {
             required: true,
             translate: true,
             label: 'b4_txt11',
@@ -173,7 +174,7 @@ export class B4RappPaComponent extends BaseComponent {
           validation: {
             show: true
           },
-          templateOptions: {
+          props: {
             required: true,
             translate: true,
             label: 'b4_txt12',
@@ -190,7 +191,7 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'indirizzo_pa',
           type: 'input',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             required: true,
             translate: true,
             label: 'b4_txt13'
@@ -200,7 +201,7 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'num_civico_pa',
           type: 'input',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b4_txt14'
           }
@@ -214,7 +215,7 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'comune_pa',
           type: 'input',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             required: true,
             translate: true,
             label: 'b4_txt15'
@@ -224,7 +225,7 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'provincia_pa',
           type: 'input',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             required: true,
             translate: true,
             description: 'Richiesti due caratteri maiuscoli',
@@ -238,7 +239,7 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'cap_pa',
           type: 'input',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             required: true,
             translate: true,
             label: 'b4_txt17',
@@ -256,7 +257,7 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'num_telefono_pa',
           type: 'input',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b4_txt18',
             maxLength: 20,
@@ -266,7 +267,7 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'num_fax_pa',
           type: 'input',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b4_txt19',
             maxLength: 20,
@@ -276,7 +277,7 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'email_pa',
           type: 'input',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b4_txt20',
             pattern:  /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
@@ -287,7 +288,7 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'pec_pa',
           type: 'input',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b4_txt21',
             pattern: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
@@ -311,7 +312,7 @@ export class B4RappPaComponent extends BaseComponent {
       key: 'attivita_professionale',
       type: 'checkbox',
       defaultValue: false,
-      templateOptions: {
+      props: {
         translate: true,
         label: 'b4_txt7'
       }
@@ -323,7 +324,7 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'descrizione_attivita',
           type: 'input',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             label: 'attività professionale',
             required: true,
             placeholder: '. . .',
@@ -339,11 +340,11 @@ export class B4RappPaComponent extends BaseComponent {
       key: 'iscrizione_albo',
       type: 'checkbox',
       defaultValue: false,
-      templateOptions: {
+      props: {
         label: ''
       },
       expressionProperties: {
-        'templateOptions.label': () => this.translateService.instant('b4_txt8', { s: ControlUtils.genderTranslate(this.items.sesso) }), 
+        'props.label': () => this.translateService.instant('b4_txt8', { s: ControlUtils.genderTranslate(this.items.sesso) }), 
       }
     },
     {
@@ -353,7 +354,7 @@ export class B4RappPaComponent extends BaseComponent {
           key: 'descrizione_albo',
           type: 'input',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             label: 'albo professionale',
             required: true,
             placeholder: '. . .',
@@ -372,7 +373,7 @@ export class B4RappPaComponent extends BaseComponent {
     {
       key: 'attachments',
       type: 'repeat',
-      templateOptions: {
+      props: {
         min: 1,
         btnHidden: true,
         btnRemoveHidden: true,
@@ -388,7 +389,7 @@ export class B4RappPaComponent extends BaseComponent {
                 type: 'input',
                 defaultValue: 'AUT_PA',
                
-                templateOptions: {
+                props: {
                   type: 'hidden',
                   //label: 'Tipo documento',
                 }
@@ -400,7 +401,7 @@ export class B4RappPaComponent extends BaseComponent {
                 key: 'filename',
                 type: 'fileinput',
                 className: 'col-md-6',
-                templateOptions: {
+                props: {
                   translate: true,
                   label: 'b4_txt27',
                   type: 'input',
@@ -419,7 +420,7 @@ export class B4RappPaComponent extends BaseComponent {
                   {
                     type: 'button',
                     className: 'mt-4 pt-2',
-                    templateOptions: {
+                    props: {
                       btnType: 'primary oi oi-data-transfer-download',
                       title: 'Scarica il documento',
                       // icon: 'oi oi-data-transfer-download'
@@ -439,14 +440,14 @@ export class B4RappPaComponent extends BaseComponent {
               {
                 key: 'filevalue',
                 type: 'input',
-                templateOptions: {
+                props: {
                   type: 'hidden'        
                 },
               },
               {
                 key: 'id',
                 type: 'input',
-                templateOptions: {
+                props: {
                   type: 'hidden'        
                 },
               },
@@ -470,7 +471,7 @@ export class B4RappPaComponent extends BaseComponent {
                 type: 'select',
                 defaultValue: 'TIND',
                 className: 'col-md-6',
-                templateOptions: {
+                props: {
                   options: this.rapps,
                   valueProp: 'rapp',
                   labelProp: 'name',
@@ -483,7 +484,7 @@ export class B4RappPaComponent extends BaseComponent {
                 type: 'select',
                 defaultValue: 1,
                 className: 'col-md-3',
-                templateOptions: {
+                props: {
                   options: this.times,
                   valueProp: 'time',
                   labelProp: 'name',
@@ -516,14 +517,14 @@ export class B4RappPaComponent extends BaseComponent {
                 validation: {
                   show: true
                 },
-                templateOptions: {
+                props: {
                   // label: 'Elenco Pubbliche Amministrazioni',
                   min: 1,
                   max: 4,
                   template: '<hr></hr>',
                 },
                 expressionProperties: {
-                  'templateOptions.max': () => (this.model.tempo_pieno || this.model.tipo_rapporto === 'ASP') ? 1 : 4,
+                  'props.max': () => (this.model.tempo_pieno || this.model.tipo_rapporto === 'ASP') ? 1 : 4,
                 },
                 validators: {
                   atleastone: {

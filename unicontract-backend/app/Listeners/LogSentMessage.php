@@ -42,9 +42,9 @@ class LogSentMessage
         // If the text body is missing, log the available parts
         Log::info('No plain text body found. Available content types:');
         
-        foreach ($message->getBody()->getParts() as $part) {
-            Log::info('Part content type: ' . $part->getMediaType() . '/' . $part->getMediaSubtype());
-        }
+        // foreach ($message->getBody()->getParts() as $part) {
+        //     Log::info('Part content type: ' . $part->getMediaType() . '/' . $part->getMediaSubtype());
+        // }
 
         return ''; // Return empty string if no text/plain part is found
     }

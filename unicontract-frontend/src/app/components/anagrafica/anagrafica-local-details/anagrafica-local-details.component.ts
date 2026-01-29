@@ -9,12 +9,13 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { encode, decode } from 'base64-arraybuffer';
 import { FormGroup } from '@angular/forms';
 import { tipotitoli } from '../anagrafica-details/anagrafica-details.component';
-import * as saveAs from 'file-saver';
+import { saveAs } from 'file-saver';
 
 @Component({
-  selector: 'app-anagrafica-local-details',
-  templateUrl: './anagrafica-local-details.component.html',
-  styleUrls: ['./anagrafica-local-details.component.css']
+    selector: 'app-anagrafica-local-details',
+    templateUrl: './anagrafica-local-details.component.html',
+    styleUrls: ['./anagrafica-local-details.component.css'],
+    standalone: false
 })
 export class AnagraficaLocalDetailsComponent extends BaseComponent {
 

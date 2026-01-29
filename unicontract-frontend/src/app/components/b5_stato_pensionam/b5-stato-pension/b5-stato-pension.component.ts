@@ -20,9 +20,10 @@ import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 
 
 @Component({
-  selector: 'app-b5-stato-pension',
-  templateUrl: './b5-stato-pension.component.html',
-  styleUrls: ['./b5-stato-pension.component.css']
+    selector: 'app-b5-stato-pension',
+    templateUrl: './b5-stato-pension.component.html',
+    styleUrls: ['./b5-stato-pension.component.css'],
+    standalone: false
 })
 export class B5StatoPensionComponent extends BaseComponent {
 
@@ -49,13 +50,13 @@ export class B5StatoPensionComponent extends BaseComponent {
     {
       type: 'radio',
       key: 'status',
-      templateOptions: {
+      props: {
         options: [],
         required: true,
       },
       expressionProperties: {
-        'templateOptions.label': () => this.translateService.instant('b5_txt1', { s: ControlUtils.genderTranslate(this.items.sesso) }),
-        'templateOptions.options': () =>
+        'props.label': () => this.translateService.instant('b5_txt1', { s: ControlUtils.genderTranslate(this.items.sesso) }),
+        'props.options': () =>
           [
             { value: 'PNDA', label: this.translateService.instant('b5_txt2',  { s: ControlUtils.genderTranslate(this.items.sesso) }) },
             { value: 'CSPA', label: this.translateService.instant('b5_txt3',  { s: ControlUtils.genderTranslate(this.items.sesso) }) },
@@ -82,7 +83,7 @@ export class B5StatoPensionComponent extends BaseComponent {
       key: 'flag_rapp_collab_universita',
       type: 'checkbox',
       defaultValue: false,
-      templateOptions: {
+      props: {
         translate: true,
         label: 'b5_txt7'
       }

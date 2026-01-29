@@ -34,7 +34,10 @@ class RoleController extends Controller
                     return $item['name'];
                 })                               
             );           
-        }              
+        }       
+        
+        $role->load('permissions');
+
         return $role;
     }
 
@@ -59,6 +62,8 @@ class RoleController extends Controller
             $role->syncPermissions($permissions);                      
         }
 
+        $role->load('permissions');
+        
         return $role;
     }
 

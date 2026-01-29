@@ -3,9 +3,10 @@ import { InsegnamTools } from 'src/app/classes/insegnamTools';
  
 
 @Component({
-  selector: 'app-intestazione',
-  templateUrl: './intestazione.component.html',
-  styleUrls: ['./intestazione.component.css']
+    selector: 'app-intestazione',
+    templateUrl: './intestazione.component.html',
+    styleUrls: ['./intestazione.component.css'],
+    standalone: false
 })
 // ng g c components/intestazione -s true --skipTests false
 export class IntestazioneComponent implements OnInit {

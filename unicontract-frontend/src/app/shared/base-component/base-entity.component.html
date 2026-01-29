@@ -2,7 +2,7 @@
     <ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
     <h4 *ngIf="title">{{title}}</h4>
 
-    <div class="btn-toolbar mb-4 text-end" role="toolbar">
+    <div class="btn-toolbar mb-4 text-end" *ngIf="!idModal" role="toolbar">
         <div class="btn-group">
             <button *ngIf="activeNew" class="btn btn-outline-primary rounded-lg" (click)="onNew()" >              
                 <span class="oi oi-document"></span>

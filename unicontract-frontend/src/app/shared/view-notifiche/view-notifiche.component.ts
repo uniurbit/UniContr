@@ -7,9 +7,10 @@ import { NotificaService } from '../notifica.service';
 
 
 @Component({
-  selector: 'app-view-notifiche',
-  templateUrl: './view-notifiche.component.html',
-  styleUrls: ['./view-notifiche.component.css']
+    selector: 'app-view-notifiche',
+    templateUrl: './view-notifiche.component.html',
+    styleUrls: ['./view-notifiche.component.css'],
+    standalone: false
 })
 export class ViewNotificheComponent implements OnInit {
 

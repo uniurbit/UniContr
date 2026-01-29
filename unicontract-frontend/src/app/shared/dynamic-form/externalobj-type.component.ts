@@ -12,15 +12,16 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'formly-field-ext',
-  template: `
+    selector: 'formly-field-ext',
+    template: `
     <div  style="position: relative">    
-    <ngx-loading [show]="isLoading" [config]="{  fullScreenBackdrop: false, backdropBorderRadius: '4px' }"></ngx-loading>
+    <ngx-loading [show]="isLoading" [config]="{  fullScreen: false, backdropBorderRadius: '4px' }"></ngx-loading>
     <formly-group 
       [field]="field">  
     </formly-group>     
     </div>
  `,
+    standalone: false
 })
 export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDestroy {
 
@@ -30,7 +31,7 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
 
   onDestroy$ = new Subject<void>();
   service: ServiceQuery;
-  public isLoading = false;  
+  isLoading = false;  
 
   nodecode = false;
   extDescription: FormlyFieldConfig = null;
@@ -52,22 +53,22 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
     this.codeField = this.field.fieldGroup.find(x=>x.key == this.to.codeProp || x.key =='id')
     this.codeField.modelOptions.updateOn = 'blur';  
 
-    this.field.fieldGroup[0].templateOptions.addonRights= [
+    this.field.fieldGroup[0].props.addonRights= [
       {
           class: 'btn btn-outline-secondary oi oi-eye d-flex align-items-center',
           alwaysenabled: false,
           text: 'Ricerca', 
-          onClick: (to, fieldType, $event) => {if (!this.codeField.templateOptions.disabled) this.open();},
+          onClick: (to, fieldType, $event) => {if (!this.codeField.props.disabled) this.open();},
       }
     ];
-    this.field.templateOptions.init = (result) => {
+    this.field.props.init = (result) => {
       this.init(result);
     }
 
     if (this.to.entityPath){
       //extra bottone sulla destra per aprire la gestione
-      this.field.fieldGroup[0].templateOptions.addonRights = [
-        ...this.field.fieldGroup[0].templateOptions.addonRights,
+      this.field.fieldGroup[0].props.addonRights = [
+        ...this.field.fieldGroup[0].props.addonRights,
         {
           class: 'btn btn-outline-secondary oi oi-external-link d-flex align-items-center',    
           alwaysenabled: () => this.codeField.formControl.valid,
@@ -77,11 +78,11 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
       ];      
     }
 
-    if (this.codeField.templateOptions.addonRights) {
+    if (this.codeField.props.addonRights) {
       this.codeField.wrappers = ['form-field','addonRights']; 
     }
 
-    this.field.fieldGroup[0].templateOptions.keyup = (field, event: KeyboardEvent) => {
+    this.field.fieldGroup[0].props.keyup = (field, event: KeyboardEvent) => {
       if (event.key == "F4") {
         this.open();
       }
@@ -97,7 +98,7 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
             takeUntil(this.onDestroy$),
             //filter(() => !this.options.formState.isLoading),            
             tap(selectedField => {
-              if (!this.isInitValue() && !this.field.templateOptions.hidden){
+              if (!this.isInitValue() && !this.field.props.hidden){
                 if (field.formControl.value && !this.nodecode && field.formControl.valid) {
                   this.isLoading = true;
                   field.formControl.setErrors({ waiting: true });  
@@ -158,24 +159,24 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
     field.fieldGroupClassName = 'row'        
     field.fieldGroup = [    
       {
-        key: field.templateOptions.codeProp || 'id',
+        key: field.props.codeProp || 'id',
         type: 'input',
         className: "col-md-4",                
-        templateOptions: {
-          label: field.templateOptions.label,
+        props: {
+          label: field.props.label,
           type: 'input',
-          pattern: field.templateOptions.subpattern ? field.templateOptions.subpattern : null,
+          pattern: field.props.subpattern ? field.props.subpattern : null,
           placeholder: 'Inserisci codice',     
-          required: field.templateOptions.required == undefined ? false : field.templateOptions.required,
-          disabled: field.templateOptions.disabled == undefined ? false : field.templateOptions.disabled,                
+          required: field.props.required == undefined ? false : field.props.required,
+          disabled: field.props.disabled == undefined ? false : field.props.disabled,                
         },
         modelOptions: { updateOn: 'blur' },
       },
       {
-        key: field.templateOptions.descriptionProp || 'description',
+        key: field.props.descriptionProp || 'description',
         type: 'input',
         className: "col-md-8",                        
-        templateOptions: {
+        props: {
           readonly: true,          
           label: 'Descrizione'
         },      
@@ -184,23 +185,23 @@ export class ExternalobjTypeComponent extends FieldType implements OnInit, OnDes
   }
 
   setDescription(data: any) {  
-    if (this.field && typeof this.field.templateOptions.descriptionFunc === 'function'){
+    if (this.field && typeof this.field.props.descriptionFunc === 'function'){
       this.extDescription.formControl.setErrors(null);
-      this.extDescription.formControl.setValue(this.field.templateOptions.descriptionFunc(data))
+      this.extDescription.formControl.setValue(this.field.props.descriptionFunc(data))
       this.codeField.formControl.markAsDirty();
-    } else if (this.field && this.field.templateOptions.descriptionProp in data){                      
+    } else if (this.field && this.field.props.descriptionProp in data){                      
       this.extDescription.formControl.setErrors(null);
       //il parametro decriptionProp contiene il nome della proprità che contiene la descrizione
-      this.extDescription.formControl.setValue(data[this.field.templateOptions.descriptionProp]);
+      this.extDescription.formControl.setValue(data[this.field.props.descriptionProp]);
       this.codeField.formControl.markAsDirty();
     }
   }
 
   setcode(data: any) {
-    if (this.field && this.field.templateOptions.codeProp in data){   
+    if (this.field && this.field.props.codeProp in data){   
       this.codeField.formControl.setErrors(null);
       this.field.formControl.setErrors(null);
-      this.codeField.formControl.setValue(data[this.field.templateOptions.codeProp]);
+      this.codeField.formControl.setValue(data[this.field.props.codeProp]);
       this.codeField.formControl.markAsDirty();
     }
   }

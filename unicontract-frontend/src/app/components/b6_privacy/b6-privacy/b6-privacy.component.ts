@@ -16,9 +16,10 @@ import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 import { B6InformativaInterface } from 'src/app/interface/b6informativa.interface';
 
 @Component({
-  selector: 'app-b6-privacy',
-  templateUrl: './b6-privacy.component.html',
-  styleUrls: ['./b6-privacy.component.css']
+    selector: 'app-b6-privacy',
+    templateUrl: './b6-privacy.component.html',
+    styleUrls: ['./b6-privacy.component.css'],
+    standalone: false
 })
 export class B6PrivacyComponent extends BaseComponent {
 
@@ -45,7 +46,7 @@ export class B6PrivacyComponent extends BaseComponent {
           type: 'checkbox',
           className: 'col-auto',
           defaultValue: false,
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b6_txt1'
           }
@@ -60,7 +61,7 @@ export class B6PrivacyComponent extends BaseComponent {
           type: 'checkbox',
           className: 'col-auto',
           defaultValue: false,
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b6_txt2'
           }

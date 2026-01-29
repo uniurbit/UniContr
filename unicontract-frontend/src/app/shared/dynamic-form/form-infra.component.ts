@@ -3,8 +3,8 @@ import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
-  selector: 'app-form-infra',
-  template: `
+    selector: 'app-form-infra',
+    template: `
   <form [formGroup]="form">
   <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
     <button type="submit" class="btn btn-primary submit-button">Submit</button>
@@ -12,7 +12,8 @@ import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
   </formly-form>
   </form>
 `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 
 export class FormInfraComponent implements OnInit {

@@ -7,8 +7,9 @@ import {Location} from '@angular/common';
 import { MappingRuoloService } from 'src/app/services/mappingruolo.service';
 
 @Component({
-  selector: 'app-ruolo', 
-  templateUrl: '../../shared/base-component/base-entity.component.html',
+    selector: 'app-ruolo',
+    templateUrl: '../../shared/base-component/base-entity.component.html',
+    standalone: false
 })
 
 //ng g c application/components/MappingUfficioComponent -s true --spec false -t true
@@ -24,7 +25,7 @@ export class MappingRuolo extends BaseEntityComponent {
           key: 'unitaorganizzativa_uo',
           className: "col-md-12",
           type: 'external',          
-          templateOptions: {
+          props: {
             label: 'Riferimento unità organizzativa',
             type: 'string',
             entityName: 'unitaorganizzativa',
@@ -51,7 +52,7 @@ export class MappingRuolo extends BaseEntityComponent {
           key: 'role_id',
           className: "col-md-12",
           type: 'external',          
-          templateOptions: {
+          props: {
             label: 'Ruolo',
             type: 'string',
             entityName: 'role',

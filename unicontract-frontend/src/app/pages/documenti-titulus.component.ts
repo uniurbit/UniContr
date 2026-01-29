@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFieldProps } from '@ngx-formly/core';
 import { FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from 'src/app/shared/lookup/page';
@@ -7,8 +7,9 @@ import { BaseResearchComponent } from 'src/app/shared/base-component/base-resear
 import { DocumentoService } from '../services/documento.service';
 
 @Component({
-  selector: 'app-documenti',
-  templateUrl: '../shared/base-component/base-research.component.html',
+    selector: 'app-documenti',
+    templateUrl: '../shared/base-component/base-research.component.html',
+    standalone: false
 })
 
 export class DocumentiTitulus extends BaseResearchComponent {
@@ -18,7 +19,7 @@ export class DocumentiTitulus extends BaseResearchComponent {
       key: '/doc/@num_prot',
       type: 'string',
       hideExpression: false,
-      templateOptions: {
+      props: {
         label: 'Numero protocollo',
         disabled: true,
         column: { width: 10, cellTemplate: 'valuecolumn'}
@@ -27,7 +28,7 @@ export class DocumentiTitulus extends BaseResearchComponent {
     {
       key: 'doc_tipo',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Tipo',
         required: true,
         options: [
@@ -42,7 +43,7 @@ export class DocumentiTitulus extends BaseResearchComponent {
     {
       key: 'doc_anno',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Anno',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -51,7 +52,7 @@ export class DocumentiTitulus extends BaseResearchComponent {
     {
       key: 'doc_oggetto',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Oggetto',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -60,7 +61,7 @@ export class DocumentiTitulus extends BaseResearchComponent {
     {
       key: 'doc_classifcod',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Classificazione',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -72,7 +73,7 @@ export class DocumentiTitulus extends BaseResearchComponent {
     key: 'data',
     type: 'datatablelookup',
     wrappers: ['accordion'],
-    templateOptions: {
+    props: {
       label: 'Risultati ricerca documenti',
       columnMode: 'force',
       scrollbarH: false,
@@ -87,7 +88,7 @@ export class DocumentiTitulus extends BaseResearchComponent {
     }
   }];
 
-  builderoptions: FormlyTemplateOptions = {
+  builderoptions:  FormlyFieldProps = {
     min: 1
   };
 

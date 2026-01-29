@@ -6,8 +6,8 @@ import ControlUtils from './control-utils';
 import { ServiceQuery } from '..';
 
 @Component({
-  selector: 'formly-field-typeahead',
-  template: `  
+    selector: 'formly-field-typeahead',
+    template: `  
   <div class="form-group"> 
     <label [attr.for]="id" class="form-control-label control-label" *ngIf="to.label">
       {{ to.label }}
@@ -30,7 +30,8 @@ import { ServiceQuery } from '..';
     </small>
     </div>
     </div>
-  `, 
+  `,
+    standalone: false
 })
 export class FormlyFieldTypeahead extends FieldType implements OnDestroy {
   onDestroy$ = new Subject<void>();

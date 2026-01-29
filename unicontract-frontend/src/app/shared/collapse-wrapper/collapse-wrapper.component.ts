@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ViewChild, ViewContainerRef } from '@angular/core';
 
 @Component({
-  selector: 'app-collapse-wrapper',
-  template: `  
+    selector: 'app-collapse-wrapper',
+    template: `  
   <div class="card">
     <div class="card-body" [ngClass]="{
       'bg-light-danger': options.type == 'danger',
@@ -24,7 +24,8 @@ import { Component, OnInit, Input, ViewChild, ViewContainerRef } from '@angular/
     </div>  
   </div>                       
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 //ng g c collapseWrapper -s true --spec false -t true
 export class CollapseWrapperComponent implements OnInit {  

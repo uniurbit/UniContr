@@ -1,4 +1,4 @@
-import { FormlyFieldConfig, FormlyFormOptions, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFormOptions  } from '@ngx-formly/core';
 import { UserComponent } from '../../user/user.component';
 import { Insegnamento, Updp1 } from '../../../classes/insegnamento';
 import { InsegnUgov } from '../../../classes/insegn-ugov';
@@ -18,11 +18,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { Page } from 'src/app/shared/lookup/page';
 
 @Component({
-  selector: 'app-insegn-detail',
-  templateUrl: './insegn-detail.component.html',
-  styleUrls: [
-    './insegn-detail.component.css'
-  ]
+    selector: 'app-insegn-detail',
+    templateUrl: './insegn-detail.component.html',
+    styleUrls: [
+        './insegn-detail.component.css'
+    ],
+    standalone: false
 })
 
 export class InsegnDetailComponent extends BaseComponent {
@@ -76,7 +77,7 @@ export class InsegnDetailComponent extends BaseComponent {
             validation: {
               show: true
             },
-            templateOptions: {
+            props: {
               label: 'Riferimento per il rinnovo',
               columnMode: 'force',
               scrollbarH: true,
@@ -97,8 +98,10 @@ export class InsegnDetailComponent extends BaseComponent {
                 { name: 'Anno', prop: 'insegnamento.aa', width: 100, maxWidth: 150, pipe: this.translate, sortable: false },
                 { name: 'Cognome', prop: 'cognome', width: 150, maxWidth: 150, sortable: false },
                 { name: 'Nome', prop: 'nome', width: 150, maxWidth: 150, sortable: false },
+                { name: 'Tipologia', prop: 'insegnamento.tipo_contratto', pipe: this.translate, minWidth: 100, maxWidth: 150, sortable: false },
                 { name: 'Motivo Atto', prop: 'insegnamento.motivo_atto', wrapper: 'value', pipe: this.translate, minWidth: 100, maxWidth: 150, sortable: false },
                 { name: 'Insegnamento', prop: 'insegnamento.insegnamento', minWidth: 200, width: 450, sortable: false },
+                { name: 'Codice attività formativa', prop: 'insegnamento.cod_insegnamento', minWidth: 150, maxWidth: 250, sortable: false },
                 { name: 'SSD', prop: 'insegnamento.cod_settore', width: 100, sortable: false },
                 { name: 'CFU', prop: 'insegnamento.cfu', width: 50, sortable: false },
                 { name: 'Ore', prop: 'insegnamento.ore', width: 50, sortable: false },
@@ -137,7 +140,7 @@ export class InsegnDetailComponent extends BaseComponent {
                 key: 'motivazione_sorgente_rinnovo',
                 type: 'textarea',
                 className: 'col-md-12',
-                templateOptions: {                  
+                props: {                  
                   label: 'Giustificativo',
                   readonly: true,
                   rows: 2,
@@ -278,7 +281,7 @@ export class InsegnDetailComponent extends BaseComponent {
             key: 'new_coper_id',
             type: 'number',
             className: 'col-md-12',
-            templateOptions: {
+            props: {
               required: true,
               label: 'Codice copertura',
             },
@@ -325,7 +328,7 @@ export class InsegnDetailComponent extends BaseComponent {
                 key: 'id_sorgente_rinnovo',
                 className: "col-md-12",
                 type: 'external',
-                templateOptions: {
+                props: {
                   label: 'Codice precontrattuale rinnovo',
                   type: 'string',
                   entityName: 'precontrattuale',
@@ -347,7 +350,7 @@ export class InsegnDetailComponent extends BaseComponent {
                 hooks: {
                   onInit: (field: FormlyFieldConfig) => {
                     field.formControl.setValue(field.options.formState.extraData.id_sorgente_rinnovo);
-                    field.templateOptions.rules = [
+                    field.props.rules = [
                       { value: (+this.item.aa) - 1, field: 'insegnamento.aa', operator: '=', fixcondition: true },
                       { value: this.item.docente_id, field: 'user.v_ie_ru_personale_id_ab', operator: '=', fixcondition: true },
                       { value: this.item.insegnamento, field: 'insegnamento.insegnamento', operator: 'contains' }
@@ -362,7 +365,7 @@ export class InsegnDetailComponent extends BaseComponent {
             key: 'motivazione_sorgente_rinnovo',
             type: 'textarea',
             className: 'col-md-12',
-            templateOptions: {
+            props: {
               label: 'Giustificativo',
               rows: 2,
               description: 'Precontrattuale sorgente del rinnovo non trovata allora si prega di inserire manualmente un giustificativo, indicando l\'eventuale numero del contratto sorgente con il tipo e numero dell\'atto di rinnovo.',
@@ -431,7 +434,7 @@ export class InsegnDetailComponent extends BaseComponent {
           {
             key: 'contatore_insegnamenti_manuale',
             type: 'number',
-            templateOptions: {
+            props: {
               min: 1,
               required: true,
               label: 'Numero precedenti insegnamenti',
@@ -440,10 +443,11 @@ export class InsegnDetailComponent extends BaseComponent {
           {
             key: 'motivazione_contatore',
             type: 'textarea',
-            templateOptions: {
+            props: {
               rows: 3,
               required: true,
               label: 'Motivazione',
+              description: 'Specificare la motivazione, indicando eventualmente il tipo e il numero degli atti di conferimento a supporto del dato inserito'
             },
           },
         ],

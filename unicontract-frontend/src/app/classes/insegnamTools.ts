@@ -91,10 +91,16 @@ export class InsegnamTools {
   }
 
   tipoConferimento(value) {
+      if (!value) {
+        return 'NON DEFINITO (valore mancante)';
+      }
+
       if (value === 'BAN_INC' || value === 'APPR_INC') {
           return 'NUOVO CONTRATTO';
       } else if (value === 'CONF_INC') {
           return 'RINNOVO CONTRATTO';
+      } else {
+        return `NON DEFINITO (${value})`;
       }
   }
 
@@ -139,6 +145,10 @@ export class InsegnamTools {
         return 'Solo contratti di Alta Qualificazione o contratti per i quali è intervenuta espressa rinuncia al compenso';
     } else if (value === 'ALD') {
         return 'Per dipendenti dell\'Ateneo PTA e CEL';
+    } else if (value === 'COCOCO') {
+      return '';
+    } else {
+      return 'NON DEFINITO';
     }
   }
 

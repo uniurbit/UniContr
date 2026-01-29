@@ -17,9 +17,10 @@ import { NgbStringAdapter } from 'src/app/NgbStringAdapter';
 import { takeUntil, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-d3-tributari',
-  templateUrl: './d3-tributari.component.html',
-  styleUrls: ['./d3-tributari.component.css']
+    selector: 'app-d3-tributari',
+    templateUrl: './d3-tributari.component.html',
+    styleUrls: ['./d3-tributari.component.css'],
+    standalone: false
 })
 export class D3TributariComponent extends BaseComponent {
 
@@ -47,7 +48,7 @@ export class D3TributariComponent extends BaseComponent {
           key: 'ente',
           type: 'input',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Ente',
           },
@@ -57,7 +58,7 @@ export class D3TributariComponent extends BaseComponent {
           key: 'rapporto',
           type: 'input',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Natuta Incarico / Rapporto',
           },
@@ -76,7 +77,7 @@ export class D3TributariComponent extends BaseComponent {
           key: 'dal_giorno',
           type: 'date',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Dal giorno',
           },
@@ -88,7 +89,7 @@ export class D3TributariComponent extends BaseComponent {
                 tap(val => {      
                   if (field.formControl.valid){
                     let al_giorno = field.parent.fieldGroup.find(x => x.key == 'al_giorno');
-                    al_giorno.templateOptions.datepickerOptions.minDate = this.adapter.fromModel(val);        
+                    al_giorno.props.datepickerOptions.minDate = this.adapter.fromModel(val);        
                     this.cdr.detectChanges();
                     //console.warn(field,field.formControl.valid, val)
                   }                                       
@@ -102,7 +103,7 @@ export class D3TributariComponent extends BaseComponent {
           key: 'al_giorno',
           type: 'date',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Al giorno',
           },
@@ -111,7 +112,7 @@ export class D3TributariComponent extends BaseComponent {
           key: 'importo_totale',
           type: 'maskcurrency',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Importo totale',
           },
@@ -120,7 +121,7 @@ export class D3TributariComponent extends BaseComponent {
           key: 'importo_annuo',
           type: 'maskcurrency',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Importo annuo',
           },
@@ -142,7 +143,7 @@ export class D3TributariComponent extends BaseComponent {
           type: 'radio',
           key: 'flag_percepito',
           defaultValue: 0,
-          templateOptions: {
+          props: {
             options: [
               {value: 0, label: this.translateService.instant('d3_txt2')},
               {value: 1, label: this.translateService.instant('d3_txt3')}
@@ -161,7 +162,7 @@ export class D3TributariComponent extends BaseComponent {
           type: 'radio',
           key: 'flag_limite_percepito',
           defaultValue: 0,
-          templateOptions: {
+          props: {
             options: [
               {value: 0, label: this.translateService.instant('d3_txt4')},
               {value: 1, label: this.translateService.instant('d3_txt5')}
@@ -188,7 +189,7 @@ export class D3TributariComponent extends BaseComponent {
           validation: {
             show: true
           },
-          templateOptions: {
+          props: {
             label: 'Elenco enti',
             min: 1,
             max: 4,

@@ -8,13 +8,14 @@ import { D1InpsService } from './../../../services/d1inps.service';
 import { DatePipe } from '@angular/common';
 import { PrecontrattualeService } from 'src/app/services/precontrattuale.service';
 import { encode, decode } from 'base64-arraybuffer';
-import * as saveAs from 'file-saver';
+import { saveAs } from 'file-saver';
 
 @Component({
-  selector: 'app-d1-inps-details',
-  templateUrl: './d1-inps-details.component.html',
-  styleUrls: ['./d1-inps-details.component.css'],
-  providers: [DatePipe]
+    selector: 'app-d1-inps-details',
+    templateUrl: './d1-inps-details.component.html',
+    styleUrls: ['./d1-inps-details.component.css'],
+    providers: [DatePipe],
+    standalone: false
 })
 
 export class D1InpsDetailsComponent extends BaseComponent {

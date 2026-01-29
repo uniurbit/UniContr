@@ -14,9 +14,10 @@ import { encode, decode } from 'base64-arraybuffer';
 
 
 @Component({
-  selector: 'app-story-process',
-  templateUrl: './story-process.component.html',
-  styleUrls: ['./story-process.component.css']
+    selector: 'app-story-process',
+    templateUrl: './story-process.component.html',
+    styleUrls: ['./story-process.component.css'],
+    standalone: false
 })
 export class StoryProcessComponent extends BaseComponent {
 

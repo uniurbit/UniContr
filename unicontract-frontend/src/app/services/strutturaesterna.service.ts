@@ -5,7 +5,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { ControlBase, TextboxControl, DropdownControl, DateControl, MessageService, ServiceQuery, ServiceEntity, IQueryMetadata } from '../shared';
 import { ArrayControl } from '../shared/dynamic-form/control-array';
-import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig  } from '@ngx-formly/core';
 import { AppConstants } from '../app-constants';
 import { Cacheable } from 'ts-cacheable';
 import { BaseService } from '../shared/base-service/base.service';
@@ -26,7 +26,7 @@ export class StrutturaEsternaService extends BaseService implements IQueryMetada
         key: 'struest_nome',
         type: 'string',
         hideExpression: false,
-        templateOptions: {
+        props: {
           label: 'Nome',          
           column: { width: 10, cellTemplate: 'valuecolumn' }
         }
@@ -34,7 +34,7 @@ export class StrutturaEsternaService extends BaseService implements IQueryMetada
       {
         key: 'struest_coduff',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Codice ufficio',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -43,7 +43,7 @@ export class StrutturaEsternaService extends BaseService implements IQueryMetada
       {
         key: 'struest_codfisc',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Codice fiscale',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -58,7 +58,7 @@ export class StrutturaEsternaService extends BaseService implements IQueryMetada
         key: 'nome',
         type: 'string',
         hideExpression: false,
-        templateOptions: {
+        props: {
           label: 'Nome',
           disabled: true,
           column: { width: 10, cellTemplate: 'valuecolumn' }
@@ -67,7 +67,7 @@ export class StrutturaEsternaService extends BaseService implements IQueryMetada
       {
         key: 'cod_uff',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Codice struttura',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -76,7 +76,7 @@ export class StrutturaEsternaService extends BaseService implements IQueryMetada
       {
         key: 'indirizzo.value',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Indirizzo',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -85,7 +85,7 @@ export class StrutturaEsternaService extends BaseService implements IQueryMetada
       {
         key: 'email_certificata.addr',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Email certificata',
           required: true,
           column: { cellTemplate: 'valuecolumn' }

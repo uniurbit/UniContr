@@ -5,7 +5,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { ControlBase, TextboxControl, DropdownControl, DateControl, MessageService, ServiceQuery, ServiceEntity, IQueryMetadata } from '../shared';
 import { ArrayControl } from '../shared/dynamic-form/control-array';
-import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig  } from '@ngx-formly/core';
 import { AppConstants } from '../app-constants';
 import { Cacheable } from 'ts-cacheable';
 import { BaseService } from '../shared/base-service/base.service';
@@ -26,7 +26,7 @@ export class StrutturaInternaService extends BaseService implements IQueryMetada
         key: 'struint_nome',
         type: 'string',
         hideExpression: false,
-        templateOptions: {
+        props: {
           label: 'Nome',        
           column: { width: 10, cellTemplate: 'valuecolumn' }
         }
@@ -34,7 +34,7 @@ export class StrutturaInternaService extends BaseService implements IQueryMetada
       {
         key: 'struint_coduff',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Codice ufficio',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -43,7 +43,7 @@ export class StrutturaInternaService extends BaseService implements IQueryMetada
       {
         key: 'struint_codresponsabile',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Codice responsabile',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -58,7 +58,7 @@ export class StrutturaInternaService extends BaseService implements IQueryMetada
         key: 'nome',
         type: 'string',
         hideExpression: false,
-        templateOptions: {
+        props: {
           label: 'Nome',
           disabled: true,
           column: { width: 10, cellTemplate: 'valuecolumn' }
@@ -67,7 +67,7 @@ export class StrutturaInternaService extends BaseService implements IQueryMetada
       {
         key: 'cod_uff',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Codice ufficio',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -76,7 +76,7 @@ export class StrutturaInternaService extends BaseService implements IQueryMetada
       {
         key: 'cod_responsabile',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Codice responsabile',
           required: true,
           column: { cellTemplate: 'valuecolumn' }

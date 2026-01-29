@@ -1,11 +1,8 @@
 import { Component, AfterViewInit, EventEmitter, Output, Input } from '@angular/core';
 import {
-  NgbModal,
-  ModalDismissReasons,
-  NgbPanelChangeEvent,
-  NgbCarouselConfig
+  NgbModal
 } from '@ng-bootstrap/ng-bootstrap';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/core';
@@ -18,16 +15,15 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 declare var $: any;
 
 @Component({
-  selector: 'app-header-navigation',
-  templateUrl: './header-navigation.component.html'
+    selector: 'app-header-navigation',
+    templateUrl: './header-navigation.component.html',
+    standalone: false
 })
 
 export class HeaderNavigationComponent implements AfterViewInit {
 
   @Input() options;
   @Output() toggleSidebar = new EventEmitter<void>();
-
-  public config: PerfectScrollbarConfigInterface = {};
 
   public showSearch = false;
 
@@ -50,7 +46,7 @@ export class HeaderNavigationComponent implements AfterViewInit {
           type: 'input',
           className: 'col-md-12',
           //wrappers: [], //scompare la label
-          templateOptions: {
+          props: {
             label: 'Id utente',                                
           },
         },
@@ -131,3 +127,4 @@ export class HeaderNavigationComponent implements AfterViewInit {
   }
 
 }
+

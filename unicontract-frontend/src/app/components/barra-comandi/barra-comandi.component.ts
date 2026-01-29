@@ -3,10 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouteMetods } from '../../classes/routeMetods';
 
 @Component({
-  selector: 'app-barra-comandi',
-  templateUrl: './barra-comandi.component.html',
-  styleUrls: [],
-  styles: []
+    selector: 'app-barra-comandi',
+    templateUrl: './barra-comandi.component.html',
+    styleUrls: [],
+    styles: [],
+    standalone: false
 })
 // ng g c components/barraComandi -s true --spec false -t true
 export class BarraComandiComponent implements OnInit {

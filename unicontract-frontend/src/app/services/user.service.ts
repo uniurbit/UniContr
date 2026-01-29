@@ -25,7 +25,7 @@ export class UserService extends BaseService  {
             key: 'id',
             type: 'number',
             hideExpression: false,
-            templateOptions: {
+            props: {
             label: 'Id',
             disabled: true,
             column: { width: 10, cellTemplate: 'valuecolumn'}
@@ -34,7 +34,7 @@ export class UserService extends BaseService  {
         {
             key: 'name',
             type: 'string',
-            templateOptions: {
+            props: {
             label: 'Nome utente',
             required: true,
             column: { cellTemplate: 'valuecolumn'}
@@ -43,7 +43,7 @@ export class UserService extends BaseService  {
         {
             key: 'email',
             type: 'string',
-            templateOptions: {
+            props: {
             label: 'Email',
             required: true,
             column: { cellTemplate: 'valuecolumn'}

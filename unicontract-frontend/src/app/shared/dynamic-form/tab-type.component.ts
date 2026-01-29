@@ -14,10 +14,10 @@ import ControlUtils from './control-utils';
 // <span *ngIf="isActive(index)" class="oi oi-pencil iconic" aria-hidden="true"></span>
 // <span *ngIf="!isActive(index)"><b>{{ index + 1 }}</b></span>
 // </button>
-// <span>{{ f.templateOptions.label }} </span>    
+// <span>{{ f.props.label }} </span>    
 @Component({
-  selector: 'app-tab-type',
-  template: `
+    selector: 'app-tab-type',
+    template: `
   <nav ngbNav #tabs="ngbNav" class="nav-pills" [orientation]="'horizontal'" (navChange)="onTabChange($event)"  [(activeId)]="activedStep">
   <ng-container *ngFor="let f of field.fieldGroup; let index = index;" [ngbNavItem]="index">    
       <ng-template ngbNavContent>
@@ -36,7 +36,7 @@ import ControlUtils from './control-utils';
     [style.visibility]="f.hide ? 'hidden' : 'visible'"
     [disabled]="buttonDisabled(activedStep,index)" 
     [className]="activedStep == index ? 'btn btn-success rounded me-1' : 'btn btn-outline-primary rounded me-1'" 
-    title="{{ f.templateOptions.title ? f.templateOptions.title : ('btn_'+(field.key || '')+'_'+index+'_title' | translate) }}"
+    title="{{ f.props.title ? f.props.title : ('btn_'+(field.key || '')+'_'+index+'_title' | translate) }}"
     (click)="setStep(index)">{{ 'btn_'+(field.key || '')+'_'+index | translate }}</button>
 </ng-container>
 </div>
@@ -47,7 +47,8 @@ import ControlUtils from './control-utils';
 </div>
 </div>
   `,
-styleUrls: ['./wrapper/navstepper-wrapper.component.css']
+    styleUrls: ['./wrapper/navstepper-wrapper.component.css'],
+    standalone: false
 })
 //[disabled]=!form.dirty
 //[disabled]="!isValid(activedStep)"
@@ -173,7 +174,7 @@ export class TabTypeComponent extends FieldType implements OnInit {
 
   /**
    * Next step action - salva e continua
-   * to.nextStep: funzione definita dall'utente nel templateOptions che ritorna un observable
+   * to.nextStep: funzione definita dall'utente nel props che ritorna un observable
    * 
    * @param step step attivo
    */
@@ -195,7 +196,7 @@ export class TabTypeComponent extends FieldType implements OnInit {
         console.log('Not valid');
         let tab = this.field.fieldGroup[step];
         //marca i rossi
-        ControlUtils.validate(tab);    
+        ControlUtils.validateWithTouched(tab);    
         
         this.to.nextStep(step).subscribe(
           res => {},
@@ -270,8 +271,8 @@ export class TabTypeComponent extends FieldType implements OnInit {
 
   onPopulate(field: FormlyFieldConfig){
     //possiamo caricare i dati di iniziali   
-    if (field.templateOptions.getFirstValue){     
-      field.fieldGroup = field.templateOptions.getFirstValue(field);      
+    if (field.props.getFirstValue){     
+      field.fieldGroup = field.props.getFirstValue(field);      
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFieldProps } from '@ngx-formly/core';
 import { FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from 'src/app/shared/lookup/page';
@@ -9,8 +9,9 @@ import { StrutturaInternaService } from '../services/strutturainterna.service';
 
 
 @Component({
-  selector: 'app-struttureinterne',
-  templateUrl: '../shared/base-component/base-research.component.html',
+    selector: 'app-struttureinterne',
+    templateUrl: '../shared/base-component/base-research.component.html',
+    standalone: false
 })
 
 // ng g c submission/components/permissions -s true --spec false -t true
@@ -23,7 +24,7 @@ export class StruttureInterneTitulus extends BaseResearchComponent {
             key: 'struint_coduff',
             type: 'string',
             hideExpression: false,
-            templateOptions: {
+            props: {
               label: 'Codice ufficio',
               disabled: true,
               column: { width: 10, cellTemplate: 'valuecolumn'}
@@ -32,7 +33,7 @@ export class StruttureInterneTitulus extends BaseResearchComponent {
           {
             key: 'struint_nome',
             type: 'string',
-            templateOptions: {
+            props: {
               label: 'Nome struttura',
               required: true,
               column: { cellTemplate: 'valuecolumn'}
@@ -45,7 +46,7 @@ export class StruttureInterneTitulus extends BaseResearchComponent {
     key: 'data',
     type: 'datatablelookup',
     wrappers: ['accordion'],
-    templateOptions: {
+    props: {
       label: 'Risultati strutture interne',
       columnMode: 'force',
       scrollbarH: false,
@@ -60,7 +61,7 @@ export class StruttureInterneTitulus extends BaseResearchComponent {
     }
   }];
 
-  builderoptions: FormlyTemplateOptions = {
+  builderoptions:  FormlyFieldProps = {
     min: 1
   };
 

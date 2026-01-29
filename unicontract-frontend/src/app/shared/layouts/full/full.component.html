@@ -1,4 +1,4 @@
-<!-- ============================================================== -->
+﻿<!-- ============================================================== -->
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
 <div id="main-wrapper" [ngClass]="{'show-sidebar': showMobileMenu}" [dir]="options.dir" [attr.data-theme]="options.theme"
@@ -59,7 +59,7 @@
     <!-- ============================================================== -->
     <aside class="left-sidebar" [attr.data-sidebarbg]="options.sidebarbg" (mouseover)="Logo()" (mouseout)="Logo()">
         <!-- Sidebar scroll-->
-        <div class="scroll-sidebar" [perfectScrollbar]="config">
+        <div class="scroll-sidebar" style="overflow-y: auto; overflow-x: hidden;">
             <app-sidebar></app-sidebar>
         </div>
         <!-- End Sidebar scroll-->

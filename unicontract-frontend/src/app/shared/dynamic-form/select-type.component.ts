@@ -4,10 +4,11 @@ import { distinctUntilChanged, takeUntil, filter, tap } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-select-type',
-  template: `  
+    selector: 'app-select-type',
+    template: `  
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class SelectTypeComponent extends FieldType implements OnInit, OnDestroy {
   
@@ -38,14 +39,14 @@ export class SelectTypeComponent extends FieldType implements OnInit, OnDestroy 
         field.formControl.valueChanges.pipe(
           distinctUntilChanged(),
           takeUntil(this.onDestroy$),
-          filter(() => field.options.formState.isLoading && (field.templateOptions.options as Array<any>).length == 0),
+          filter(() => field.options.formState.isLoading && (field.props.options as Array<any>).length == 0),
           tap(cod => {                        
-            field.templateOptions.options = [field.templateOptions.inizialization()];                      
+            field.props.options = [field.props.inizialization()];                      
           })
         ).subscribe();
         
-        (field.templateOptions.populateAsync() as Observable<any[]>).subscribe((data) => {
-          field.templateOptions.options = data;
+        (field.props.populateAsync() as Observable<any[]>).subscribe((data) => {
+          field.props.options = data;
         });
       }
     };

@@ -8,20 +8,26 @@
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {},      
+      "schematics": {},
       "i18n": {
-        "sourceLocale": { "code": "it", "baseHref": "/" }
+        "sourceLocale": {
+          "code": "it",
+          "baseHref": "/"
+        }
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/UniContract-FrontEnd",
+            "outputPath": {
+              "base": "dist/UniContract-FrontEnd"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "src/polyfills.ts"
+            ],
             "tsConfig": "src/tsconfig.app.json",
-            "localize": true, 
+            "localize": true,
             "assets": [
               "src/favicon.ico",
               "src/assets",
@@ -32,19 +38,21 @@
               }
             ],
             "styles": [
+              "node_modules/ngx-spinner/animations/ball-spin-clockwise-fade.css", 
+              "node_modules/@swimlane/ngx-datatable/assets/icons.css",
+              "node_modules/@swimlane/ngx-datatable/themes/bootstrap.css",
               "src/styles.scss",
               "src/assets/scss/style.scss",
               "node_modules/ngx-toastr/toastr.css"
             ],
-            "scripts": [ 
-              "src/assets/js/fcsign.js"     
+            "scripts": [
+              "src/assets/js/fcsign.js"
             ],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -64,9 +72,7 @@
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
+              "extractLicenses": true
             },
             "preprod": {
               "budgets": [
@@ -83,11 +89,9 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
+              "extractLicenses": true
             }
           },
           "defaultConfiguration": ""
@@ -95,25 +99,25 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "UniContract-FrontEnd:build"
+            "buildTarget": "UniContract-FrontEnd:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "UniContract-FrontEnd:build:production"
+              "buildTarget": "UniContract-FrontEnd:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "UniContract-FrontEnd:build"
+            "buildTarget": "UniContract-FrontEnd:build"
           },
-          "configurations" : {
+          "configurations": {
             "it": {
               "outputPath": "locale/",
               "outFile": "messages.it.xlf",
               "format": "xlf"
-}
+            }
           }
         },
         "test": {

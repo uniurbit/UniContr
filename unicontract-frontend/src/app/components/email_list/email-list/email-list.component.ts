@@ -8,9 +8,10 @@ import { PrecontrattualeService } from './../../../services/precontrattuale.serv
 import { EmailListService } from './../../../services/emailList.service';
 
 @Component({
-  selector: 'app-email-list',
-  templateUrl: './email-list.component.html',
-  styleUrls: ['./email-list.component.css']
+    selector: 'app-email-list',
+    templateUrl: './email-list.component.html',
+    styleUrls: ['./email-list.component.css'],
+    standalone: false
 })
 export class EmailListComponent extends BaseComponent {
 

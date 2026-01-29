@@ -13,9 +13,10 @@ import { A2ModPagamento } from 'src/app/interface/pagamento';
 import ControlUtils from 'src/app/shared/dynamic-form/control-utils';
 
 @Component({
-  selector: 'app-pagamento-details',
-  templateUrl: './pagamento-details.component.html',
-  styleUrls: ['./pagamento-details.component.css']
+    selector: 'app-pagamento-details',
+    templateUrl: './pagamento-details.component.html',
+    styleUrls: ['./pagamento-details.component.css'],
+    standalone: false
 })
 export class PagamentoDetailsComponent extends BaseComponent {
 
@@ -27,7 +28,7 @@ export class PagamentoDetailsComponent extends BaseComponent {
         //email Ufficio Trattamenti Economici e Previdenziali 17/11 
         return !(formState.precontr && ['COCOCO'].includes(formState.precontr.p2naturarapporto.natura_rapporto) && formState.precontr.insegnamento.compenso > 3000 && formState.precontr.insegnamento.aa >= 2022)
       },
-      templateOptions: {
+      props: {
         title: translateService.instant('a2_title3')
       },
       fieldGroup: [
@@ -38,7 +39,7 @@ export class PagamentoDetailsComponent extends BaseComponent {
               key: 'soluzione_pagamento',
               type: 'select',              
               className: 'col-md-6',                            
-              templateOptions: {
+              props: {
                 label: 'Soluzione di pagamento',
                 options: [
                   { value:'una_rata', label: 'Unica rata' },
@@ -75,7 +76,7 @@ export class PagamentoDetailsComponent extends BaseComponent {
     // scelta modalità di pagamento
     {
       wrappers: ['riquadro'],
-      templateOptions: {
+      props: {
         title: this.translateService.instant('a2_title1')
       },
       fieldGroupClassName: 'row',
@@ -85,18 +86,18 @@ export class PagamentoDetailsComponent extends BaseComponent {
           type: 'radio',
           className: 'col-md-6',
           defaultValue: 'ACIC',
-          templateOptions: {
+          props: {
             required: true,
             options: []
           },
           expressionProperties: {
-            'templateOptions.options': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.options': (model: any, formState: any, field: FormlyFieldConfig) => {
               return [
                 { value: 'ACIC', label: this.translateService.instant('a2_check2') },
                 { value: 'AGBM', label: this.translateService.instant('a2_check1') },
               ];
             },
-            'templateOptions.description': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.description': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.modality === 'AGBM') {
                  return this.translateService.instant('a2_info1');
               } else {
@@ -111,7 +112,7 @@ export class PagamentoDetailsComponent extends BaseComponent {
     {
       wrappers: ['riquadro'],
       hideExpression:  (model: any, formState: any) => model.modality === 'AGBM',
-      templateOptions: {
+      props: {
         title: this.translateService.instant('a2_title2')
       },
       fieldGroup: [
@@ -126,7 +127,7 @@ export class PagamentoDetailsComponent extends BaseComponent {
             validation: {
               show: true
             },
-            templateOptions: {
+            props: {
               translate: true,
               label: 'a2_label1',
               required: true,
@@ -141,7 +142,7 @@ export class PagamentoDetailsComponent extends BaseComponent {
             key: 'iban',
             type: 'input',
             className: 'col-md-6',
-            templateOptions: {
+            props: {
               translate: true,
               label: 'a2_label2',
               required: true,
@@ -165,7 +166,7 @@ export class PagamentoDetailsComponent extends BaseComponent {
               key: 'denominazione',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 translate: true,
                 label: 'a2_label3',
               }
@@ -174,7 +175,7 @@ export class PagamentoDetailsComponent extends BaseComponent {
               key: 'luogo',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 translate: true,
                 label: 'a2_label4',
               }
@@ -189,7 +190,7 @@ export class PagamentoDetailsComponent extends BaseComponent {
               key: 'bic',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 translate: true,
                 label: 'a2_label5',
                 description: this.translateService.instant('a2_info2'),
@@ -200,7 +201,7 @@ export class PagamentoDetailsComponent extends BaseComponent {
               key: 'aba',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 translate: true,
                 label: 'a2_label6',
                 description: this.translateService.instant('a2_info2'),

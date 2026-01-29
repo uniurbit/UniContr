@@ -8,8 +8,9 @@ import { BaseResearchComponent } from 'src/app/shared';
 import { RoleService } from '../../services/role.service';
 
 @Component({
-  selector: 'app-roles',
-  templateUrl: '../../shared/base-component/base-research.component.html',
+    selector: 'app-roles',
+    templateUrl: '../../shared/base-component/base-research.component.html',
+    standalone: false
 })
 
 // ng g c submission/components/roles -s true --spec false -t true
@@ -23,7 +24,7 @@ export class RolesComponent extends BaseResearchComponent {
             key: 'id',
             type: 'number',
             hideExpression: false,
-            templateOptions: {
+            props: {
               label: 'Id',
               disabled: true,
               column: { width: 10, cellTemplate: 'valuecolumn' }
@@ -32,7 +33,7 @@ export class RolesComponent extends BaseResearchComponent {
           {
             key: 'name',
             type: 'string',
-            templateOptions: {
+            props: {
               label: 'Ruolo',
               required: true,
               column: { cellTemplate: 'valuecolumn' }
@@ -41,7 +42,7 @@ export class RolesComponent extends BaseResearchComponent {
           {
             key: 'guard_name',
             type: 'string',
-            templateOptions: {
+            props: {
               label: 'Guardia',
               required: true,
               column: { cellTemplate: 'valuecolumn' }
@@ -54,7 +55,7 @@ export class RolesComponent extends BaseResearchComponent {
       key: 'data',
       type: 'datatablelookup',
       wrappers: ['accordion'],
-      templateOptions: {
+      props: {
         label: 'Risultati ruoli',
         columnMode: 'force',
         scrollbarH: false,

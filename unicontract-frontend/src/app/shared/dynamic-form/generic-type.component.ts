@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FieldType, FormlyConfig, FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
-  selector: 'app-generic-type',
-  template: `
+    selector: 'app-generic-type',
+    template: `
   <ng-container *ngFor="let f of field.fieldGroup">
     <ng-container [ngSwitch]="f.type">
       <formly-field *ngSwitchCase="'input'" [field]="f"></formly-field>
@@ -18,7 +18,8 @@ import { FieldType, FormlyConfig, FormlyFieldConfig } from '@ngx-formly/core';
     </ng-container>
   </ng-container>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class GenericTypeComponent extends FieldType implements OnInit {
   genericField: FormlyFieldConfig;  

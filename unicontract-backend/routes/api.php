@@ -60,7 +60,8 @@ Route::group([
     'namespace'=>'Api'
 ], function ($router) {   
     Route::post('refreshtoken', 'AuthController@refresh');
-    Route::get('logout', 'AuthController@logout');         
+    Route::post('logout', 'AuthController@logout');       
+    Route::post('logerror', 'AuthController@logError')->middleware('throttle:60,1');                  
 });
 
 Route::group([

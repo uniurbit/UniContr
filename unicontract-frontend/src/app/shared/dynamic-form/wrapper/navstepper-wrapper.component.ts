@@ -12,9 +12,10 @@ export interface StepType {
 }
 
 @Component({
-  selector: 'app-navstepper-wrapper',
-  templateUrl: './navstepper-wrapper.component.html',
-  styleUrls: ['./navstepper-wrapper.component.css']
+    selector: 'app-navstepper-wrapper',
+    templateUrl: './navstepper-wrapper.component.html',
+    styleUrls: ['./navstepper-wrapper.component.css'],
+    standalone: false
 })
 
 

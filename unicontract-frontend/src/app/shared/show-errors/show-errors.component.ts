@@ -2,12 +2,13 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AbstractControlDirective, AbstractControl } from '@angular/forms';
 /* Componenete per la visualizzazione degli errori  */
 @Component({
-  selector: 'app-show-errors',
-  template: `
+    selector: 'app-show-errors',
+    template: `
   <div *ngIf="shouldShowErrors()">
     <span class="small form-text text-danger" *ngFor="let error of listOfErrors()">{{error}}</span>
   </div>
   `,
+    standalone: false
 })
 export class ShowErrorsComponent implements OnInit {
 

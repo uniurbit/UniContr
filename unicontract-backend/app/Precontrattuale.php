@@ -142,27 +142,62 @@ class Precontrattuale extends Model {
         return $records;
     }
 
+    public function getMatchingTypes(string $type): array
+    {
+        $groups = [
+            'CONTC' => ['CONTC', 'CONTU'],
+            'CONTU' => ['CONTC', 'CONTU'],
+
+            'INTC'  => ['INTC', 'INTU', 'INTXU', 'INTXC'],
+            'INTU'  => ['INTC', 'INTU', 'INTXU', 'INTXC'],
+            'INTXU' => ['INTC', 'INTU', 'INTXU', 'INTXC'],
+            'INTXC' => ['INTC', 'INTU', 'INTXU', 'INTXC'],
+
+            'SUPPU' => ['SUPPU', 'SUPPC'],
+            'SUPPC' => ['SUPPU', 'SUPPC'],
+
+            'ALTQG' => ['ALTQG', 'ALTQC', 'ALTQU'],
+            'ALTQC' => ['ALTQG', 'ALTQC', 'ALTQU'],
+            'ALTQU' => ['ALTQG', 'ALTQC', 'ALTQU'],
+        ];
+
+        return $groups[$type] ?? [$type];
+    }
+
     public function isCompleteChain(){
         // Start by assuming the chain is complete
         $isCompleteChain = true;
         $rootPrecontr = $this;
 
-        // Traverse the chain until we find the root (where id_sorgente_rinnovo is null)
-        while ($rootPrecontr->id_sorgente_rinnovo !== null) {
-            $rootPrecontr = Precontrattuale::withoutGlobalScopes()
-                ->where('id', $rootPrecontr->id_sorgente_rinnovo)                
+        $motivo_atto = $this->insegnamento->motivo_atto;
+        $cod_insegnamento = $this->insegnamento->cod_insegnamento;
+        $tipo_contratto =  $this->insegnamento->tipo_contratto; 
+        $matchingContractTypes = $this->getMatchingTypes($tipo_contratto);   
+
+        $currentPrecontr = $this;
+        //Traverse the chain until we find the root (where id_sorgente_rinnovo is null)
+        //condizione motivo_atto è CONF_INC per i rinnovi e BAN_INC o APPR_INC
+        //condizione cod_insegnamento uguale a se stesso lungo tutta la catena stessa tipologia contrattuale
+        while ($currentPrecontr->id_sorgente_rinnovo !== null) {
+            $currentPrecontr = Precontrattuale::withoutGlobalScopes()
+                ->whereHas('insegnamento', function ($query) use ($cod_insegnamento, $matchingContractTypes) {
+                    // Apply conditions on the 'insegnamento' relationship
+                    $query->where('cod_insegnamento', $cod_insegnamento)
+                            ->whereIn('tipo_contratto', $matchingContractTypes);
+                })
+                ->where('id', $currentPrecontr->id_sorgente_rinnovo)                
                 ->where('stato','<',2)
                 ->first();
 
             // If we can't find the next precontr in the chain, something is wrong
-            if (!$rootPrecontr) {
+            if (!$currentPrecontr) {
                 $isCompleteChain = false;
                 break;
             }
         }
 
         // Check if the root precontr's motivo_atto is BANC_INC
-        if ($isCompleteChain && $rootPrecontr->insegnamento->motivo_atto !== 'BAN_INC') {
+        if ($isCompleteChain && $currentPrecontr->insegnamento->motivo_atto !== 'BAN_INC' && $currentPrecontr->insegnamento->motivo_atto !== 'APPR_INC') {
             $isCompleteChain = false;
         }
 
@@ -511,7 +546,7 @@ class Precontrattuale extends Model {
                 return "Contratto firmato dalle controparti";
             }
             if ($this->validazioni->flag_submit && $this->validazioni->flag_upd && $this->validazioni->flag_amm && $this->validazioni->flag_accept){
-                return "Contratto visionato e acccettato dal docente";
+                return "Contratto visionato e accettato dal docente";
             }
             if ($this->validazioni->flag_submit && $this->validazioni->flag_upd && $this->validazioni->flag_amm && !$this->validazioni->flag_accept){
                 return "Validata Uff. Trattamenti Economici e Previdenziali";
@@ -550,44 +585,49 @@ class Precontrattuale extends Model {
         return false;
     }
 
-    public function checkCompilazioneModelli(){
-        if ($this->p2naturarapporto->natura_rapporto === 'PRPR') {
-            if ($this->p2_natura_rapporto_id !== 0 &&
-                $this->checkModelliBase() &&                 
-                $this->b6_trattamento_dati_id !== 0 &&
-                $this->c_prestaz_profess_id !== 0) {
-              return true;
-            }
-          } else if ($this->p2naturarapporto->natura_rapporto === 'COCOCO') {
-            if ($this->p2_natura_rapporto_id !== 0 &&
-              $this->checkModelliBase() &&               
-              $this->b6_trattamento_dati_id !== 0 &&
-              $this->d1_inps_id !== 0 &&
-              $this->d2_inail_id !== 0 &&
-              $this->d3_tributari_id !== 0 &&
-              $this->d4_fiscali_id !== 0 &&
-              (($this->anagrafica->provincia_fiscale === 'EE' && $this->d5_fiscali_resid_estero_id !== 0) || $this->anagrafica->provincia_fiscale !== 'EE') &&
-              ((($this->insegnamento->compenso > 3000 && $this->insegnamento->aa >= 2022) ? $this->a2modalitapagamento->soluzione_pagamento : true) ) &&
-              $this->d6_detraz_fam_carico_id !== 0) {
-              return true;
-            }
-          } else if ($this->p2naturarapporto->natura_rapporto === 'PLAO') {
-            if ($this->p2_natura_rapporto_id !== 0 &&
-              $this->checkModelliBase() &&               
-              $this->b6_trattamento_dati_id !== 0 &&
-              $this->e_autonomo_occasionale_id !== 0) {
-              return true;
-            }
-          } else if ($this->p2naturarapporto->natura_rapporto === 'PTG' || $this->p2naturarapporto->natura_rapporto === 'ALD') {
-            if ($this->p2_natura_rapporto_id !== 0 &&
-              $this->checkModelliBase() &&               
-              $this->b6_trattamento_dati_id !== 0) {
-              return true;
-            }
-          } else {
-            return false;
-          }
+    public function checkCompilazioneModelli() { 
+        $natura = $this->p2naturarapporto->natura_rapporto;
+    
+        if ($natura === 'PRPR') {
+            if ($this->p2_natura_rapporto_id === 0) return "La pagina P2 natura del rapporto non è compilata";
+            if (!$this->checkModelliBase()) return "I modelli base non sono compilati";
+            if ($this->b6_trattamento_dati_id === 0) return "La pagina B6 consenso al trattamento dei dati non è compilata";
+            if ($this->c_prestaz_profess_id === 0) return "La pagina C prestazioni professionali non è compilata";
+            return true;
+        } 
+    
+        if ($natura === 'COCOCO') {
+            if ($this->p2_natura_rapporto_id === 0) return "La pagina P2 natura del rapporto non è compilata";
+            if (!$this->checkModelliBase()) return "I modelli base non sono compilati";
+            if ($this->b6_trattamento_dati_id === 0) return "La pagina B6 consenso al trattamento dei dati non è compilata";
+            if ($this->d1_inps_id === 0) return "La pagina D1 dati INPS non è compilata";
+            if ($this->d2_inail_id === 0) return "La pagina D2 dati INAIL non è compilata";
+            if ($this->d3_tributari_id === 0) return "La pagina D3 dati tributari non è compilata";
+            if ($this->d4_fiscali_id === 0) return "La pagina D4 dati fiscali non è compilata";
+            if ($this->anagrafica->provincia_fiscale === 'EE' && $this->d5_fiscali_resid_estero_id === 0) return "La pagina D5 dati fiscali per residenza estera non è compilata";
+            if (($this->insegnamento->compenso > 3000 && $this->insegnamento->aa >= 2022) && !$this->a2modalitapagamento->soluzione_pagamento) return "La pagina A2 modalità di pagamento non è impostata";
+            if ($this->d6_detraz_fam_carico_id === 0) return "La pagina D6 detrazioni per familiari a carico non è compilata";
+            return true;
+        } 
+    
+        if ($natura === 'PLAO') {
+            if ($this->p2_natura_rapporto_id === 0) return "La pagina P2 natura del rapporto non è compilata";
+            if (!$this->checkModelliBase()) return "I modelli base non sono compilati";
+            if ($this->b6_trattamento_dati_id === 0) return "La pagina B6 consenso al trattamento dei dati non è compilata";
+            if ($this->e_autonomo_occasionale_id === 0) return "La pagina E autonomo occasionale non è compilata";
+            return true;
+        } 
+    
+        if ($natura === 'PTG' || $natura === 'ALD') {
+            if ($this->p2_natura_rapporto_id === 0) return "La pagina P2 natura del rapporto non è compilata";
+            if (!$this->checkModelliBase()) return "I modelli base non sono compilati";
+            if ($this->b6_trattamento_dati_id === 0) return "La pagina B6 consenso al trattamento dei dati non è compilata";
+            return true;
+        }
+    
+        return "Tipo di rapporto non riconosciuto";
     }
+    
     
     public function annoAccademico()
     {        

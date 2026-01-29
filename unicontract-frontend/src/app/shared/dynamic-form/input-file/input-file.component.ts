@@ -2,15 +2,16 @@ import { Component, OnInit, ViewChild, TemplateRef, ElementRef } from '@angular/
 import { FieldType, FormlyFieldConfig, FormlyConfig, FieldTypeConfig } from '@ngx-formly/core';
 
 @Component({
-  selector: 'app-input-file',
-  template: `
+    selector: 'app-input-file',
+    template: `
   <div class="input-group" *ngIf="field" placement="top" ngbTooltip="{{ to.tooltip ? to.tooltip.content : null }}">
   <button class="btn btn-outline-secondary oi oi-folder  d-flex align-items-center" type="button" (click)="openDialogSelectFile()"></button>
   <input type="input" class="form-control" [formControl]="formControl" [formlyAttributes]="field">
   <button class="btn btn-outline-secondary oi oi-delete" type="button" (click)="reset()"></button>
   </div>
   <input #fileInput type="file" [accept]="props.accept" (change)="onFileChanged($event)" style="display: none">
-  `,    
+  `,
+    standalone: false
 })
 export class InputFileComponent extends FieldType<FieldTypeConfig>  implements OnInit{
 

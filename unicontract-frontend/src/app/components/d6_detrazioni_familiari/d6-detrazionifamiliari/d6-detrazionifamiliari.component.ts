@@ -15,9 +15,10 @@ import { encode, decode } from 'base64-arraybuffer';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 
 @Component({
-  selector: 'app-d6-detrazionifamiliari',
-  templateUrl: './d6-detrazionifamiliari.component.html',
-  styleUrls: ['./d6-detrazionifamiliari.component.css']
+    selector: 'app-d6-detrazionifamiliari',
+    templateUrl: './d6-detrazionifamiliari.component.html',
+    styleUrls: ['./d6-detrazionifamiliari.component.css'],
+    standalone: false
 })
 
 export class D6DetrazionifamiliariComponent extends BaseComponent {
@@ -51,7 +52,7 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
           key: 'parentela',
           type: 'select',
           className: 'col-md-4',
-          templateOptions: {
+          props: {
             options: this.familiari,
             valueProp: 'familiare',
             labelProp: 'name',
@@ -65,7 +66,7 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
           key: 'nome',
           type: 'input',
           className: 'col-md-4',
-          templateOptions: {
+          props: {
             required: true,
             translate: true,
             label: 'd6_nome'
@@ -76,7 +77,7 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
           key: 'cognome',
           type: 'input',
           className: 'col-md-4',
-          templateOptions: {
+          props: {
             required: true,
             translate: true,
             label: 'd6_cognome'
@@ -92,7 +93,7 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
           key: 'cod_fiscale',
           type: 'input',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             minLength: 16,
             maxLength: 16,
             required: true,
@@ -106,7 +107,7 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
           key: 'data_nascita',
           type: 'date',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             required: true,
             translate: true,
             label: 'd6_label4'
@@ -118,7 +119,7 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
           key: 'flag_disabilita',
           className: 'col-md-3',
           defaultValue: 0,
-          templateOptions: {
+          props: {
             translate: true,
             label: 'd6_label6',
             options: [
@@ -132,7 +133,7 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
           key: 'percentuale_detrazione',
           type: 'input',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             maxLength: 3,
             required: true,
             translate: true,
@@ -159,7 +160,7 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
           validation: {
             show: true,
           }, 
-          templateOptions: {
+          props: {
             formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_richiesta_detrazioni === false || field.model.flag_richiesta_detrazioni === 0) {
@@ -169,14 +170,14 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
             }
           },
           expressionProperties: {
-            'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_richiesta_detrazioni === false || model.flag_richiesta_detrazioni === 0) {
                 return 'NO '+ this.translateService.instant('d6_intest2');
               } else {
                 return 'SÌ '+ this.translateService.instant('d6_intest2');
               }
             }
-            // 'templateOptions.disabled': (model: any, formState: any, field: FormlyFieldConfig) => {
+            // 'props.disabled': (model: any, formState: any, field: FormlyFieldConfig) => {
             //   if (this.items.flag_detrazioni == 0 || this.items.flag_detrazioni == false)
             //     return true;
                 
@@ -210,7 +211,7 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
           type: 'checkbox',
           defaultValue: false,
           className: 'col-md-10',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'd6_txt1',
           },
@@ -229,7 +230,7 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
           key: 'dal_giorno',
           type: 'date',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             required: true,
             translate: true,
             label: 'd6_label1',
@@ -254,7 +255,7 @@ export class D6DetrazionifamiliariComponent extends BaseComponent {
           validation: {
             show: true
           },
-          templateOptions: {
+          props: {
             translate: true,
             label: 'd6_label7',
             min: 0,

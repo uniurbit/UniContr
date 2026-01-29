@@ -44,7 +44,7 @@ class Lezione extends Model
     public function diffInMinutes()
     {
         if ($this->ora_fine!=null && $this->ora_inizio!=null){
-            return $this->ora_fine->diffInMinutes($this->ora_inizio);
+            return (int) $this->ora_fine->diffInMinutes($this->ora_inizio, true);
         }
         return null;
     }

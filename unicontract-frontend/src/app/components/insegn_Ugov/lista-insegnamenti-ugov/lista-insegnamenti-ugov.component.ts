@@ -8,9 +8,10 @@ import { BaseComponent } from 'src/app/shared/base-component/base.component';
 import { MessageService } from 'src/app/shared/message.service';
 
 @Component({
-  selector: 'app-lista-insegnamenti-ugov',
-  templateUrl: './lista-insegnamenti-ugov.component.html',
-  styleUrls: ['./lista-insegnamenti-ugov.component.css']
+    selector: 'app-lista-insegnamenti-ugov',
+    templateUrl: './lista-insegnamenti-ugov.component.html',
+    styleUrls: ['./lista-insegnamenti-ugov.component.css'],
+    standalone: false
 })
 export class ListaInsegnamentiUgovComponent extends BaseComponent {
 

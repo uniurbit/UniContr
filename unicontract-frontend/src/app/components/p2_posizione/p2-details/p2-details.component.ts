@@ -9,9 +9,10 @@ import { NotificaService } from 'src/app/shared/notifica.service';
 
 
 @Component({
-  selector: 'app-p2-details',
-  templateUrl: './p2-details.component.html',
-  styleUrls: ['./p2-details.component.css']
+    selector: 'app-p2-details',
+    templateUrl: './p2-details.component.html',
+    styleUrls: ['./p2-details.component.css'],
+    standalone: false
 })
 
 export class P2DetailsComponent extends BaseComponent {

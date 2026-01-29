@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig  } from '@ngx-formly/core';
 import { FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from 'src/app/shared/lookup/page';
@@ -9,8 +9,9 @@ import { LogAttivitaService } from 'src/app/services/logattivita.service';
 
 
 @Component({
-  selector: 'app-logattivita', 
-  templateUrl: '../../shared/base-component/base-research.component.html',
+    selector: 'app-logattivita',
+    templateUrl: '../../shared/base-component/base-research.component.html',
+    standalone: false
 })
 
 //ng g c submission/components/permissions -s true --spec false -t true
@@ -25,7 +26,7 @@ export class LogAttivitaComponent extends BaseResearchComponent {
     key: 'data',
     type: 'datatablelookup',
     wrappers: ['accordion'],      
-    templateOptions: {      
+    props: {      
       label: 'Log attività',   
       columnMode: 'force',
       scrollbarH: true,    

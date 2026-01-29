@@ -25,7 +25,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  */
 
 @Pipe({
-  name: 'translateSelect'
+    name: 'translateSelect',
+    standalone: false
 })
 export class TranslateSelectPipe implements PipeTransform {
 

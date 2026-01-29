@@ -7,8 +7,9 @@ import { BaseEntityComponent } from 'src/app/shared/base-component/base-entity.c
 import {Location} from '@angular/common';
 import { MappingUfficioService } from 'src/app/services/mappingufficio.service';
 @Component({
-  selector: 'app-mappingufficio', 
-  templateUrl: '../../shared/base-component/base-entity.component.html',
+    selector: 'app-mappingufficio',
+    templateUrl: '../../shared/base-component/base-entity.component.html',
+    standalone: false
 })
 
 //ng g c application/components/MappingUfficioComponent -s true --spec false -t true
@@ -24,7 +25,7 @@ export class MappingUfficioTitulus extends BaseEntityComponent {
           key: 'unitaorganizzativa_uo',
           className: "col-md-12",
           type: 'external',          
-          templateOptions: {
+          props: {
             label: 'Riferimento unità organizzativa',
             type: 'string',
             entityName: 'unitaorganizzativa',
@@ -51,7 +52,7 @@ export class MappingUfficioTitulus extends BaseEntityComponent {
           key: 'strutturainterna_cod_uff',
           className: "col-md-12",
           type: 'external',          
-          templateOptions: {
+          props: {
             label: 'Riferimento struttura interna',
             type: 'string',
             entityName: 'strutturainterna',

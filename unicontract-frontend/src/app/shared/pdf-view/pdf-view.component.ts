@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { encode, decode } from 'base64-arraybuffer';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import * as saveAs from 'file-saver';
+import { saveAs } from 'file-saver';
 
 //https://github.com/VadimDez/ng2-pdf-viewer/issues/715
 //https://github.com/stephanrauh/ngx-extended-pdf-viewer/issues/263
@@ -12,9 +12,10 @@ import * as saveAs from 'file-saver';
 //    'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.7.570/es5/build/pdf.worker.min.js';
 
 @Component({
-  selector: 'app-pdf-view',
-  templateUrl: './pdf-view.component.html',
-  styleUrls: ['./pdf-view.component.css']
+    selector: 'app-pdf-view',
+    templateUrl: './pdf-view.component.html',
+    styleUrls: ['./pdf-view.component.css'],
+    standalone: false
 })
 export class PdfViewComponent implements OnInit {
 

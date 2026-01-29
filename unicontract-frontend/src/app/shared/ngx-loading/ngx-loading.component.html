@@ -1,0 +1,9 @@
+<ngx-spinner
+  [name]="config?.name || spinnerName"
+  bdColor="{{ config?.background || 'rgba(0, 0, 0, 0.3)' }}"
+  size="{{ config?.size || 'medium' }}"
+  color="{{ config?.color || '#fff' }}"
+  type="{{ config?.type || 'ball-spin-clockwise-fade' }}"
+  [fullScreen]="config?.fullScreen !== false">
+</ngx-spinner>
+

@@ -4,9 +4,10 @@ import { InsegnamentoService } from '../../../services/insegnamento.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-lista-insegn',
-  templateUrl: './lista-insegn.component.html',
-  styleUrls: ['./lista-insegn.component.css']
+    selector: 'app-lista-insegn',
+    templateUrl: './lista-insegn.component.html',
+    styleUrls: ['./lista-insegn.component.css'],
+    standalone: false
 })
 
 export class ListaInsegnComponent implements OnInit {

@@ -10,9 +10,10 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
-  selector: 'app-b5-stato-pension-details',
-  templateUrl: './b5-stato-pension-details.component.html',
-  styleUrls: ['./b5-stato-pension-details.component.css']
+    selector: 'app-b5-stato-pension-details',
+    templateUrl: './b5-stato-pension-details.component.html',
+    styleUrls: ['./b5-stato-pension-details.component.css'],
+    standalone: false
 })
 export class B5StatoPensionDetailsComponent extends BaseComponent {
 

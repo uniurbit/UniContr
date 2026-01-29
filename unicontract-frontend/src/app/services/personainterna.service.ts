@@ -5,7 +5,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { ControlBase, TextboxControl, DropdownControl, DateControl, MessageService, ServiceQuery, ServiceEntity, IQueryMetadata } from '../shared';
 import { ArrayControl } from '../shared/dynamic-form/control-array';
-import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig  } from '@ngx-formly/core';
 import { AppConstants } from '../app-constants';
 import { Cacheable } from 'ts-cacheable';
 import { BaseService } from '../shared/base-service/base.service';
@@ -27,7 +27,7 @@ export class PersonaInternaService extends BaseService implements IQueryMetadata
         key: 'persint_matricola',
         type: 'string',
         hideExpression: false,
-        templateOptions: {
+        props: {
           label: 'Codice persona (matricola)',
           disabled: true,
           column: { width: 10, cellTemplate: 'valuecolumn'}
@@ -37,7 +37,7 @@ export class PersonaInternaService extends BaseService implements IQueryMetadata
         key: 'persint_coduff',
         type: 'string',
         hideExpression: false,
-        templateOptions: {
+        props: {
           label: 'Codice ufficio',
           disabled: true,
           column: { width: 10, cellTemplate: 'valuecolumn'}
@@ -46,7 +46,7 @@ export class PersonaInternaService extends BaseService implements IQueryMetadata
       {
         key: 'persint_nomcogn',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Nome e/o cognome',
           required: true,
           column: { cellTemplate: 'valuecolumn'}
@@ -61,7 +61,7 @@ export class PersonaInternaService extends BaseService implements IQueryMetadata
         key: 'nome',
         type: 'string',
         hideExpression: false,
-        templateOptions: {
+        props: {
           label: 'Nome',
           disabled: true,
           column: { width: 10, cellTemplate: 'valuecolumn' }
@@ -70,7 +70,7 @@ export class PersonaInternaService extends BaseService implements IQueryMetadata
       {
         key: 'cognome',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Cognome',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -79,7 +79,7 @@ export class PersonaInternaService extends BaseService implements IQueryMetadata
       {
         key: 'matricola',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Matricola',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -88,7 +88,7 @@ export class PersonaInternaService extends BaseService implements IQueryMetadata
       {
         key: 'cod_uff',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Codice ufficio',
           required: true,
           column: { cellTemplate: 'valuecolumn' }

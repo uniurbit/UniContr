@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class TranslateExtension {
   constructor(private translate: TranslateService) {}
   prePopulate(field: FormlyFieldConfig) {
-    const to = field.templateOptions || {};
+    const to = field.props || {};
     if (!to.translate || to._translated) {
       return;
     }
@@ -12,7 +12,7 @@ export class TranslateExtension {
     to._translated = true;
     field.expressionProperties = {
       ...(field.expressionProperties || {}),
-      'templateOptions.label': this.translate.stream(to.label),
+      'props.label': this.translate.stream(to.label),
     };
   }
 }

@@ -16,9 +16,10 @@ import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 import { B6InformativaInterface } from 'src/app/interface/b6informativa.interface';
 
 @Component({
-  selector: 'app-d1-inps',
-  templateUrl: './d1-inps.component.html',
-  styleUrls: ['./d1-inps.component.css']
+    selector: 'app-d1-inps',
+    templateUrl: './d1-inps.component.html',
+    styleUrls: ['./d1-inps.component.css'],
+    standalone: false
 })
 
 export class D1InpsComponent extends BaseComponent {
@@ -89,7 +90,7 @@ export class D1InpsComponent extends BaseComponent {
           key: 'flag_obbligo_contributivo',
           className: 'col',
           defaultValue: false,
-          templateOptions: {
+          props: {
             formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_obbligo_contributivo === false || field.model.flag_obbligo_contributivo === 0) {
@@ -99,7 +100,7 @@ export class D1InpsComponent extends BaseComponent {
             }
           },
           expressionProperties: {
-            'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_obbligo_contributivo === false || model.flag_obbligo_contributivo === 0) {
                 return 'NO';
               } else {
@@ -121,7 +122,7 @@ export class D1InpsComponent extends BaseComponent {
       type: 'radio',
       key: 'specif_obbligo_contributivo',
       resetOnHide: true,
-      templateOptions: {
+      props: {
         options: [
           { value: 'D1A', label: this.translateService.instant('d1_txt2') },
           { value: 'D1B', label: this.translateService.instant('d1_txt3') },
@@ -138,7 +139,7 @@ export class D1InpsComponent extends BaseComponent {
           }
           return false;
         },
-        'templateOptions.required': (field: FormlyFieldConfig) => {
+        'props.required': (field: FormlyFieldConfig) => {
           return !field.hide;
         }
       },
@@ -154,7 +155,7 @@ export class D1InpsComponent extends BaseComponent {
           key: 'flag_gestione_separata',
           className: 'col',
           defaultValue: false,
-          templateOptions: {
+          props: {
             formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_gestione_separata === false || field.model.flag_gestione_separata === 0) {
@@ -164,7 +165,7 @@ export class D1InpsComponent extends BaseComponent {
             }
           },
           expressionProperties: {
-            'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_gestione_separata === false || model.flag_gestione_separata === 0) {
                 return 'NO';
               } else {
@@ -184,7 +185,7 @@ export class D1InpsComponent extends BaseComponent {
         {
           type: 'radio',
           key: 'specif_gestione_separata',
-          templateOptions: {
+          props: {
             options: [
               { value: 'D2A', label: this.translateService.instant('d1_txt6') },
               { value: 'D2B', label: this.translateService.instant('d1_txt7') }
@@ -200,7 +201,7 @@ export class D1InpsComponent extends BaseComponent {
               }
               return false;
             },
-            'templateOptions.required': (field: FormlyFieldConfig) => {
+            'props.required': (field: FormlyFieldConfig) => {
               return !field.hide;
             }
           },
@@ -219,7 +220,7 @@ export class D1InpsComponent extends BaseComponent {
           key: 'flag_misura_ridotta',
           className: 'col',
           defaultValue: false,
-          templateOptions: {
+          props: {
             formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_misura_ridotta === false || field.model.flag_misura_ridotta === 0) {
@@ -231,7 +232,7 @@ export class D1InpsComponent extends BaseComponent {
             }
           },
           expressionProperties: {
-            'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_misura_ridotta === false || model.flag_misura_ridotta === 0) {
                 return 'NO';
               } else {
@@ -251,7 +252,7 @@ export class D1InpsComponent extends BaseComponent {
 
       type: 'radio',
       key: 'specif_misura_ridotta',
-      templateOptions: {
+      props: {
         options: [
           { value: 'D3A', label: this.translateService.instant('d1_txt9') },
           { value: 'D3B', label: this.translateService.instant('d1_txt11') },
@@ -268,7 +269,7 @@ export class D1InpsComponent extends BaseComponent {
           }
           return false;
         },
-        'templateOptions.required': (field: FormlyFieldConfig) => {
+        'props.required': (field: FormlyFieldConfig) => {
           return !field.hide;
         }
       },
@@ -282,7 +283,7 @@ export class D1InpsComponent extends BaseComponent {
           key: 'cassa_gestioni_previdenziali',
           type: 'select',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             options: this.gestioni,
             valueProp: 'gestione',
             labelProp: 'name',
@@ -296,7 +297,7 @@ export class D1InpsComponent extends BaseComponent {
               }
               return false;
             },
-            'templateOptions.required': (field: FormlyFieldConfig) => {
+            'props.required': (field: FormlyFieldConfig) => {
               return !field.hide;
             }
           },
@@ -313,7 +314,7 @@ export class D1InpsComponent extends BaseComponent {
           key: 'data_pensione',
           type: 'date',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'd1_txt16',
             required: true,
@@ -325,7 +326,7 @@ export class D1InpsComponent extends BaseComponent {
               }
               return false;
             },
-            'templateOptions.required': (field: FormlyFieldConfig) => {
+            'props.required': (field: FormlyFieldConfig) => {
               return !field.hide;
             }
           }
@@ -344,11 +345,11 @@ export class D1InpsComponent extends BaseComponent {
           key: 'flag_partita_iva',
           className: 'col',
           defaultValue: false,
-          templateOptions: {
+          props: {
             formCheck: 'switch',
           },
           expressionProperties: {
-            'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_partita_iva === false || model.flag_partita_iva === 0) {
                 return 'NO';
               } else {
@@ -377,7 +378,7 @@ export class D1InpsComponent extends BaseComponent {
             return true;
           }
         },
-        'templateOptions.required': (field: FormlyFieldConfig) => {
+        'props.required': (field: FormlyFieldConfig) => {
           return !field.hide;
         }
       },
@@ -392,7 +393,7 @@ export class D1InpsComponent extends BaseComponent {
     {
       key: 'attachments',
       type: 'repeat',
-      templateOptions: {
+      props: {
         min: 1,
         btnHidden: true,
         btnRemoveHidden: true,
@@ -408,7 +409,7 @@ export class D1InpsComponent extends BaseComponent {
                 type: 'input',
                 defaultValue: 'DOM_GS',
 
-                templateOptions: {
+                props: {
                   type: 'hidden',
                   //label: 'Tipo documento',
                 }
@@ -418,7 +419,7 @@ export class D1InpsComponent extends BaseComponent {
                 key: 'filename',
                 type: 'fileinput',
                 className: 'col-md-6',
-                templateOptions: {
+                props: {
                   translate: true,
                   label: 'd1_txt17',
                   type: 'input',
@@ -438,14 +439,14 @@ export class D1InpsComponent extends BaseComponent {
               {
                 key: 'filevalue',
                 type: 'input',
-                templateOptions: {
+                props: {
                   type: 'hidden'
                 },
               },
               {
                 key: 'id',
                 type: 'input',
-                templateOptions: {
+                props: {
                   type: 'hidden'
                 },
               },

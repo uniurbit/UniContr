@@ -4,10 +4,11 @@ import { InsegnamentoService } from '../../../services/insegnamento.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'tr[app-insegnamento]',
-  templateUrl: './insegnamento.component.html',
-  styleUrls: ['./insegnamento.component.css']
+    // tslint:disable-next-line:component-selector
+    selector: 'tr[app-insegnamento]',
+    templateUrl: './insegnamento.component.html',
+    styleUrls: ['./insegnamento.component.css'],
+    standalone: false
 })
 export class InsegnamentoComponent implements OnInit {
 

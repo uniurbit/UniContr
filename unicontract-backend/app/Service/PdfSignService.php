@@ -230,24 +230,23 @@ class PdfSignService
             //if (strpos($string, $word) === FALSE) {
             //|| strpos($s,mb_convert_encoding('DIPENDENTE', 'UTF-16BE', 'UTF-8')) || strpos($s,mb_convert_encoding('DICHIARANTE', 'UTF-16BE', 'UTF-8'))
             if (strpos($s,mb_convert_encoding($search, 'UTF-16BE', 'UTF-8'))  ){
-                if (preg_match_all('/q \d+\.\d\d+ 0 0 \d+\.\d\d+ \d+\.\d\d+ \d+\.\d\d+ cm \/I\d+ Do Q/', $s, $m)){
-                    if (preg_match('/q (\d+\.\d\d+) 0 0 (\d+\.\d\d+) (\d+\.\d\d+) (\d+\.\d\d+) cm \/I\d+ Do Q/', end($m[0]), $m)){
-                        //Image width, 0, 0, image height, X, Y
-                        //$obiw * Mpdf::SCALE, $obih * Mpdf::SCALE, $objattr['INNER-X'] * Mpdf::SCALE, ($this->h - ($objattr['INNER-Y'] + $obih )) * Mpdf::SCALE,
-                        $img_position = $m;     
-                        $obj_page = $obj;                        
-                        $page_number = $key+1;
-                        if ($firmaio){
-                            array_push($result, PdfSignService::getWidgetPDFSignaturePositionFirmaIO($img_position, $page_number));                            
-                        }else{
-                            array_push($result, PdfSignService::getWidgetPDFSignaturePosition($img_position, $page_number));
-                        }
-                        
-                        if (!$multi){                            
-                            break;
-                        }                            
-                    }               
-                }  
+                $candidate = self::findSignatureImageCandidate($s);
+                if ($candidate) {
+                    //Image width, 0, 0, image height, X, Y
+                    //$obiw * Mpdf::SCALE, $obih * Mpdf::SCALE, $objattr['INNER-X'] * Mpdf::SCALE, ($this->h - ($objattr['INNER-Y'] + $obih )) * Mpdf::SCALE,
+                    $img_position = $candidate;     
+                    $obj_page = $obj;                        
+                    $page_number = $key+1;
+                    if ($firmaio){
+                        array_push($result, PdfSignService::getWidgetPDFSignaturePositionFirmaIO($img_position, $page_number));                            
+                    }else{
+                        array_push($result, PdfSignService::getWidgetPDFSignaturePosition($img_position, $page_number));
+                    }
+                    
+                    if (!$multi){                            
+                        break;
+                    }                            
+                }                               
             }                 
         }
 
@@ -337,16 +336,15 @@ class PdfSignService
                 $s = gzuncompress($s);
                 //if (strpos($string, $word) === FALSE) {
                 if (strpos($s,mb_convert_encoding('FIRMA', 'UTF-16BE', 'UTF-8')) || strpos($s,mb_convert_encoding('DIPENDENTE', 'UTF-16BE', 'UTF-8')) ){
-                    if (preg_match_all('/q \d+\.\d\d+ 0 0 \d+\.\d\d+ \d+\.\d\d+ \d+\.\d\d+ cm \/I\d+ Do Q/', $s, $m)){
-                        if (preg_match('/q (\d+\.\d\d+) 0 0 (\d+\.\d\d+) (\d+\.\d\d+) (\d+\.\d\d+) cm \/I\d+ Do Q/', end($m[0]), $m)){
-                            //Image width, 0, 0, image height, X, Y
-                            //$obiw * Mpdf::SCALE, $obih * Mpdf::SCALE, $objattr['INNER-X'] * Mpdf::SCALE, ($this->h - ($objattr['INNER-Y'] + $obih )) * Mpdf::SCALE,
-                            $img_position = $m;     
-                            $obj_page = $obj;
-                            break;
-                        }               
-                    }  
-                }                 
+                    $candidate = self::findSignatureImageCandidate($s);
+                    if ($candidate) {
+                        //Image width, 0, 0, image height, X, Y
+                        //$obiw * Mpdf::SCALE, $obih * Mpdf::SCALE, $objattr['INNER-X'] * Mpdf::SCALE, ($this->h - ($objattr['INNER-Y'] + $obih )) * Mpdf::SCALE,
+                        $img_position = $candidate;     
+                        $obj_page = $obj;
+                        break;
+                    }               
+                }                              
             }
         }
 
@@ -514,6 +512,37 @@ class PdfSignService
         $pdf->getMpdf()->buffer =  substr($pdfdoc, 0, $byte_range[1]).'<'.$signature.'>'.substr($pdfdoc, $byte_range[1]);
         //$pdf->getMpdf()->bufferlen = strlen( $pdf->getMdpf()->buffer);		
         
+    }
+
+    public static function findSignatureImageCandidate(string $content): ?array
+    {
+        // Target dimensions (adjust if needed)
+        $targetWidth = 177;
+        $targetHeight = 78.0;
+        $tolerance = 0.2;  // 10%
+        $minY = 40;       // Skip images near the top
+        $maxArea = 50000;  // Optional: skip too-large images
+
+        preg_match_all('/q (\d+\.\d+) 0 0 (\d+\.\d+) (\d+\.\d+) (\d+\.\d+) cm \/I(\d+) Do Q/', $content, $matches, PREG_SET_ORDER);
+
+        foreach ($matches as $match) {
+            [$full, $w, $h, $x, $y, $id] = $match;
+
+            $w = (float)$w;
+            $h = (float)$h;
+            $y = (float)$y;
+
+            if ($y < $minY) continue;
+
+            $widthOk = abs($w - $targetWidth) / $targetWidth <= $tolerance;
+            $heightOk = abs($h - $targetHeight) / $targetHeight <= $tolerance;
+
+            if ($widthOk && $heightOk) {
+                return $match; // Return the first valid candidate
+            }
+        }
+
+        return null; // No candidate found
     }
 
 

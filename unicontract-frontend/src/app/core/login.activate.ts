@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 // import { CanActivate } from '@angular/router/src/utils/preactivation';
 import { AuthService } from '.';
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class LoginActivate implements CanActivate {
+export class LoginActivate  {
     path: ActivatedRouteSnapshot[];
     route: ActivatedRouteSnapshot;
 

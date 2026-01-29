@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
-import { FormlyFieldConfig, FormlyFormOptions, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFormOptions  } from '@ngx-formly/core';
 import { UntypedFormGroup, UntypedFormArray, FormControl, ValidationErrors } from '@angular/forms';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil, startWith, tap } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { MessageService } from '../message.service';
 import { Operator } from './query-builder.interfaces';
 import { getLocaleExtraDayPeriodRules } from '@angular/common';
 import ControlUtils from '../dynamic-form/control-utils';
+import { FormlyFieldProps } from '@ngx-formly/bootstrap/form-field';
 
 
 export interface IConfigQueryBuilder {
@@ -15,15 +16,16 @@ export interface IConfigQueryBuilder {
   showButton: boolean;
 }
 @Component({
-  selector: 'app-query-builder',
-  templateUrl: './query-builder.component.html',
-  styles: []
+    selector: 'app-query-builder',
+    templateUrl: './query-builder.component.html',
+    styles: [],
+    standalone: false
 })
 
 export class QueryBuilderComponent implements OnInit, OnChanges {
   onDestroy$ = new Subject<void>();
 
-  @Input() builderoptions: FormlyTemplateOptions = null;
+  @Input() builderoptions: FormlyFieldProps = null;
 
   @Input() rules;
 
@@ -77,18 +79,18 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
 
   setField(field: any, selectedField: string){
     if (this.keymetadata[selectedField].type!=='external'){                                                        
-      field.templateOptions.field = {                                         
+      field.props.field = {                                         
         type: this.keymetadata[selectedField].type,        
-        templateOptions: {
-          ...this.keymetadata[selectedField].templateOptions,
+        props: {
+          ...this.keymetadata[selectedField].props,
           type: this.keymetadata[selectedField].type,                                                                      
         }
       }
       
     }else{
-      field.templateOptions.field = {                                         
+      field.props.field = {                                         
         type: 'externalquery',
-        templateOptions: { ...this.keymetadata[selectedField].templateOptions }
+        props: { ...this.keymetadata[selectedField].props }
       };
     }
   }
@@ -102,7 +104,7 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
         key: 'rules',
         type: 'repeat',
         wrappers: this.config.wrappers,      
-        templateOptions: {
+        props: {
           min: this.builderoptions ? this.builderoptions.min : null,
           label: this.config.label,    
           btnRemoveHidden: true,         
@@ -115,12 +117,12 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
               key: 'field',
               type: 'select',   
               className: "col-md-4",         
-              templateOptions: {
+              props: {
                 label: 'Campo',                   
                 required: true
               },
               expressionProperties: {
-                'templateOptions.disabled': (model: any, formState: any) => {
+                'props.disabled': (model: any, formState: any) => {
                   return (model && model.fixcondition) || false;
                 },
               },      
@@ -130,12 +132,12 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
               key: 'operator',
               type: 'select',
               className: "col-md-2",            
-              templateOptions: {
+              props: {
                 label: 'Criterio',          
                 required: true,
               },
               expressionProperties: {
-                'templateOptions.disabled': (model: any, formState: any) => {
+                'props.disabled': (model: any, formState: any) => {
                   return (model && model.fixcondition) || false;
                 },
               },
@@ -149,9 +151,9 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
                       const op = field.model ? field.model.operator : undefined;                                
                       field.formControl.setValue('');
                       if (this.keymetadata[selectedField] !== undefined && this.keymetadata[selectedField] !== null){                            
-                        field.templateOptions.options = this.getOperators(selectedField,field.model);  
-                        if (op == undefined && field.templateOptions.options[0] !== undefined) 
-                          field.formControl.setValue(field.templateOptions.options[0].value);    
+                        field.props.options = this.getOperators(selectedField,field.model);  
+                        if (op == undefined && field.props.options[0] !== undefined) 
+                          field.formControl.setValue(field.props.options[0].value);    
                         else               
                           field.formControl.setValue(op);                                                            
                       }                
@@ -167,7 +169,7 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
                 fieldGroup: [{
                   key: 'value',
                   type: 'input',
-                  templateOptions: {
+                  props: {
                       label: 'Valore',
                       options: [],
                       required: true,
@@ -194,15 +196,15 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
                         field.type = this.keymetadata[selectedField].type =='external' ? 'externalquery' : this.keymetadata[selectedField].type;
                         field.wrappers = ['form-field'];
                         //debug
-                        // if (this.keymetadata[selectedField].templateOptions.options instanceof Observable){
-                        //   (this.keymetadata[selectedField].templateOptions.options as Observable<any>).subscribe(x =>{
-                        //     field.templateOptions.options = x;
+                        // if (this.keymetadata[selectedField].props.options instanceof Observable){
+                        //   (this.keymetadata[selectedField].props.options as Observable<any>).subscribe(x =>{
+                        //     field.props.options = x;
   
                         //     console.log(x);
                         //   });
                         // }else{
-                        field.templateOptions.options = this.keymetadata[selectedField].templateOptions.options;                      
-                        field.templateOptions.compareWith = (o1, o2) => {
+                        field.props.options = this.keymetadata[selectedField].props.options;                      
+                        field.props.compareWith = (o1, o2) => {
                           if (Array.isArray(o1) && Array.isArray(o2)) {
                             return this.compareArrays(o1, o2);
                           }
@@ -215,17 +217,17 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
                         },
                         // }
                         
-                        field.templateOptions.type = this.keymetadata[selectedField].templateOptions.type;
-                        field.templateOptions.disabled = this.keymetadata[selectedField].templateOptions.disabled;
-                        if (this.keymetadata[selectedField].templateOptions.valueProp)
-                          field.templateOptions.valueProp = this.keymetadata[selectedField].templateOptions.valueProp;
-                        if (this.keymetadata[selectedField].templateOptions.labelProp)
-                          field.templateOptions.labelProp = this.keymetadata[selectedField].templateOptions.labelProp;                        
-                        field.templateOptions.label = 'Valore';
+                        field.props.type = this.keymetadata[selectedField].props.type;
+                        field.props.disabled = this.keymetadata[selectedField].props.disabled;
+                        if (this.keymetadata[selectedField].props.valueProp)
+                          field.props.valueProp = this.keymetadata[selectedField].props.valueProp;
+                        if (this.keymetadata[selectedField].props.labelProp)
+                          field.props.labelProp = this.keymetadata[selectedField].props.labelProp;                        
+                        field.props.label = 'Valore';
                       }else{
                         field.type = 'input';
                         field.wrappers = ['form-field'];
-                        field.templateOptions.label = 'Valore';
+                        field.props.label = 'Valore';
                       }
                       
                       field.parent.formControl.get('field').valueChanges.pipe(
@@ -239,19 +241,19 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
                             if (this.keymetadata[selectedField].type=='external'){      
                                 field.type = 'externalquery';
                                   //extern
-                                field.templateOptions.entityName = this.keymetadata[selectedField].templateOptions.entityName;
-                                field.templateOptions.entityLabel = this.keymetadata[selectedField].templateOptions.entityLabel;
-                                field.templateOptions.codeProp = this.keymetadata[selectedField].templateOptions.codeProp;
-                                field.templateOptions.descriptionProp = this.keymetadata[selectedField].templateOptions.descriptionProp;
+                                field.props.entityName = this.keymetadata[selectedField].props.entityName;
+                                field.props.entityLabel = this.keymetadata[selectedField].props.entityLabel;
+                                field.props.codeProp = this.keymetadata[selectedField].props.codeProp;
+                                field.props.descriptionProp = this.keymetadata[selectedField].props.descriptionProp;
                             }                        
-                            field.templateOptions.disabled = this.keymetadata[selectedField].templateOptions.disabled;
-                            field.templateOptions.options = this.keymetadata[selectedField].templateOptions.options;
-                            field.templateOptions.type = this.keymetadata[selectedField].templateOptions.type;
-                            field.templateOptions.valueProp = this.keymetadata[selectedField].templateOptions.valueProp;
-                            field.templateOptions.labelProp = this.keymetadata[selectedField].templateOptions.labelProp;                        
-                            field.templateOptions.label = 'Valore'
+                            field.props.disabled = this.keymetadata[selectedField].props.disabled;
+                            field.props.options = this.keymetadata[selectedField].props.options;
+                            field.props.type = this.keymetadata[selectedField].props.type;
+                            field.props.valueProp = this.keymetadata[selectedField].props.valueProp;
+                            field.props.labelProp = this.keymetadata[selectedField].props.labelProp;                        
+                            field.props.label = 'Valore'
   
-                            //field.templateOptions.disabled = false;
+                            //field.props.disabled = false;
                           }
                         }),
                       ).subscribe();
@@ -262,12 +264,12 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
             {
               type: 'button',
               className: 'col-md-1 mt-4 pt-2',
-              templateOptions: {
+              props: {
                 btnType: 'btn btn-danger oi oi-trash',
                 title: 'Rimuovi',
                 // icon: 'oi oi-data-transfer-download'
                 onClick: ($event, model, field) => {
-                  field.parent.parent.templateOptions.remove(parseInt(field.parent.key));
+                  field.parent.parent.props.remove(parseInt(field.parent.key));
                 },
               },
               hideExpression: (model: any, formState: any) => {
@@ -284,7 +286,7 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
       Object.assign(this.model.rules, this.rules);
 
     if (this.builderoptions){
-      this.fields[0].templateOptions.min = this.builderoptions.min;
+      this.fields[0].props.min = this.builderoptions.min;
     }
 
     let field = (this.fields[0].fieldArray as FormlyFieldConfig).fieldGroup[0]; 
@@ -297,10 +299,10 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
       //generare la select dei campi // array di options
       
       //se il campo non ha key e label allora non puo essere inserito
-      if (element.key && element.templateOptions && element.templateOptions.label)
-        options.push({value: element.key, label: element.templateOptions.label});                  
+      if (element.key && element.props && element.props.label)
+        options.push({value: element.key, label: element.props.label});                  
     });
-    field.templateOptions.options = options;  
+    field.props.options = options;  
     this.cd.detectChanges();
     //this.model.rules.push({field: options[0].value})
   }
@@ -353,13 +355,13 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
     
     if (type) {
       if (type === 'external')
-        type = (fieldObject.templateOptions.type || 'string');
+        type = (fieldObject.props.type || 'string');
         
       if (type === 'input')
-        type = (fieldObject.templateOptions.type || 'string');
+        type = (fieldObject.props.type || 'string');
 
-      if (fieldObject.templateOptions.type && fieldObject.templateOptions.type=='index')
-        type = (fieldObject.templateOptions.type || 'index');  
+      if (fieldObject.props.type && fieldObject.props.type=='index')
+        type = (fieldObject.props.type || 'index');  
 
       operators = (this.defaultOperatorMap[type as string] || this.defaultEmptyList);
       if (operators.length === 0) {
@@ -368,7 +370,7 @@ export class QueryBuilderComponent implements OnInit, OnChanges {
           `Please define an 'operators' property on the field or use the 'operatorMap' binding to fix this.`);
       }
       //TODO sistemare i tipi nullable da dove lo si vede? se non è required 
-      if (!fieldObject.templateOptions.required) {
+      if (!fieldObject.props.required) {
         operators = operators.concat(['is null', 'is not null']);
       }
     } else {

@@ -3,9 +3,10 @@ import { Subject, Subscription } from 'rxjs';
 import { MessageService } from '../message.service';
 
 @Component({
-  selector: 'app-base',
-  template: 'NO UI',
-  styleUrls: ['./base.component.css']
+    selector: 'app-base',
+    template: 'NO UI',
+    styleUrls: ['./base.component.css'],
+    standalone: false
 })
 export class BaseComponent implements OnInit, OnDestroy {
 

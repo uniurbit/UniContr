@@ -47,7 +47,7 @@
               <td class="col-sm-2">{{ item.carica }}</td>
               <td class="col-sm-4">{{ item.oggetto }}</td>
               <td class= "text-center col-sm-2">{{ item.dal_giorno }} - {{ item.al_giorno }}</td>
-              <td class= "text-center col-sm-2">€ {{ item.compenso }}</td>
+              <td class= "text-center col-sm-2">€ {{ item.compenso | mycurrency }}</td>
             </tr>
           </tbody>   
     </table>
@@ -74,7 +74,7 @@
               <td class="col-sm-2">{{ item.incarico }}</td>
               <td class="col-sm-4">{{ item.oggetto }}</td>
               <td class="text-center col-sm-2">{{ item.dal_giorno }} - {{ item.al_giorno }}</td>
-              <td class="text-center col-sm-2">€ {{ item.compenso }}</td>
+              <td class="text-center col-sm-2">€ {{ item.compenso | mycurrency}}</td>
             </tr>
           </tbody>   
     </table>

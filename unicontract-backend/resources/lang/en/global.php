@@ -113,7 +113,7 @@ return [
     "e_txt6" =>"essere dipendente di Pubblica Amministrazione.",
     "e_txt7" =>"essere titolare di pensione diretta, anzianità, vecchiaia o invalidità.",
     "e_txt8" =>"essere soggetto all’applicazione dell’aliquota massima INPS.",
-    "e_txt9" =>"aver superato il massimale contributivo di € 103.055,00 .",
+    "e_txt9" =>"aver superato il massimale contributivo di € 120.607,00 .",
     "e_txt10" =>"essere in possesso di Partita IVA.",  
 
     "cassa002"=>"002 Pensionati di tutti gli Enti pensionistici obbligatori",
@@ -161,7 +161,7 @@ return [
     "d1_premessa"=>"Ai sensi dell'art. 2, comma 26, della Legge 335/1995, del Decreto Legge 81/2015, del Decreto Legge 75/2017 e della Legge 205/2017, si dichiara di:",
     "d1_txt1"=>"essere esclusi dall'obbligo contributivo INPS Gestione Separata, INPGI Gestione Separata, in quanto:",
     "d1_txt1not"=>"non essere esclusi dall'obbligo contributivo INPS Gestione Separata",
-    "d1_txt2"=>"si è superato per il corrente anno solare il massimale di reddito annuo imponibile di € 103.055,00  (massimale contributivo INPS)",
+    "d1_txt2"=>"si è superato per il corrente anno solare il massimale di reddito annuo imponibile di € 120.607,00  (massimale contributivo INPS)",
     "d1_txt3"=>"alla data del 1° aprile 1996 o del 30 giugno 1996 si erano già compiuti 65 anni di età e ci si è avvalsi della facoltà di non iscriversi alla Gestione Separata (ex art. 4, comma 1, lettera a, del D.M. 282/1996)",
     "d1_txt4"=>"alla data del 1° aprile 1996 o del 30 giugno 1996 si erano già compiuti 60 anni di età e ci si è avvalsi della facoltà, al compimento del 65° anno, di richiedere la cancellazione dalla Gestione Separata INPS pur proseguendo nell'attività lavorativa (ex art. 4, comma 1, lettera b, del D.M. 282/1996)",
     "d1_txt5"=>"essere iscritti alla Gestione Separata:",

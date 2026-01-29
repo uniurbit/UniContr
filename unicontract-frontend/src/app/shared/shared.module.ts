@@ -48,9 +48,8 @@ import { HeaderNavigationComponent } from '../shared/header-navigation/header-na
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+
 import { TooltipWrapperComponent } from './dynamic-form/wrapper/tooltip-wrapper.component';
 import { AccordionInfoWrapperComponent } from './dynamic-form/wrapper/accordioninfo-wrapper.component';
 import { FormlyFieldTypeahead } from './dynamic-form/typehead-type.component';
@@ -73,7 +72,6 @@ import { HttpClient } from '@angular/common/http';
 import { MyTranslatePipe } from './pipe/custom.translatepipe';
 import { FormlyMaskTypeComponent } from './dynamic-form/formly-mask-type/formly-mask-type.component';
 
-import { NgxCurrencyModule } from 'ngx-currency';
 import { ShowErrorsComponent } from './show-errors/show-errors.component';
 import { UniqueName } from './pipe/unique-name';
 import { UniqueYear } from './pipe/unique-year';
@@ -98,18 +96,10 @@ import { ToastService } from './toast-service';
 import { FormlyFieldSignNamiral } from './dynamic-form/sign-namiral.component';
 import { SignNamiralService } from './sign-namirial.service';
 import { StoryHelperProcessService } from './storyHelperProcess.service';
-import { NgxLoadingModule } from 'ngx-loading';
-
-
-
-
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true,
-  wheelSpeed: 1,
-  wheelPropagation: true,
-  minScrollbarLength: 20
-};
+import { NgxCurrencyDirective } from 'ngx-currency';
+import { NgxLoadingComponent } from "./ngx-loading/ngx-loading.component";
+import { NgxSpinnerModule } from "ngx-spinner";
+import { DynamicModalComponent } from './dynamic-modal/dynamic-modal.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -117,19 +107,19 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 }
 
 export function minLengthValidationMessage(err, field) {
-  return `Inserire almeno ${field.templateOptions.minLength} caratteri`;
+  return `Inserire almeno ${field.props.minLength} caratteri`;
 }
 
 export function maxLengthValidationMessage(err, field) {
-  return `Inserire un valore inferiore a ${field.templateOptions.maxLength} caratteri`;
+  return `Inserire un valore inferiore a ${field.props.maxLength} caratteri`;
 }
 
 export function minValidationMessage(err, field) {
-  return `Inserire un valore maggiore uguale a ${field.templateOptions.min}`;
+  return `Inserire un valore maggiore uguale a ${field.props.min}`;
 }
 
 export function maxValidationMessage(err, field) {
-  return `Inserire un valore minore di ${field.templateOptions.max}`;
+  return `Inserire un valore minore di ${field.props.max}`;
 }
 
 export function validationProvincia(ctr) {
@@ -156,19 +146,17 @@ export const customCurrencyMaskConfig = {
 
 
 @NgModule({
-    imports: [
+    imports: [        
         CommonModule,
         NgbModule,
         NgbTooltipModule,
         FormsModule,
         ReactiveFormsModule,
         NgxDatatableModule,
-        RouterModule,
-        NgxPermissionsModule,
-        NgxLoadingModule,
-        PerfectScrollbarModule,
-        NgSelectModule,
-        NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
+        RouterModule,        
+        NgxPermissionsModule,            
+        NgSelectModule,        
+        NgxCurrencyDirective,              
         FormlyModule.forRoot({
             types: [
                 {
@@ -180,7 +168,7 @@ export const customCurrencyMaskConfig = {
                     component: FormlyFieldButton,
                     wrappers: ['form-field'],
                     defaultOptions: {
-                        templateOptions: {
+                        props: {
                             btnType: 'default',
                             type: 'button',
                         },
@@ -203,7 +191,7 @@ export const customCurrencyMaskConfig = {
                     name: 'number',
                     extends: 'input',
                     defaultOptions: {
-                        templateOptions: {
+                        props: {
                             type: 'number',
                         },
                     },
@@ -212,7 +200,7 @@ export const customCurrencyMaskConfig = {
                     name: 'integer',
                     extends: 'input',
                     defaultOptions: {
-                        templateOptions: {
+                        props: {
                             type: 'number',
                         },
                     },
@@ -223,7 +211,7 @@ export const customCurrencyMaskConfig = {
                 { name: 'selectrelation', extends: 'select' },
                 { name: 'datepicker', component: DatepickerTypeComponent, wrappers: ['form-field'],
                     defaultOptions: {
-                        templateOptions: {
+                        props: {
                             datepickerOptions: {}
                         }
                     }
@@ -233,7 +221,7 @@ export const customCurrencyMaskConfig = {
                 { name: 'datatable',
                     component: TableTypeComponent,
                     defaultOptions: {
-                        templateOptions: {
+                        props: {
                             columnMode: 'force',
                             rowHeight: 'auto',
                             headerHeight: '30',
@@ -249,7 +237,7 @@ export const customCurrencyMaskConfig = {
                     extends: 'input',
                     defaultOptions: {
                         name: 'province',
-                        templateOptions: {
+                        props: {
                             required: true,
                             label: 'b4_txt16',
                             minLength: 2,
@@ -267,7 +255,7 @@ export const customCurrencyMaskConfig = {
                     name: 'datatablelookup',
                     component: TableLookupTypeComponent,
                     defaultOptions: {
-                        templateOptions: {
+                        props: {
                             columnMode: 'force',
                             rowHeight: 'auto',
                             headerHeight: 40,
@@ -282,7 +270,7 @@ export const customCurrencyMaskConfig = {
                     name: 'datatablegroup',
                     component: TableGroupTypeComponent,
                     defaultOptions: {
-                        templateOptions: {
+                        props: {
                             columnMode: 'force',
                             rowHeight: 'auto',
                             headerHeight: '30',
@@ -317,9 +305,10 @@ export const customCurrencyMaskConfig = {
         FormlyBootstrapModule,
         PdfViewerModule,
         TranslateModule,
+        NgxSpinnerModule
     ],
     providers: [
-        { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
+
         NotificaService,
         ToastService,
         SignNamiralService,
@@ -385,12 +374,14 @@ export const customCurrencyMaskConfig = {
         ReplacePipe,
         CollapseRiquadroWrapperComponent,
         InputConfirmationDialogComponent,
+        DynamicModalComponent,
         ViewListComponent,
         ListItemComponent,
         ViewNotificheComponent,
         PdfViewComponent,
         ToastsContainer,
-        FormlyFieldSignNamiral
+        FormlyFieldSignNamiral,
+        NgxLoadingComponent
     ],
     declarations: [
         UserLoginComponent, UserLoginComponent, ShowErrorsComponent,
@@ -438,13 +429,13 @@ export const customCurrencyMaskConfig = {
         FormlyRiquadroWrapperComponent,
         CollapseRiquadroWrapperComponent,
         InputConfirmationDialogComponent,
+        DynamicModalComponent,
         ViewListComponent,
         ListItemComponent,
         ViewNotificheComponent,
         PdfViewComponent,
         ToastsContainer,
-        FormlyFieldSignNamiral
-    ]
+        FormlyFieldSignNamiral, NgxLoadingComponent]
 })
 
 export class SharedModule {
@@ -460,3 +451,4 @@ export class SharedModule {
     };
   }
 }
+

@@ -7,9 +7,10 @@ import { B2IncompatibilitaService } from './../../../services/b2incompatibilita.
 import { B2Incompatibilita } from './../../../classes/b2incompatibilita';
 
 @Component({
-  selector: 'app-b2-incompatibilita-details',
-  templateUrl: './b2-incompatibilita-details.component.html',
-  styleUrls: ['./b2-incompatibilita-details.component.css']
+    selector: 'app-b2-incompatibilita-details',
+    templateUrl: './b2-incompatibilita-details.component.html',
+    styleUrls: ['./b2-incompatibilita-details.component.css'],
+    standalone: false
 })
 export class B2IncompatibilitaDetailsComponent extends BaseComponent {
 

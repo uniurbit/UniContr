@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-collapse-riquadro-wrapper',
-  template: `
+    selector: 'app-collapse-riquadro-wrapper',
+    template: `
   <div class="card border border-primary p-2 mb-2" style="border-radius: 3px !important;">
   <div class="card-title mb-0" [ngClass]="{
     'bg-light-danger': options.type == 'danger',
@@ -24,7 +24,8 @@ import { Component, OnInit, Input } from '@angular/core';
   </div>  
 </div>     
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class CollapseRiquadroWrapperComponent implements OnInit {
 

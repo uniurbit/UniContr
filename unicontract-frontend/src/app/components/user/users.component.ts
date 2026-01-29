@@ -8,8 +8,9 @@ import { Page } from 'src/app/shared/lookup/page';
 import { BaseResearchComponent } from 'src/app/shared';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: '../../shared/base-component/base-research.component.html',
+    selector: 'app-users',
+    templateUrl: '../../shared/base-component/base-research.component.html',
+    standalone: false
 })
 
 // ng g c submission/components/user -s true --spec false -t true
@@ -21,7 +22,7 @@ export class UsersComponent extends BaseResearchComponent {
           {
             key: 'id',
             type: 'number',
-            templateOptions: {
+            props: {
               label: 'Id',
               disabled: true,
               column: { width: 10, cellTemplate: 'valuecolumn'}
@@ -30,7 +31,7 @@ export class UsersComponent extends BaseResearchComponent {
           {
             key: 'name',
             type: 'string',
-            templateOptions: {
+            props: {
               label: 'Nome utente',
               required: true,
               column: { cellTemplate: 'valuecolumn'}
@@ -39,7 +40,7 @@ export class UsersComponent extends BaseResearchComponent {
           {
             key: 'cf',
             type: 'string',
-            templateOptions: {
+            props: {
               label: 'Codice fiscale',
               required: true,
               column: { cellTemplate: 'valuecolumn'}
@@ -48,7 +49,7 @@ export class UsersComponent extends BaseResearchComponent {
           {
             key: 'email',
             type: 'string',
-            templateOptions: {
+            props: {
               label: 'Email',
               required: true,
               column: { cellTemplate: 'valuecolumn'}
@@ -58,7 +59,7 @@ export class UsersComponent extends BaseResearchComponent {
             key: 'blocked_date',
             type: 'date',
             className: 'col-md-6',
-            templateOptions: {
+            props: {
               label: 'Data di blocco utente',
               column: { cellTemplate: 'valuecolumn'}
             }
@@ -66,7 +67,7 @@ export class UsersComponent extends BaseResearchComponent {
           {
             key: 'roles.name',
             type: 'string',
-            templateOptions: {
+            props: {
               label: 'Ruolo',
               required: true,
               column: { cellTemplate: 'valuecolumn'}
@@ -80,7 +81,7 @@ export class UsersComponent extends BaseResearchComponent {
       key: 'data',
       type: 'datatablelookup',
       wrappers: ['accordion'],
-      templateOptions: {
+      props: {
         label: 'Risultati utenti',
         columnMode: 'force',
         scrollbarH: false,

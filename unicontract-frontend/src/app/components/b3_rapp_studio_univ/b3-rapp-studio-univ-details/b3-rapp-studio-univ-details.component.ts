@@ -12,9 +12,10 @@ import { ConfirmationDialogService } from './../../../shared/confirmation-dialog
 import { ServiceEntity } from './../../../shared/query-builder/query-builder.interfaces';
 
 @Component({
-  selector: 'app-b3-rapp-studio-univ-details',
-  templateUrl: './b3-rapp-studio-univ-details.component.html',
-  styleUrls: ['./b3-rapp-studio-univ-details.component.css']
+    selector: 'app-b3-rapp-studio-univ-details',
+    templateUrl: './b3-rapp-studio-univ-details.component.html',
+    styleUrls: ['./b3-rapp-studio-univ-details.component.css'],
+    standalone: false
 })
 export class B3RappStudioUnivDetailsComponent extends BaseComponent implements OnInit {
 

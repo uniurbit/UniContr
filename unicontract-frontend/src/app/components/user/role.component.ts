@@ -8,8 +8,9 @@ import {Location} from '@angular/common';
 import { RoleService } from '../../services/role.service';
 
 @Component({
-  selector: 'app-role',
-  templateUrl: '../../shared/base-component/base-entity.component.html',
+    selector: 'app-role',
+    templateUrl: '../../shared/base-component/base-entity.component.html',
+    standalone: false
 })
 
 // ng g c submission/components/user -s true --spec false -t true
@@ -24,7 +25,7 @@ export class RoleComponent extends BaseEntityComponent {
           key: 'id',
           type: 'input',
           className: 'col-md-2',
-          templateOptions: {
+          props: {
             label: 'Id',
             disabled: true,
           },
@@ -34,7 +35,7 @@ export class RoleComponent extends BaseEntityComponent {
           key: 'name',
           type: 'input',
           className: 'col-md-5',
-          templateOptions: {
+          props: {
             label: 'Ruolo',
             required: true
           }
@@ -43,7 +44,7 @@ export class RoleComponent extends BaseEntityComponent {
           key: 'guard_name',
           type: 'input',
           className: 'col-md-5',
-          templateOptions: {
+          props: {
             label: 'Guardia',
             required: true
           },
@@ -54,7 +55,7 @@ export class RoleComponent extends BaseEntityComponent {
         key: 'permissions',
         type: 'datatable',
         wrappers: ['accordion'],
-        templateOptions: {
+        props: {
           label: 'Permessi',
           columnMode: 'flex',
           scrollbarH: false,
@@ -67,7 +68,7 @@ export class RoleComponent extends BaseEntityComponent {
             {
               key: 'name',
               type: 'select',
-              templateOptions: {
+              props: {
                 options: this.service.getPermissions(),
                 valueProp: 'name',
                 labelProp: 'name',
@@ -76,7 +77,7 @@ export class RoleComponent extends BaseEntityComponent {
                 column: { flexGrow: 3 },
               },
               expressionProperties: {
-                'templateOptions.disabled': (model: any, formState: any) => {
+                'props.disabled': (model: any, formState: any) => {
                   // access to the main model can be through `this.model` or `formState` or `model
                   return model.id;
                 },

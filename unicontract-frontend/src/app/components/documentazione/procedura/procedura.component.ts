@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-procedura',
-  templateUrl: './procedura.component.html',
-  styleUrls: ['./procedura.component.css']
+    selector: 'app-procedura',
+    templateUrl: './procedura.component.html',
+    styleUrls: ['./procedura.component.css'],
+    standalone: false
 })
 export class ProceduraComponent implements OnInit {
 

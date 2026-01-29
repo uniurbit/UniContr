@@ -6,9 +6,10 @@ import { InsegnamTools } from './../../../classes/insegnamTools';
 import { MessageService, BaseComponent } from './../../../shared';
 
 @Component({
-  selector: 'app-insegn-form',
-  templateUrl: './insegn-form.component.html',
-  styleUrls: ['./insegn-form.component.css']
+    selector: 'app-insegn-form',
+    templateUrl: './insegn-form.component.html',
+    styleUrls: ['./insegn-form.component.css'],
+    standalone: false
 })
 export class InsegnFormComponent extends BaseComponent {
   private insegnamentoCopy: Insegnamento;

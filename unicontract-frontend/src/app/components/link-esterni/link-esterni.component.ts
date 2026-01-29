@@ -5,13 +5,14 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { PDFDocumentProxy } from 'pdfjs-dist';
 import { PrecontrattualeService } from 'src/app/services/precontrattuale.service';
-import * as saveAs from 'file-saver';
+import { saveAs } from 'file-saver';
 
 
 @Component({
-  selector: 'app-link-esterni',
-  templateUrl: './link-esterni.component.html',
-  styleUrls: ['./link-esterni.component.css']
+    selector: 'app-link-esterni',
+    templateUrl: './link-esterni.component.html',
+    styleUrls: ['./link-esterni.component.css'],
+    standalone: false
 })
 export class LinkEsterniComponent implements OnInit {
 
@@ -86,7 +87,7 @@ export class LinkEsterniComponent implements OnInit {
 
   routePrecontrEditabile() {
     this.isLoading = true;
-    this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/precontr_editabile_7.pdf';
+    this.pdfSrc = location.origin + environment.baseHref + 'assets/documents/precontr_editabile_10.pdf';
   }
 
   routeCompilazione() {

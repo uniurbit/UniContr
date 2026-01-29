@@ -8,8 +8,9 @@ import { BaseResearchComponent } from 'src/app/shared';
 import { NotificaService } from 'src/app/shared/notifica.service';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: '../../shared/base-component/base-research.component.html',
+    selector: 'app-notifiche',
+    templateUrl: '../../shared/base-component/base-research.component.html',
+    standalone: false
 })
 
 // ng g c submission/components/user -s true --spec false -t true
@@ -25,7 +26,7 @@ export class NotificheComponent extends BaseResearchComponent {
       key: 'data',
       type: 'datatablelookup',
       wrappers: ['accordion'],
-      templateOptions: {
+      props: {
         label: 'Risultati utenti',
         columnMode: 'force',
         scrollbarH: false,

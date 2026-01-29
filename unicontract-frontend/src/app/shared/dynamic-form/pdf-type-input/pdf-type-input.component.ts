@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormlyFieldConfig, FieldType } from '@ngx-formly/core';
 import { encode, decode } from 'base64-arraybuffer';
 @Component({
-  selector: 'app-pdf-type-input',
-  template: `
+    selector: 'app-pdf-type-input',
+    template: `
   <formly-group 
     [field]="field">  
   </formly-group>     
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class PdfTypeInputComponent  extends FieldType implements OnInit {
 
@@ -23,7 +24,7 @@ export class PdfTypeInputComponent  extends FieldType implements OnInit {
     this.fileselection = this.field.fieldGroup.find(x=>x.key == this.to.filename || x.key =='filename');
     this.pdfviewer = this.field.fieldGroup.find(x=>x.key == this.to.filevalue || x.key =='filevalue');
 
-    this.fileselection.templateOptions['onSelected'] = (selFile) => this.onFileChanged(selFile);   
+    this.fileselection.props['onSelected'] = (selFile) => this.onFileChanged(selFile);   
   }
 
   onFileChanged(event) {        
@@ -58,22 +59,22 @@ export class PdfTypeInputComponent  extends FieldType implements OnInit {
     //field.fieldGroupClassName = 'row'
     field.fieldGroup = [
       {
-        key: field.templateOptions.filename || 'filename',
+        key: field.props.filename || 'filename',
         type: 'fileinput',
-        className: field.templateOptions.class ? field.templateOptions.class : "col-md-6",
-        templateOptions: {          
+        className: field.props.class ? field.props.class : "col-md-6",
+        props: {          
           type: 'input',
           placeholder: 'Scegli file tipo pdf',
           accept: 'application/pdf',         
-          required: field.templateOptions.required == undefined ? false : field.templateOptions.required,
+          required: field.props.required == undefined ? false : field.props.required,
         },
       },
       {
-        key: field.templateOptions.filevalue || 'filevalue',
+        key: field.props.filevalue || 'filevalue',
         type: 'pdfviewer',        //PdfTypeComponent
-        className: field.templateOptions.class ? field.templateOptions.class : "col-md-12",
-        templateOptions: {
-          required: field.templateOptions.required == undefined ? false : field.templateOptions.required,
+        className: field.props.class ? field.props.class : "col-md-12",
+        props: {
+          required: field.props.required == undefined ? false : field.props.required,
         },
       }
     ];

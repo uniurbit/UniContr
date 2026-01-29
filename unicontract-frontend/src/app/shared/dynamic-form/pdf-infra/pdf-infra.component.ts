@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'app-pdf-infra',
-  templateUrl: './pdf-infra.component.html',
-  styles: []
+    selector: 'app-pdf-infra',
+    templateUrl: './pdf-infra.component.html',
+    styles: [],
+    standalone: false
 })
 export class PdfInfraComponent implements OnInit {
 

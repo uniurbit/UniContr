@@ -8,9 +8,10 @@ import { D5FiscaliEsteroService } from './../../../services/d5fiscaliEstero.serv
 import { PrecontrattualeService } from 'src/app/services/precontrattuale.service';
 
 @Component({
-  selector: 'app-d5-fiscaliestero-details',
-  templateUrl: './d5-fiscaliestero-details.component.html',
-  styleUrls: ['./d5-fiscaliestero-details.component.css']
+    selector: 'app-d5-fiscaliestero-details',
+    templateUrl: './d5-fiscaliestero-details.component.html',
+    styleUrls: ['./d5-fiscaliestero-details.component.css'],
+    standalone: false
 })
 export class D5FiscaliesteroDetailsComponent extends BaseComponent {
 

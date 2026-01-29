@@ -4,7 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { ControlBase, TextboxControl, DropdownControl, DateControl, MessageService, ServiceQuery, ServiceEntity } from '../shared';
 import { ArrayControl } from '../shared/dynamic-form/control-array';
-import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig  } from '@ngx-formly/core';
 import { AppConstants } from '../app-constants';
 import { Cacheable } from 'ts-cacheable';
 import { BaseService } from '../shared/base-service/base.service';
@@ -26,7 +26,7 @@ export class MappingUfficioService extends BaseService {
             key: 'unitaorganizzativa_uo',
             type: 'string',
             hideExpression: false,
-            templateOptions: {
+            props: {
             label: 'Codice unità organizzativa',
             disabled: true,
             column: { width: 10, cellTemplate: 'valuecolumn'}
@@ -35,7 +35,7 @@ export class MappingUfficioService extends BaseService {
         {
             key: 'descrizione_uo',
             type: 'string',
-            templateOptions: {
+            props: {
             label: 'Descrizione unità organizzativa',
             required: true,
             column: { cellTemplate: 'valuecolumn'}
@@ -45,7 +45,7 @@ export class MappingUfficioService extends BaseService {
             key: 'strutturainterna_cod_uff',
             type: 'string',
             hideExpression: false,
-            templateOptions: {
+            props: {
             label: 'Codice struttura interna',
             disabled: true,
             column: { width: 10, cellTemplate: 'valuecolumn'}
@@ -54,7 +54,7 @@ export class MappingUfficioService extends BaseService {
         {
             key: 'descrizione_uff',
             type: 'string',
-            templateOptions: {
+            props: {
             label: 'Descrizione struttura interna',
             required: true,
             column: { cellTemplate: 'valuecolumn'}

@@ -2,7 +2,6 @@ import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 declare var $: any;
 
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { AuthService } from 'src/app/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -11,12 +10,13 @@ import { environment } from 'src/environments/environment';
 import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
-  selector: 'app-full-layout',
-  templateUrl: './full.component.html',
-  styleUrls: ['./full.component.scss']
+    selector: 'app-full-layout',
+    templateUrl: './full.component.html',
+    styleUrls: ['./full.component.scss'],
+    standalone: false
 })
 export class FullComponent implements OnInit, OnDestroy {
-  public config: PerfectScrollbarConfigInterface = {};
+
   onDestroy$ = new Subject<void>();
 
   constructor(private authService: AuthService, public router: Router, public settingService: SettingsService) {
@@ -153,3 +153,4 @@ export class FullComponent implements OnInit, OnDestroy {
     return !environment.production
   }
 }
+

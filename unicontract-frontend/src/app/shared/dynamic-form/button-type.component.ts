@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 
 @Component({
-  selector: 'formly-field-button',
-  template: `
+    selector: 'formly-field-button',
+    template: `
     <div>
       <button [type]="to.type" title="{{to.title}}" [ngClass]="'btn btn-' + to.btnType" [disabled]="to.disabled" (click)="onClick($event)">
         <span *ngIf="to.icon" class="{{to.icon}}"></span>  
@@ -11,6 +11,7 @@ import { FieldType } from '@ngx-formly/core';
       </button>
     </div>
   `,
+    standalone: false
 })
 export class FormlyFieldButton extends FieldType {
   onClick($event) {

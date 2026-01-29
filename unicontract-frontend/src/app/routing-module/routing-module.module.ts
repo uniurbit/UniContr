@@ -87,6 +87,7 @@ import { LogAttivitaComponent } from '../components/user/logattivita.component';
 import { NotificheComponent } from '../components/user/notifiche.component';
 import { NotificaComponent } from '../components/user/notifica.component';
 import { WrapperNotificheComponent } from '../components/wrapper-notifiche/wrapper-notifiche.component';
+import { EnableLocalStorageComponent } from '../enable-local-storage/enable-local-storage.component';
 
 
 const externalLoginUrlProvider = new InjectionToken('externalUrlRedirectResolver');
@@ -973,6 +974,7 @@ const routes: Routes = [
 
     ]
   },
+  { path: 'enable-local-storage', component: EnableLocalStorageComponent },
   { path: 'error', component: SystemErrorComponent },
   {
     path: '**',

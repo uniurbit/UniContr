@@ -15,9 +15,10 @@ import { NgbStringAdapter } from 'src/app/NgbStringAdapter';
 
 
 @Component({
-  selector: 'app-b1-conflitto',
-  templateUrl: './b1-conflitto.component.html',
-  styleUrls: ['./b1-conflitto.component.css']
+    selector: 'app-b1-conflitto',
+    templateUrl: './b1-conflitto.component.html',
+    styleUrls: ['./b1-conflitto.component.css'],
+    standalone: false
 })
 
 export class B1ConflittoComponent extends BaseComponent {
@@ -45,7 +46,7 @@ export class B1ConflittoComponent extends BaseComponent {
               key: 'ente',
               type: 'input',
               className: 'col-md-4',
-              templateOptions: {
+              props: {
                 required: true,
                 label: 'Ente',
                 maxLength: 190,
@@ -56,7 +57,7 @@ export class B1ConflittoComponent extends BaseComponent {
               key: 'carica',
               type: 'input',
               className: 'col-md-4',
-              templateOptions: {
+              props: {
                 required: true,
                 label: 'Tipologia carica',
                 maxLength: 190,
@@ -67,7 +68,7 @@ export class B1ConflittoComponent extends BaseComponent {
               key: 'oggetto',
               type: 'input',
               className: 'col-md-4',
-              templateOptions: {
+              props: {
                 required: true,
                 label: 'Oggetto',
                 maxLength: 250,
@@ -85,7 +86,7 @@ export class B1ConflittoComponent extends BaseComponent {
               key: 'dal_giorno',
               type: 'date',
               className: 'col-md-4',
-              templateOptions: {
+              props: {
                 required: true,
                 label: 'Dal giorno',
               },
@@ -97,7 +98,7 @@ export class B1ConflittoComponent extends BaseComponent {
                     tap(val => {      
                       if (field.formControl.valid){                     
                         let al_giorno = field.parent.fieldGroup.find(x => x.key == 'al_giorno');                        
-                        al_giorno.templateOptions.datepickerOptions.minDate = this.adapter.fromModel(val);     
+                        al_giorno.props.datepickerOptions.minDate = this.adapter.fromModel(val);     
                         this.cdr.detectChanges();
                         //console.warn(field,field.formControl.valid, val)
                       }                                       
@@ -112,7 +113,7 @@ export class B1ConflittoComponent extends BaseComponent {
               key: 'al_giorno',
               type: 'date',
               className: 'col-md-4',
-              templateOptions: {
+              props: {
                 required: true,
                 label: 'Al giorno',
               },
@@ -121,7 +122,7 @@ export class B1ConflittoComponent extends BaseComponent {
               key: 'compenso',
               type: 'maskcurrency',
               className: 'col-md-4',
-              templateOptions: {
+              props: {
                 required: true,
                 label: 'Compenso lordo annuo',
               },
@@ -141,7 +142,7 @@ export class B1ConflittoComponent extends BaseComponent {
           key: 'ente',
           type: 'input',
           className: 'col-md-4',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Ente',
           },
@@ -151,7 +152,7 @@ export class B1ConflittoComponent extends BaseComponent {
           key: 'incarico',
           type: 'input',
           className: 'col-md-4',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Tipologia incarico',
           },
@@ -161,7 +162,7 @@ export class B1ConflittoComponent extends BaseComponent {
           key: 'oggetto',
           type: 'input',
           className: 'col-md-4',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Oggetto',
             maxLength: 250,
@@ -179,7 +180,7 @@ export class B1ConflittoComponent extends BaseComponent {
           key: 'dal_giorno',
           type: 'date',
           className: 'col-md-4',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Dal giorno',
           },
@@ -191,7 +192,7 @@ export class B1ConflittoComponent extends BaseComponent {
                 tap(val => {      
                   if (field.formControl.valid){                     
                     let al_giorno = field.parent.fieldGroup.find(x => x.key == 'al_giorno');                        
-                    al_giorno.templateOptions.datepickerOptions.minDate = this.adapter.fromModel(val);     
+                    al_giorno.props.datepickerOptions.minDate = this.adapter.fromModel(val);     
                     this.cdr.detectChanges();
                     //console.warn(field,field.formControl.valid, val)
                   }                                       
@@ -205,7 +206,7 @@ export class B1ConflittoComponent extends BaseComponent {
           key: 'al_giorno',
           type: 'date',
           className: 'col-md-4',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Al giorno',
           },
@@ -215,7 +216,7 @@ export class B1ConflittoComponent extends BaseComponent {
           key: 'compenso',
           type: 'maskcurrency',
           className: 'col-md-4',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Compenso lordo annuo',
           },
@@ -232,13 +233,13 @@ export class B1ConflittoComponent extends BaseComponent {
         {
           type: 'template',
           className: 'mb-1',
-          templateOptions: {
+          props: {
             // tslint:disable-next-line:max-line-length
             // "<div class='text'>{{ 'b1_txt1' | translate }} {{ tools.naturaRapporto(items.natura_rapporto) | titlecase }} {{ 'b1_txt2' | translate }}</div>"
             template: ''
           },
           expressionProperties: {
-            'templateOptions.template': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.template': (model: any, formState: any, field: FormlyFieldConfig) => {
               // tslint:disable-next-line:max-line-length
               return `<div>${this.translateService.instant('b1_txt1')} ${this.tools.naturaRapporto(model.natura_rapporto)} ${this.translateService.instant('b1_txt2')}</div>`;
             }
@@ -248,7 +249,7 @@ export class B1ConflittoComponent extends BaseComponent {
         {
           type: 'template',
           className: 'mb-2',
-          templateOptions: {
+          props: {
             template: this.translateService.instant('b1_txt3'),
           }
         },
@@ -257,7 +258,7 @@ export class B1ConflittoComponent extends BaseComponent {
           key: 'flag_controll',
           type: 'checkbox',
           defaultValue: false,
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b1_txt4',
           },
@@ -267,7 +268,7 @@ export class B1ConflittoComponent extends BaseComponent {
           key: 'flag_quota',
           type: 'checkbox',
           defaultValue: false,
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b1_txt5',
           },
@@ -277,7 +278,7 @@ export class B1ConflittoComponent extends BaseComponent {
           key: 'flag_rappext',
           type: 'checkbox',
           defaultValue: false,
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b1_txt6',
           },
@@ -287,7 +288,7 @@ export class B1ConflittoComponent extends BaseComponent {
           key: 'flag_contrast',
           type: 'checkbox',
           defaultValue: false,
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b1_txt7',
           },
@@ -301,7 +302,7 @@ export class B1ConflittoComponent extends BaseComponent {
         {
           type: 'template',
           className: 'mb-2',
-          templateOptions: {
+          props: {
             template: this.translateService.instant('b1_txt8'),
           },
         },
@@ -311,7 +312,7 @@ export class B1ConflittoComponent extends BaseComponent {
           key: 'flag_cariche',
           type: 'checkbox',
           defaultValue: false,
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b1_txt9',
           },
@@ -328,7 +329,7 @@ export class B1ConflittoComponent extends BaseComponent {
               validation: {
                 show: true
               },
-              templateOptions: {
+              props: {
                 label: 'Elenco cariche',
                 min: 1,
                 max: 10,
@@ -366,7 +367,7 @@ export class B1ConflittoComponent extends BaseComponent {
           key: 'flag_incarichi',
           type: 'checkbox',
           defaultValue: false,
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b1_txt10',
           },
@@ -383,7 +384,7 @@ export class B1ConflittoComponent extends BaseComponent {
               validation: {
                 show: true
               },
-              templateOptions: {
+              props: {
                 label: 'Elenco incarichi',
                 min: 1,
                 max: 10,
@@ -421,7 +422,7 @@ export class B1ConflittoComponent extends BaseComponent {
           key: 'flag_attivita',
           type: 'checkbox',
           defaultValue: false,
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b1_txt11',
           },
@@ -435,7 +436,7 @@ export class B1ConflittoComponent extends BaseComponent {
               key: 'descr_attivita',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 required: true,
                 label: 'Attività professionale',
                 maxLength: 190

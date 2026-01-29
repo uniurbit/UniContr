@@ -1,11 +1,8 @@
 import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import {
-  NgbModal,
-  ModalDismissReasons,
-  NgbPanelChangeEvent,
-  NgbCarouselConfig
+  NgbModal
 } from '@ng-bootstrap/ng-bootstrap';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/core';
@@ -14,13 +11,12 @@ import { AppConstants } from 'src/app/app-constants';
 declare var $: any;
 
 @Component({
-  selector: 'app-navigation',
-  templateUrl: './navigation.component.html'
+    selector: 'app-navigation',
+    templateUrl: './navigation.component.html',
+    standalone: false
 })
 export class NavigationComponent implements AfterViewInit {
   @Output() toggleSidebar = new EventEmitter<void>();
-
-  public config: PerfectScrollbarConfigInterface = {};
 
   public showSearch = false;
 
@@ -68,3 +64,4 @@ export class NavigationComponent implements AfterViewInit {
     return AppConstants.documentationURL;
   }
 }
+

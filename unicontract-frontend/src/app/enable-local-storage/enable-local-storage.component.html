@@ -1,0 +1,6 @@
+<div *ngIf="!localStorageAvailable" class="alert">
+    <h2>⚠️ Errore memorizzazione dati locali</h2>
+    <p>Le impostazioni del tuo browser impediscono a questo sito di utilizzare la memorizzazione locale.</p>  
+    <p>Dopo aver risolto il problema, <strong>clicca "Riprova"</strong> per continuare.</p>
+    <button (click)="retry()">🔄 Riprova</button>
+</div>

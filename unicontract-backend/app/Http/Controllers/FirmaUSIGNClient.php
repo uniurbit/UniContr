@@ -141,7 +141,7 @@ class FirmaUSIGNClient
         $query = Arr::query($payload);
 
         //'file' è obbligatorio
-        $request = $this->getHttpClient()->attach('file', $fileContent, 'Contratto.pdf');
+        $request = $this->getHttpClient()->timeout(90)->attach('file', $fileContent, 'Contratto.pdf');
 
         $response = $request->post($this->baseUrl . 'api/public/upload/'.$token.'?'.$query);
 

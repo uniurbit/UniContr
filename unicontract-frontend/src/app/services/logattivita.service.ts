@@ -5,7 +5,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { ControlBase, TextboxControl, DropdownControl, DateControl, MessageService, ServiceQuery, ServiceEntity, IQueryMetadata } from '../shared';
 import { ArrayControl } from '../shared/dynamic-form/control-array';
-import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 import { AppConstants } from '../app-constants';
 import { Cacheable } from 'ts-cacheable';
 import { BaseService } from '../shared/base-service/base.service';
@@ -26,7 +26,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
         key: 'subject',
         type: 'string',
         hideExpression: false,
-        templateOptions: {
+        props: {
           label: 'Oggetto',
           disabled: true,
           column: { width: 30, cellTemplate: 'valuecolumn' }
@@ -35,7 +35,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
       {
         key: 'url',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Url',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -44,7 +44,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
       {
         key: 'method',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Metodo',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -53,7 +53,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
       {
         key: 'ip',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'IP',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -62,7 +62,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
       {
         key: 'agent',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Agent',
           required: true,
           column: { width: 200, cellTemplate: 'valuecolumn' }
@@ -71,7 +71,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
       {
         key: 'request',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Richiesta',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -81,7 +81,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
         key: 'user_id',
         type: 'external',
         wrappers: [],
-        templateOptions: {
+        props: {
           label: 'Codice utente',
           type: 'string',
           entityName: 'user',
@@ -94,7 +94,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
       {
         key: 'created_at',
         type: 'date',
-        templateOptions: {
+        props: {
           label: 'Data operazione',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -108,7 +108,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
       key: 'subject',
       type: 'string',
       hideExpression: false,
-      templateOptions: {
+      props: {
         label: 'Oggetto',
         disabled: true,
         column: { width: 30, cellTemplate: 'valuecolumn' }
@@ -117,7 +117,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
     {
       key: 'url',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Url',
         required: true,
         column: { cellTemplate: 'valuecolumn' }
@@ -126,7 +126,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
     {
       key: 'method',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Metodo',
         required: true,
         column: {  width: 30, cellTemplate: 'valuecolumn' }
@@ -135,7 +135,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
     {
       key: 'ip',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'IP',
         required: true,
         column: { cellTemplate: 'valuecolumn' }
@@ -144,7 +144,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
     {
       key: 'agent',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Agent',
         required: true,
         column: { width: 300, cellTemplate: 'valuecolumn' }
@@ -153,7 +153,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
     {
       key: 'request',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Richiesta',
         required: true,
         column: { width: 300, cellTemplate: 'valuecolumn' }
@@ -162,7 +162,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
     {
       key: 'user_id',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Codice utente',
         required: true,
         column: { width: 30, cellTemplate: 'valuecolumn' }
@@ -171,7 +171,7 @@ export class LogAttivitaService extends BaseService implements IQueryMetadata{
     {
       key: 'created_at',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Data operazione',
         required: true,
         column: { cellTemplate: 'valuecolumn' }

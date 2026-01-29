@@ -289,7 +289,7 @@ class PrecontrattualePerGenerazione extends Precontrattuale {
             $email = $this->sendemails->sortByDesc('created_at')->first();
             $datetime1 =  $email->created_at;
             $datetime2 = Carbon::now();
-            $diff_in_days  = $datetime1->diffInDays($datetime2);
+            $diff_in_days  = (int) $datetime1->diffInDays($datetime2, true);
             return $diff_in_days;         
         }else{
             return -1;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFieldProps } from '@ngx-formly/core';
 import { FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from 'src/app/shared/lookup/page';
@@ -9,8 +9,9 @@ import { MappingUfficioService } from 'src/app/services/mappingufficio.service';
 
 
 @Component({
-  selector: 'app-mappinguffici', 
-  templateUrl: '../../shared/base-component/base-research.component.html',
+    selector: 'app-mappinguffici',
+    templateUrl: '../../shared/base-component/base-research.component.html',
+    standalone: false
 })
 
 //ng g c application/pages/mappinguffici -s true --spec false -t true
@@ -23,7 +24,7 @@ export class MappingUfficiTitulus extends BaseResearchComponent {
             key: 'unitaorganizzativa_uo',
             type: 'string',
             hideExpression: false,
-            templateOptions: {
+            props: {
               label: 'Codice unità organizzativa',
               disabled: true,
               column: { width: 10, cellTemplate: 'valuecolumn'}
@@ -32,7 +33,7 @@ export class MappingUfficiTitulus extends BaseResearchComponent {
           {
             key: 'descrizione_uo',
             type: 'string',
-            templateOptions: {
+            props: {
               label: 'Descrizione unità organizzativa',
               required: true,
               column: { cellTemplate: 'valuecolumn'}
@@ -42,7 +43,7 @@ export class MappingUfficiTitulus extends BaseResearchComponent {
             key: 'strutturainterna_cod_uff',
             type: 'string',
             hideExpression: false,
-            templateOptions: {
+            props: {
               label: 'Codice struttura interna',
               disabled: true,
               column: { width: 10, cellTemplate: 'valuecolumn'}
@@ -51,7 +52,7 @@ export class MappingUfficiTitulus extends BaseResearchComponent {
           {
             key: 'descrizione_uff',
             type: 'string',
-            templateOptions: {
+            props: {
               label: 'Descrizione struttura interna',
               required: true,
               column: { cellTemplate: 'valuecolumn'}
@@ -64,7 +65,7 @@ export class MappingUfficiTitulus extends BaseResearchComponent {
     key: 'data',
     type: 'datatablelookup',
     wrappers: ['accordion'],      
-    templateOptions: {      
+    props: {      
       label: 'Associazioni strutture',   
       columnMode: 'force',
       scrollbarH: false,        
@@ -79,7 +80,7 @@ export class MappingUfficiTitulus extends BaseResearchComponent {
     }
   }];
 
-  builderoptions: FormlyTemplateOptions = {
+  builderoptions:  FormlyFieldProps = {
     min: 0
   }
 

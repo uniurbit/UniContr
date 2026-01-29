@@ -9,7 +9,6 @@ use File as FileHelper;
 use Storage;
 use Symfony\Component\HttpFoundation\File\File as FileObj;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Emadadly\LaravelUuid\Uuids;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use App\User;
@@ -22,8 +21,6 @@ use Illuminate\Support\Facades\Log;
 class Attachment extends Model
 
 {
-    use Uuids;
-
     /**
      * @property int    id
      * @property string uuid
@@ -168,7 +165,15 @@ class Attachment extends Model
             if (!Storage::exists($directory)) {
                 try{
                     // Create the directory with recursive flag set to true
-                    Storage::makeDirectory($directory, 0775, true);
+                    Storage::disk($disk)->makeDirectory($directory, 0775, true);
+                    $fullPath = Storage::disk($disk)->path($directory);
+                    if (PHP_OS_FAMILY !== 'Windows' && file_exists($fullPath)) {
+                        try {
+                            chmod($fullPath, 02775);
+                        } catch (\Throwable $e) {
+                            Log::warning("Failed to chmod $fullPath: " . $e->getMessage());
+                        }
+                    }
                 }catch (Exception $e) {
                     Log::error($e);
                 }   
@@ -216,7 +221,15 @@ class Attachment extends Model
             if (!Storage::exists($directory)) {
                 try{
                     // Create the directory with recursive flag set to true
-                    Storage::makeDirectory($directory, 0775, true);
+                    Storage::disk($disk)->makeDirectory($directory, 0775, true);
+                    $fullPath = Storage::disk($disk)->path($directory);
+                    if (PHP_OS_FAMILY !== 'Windows' && file_exists($fullPath)) {
+                        try {
+                            chmod($fullPath, 02775);
+                        } catch (\Throwable $e) {
+                            Log::warning("Failed to chmod $fullPath: " . $e->getMessage());
+                        }
+                    }
                 }catch (Exception $e) {
                     Log::error($e);
                 }   
@@ -390,3 +403,7 @@ class Attachment extends Model
 
 
 }
+
+
+
+

@@ -11,10 +11,11 @@ import { PrecontrattualeService } from 'src/app/services/precontrattuale.service
 import { CPrestazProfessInterface } from 'src/app/interface/cPrestazProfessionale.interface';
 
 @Component({
-  selector: 'app-c-prestaz-profess-details',
-  templateUrl: './c-prestaz-profess-details.component.html',
-  styleUrls: ['./c-prestaz-profess-details.component.css'],
-  providers: [DatePipe]
+    selector: 'app-c-prestaz-profess-details',
+    templateUrl: './c-prestaz-profess-details.component.html',
+    styleUrls: ['./c-prestaz-profess-details.component.css'],
+    providers: [DatePipe],
+    standalone: false
 })
 
 export class CPrestazProfessDetailsComponent extends BaseComponent {

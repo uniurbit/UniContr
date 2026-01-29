@@ -5,8 +5,8 @@ import { ToastService } from '../toast-service';
 
 
 @Component({
-  selector: 'app-toasts',
-  template: `  
+    selector: 'app-toasts',
+    template: `  
     <ngb-toast 
       *ngFor="let toast of toastService.toasts"
       [header]="'Notifica'"
@@ -22,8 +22,9 @@ import { ToastService } from '../toast-service';
       <ng-template #text>{{ toast.textOrTpl }}</ng-template>
     </ngb-toast>
   `,
-  //styles: ['./toasts-container.component.scss'],
-  host: {'[class.ngb-toasts]': 'true'}
+    //styles: ['./toasts-container.component.scss'],
+    host: { '[class.ngb-toasts]': 'true' },
+    standalone: false
 })
 export class ToastsContainer {
   constructor(public toastService: ToastService) {}

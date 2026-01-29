@@ -8,9 +8,10 @@ import { Page } from './page';
 import { getLocaleExtraDayPeriodRules } from '@angular/common';
 
 @Component({
-  selector: 'app-lookup',
-  templateUrl: './lookup.component.html',
-  styles: []
+    selector: 'app-lookup',
+    templateUrl: './lookup.component.html',
+    styles: [],
+    standalone: false
 })
 
 // ng g c shared/lookup -s true  --spec false
@@ -50,7 +51,7 @@ export class LookupComponent implements OnInit {
           key: 'data',
           type: 'datatablelookup',
           wrappers: ['accordion'],      
-          templateOptions: {
+          props: {
             label: this.entityLabel,   
             columnMode: 'force',
             scrollbarH: true,                
@@ -68,7 +69,7 @@ export class LookupComponent implements OnInit {
         }
       ];
 
-    this.selected = this.resultMetadata[0].templateOptions.selected;
+    this.selected = this.resultMetadata[0].props.selected;
     
   }
 
@@ -79,8 +80,8 @@ export class LookupComponent implements OnInit {
   }  
 
   close(){
-    if (this.resultMetadata[0].templateOptions.selected.length>0)
-      this.activeModal.close(this.resultMetadata[0].templateOptions.selected[0]);
+    if (this.resultMetadata[0].props.selected.length>0)
+      this.activeModal.close(this.resultMetadata[0].props.selected[0]);
   }
 
   onDblclickRow(event) {    
@@ -101,7 +102,7 @@ export class LookupComponent implements OnInit {
     this.isLoading = true;        
     try{
     this.service.query(this.querymodel).subscribe((data) => {
-      const to = this.resultMetadata[0].templateOptions;
+      const to = this.resultMetadata[0].props;
       this.isLoading = false;   
       this.model = {
         data: data.data
@@ -136,7 +137,7 @@ export class LookupComponent implements OnInit {
   }
 
   reset(){
-    const to = this.resultMetadata[0].templateOptions;
+    const to = this.resultMetadata[0].props;
     this.model = {
       data: new Array<any>()
     }

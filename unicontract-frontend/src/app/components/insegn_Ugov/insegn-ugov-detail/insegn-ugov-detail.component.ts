@@ -27,9 +27,10 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { Page } from 'src/app/shared/lookup/page';
 
 @Component({
-  selector: 'app-insegn-ugov-detail',
-  templateUrl: './insegn-ugov-detail.component.html',
-  styles: []
+    selector: 'app-insegn-ugov-detail',
+    templateUrl: './insegn-ugov-detail.component.html',
+    styles: [],
+    standalone: false
 })
 
 export class InsegnUgovDetailComponent extends BaseComponent {
@@ -103,7 +104,7 @@ export class InsegnUgovDetailComponent extends BaseComponent {
             key: 'contratti_precedenti',
             type: 'datatablelookup',
             wrappers: ['form-field'],
-            templateOptions: {
+            props: {
               label: 'Seleziona la precontrattuale di riferimento per il rinnovo',
               columnMode: 'force',
               scrollbarH: true,
@@ -142,6 +143,8 @@ export class InsegnUgovDetailComponent extends BaseComponent {
                 { name: 'CFU', prop: 'insegnamento.cfu', width: 50, sortable: false },
                 { name: 'Ore', prop: 'insegnamento.ore', width: 50, sortable: false },
                 { name: 'Tipo atto', prop: 'insegnamento.tipo_atto', width: 70, sortable: false },
+                { name: 'Partizione', prop: 'insegnamento.part_stud_des', minWidth: 150, maxWidth: 250, sortable: false },
+                { name: 'Codice attività formativa', prop: 'insegnamento.cod_insegnamento', minWidth: 150, maxWidth: 250, sortable: false },            
                 { name: 'Numero', prop: 'insegnamento.num_delibera', width: 100, sortable: false },
                 { name: 'Sorgente per', prop: 'sorgente_rinnovo_per_id', minWidth: 5, sortable: false },
                 { name: 'Rinnovato da', prop: 'id_sorgente_rinnovo', minWidth: 5, sortable: false },
@@ -155,7 +158,7 @@ export class InsegnUgovDetailComponent extends BaseComponent {
               onInit: (field: FormlyFieldConfig) => {
                 const notReferredRows = field.model.filter(row => row.is_not_referred);
                 if (notReferredRows.length === 1) {
-                  field.templateOptions.selected = [notReferredRows[0]];
+                  field.props.selected = [notReferredRows[0]];
                   field.form.get('id_sorgente_rinnovo').setValue((notReferredRows[0]?.id) || null);
                   field.formControl.markAllAsTouched();
                   field.formControl.updateValueAndValidity();
@@ -170,7 +173,7 @@ export class InsegnUgovDetailComponent extends BaseComponent {
               atleastone: {
                 expression: (control, field: FormlyFieldConfig) => {
                   const hasNotReferred = (field.model || []).some(row => row.is_not_referred);
-                  const selectedLength = field.templateOptions.selected.length;
+                  const selectedLength = field.props.selected.length;
                   if (!!field.parent.parent.model.flag_non_trovato){
                     return true;
                   }
@@ -189,7 +192,7 @@ export class InsegnUgovDetailComponent extends BaseComponent {
             type: 'checkbox',
             key: 'flag_non_trovato',
             defaultValue: false,
-            templateOptions: {
+            props: {
               label: 'Precontrattuale sorgente del rinnovo non in elenco',
               formCheck: 'switch',
            
@@ -200,7 +203,7 @@ export class InsegnUgovDetailComponent extends BaseComponent {
               //return contrattiPrecedenti.some(row => row.is_not_referred);
             },
             expressionProperties: {
-              'templateOptions.disabled': (model) => {
+              'props.disabled': (model) => {
                 const contrattiPrecedenti = model.contratti_precedenti || [];
                 return contrattiPrecedenti.some(row => row.is_not_referred) == 0;
               },
@@ -215,7 +218,7 @@ export class InsegnUgovDetailComponent extends BaseComponent {
               //       key: 'select_id_sorgente_rinnovo',
               //       className: "col-md-12",
               //       type: 'external',
-              //       templateOptions: {
+              //       props: {
               //         label: 'Selezionare precontrattuale di rinnovo',
               //         type: 'string',
               //         entityName: 'precontrattuale',
@@ -235,7 +238,7 @@ export class InsegnUgovDetailComponent extends BaseComponent {
               //       },
               //       hooks: {
               //         onInit: (field: FormlyFieldConfig) => {
-              //           field.templateOptions.rules = [
+              //           field.props.rules = [
               //             { value: (+this.item.aa_off_id) - 1, field: 'insegnamento.aa', operator: '=', fixcondition: true },
               //             { value: this.item.id_ab, field: 'user.v_ie_ru_personale_id_ab', operator: '=', fixcondition: true }
               //           ]
@@ -248,7 +251,7 @@ export class InsegnUgovDetailComponent extends BaseComponent {
                 key: 'motivazione_sorgente_rinnovo',
                 type: 'textarea',
                 className: 'col-md-12',
-                templateOptions: {
+                props: {
                   required: true,
                   label: 'Giustificativo',
                   rows: 3,

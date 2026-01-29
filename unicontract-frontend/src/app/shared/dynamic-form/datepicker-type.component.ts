@@ -3,9 +3,9 @@ import { FieldType, FormlyFieldConfig } from '@ngx-formly/core';
 import { DatePipe } from '@angular/common';
 // placeholder="dd-mm-yyyy"      
 @Component({
-  selector: 'app-datapicker-type',
-  providers: [DatePipe],
-  template: `
+    selector: 'app-datapicker-type',
+    providers: [DatePipe],
+    template: `
   <!--Datapicker container='body'-->
   <div class="input-group">    
     <input class="form-control" 
@@ -31,7 +31,8 @@ import { DatePipe } from '@angular/common';
 
   </div>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 // [ngClass]="{'is-invalid': showError )}"
 //formControl.invalid && (formControl.dirty || formControl.touched || field?.validation?.show
@@ -55,10 +56,10 @@ export class DatepickerTypeComponent extends FieldType {
   }
 
   onPopulate(field: FormlyFieldConfig) {
-    if (!field.templateOptions) {
+    if (!field.props) {
       return;
     }
-    field.templateOptions.pattern = /^(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}$/;
+    field.props.pattern = /^(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}$/;
   }
 
 }

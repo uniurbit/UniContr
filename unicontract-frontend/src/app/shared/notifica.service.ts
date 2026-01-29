@@ -27,7 +27,7 @@ export class NotificaService extends BaseService {
         key: 'id',
         type: 'number',
         hideExpression: false,
-        templateOptions: {
+        props: {
           label: 'Id',
           disabled: true,      
         }
@@ -35,7 +35,7 @@ export class NotificaService extends BaseService {
       {
         key: 'messaggio',
         type: 'input',
-        templateOptions: {
+        props: {
           label: 'Messaggio',
           required: true,
         }

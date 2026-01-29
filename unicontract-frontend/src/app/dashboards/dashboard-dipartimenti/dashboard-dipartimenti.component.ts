@@ -4,9 +4,10 @@ import { MyDiffdatePipe } from 'src/app/shared/pipe/custom.diffdatepipe';
 import { AuthService } from 'src/app/core';
 
 @Component({
-  selector: 'app-dashboard-dipartimenti',
-  templateUrl: './dashboard-dipartimenti.component.html',
-  styleUrls: ['./dashboard-dipartimenti.component.css']
+    selector: 'app-dashboard-dipartimenti',
+    templateUrl: './dashboard-dipartimenti.component.html',
+    styleUrls: ['./dashboard-dipartimenti.component.css'],
+    standalone: false
 })
 
 export class DashboardDipartimentiComponent implements OnInit {

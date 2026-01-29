@@ -25,7 +25,7 @@ export class PermissionService extends BaseService {
         key: 'id',
         type: 'number',
         hideExpression: false,
-        templateOptions: {
+        props: {
           label: 'Id',
           disabled: true,
           column: { width: 10, cellTemplate: 'valuecolumn' }
@@ -34,7 +34,7 @@ export class PermissionService extends BaseService {
       {
         key: 'name',
         type: 'select',
-        templateOptions: {
+        props: {
           label: 'Ruolo',
           required: true,
           column: { cellTemplate: 'valuecolumn' }
@@ -43,7 +43,7 @@ export class PermissionService extends BaseService {
       {
         key: 'guard_name',
         type: 'string',
-        templateOptions: {
+        props: {
           label: 'Nome',
           required: true,
           column: { cellTemplate: 'valuecolumn' }

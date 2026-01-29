@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../dashboard.service';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
 import { tap, map } from 'rxjs/operators';
 import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
@@ -8,12 +8,12 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../notification.service';
 @Component({
-  selector: 'app-notifications',
-  templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.css']
+    selector: 'app-notifications',
+    templateUrl: './notifications.component.html',
+    styleUrls: ['./notifications.component.css'],
+    standalone: false
 })
 export class NotificationsComponent implements OnInit{
-  public config: PerfectScrollbarConfigInterface = {};  
 
   isLoading: boolean = false;
   model: any;
@@ -28,7 +28,7 @@ export class NotificationsComponent implements OnInit{
     {
       key: 'subject',
       type: 'input',
-      templateOptions: {
+      props: {
         label: 'Oggetto',        
         disabled: true,        
       },
@@ -36,7 +36,7 @@ export class NotificationsComponent implements OnInit{
     {
       key: 'description',
       type: 'textarea',
-      templateOptions: {
+      props: {
         label: 'Contenuto',
         disabled: true,  
         rows: 5,      
@@ -117,3 +117,4 @@ export class NotificationsComponent implements OnInit{
   
   
 }
+

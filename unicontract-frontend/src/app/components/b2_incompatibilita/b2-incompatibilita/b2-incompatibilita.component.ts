@@ -11,9 +11,10 @@ import { B2IncompatibilitaInterface } from './../../../interface/b2incompatibili
 
 
 @Component({
-  selector: 'app-b2-incompatibilita',
-  templateUrl: './b2-incompatibilita.component.html',
-  styleUrls: ['./b2-incompatibilita.component.css']
+    selector: 'app-b2-incompatibilita',
+    templateUrl: './b2-incompatibilita.component.html',
+    styleUrls: ['./b2-incompatibilita.component.css'],
+    standalone: false
 })
 
 export class B2IncompatibilitaComponent extends BaseComponent {

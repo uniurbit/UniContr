@@ -51,13 +51,11 @@ export class CoreSevice {
    * 
    * @param from: int anno di inizio 
    * @returns array [
-          {value: '2016', label: '2016 / 2017'},
-          {value: '2017', label: '2017 / 2018'},
-          {value: '2018', label: '2018 / 2019'},
-          {value: '2019', label: '2019 / 2020'},
-          {value: '2020', label: '2020 / 2021'},
-          {value: '2021', label: '2021 / 2022'},
-        ]
+      { value: '2025', label: '2025 / 2026' },
+      { value: '2024', label: '2024 / 2025' },
+      ...
+      { value: '2016', label: '2016 / 2017' }
+    ]
    */
   getAnniAccademici(from = 2016): Observable<any[]> {
       const years = [];
@@ -65,7 +63,7 @@ export class CoreSevice {
       for (let index = 0; index <= currentYear - from; index++) {
           years.push({value: (from + index).toString(), label: `${from + index} / ${from + index + 1}`});
       }
-      return of (years);
+      return of(years.reverse());
   }
 }
 

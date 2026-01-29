@@ -3,8 +3,6 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
@@ -20,7 +18,7 @@ import { DashboardUffDocentiComponent } from './dashboard-uff-docenti/dashboard-
 import { DashboardUffTrattamentiComponent } from './dashboard-uff-trattamenti/dashboard-uff-trattamenti.component';
 import { ConvenzioniresultComponent } from './dashboard-components/contrattiresult/contrattiresult.component';
 import { DashboardDipartimentiComponent } from './dashboard-dipartimenti/dashboard-dipartimenti.component';
-import { NgxLoadingModule } from 'ngx-loading';
+
 
 
 @NgModule({
@@ -29,9 +27,7 @@ import { NgxLoadingModule } from 'ngx-loading';
     ReactiveFormsModule,
     CommonModule,
     NgbModule,
-    NgxLoadingModule.forRoot({}),
-    RouterModule.forChild(DashboardRoutes),
-    PerfectScrollbarModule,
+    RouterModule.forChild(DashboardRoutes),    
     NgxDatatableModule,
     SharedModule.forRoot(),
   ],
@@ -51,3 +47,4 @@ import { NgxLoadingModule } from 'ngx-loading';
   ]
 })
 export class DashboardModule {}
+

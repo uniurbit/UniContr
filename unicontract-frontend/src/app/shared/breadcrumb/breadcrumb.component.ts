@@ -5,8 +5,9 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 import { BreadcrumbService } from 'src/app/services/breadcrumb.service';
 
 @Component({
-  selector: 'app-breadcrumb',
-  templateUrl: './breadcrumb.component.html'
+    selector: 'app-breadcrumb',
+    templateUrl: './breadcrumb.component.html',
+    standalone: false
 })
 export class BreadcrumbComponent implements OnInit {
   @Input() layout;

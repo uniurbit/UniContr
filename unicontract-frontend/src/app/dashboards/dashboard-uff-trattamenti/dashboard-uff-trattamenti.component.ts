@@ -5,9 +5,10 @@ import { tap, map } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard-uff-trattamenti',
-  templateUrl: './dashboard-uff-trattamenti.component.html',
-  styleUrls: ['./dashboard-uff-trattamenti.component.css']
+    selector: 'app-dashboard-uff-trattamenti',
+    templateUrl: './dashboard-uff-trattamenti.component.html',
+    styleUrls: ['./dashboard-uff-trattamenti.component.css'],
+    standalone: false
 })
 export class DashboardUffTrattamentiComponent implements OnInit, AfterViewInit {
 

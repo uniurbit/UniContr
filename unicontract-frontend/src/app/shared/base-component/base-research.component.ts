@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
-import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFieldProps } from '@ngx-formly/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceQuery } from '../query-builder/query-builder.interfaces';
@@ -7,7 +7,8 @@ import { saveAs } from 'file-saver';
 import { encode, decode } from 'base64-arraybuffer';
 
 @Component({
-  template: ` `
+    template: ` `,
+    standalone: false
 })
 
 // ng g c submission/components/roles -s true --spec false -t true
@@ -21,7 +22,7 @@ export class BaseResearchComponent implements OnInit {
   @ViewChild('apri', { static: true }) apri: TemplateRef<any>;
   @ViewChild('comandi', { static: true }) comandi: TemplateRef<any>;
 
-  builderoptions: FormlyTemplateOptions;
+  builderoptions:  FormlyFieldProps;
 
   form = new UntypedFormGroup({});
 
@@ -164,7 +165,7 @@ export class BaseResearchComponent implements OnInit {
 
   setResult(data){
     this.isLoading = false;
-    let to = this.resultMetadata[0].templateOptions;
+    let to = this.resultMetadata[0].props;
     this.lastData = data;
 
     this.model = {

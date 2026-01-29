@@ -8,7 +8,7 @@ import { AuthService } from "../core/auth.service";
 import { MessageService } from "./message.service";
 import { BaseService } from "./base-service/base.service";
 import { ISignResponse } from "./sign-namirial-smart-card.service";
-import * as saveAs from "file-saver";
+import { saveAs } from 'file-saver';
 
 
 declare var fcHttpServerOfflineCallback; 

@@ -8,12 +8,13 @@ import { B4RappPAService } from './../../../services/b4rappPA.service';
 import { encode, decode } from 'base64-arraybuffer';
 import { FormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
-import * as saveAs from 'file-saver';
+import { saveAs } from 'file-saver';
 
 @Component({
-  selector: 'app-b4-rapp-pa-details',
-  templateUrl: './b4-rapp-pa-details.component.html',
-  styleUrls: ['./b4-rapp-pa-details.component.css']
+    selector: 'app-b4-rapp-pa-details',
+    templateUrl: './b4-rapp-pa-details.component.html',
+    styleUrls: ['./b4-rapp-pa-details.component.css'],
+    standalone: false
 })
 export class B4RappPaDetailsComponent extends BaseComponent {
 

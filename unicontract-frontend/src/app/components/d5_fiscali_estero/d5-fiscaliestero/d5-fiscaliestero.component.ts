@@ -17,9 +17,10 @@ import { encode, decode } from 'base64-arraybuffer';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 
 @Component({
-  selector: 'app-d5-fiscaliestero',
-  templateUrl: './d5-fiscaliestero.component.html',
-  styleUrls: ['./d5-fiscaliestero.component.css']
+    selector: 'app-d5-fiscaliestero',
+    templateUrl: './d5-fiscaliestero.component.html',
+    styleUrls: ['./d5-fiscaliestero.component.css'],
+    standalone: false
 })
 
 export class D5FiscaliesteroComponent extends BaseComponent {
@@ -42,14 +43,14 @@ export class D5FiscaliesteroComponent extends BaseComponent {
   fields: FormlyFieldConfig[] = [
     {
       wrappers: ['riquadro'],
-      templateOptions: {
+      props: {
         title:  this.translateService.instant('d5_intest1')
       },
       fieldGroup: [
         {
           type: 'radio',
           key: 'flag_gestione_separata',
-          templateOptions: {
+          props: {
             options: [
               {value: 1, label: this.translateService.instant('d5_txt7')},
               {value: 0, label: this.translateService.instant('d5_txt8')}
@@ -65,14 +66,14 @@ export class D5FiscaliesteroComponent extends BaseComponent {
     },
     {
       wrappers: ['riquadro'],
-      templateOptions: {
+      props: {
         title:  this.translateService.instant('d5_intest2')
       },
       fieldGroup: [
         {
           type: 'radio',
           key: 'flag_convenzione_bilaterale',
-          templateOptions: {
+          props: {
             options: [
               {value: 1, label: this.translateService.instant('d5_a') + ' ' + this.translateService.instant('d5_txt2')},
               {value: 0, label: this.translateService.instant('d5_b') + ' ' + this.translateService.instant('d5_txt3')}
@@ -82,7 +83,7 @@ export class D5FiscaliesteroComponent extends BaseComponent {
             label: this.translateService.instant('d5_txt1'),
           },
           expressionProperties: {
-            'templateOptions.options': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.options': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_gestione_separata === 1) {
                 field.formControl.setValue(0);
                 return [{ value: 0, label: this.translateService.instant('d5_b') + ' ' + this.translateService.instant('d5_txt3') }];                

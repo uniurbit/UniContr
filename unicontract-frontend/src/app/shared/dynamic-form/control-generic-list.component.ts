@@ -4,9 +4,10 @@ import { ControlBase } from './control-base';
 import ControlUtils from './control-utils';
 
 @Component({
-  selector: 'app-control-generic-list',
-  templateUrl: './control-generic-list.component.html',
-  styles: []
+    selector: 'app-control-generic-list',
+    templateUrl: './control-generic-list.component.html',
+    styles: [],
+    standalone: false
 })
 export class ControlGenericListComponent implements OnInit {
 

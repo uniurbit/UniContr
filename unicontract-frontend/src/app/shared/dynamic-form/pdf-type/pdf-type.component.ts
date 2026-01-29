@@ -7,9 +7,10 @@ import { takeUntil } from 'rxjs/operators';
 // ng g c shared/dynamic-form/pdf-type -s true --spec false -t true
 
 @Component({
-  selector: 'app-pdf-type',
-  templateUrl: './pdf-type.component.html',
-  styles: []
+    selector: 'app-pdf-type',
+    templateUrl: './pdf-type.component.html',
+    styles: [],
+    standalone: false
 })
 export class PdfTypeComponent extends FieldType implements OnInit, OnDestroy {
   

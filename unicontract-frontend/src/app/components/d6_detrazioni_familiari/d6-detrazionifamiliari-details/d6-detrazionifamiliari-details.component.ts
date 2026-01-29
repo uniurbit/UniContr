@@ -11,10 +11,11 @@ import { encode, decode } from 'base64-arraybuffer';
 import { UpdSubmit } from './../../../classes/validazioni';
 
 @Component({
-  selector: 'app-d6-detrazionifamiliari-details',
-  templateUrl: './d6-detrazionifamiliari-details.component.html',
-  styleUrls: ['./d6-detrazionifamiliari-details.component.css'],
-  providers: [DatePipe]
+    selector: 'app-d6-detrazionifamiliari-details',
+    templateUrl: './d6-detrazionifamiliari-details.component.html',
+    styleUrls: ['./d6-detrazionifamiliari-details.component.css'],
+    providers: [DatePipe],
+    standalone: false
 })
 export class D6DetrazionifamiliariDetailsComponent extends BaseComponent {
 

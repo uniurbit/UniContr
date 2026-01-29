@@ -10,10 +10,11 @@ import { PrecontrattualeService } from 'src/app/services/precontrattuale.service
 import { encode, decode } from 'base64-arraybuffer';
 
 @Component({
-  selector: 'app-d4-fiscali-details',
-  templateUrl: './d4-fiscali-details.component.html',
-  styleUrls: ['./d4-fiscali-details.component.css'],
-  providers: [DatePipe]
+    selector: 'app-d4-fiscali-details',
+    templateUrl: './d4-fiscali-details.component.html',
+    styleUrls: ['./d4-fiscali-details.component.css'],
+    providers: [DatePipe],
+    standalone: false
 })
 export class D4FiscaliDetailsComponent extends BaseComponent {
 

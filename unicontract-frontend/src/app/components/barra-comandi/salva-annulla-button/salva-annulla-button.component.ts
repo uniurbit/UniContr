@@ -6,8 +6,8 @@ import {Location} from '@angular/common';
 import ControlUtils from 'src/app/shared/dynamic-form/control-utils';
 
 @Component({
-  selector: 'app-salva-annulla-button',
-  template: `
+    selector: 'app-salva-annulla-button',
+    template: `
   <div class="form-footer text-end" *ngIf="formRef">
     <ng-container *ngxPermissionsOnly="['OP_DOCENTE','SUPER-ADMIN']">
       <button *ngIf="!isNew" class="btn btn-outline-secondary rounded me-1" type="button" 
@@ -17,7 +17,8 @@ import ControlUtils from 'src/app/shared/dynamic-form/control-utils';
     </ng-container>
   </div>
   `,
-  styleUrls: [],
+    styleUrls: [],
+    standalone: false
 })
 
 

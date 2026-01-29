@@ -38,70 +38,121 @@ export class AuthService {
 
     static TOKEN = 'tokenunicontr'
 
-    constructor( private http: HttpClient,
-                 public jwtHelper: JwtHelperService,
-                 private router: Router,
-                 private permissionsService: NgxPermissionsService ) {
-        this.loggedIn.next(this.isAuthenticated());
+    constructor(private http: HttpClient,
+        public jwtHelper: JwtHelperService,
+        private router: Router,
+        private permissionsService: NgxPermissionsService) {
+ 
         this.authUrl = AppConstants.baseURL;
+        // Check if localStorage is available
+        if (this.isLocalStorageAvailable()) {
+            this.loggedIn.next(this.isAuthenticated());
+        } else {          
+            console.warn('LocalStorage is not accessible');           
+        } 
     }
 
+    // Check if localStorage is accessible
+    public isLocalStorageAvailable(logerror = false, token: string = null): boolean {
+        try {
+            const test = '__test__';
+            localStorage.setItem(test, test);
+            localStorage.removeItem(test);
+            return true;
+        } catch (e) {
+            if (logerror && token){
+                this.logErrorWithToken(e, 'LocalStorage non è accessibile in questo ambiente',token);
+            } else if (logerror) {
+                this.logError(e, 'LocalStorage non è accessibile in questo ambiente');
+            }            
+            return false; // If an error is thrown, localStorage is unavailable
+        }
+    }
+
+
     login() {
-        return this.http.get(`${this.authUrl}loginSaml`, httpOptions)
-        .subscribe(res => {
+        return this.http.get(`${this.authUrl}/loginSaml`, httpOptions)
+            .subscribe(res => {
+                console.log(res);
+            });
+    }
+
+    cambiaUtente(id) {
+        return this.http.post<any>(`${this.authUrl}api/auth/cambiautente`, { id: id }, httpOptions).pipe(tap((data) => {
+            localStorage.removeItem(AuthService.TOKEN);
+            localStorage.clear();
+            sessionStorage.clear();
+            this.permissionsService.flushPermissions();
+            this.resetFields();
+            this.loggedIn.next(false);
+
+            this.loginWithToken(data.token);
+        })).subscribe(res => {
             console.log(res);
         });
     }
 
+    refreshToken() {
+        return this.http.post<any>(`${this.authUrl}api/auth/refreshtoken`, {
+            'refreshToken': this.getToken()
+        }).pipe(tap((data) => {
+            this.storeJwtToken(data.token);
+        }));
+    }
+
     loginWithToken(token: any) {
-        localStorage.setItem(AuthService.TOKEN, token);
+        // console.log(localStorage.setItem(AuthService.TOKEN, token));
+        try {
+            localStorage.setItem(AuthService.TOKEN, token);
+        } catch (e) {
+            console.error("Error saving token to localStorage:", e);
+            this.logout({ reason: "Error saving token to localStorage", additionalData: e });  // Handle accordingly if localStorage fails
+        }
         this.loggedIn.next(this.isAuthenticated());
         this.reload();
     }
 
-    cambiaUtente(id){
-        return this.http.post<any>(`${this.authUrl}api/auth/cambiautente`, {id: id}, httpOptions).pipe(tap((data) => {
-            if (data.success){
-                localStorage.removeItem(AuthService.TOKEN);
-                localStorage.clear();
-                sessionStorage.clear();
-                this.permissionsService.flushPermissions();
-                this.resetFields();
-                this.loggedIn.next(false);
-                
-                this.loginWithToken(data.token);
-            }else{
-                //messaggio     
-                console.log(data.message);           
-            }
-            
-          })).subscribe(res => {            
-            console.log(res);
-        });
+    checkpermission(perm) {
+        let permissions = this.permissionsService.getPermissions();
+        if (permissions[perm]) {
+            return true;
+        }
+        return false;
     }
 
-
-    refreshToken() {
-        return this.http.post<any>(`${this.authUrl}api/auth/refreshtoken`, {
-          'refreshToken': this.getToken()
-        }).pipe(tap((data) => {
-          this.storeJwtToken(data.token);
-        }));
-    }
-
-    reload(): any {
+    reload(): void {
         if (this.isAuthenticated()) {
-            const helper = new JwtHelperService();
-            // console.log(helper);
-            const decodedToken = helper.decodeToken(localStorage.getItem(AuthService.TOKEN));
-            // console.log(decodedToken);
-            this._email = decodedToken['email'];
-            this._username = decodedToken['name'];
-            this._roles = decodedToken['roles'];
-            this._dips = decodedToken['dips'];
-            // console.log(this.roles);
-            this._id = decodedToken['id'];
-            this.permissionsService.loadPermissions(this._roles);
+            try {
+                const token = localStorage.getItem(AuthService.TOKEN);
+                if (token) {
+                    const helper = new JwtHelperService();
+                    const decodedToken = helper.decodeToken(token);
+
+                    if (decodedToken) {
+                        // Set user-related values based on the decoded token
+                        this._email = decodedToken['email'];
+                        this._username = decodedToken['name'];
+                        this._roles = decodedToken['roles'];
+                        this._dips = decodedToken['dips'];
+                        this._id = decodedToken['id'];
+
+                        // Load permissions based on user roles
+                        this.permissionsService.loadPermissions(this._roles);
+                    } else {
+                        console.error("Error decoding token: Token is invalid or malformed.");
+                        this.logout({ reason: "Error decoding token: Token is invalid or malformed." });  // Log out if the token is invalid
+                        this.router.navigate(['home']);
+                    }
+                } else {
+                    console.error("No token found in localStorage. Logging out.");
+                    this.logout({ reason: "No token found in localStorage. Logging out." });  // Log out if no token is present
+                    this.router.navigate(['home']);
+                }
+            } catch (e) {
+                console.error("Error reloading user details:", e);
+                this.logout({ reason: "Error reloading user details", additionalData: e });  // Log out if any error occurs during reload
+                this.router.navigate(['home']);
+            }
         }
     }
 
@@ -140,26 +191,66 @@ export class AuthService {
         this._email = '';
     }
 
+    //chiamato dal token interceptor
     getToken() {
-       return localStorage.getItem(AuthService.TOKEN);
+        try {
+            const token = localStorage.getItem(AuthService.TOKEN);
+            return token;
+        } catch (error) {
+            console.error('Errore di accesso al localStorage getToken:', error);
+            return null;  // Return null or handle it appropriately
+        }
     }
+
     private storeJwtToken(jwt: string) {
         localStorage.setItem(AuthService.TOKEN, jwt);
     }
 
-    logout() {
-
-        this.http.get(this.authUrl + "api/auth/logout", httpOptions)
-        .subscribe(res => {
-            console.log(res);
-        });
+    logout(logoutData: { reason: string, additionalData?: any } = null) {
+        
+        this.http.post(this.authUrl + "api/auth/logout", logoutData, httpOptions)
+            .subscribe(res => {
+                console.log(res);
+            });
 
         localStorage.removeItem(AuthService.TOKEN);
         localStorage.clear();
+        sessionStorage.clear();
         this.permissionsService.flushPermissions();
         this.resetFields();
         this.loggedIn.next(false);
     }
+
+    logErrorWithToken(error: any, message: string = '', token: string) {
+        const errorPayload = {
+            error: error.message || error,
+            message: message
+        };
+
+        // Adding the new permission key in the request headers
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // Using the token in the Authorization header
+          });
+
+        this.http.post(this.authUrl + 'api/auth/logerror', errorPayload, { headers }).subscribe();
+    }
+
+    
+    logError(error: any, message: string = '') {
+        const errorPayload = {
+            error: error.message || error,
+            message: message
+        };
+
+        // Adding the new permission key in the request headers
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',            
+          });
+
+        this.http.post(this.authUrl + 'api/auth/logerror', errorPayload, { headers }).subscribe();
+    }
+
 
     get isLoggedIn() {
         return this.loggedIn.asObservable();
@@ -186,11 +277,26 @@ export class AuthService {
     }
 
     public isAuthenticated(): boolean {
-        const token = localStorage.getItem(AuthService.TOKEN);
-        // alert(token);
-        // Check whether the token is expired and return
-        // true or false
-        return !this.jwtHelper.isTokenExpired(token);
+        try {
+
+            let token = null;
+            try {
+                token = localStorage.getItem(AuthService.TOKEN);
+            } catch (e) {              
+                return false;
+            }
+
+            // If there's no token, the user is not authenticated
+            if (!token) {
+                return false;
+            }
+
+            // Check whether the token is expired
+            return !this.jwtHelper.isTokenExpired(token);
+        } catch (e) {
+            console.error("Error checking authentication");            
+            return false;
+        }
     }
 
     /**

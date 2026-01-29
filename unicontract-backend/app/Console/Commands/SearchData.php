@@ -64,7 +64,7 @@ class SearchData extends Command
                 $anagrU = AnagraficaUgov::where('id_ab',$pre->docente_id)->select(['cognome','data_nasc','id_ab'])->first();                
                 if ($pre->anagrafica!=null && $pre->anagrafica->data_nascita!=null){
                     $current = Carbon::createFromFormat(config('unidem.date_format'), $pre->anagrafica->data_nascita);             
-                    $gg  = $anagrU->data_nasc->diffInDays($current);
+                    $gg  = (int) $anagrU->data_nasc->diffInDays($current, true);
                     if ($gg!=0){                   
                         $anagrafica = $pre->anagrafica;
                         $anagrafica->data_nascita = $anagrU->data_nasc->format(config('unidem.date_format'));

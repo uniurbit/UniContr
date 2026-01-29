@@ -75,7 +75,7 @@ class Kernel extends HttpKernel
         'cors' => \App\Http\Middleware\Cors::class,
         'api.version' => \App\Http\Middleware\APIversion::class,
         'auth.jwt' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
-        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
         'storeudate' => \App\Http\Middleware\StoreUdatePrecontrattuale::class,
 
         'ownermiddleware' => \App\Http\Middleware\OwnerMiddleware::class,

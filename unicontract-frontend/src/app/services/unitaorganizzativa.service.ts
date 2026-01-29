@@ -21,7 +21,7 @@ export class UnitaOrganizzativaService extends BaseService {
             key: 'uo',
             type: 'string',
             hideExpression: false,
-            templateOptions: {
+            props: {
             label: 'Codice unità organizzativa',
             disabled: true,
             column: { width: 10, cellTemplate: 'valuecolumn' }
@@ -30,7 +30,7 @@ export class UnitaOrganizzativaService extends BaseService {
         {
             key: 'descr',
             type: 'string',
-            templateOptions: {
+            props: {
             label: 'Descrizione',
             required: true,
             column: { cellTemplate: 'valuecolumn' }
@@ -39,7 +39,7 @@ export class UnitaOrganizzativaService extends BaseService {
         {
             key: 'data_fin',
             type: 'date',
-            templateOptions: {
+            props: {
             label: 'Data fine',
             required: true,
             column: { cellTemplate: 'valuecolumn' }

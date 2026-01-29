@@ -1,10 +1,7 @@
 
 // #docplaster
 import { Injectable } from '@angular/core';
-import {
-  HttpEvent, HttpHeaders, HttpRequest, HttpResponse,
-  HttpInterceptor, HttpHandler
-} from '@angular/common/http';
+import { HttpEvent, HttpHeaders, HttpRequest, HttpResponse, HttpInterceptor, HttpHandler } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { startWith, tap } from 'rxjs/operators';

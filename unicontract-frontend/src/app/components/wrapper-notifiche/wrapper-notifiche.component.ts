@@ -4,9 +4,10 @@ import { NotificaService } from 'src/app/shared/notifica.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 
 @Component({
-  selector: 'app-wrapper-notifiche',
-  templateUrl: './wrapper-notifiche.component.html',
-  styleUrls: ['./wrapper-notifiche.component.css']
+    selector: 'app-wrapper-notifiche',
+    templateUrl: './wrapper-notifiche.component.html',
+    styleUrls: ['./wrapper-notifiche.component.css'],
+    standalone: false
 })
 export class WrapperNotificheComponent implements OnInit {
 

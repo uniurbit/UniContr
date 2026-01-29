@@ -5,8 +5,8 @@ import { FormArray } from '@angular/forms';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'formly-repeat-section',
-  template: `  
+    selector: 'formly-repeat-section',
+    template: `  
   <div class="mb-2">  
     <div *ngIf="to.label">{{to.label}} </div> 
     <button *ngIf="!to.btnHidden" type="button" [disabled]="checkAddButtonDisability()" class="btn btn-sm btn-outline-primary rounded-lg" (click)="onAddNew()"  >              
@@ -33,6 +33,7 @@ import { map } from 'rxjs/operators';
   <formly-validation-message [field]="field"></formly-validation-message>
   </div>
   `,
+    standalone: false
 })
 
 export class RepeatTypeComponent extends FieldArrayType {

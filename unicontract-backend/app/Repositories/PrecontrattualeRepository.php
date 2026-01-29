@@ -508,8 +508,13 @@ class PrecontrattualeRepository extends BaseRepository {
             $precontr->date_flag_no_compenso = Carbon::now();
             $precontr->save();
             
+            $motivazione = $data['entity']['motivazione'] ?? null;
+            $descrizione = 'Rinuncia al compenso';
+            if (!empty($motivazione)) {
+                $descrizione .= ': ' . $motivazione;
+            }
             $precontr->storyprocess()->save(
-                PrecontrattualeService::createStoryProcess('Rinuncia al compenso', 
+                PrecontrattualeService::createStoryProcess($descrizione, 
                 $precontr->insegn_id)
             ); 
 

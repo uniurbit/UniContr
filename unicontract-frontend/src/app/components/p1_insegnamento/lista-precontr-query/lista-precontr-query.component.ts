@@ -9,13 +9,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { MyTranslatePipe } from 'src/app/shared/pipe/custom.translatepipe';
 import { annoAccademicoCorrente } from 'src/app/shared/dynamic-form/utils';
 import { encode, decode } from 'base64-arraybuffer';
-import * as saveAs from 'file-saver';
+import { saveAs } from 'file-saver';
 import { PrecontrattualeDocenteService } from 'src/app/services/precontrattualedocente.service';
 
 @Component({
-  selector: 'app-lista-precontr-query',
-  templateUrl: '../../../shared/base-component/base-research.component.html',
-  styles: []
+    selector: 'app-lista-precontr-query',
+    templateUrl: '../../../shared/base-component/base-research.component.html',
+    styles: [],
+    standalone: false
 })
 export class ListaPrecontrQueryComponent extends BaseResearchComponent {
   enabledExport = true;
@@ -25,14 +26,14 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'precontr.id',
       type: 'number',
-      templateOptions: {
+      props: {
         label: 'Codice',        
       }
     },    
     {
       key: 'insegnamento.aa',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Anno',
         valueProp: 'value',
         labelProp: 'label',
@@ -42,7 +43,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'insegnamento.insegnamento',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Insegnamento',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -59,7 +60,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'insegnamento.dip_cod',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Dipartimento',
         options: [
           { value: '005019', label: this.translateService.instant('005019_disb') },
@@ -75,7 +76,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'insegnamento.data_ini_contr',
       type: 'date',
-      templateOptions: {
+      props: {
         label: 'Data inizio',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -84,7 +85,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'insegnamento.data_fine_contr',
       type: 'date',
-      templateOptions: {
+      props: {
         label: 'Data fine',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -93,7 +94,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'insegnamento.coper_id',
       type: 'number',
-      templateOptions: {
+      props: {
         label: 'Copertura',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -102,7 +103,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'insegnamento_tipo_contratto',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Tipo contratto',
         options: [
           { value: 'ALTAQUALIFICAZIONE',  label: 'Contratto di Alta Qualificazione' },
@@ -117,7 +118,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'insegnamento.compenso',
       type: 'number',
-      templateOptions: {
+      props: {
         type: 'number',
         label: 'Compenso',
         required: true,        
@@ -126,7 +127,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'p2naturarapporto.natura_rapporto',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Natura del rapporto',
         options: [
           { value: 'PRPR',    label: this.translateService.instant('p3_radio1') },
@@ -142,7 +143,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'flag_no_compenso',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Rinuncia al compenso',
         options: [
           { value: true,  label: this.translateService.instant('txt_si') },
@@ -155,7 +156,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'user.name',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Nominativo docente (nome cognome)',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -164,7 +165,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'user.cognome',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Cognome docente',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -173,7 +174,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'user.nome',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Nome docente',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -182,7 +183,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'user.cf',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Codice fiscale docente',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -191,24 +192,24 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
     {
       key: 'currentState',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Stato corrente',
         required: true,
         options: [
-          {value: 'aperta',       label: 'Aperta in fase di compilazione'},
-          {value: 'compilata',    label: 'Compilata in attesa validazione Ufficio Amm.ne e Reclutamento'},
-          {value: 'validazione1', label: 'Validata in attesa validazione Ufficio Trattamenti Economici e Previdenziali'},
-          {value: 'validazione2', label: 'Validata in attesa accettazione e presa visione'},
-          {value: 'accettata',    label: 'Accettata in attesa di firma'},
-          {value: 'firmata',      label: 'Firmata'},
-          {value: 'annullata',    label: 'Annullata'},
+          { value: 'aperta',       label: 'Aperta - in fase di compilazione' },
+          { value: 'compilata',    label: 'Compilata - in attesa di validazione da parte dell’Ufficio Amministrazione e Reclutamento' },
+          { value: 'validazione1', label: 'Validata - in attesa di validazione da parte dell’Ufficio Trattamenti Economici e Previdenziali' },
+          { value: 'validazione2', label: 'Approvata - in attesa di firma del contratto' },
+          { value: 'accettata',    label: 'Accettata - in attesa di controfirma del contratto' },
+          { value: 'firmata',      label: 'Firmata' },
+          { value: 'annullata',    label: 'Annullata' },
         ]
       }
     },
     {
       key: 'validazioni.tipo_accettazione',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Tipo accettazione',
         required: true,
         options: [
@@ -395,7 +396,7 @@ export class ListaPrecontrQueryComponent extends BaseResearchComponent {
       key: 'data',
       type: 'datatablelookup',
       wrappers: ['accordion'],
-      templateOptions: {
+      props: {
         headerHeight: 50,
         footerHeight: 50,
         label: 'Risultati precontrattuali',

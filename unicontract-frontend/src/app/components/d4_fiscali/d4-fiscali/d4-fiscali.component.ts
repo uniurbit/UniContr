@@ -18,9 +18,10 @@ import { encode, decode } from 'base64-arraybuffer';
 import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 
 @Component({
-  selector: 'app-d4-fiscali',
-  templateUrl: './d4-fiscali.component.html',
-  styleUrls: ['./d4-fiscali.component.css']
+    selector: 'app-d4-fiscali',
+    templateUrl: './d4-fiscali.component.html',
+    styleUrls: ['./d4-fiscali.component.css'],
+    standalone: false
 })
 
 export class D4FiscaliComponent extends BaseComponent {
@@ -35,7 +36,8 @@ export class D4FiscaliComponent extends BaseComponent {
     {aliquota: '23', name: '23 %'},
     //{aliquota: '25', name: '25 %'},
     //{aliquota: '27', name: '27 %'},
-    {aliquota: '35', name: '35 %'},
+    {aliquota: '33', name: '33 %'},
+    //{aliquota: '35', name: '35 %'},
     //{aliquota: '38', name: '38 %'},
     //{aliquota: '41', name: '41 %'},
     {aliquota: '43', name: '43 %'},
@@ -62,7 +64,7 @@ export class D4FiscaliComponent extends BaseComponent {
           type: 'select',
           className: 'col-md-3',
           defaultValue: '23',
-          templateOptions: {
+          props: {
             options: this.aliquote,
             valueProp: 'aliquota',
             labelProp: 'name',
@@ -104,7 +106,7 @@ export class D4FiscaliComponent extends BaseComponent {
           key: 'flag_detrazioni',
           //className: 'custom-switch ps-4 pe-2 pt-1',
           defaultValue: false,
-          templateOptions: {
+          props: {
             formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_detrazioni === false || field.model.flag_detrazioni === 0) {
@@ -122,7 +124,7 @@ export class D4FiscaliComponent extends BaseComponent {
             }
           },
           expressionProperties: {
-            'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_detrazioni === false || model.flag_detrazioni === 0) {
                 return 'NO '+this.translateService.instant('d4_intest2');
               } else {
@@ -161,7 +163,7 @@ export class D4FiscaliComponent extends BaseComponent {
           type: 'radio',
           key: 'detrazioni',
           resetOnHide: true,
-          templateOptions: {
+          props: {
             options: [
               {value: 'RCC', label: this.translateService.instant('d4_txt5')},
               {value: 'RCD', label: this.translateService.instant('d4_txt6')}
@@ -184,7 +186,7 @@ export class D4FiscaliComponent extends BaseComponent {
           key: 'reddito',
           type: 'maskcurrency',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             required: true,
             translate: true,
             label: 'd4_label2'
@@ -223,7 +225,7 @@ export class D4FiscaliComponent extends BaseComponent {
           key: 'flag_bonus_renzi',
           //className: 'custom-switch ps-4 pe-2 pt-1',
           defaultValue: false,       
-          templateOptions: {           
+          props: {           
             formCheck: 'switch',
           },
           hooks: {
@@ -235,7 +237,7 @@ export class D4FiscaliComponent extends BaseComponent {
             }
           },
           expressionProperties: {
-            'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_bonus_renzi === false || model.flag_bonus_renzi === 0) {
                 return 'NO '+ this.translateService.instant('d4_intest3');
               } else {
@@ -243,7 +245,7 @@ export class D4FiscaliComponent extends BaseComponent {
               }              
             },
             //se flag_detrazioni === false il controllo deve essere disabilitato sul NO
-            // 'templateOptions.disabled': (model: any, formState: any, field: FormlyFieldConfig) => {
+            // 'props.disabled': (model: any, formState: any, field: FormlyFieldConfig) => {
             //   if (model.flag_detrazioni === false || model.flag_detrazioni === 0)
             //     return true;
             //   return false;
@@ -293,7 +295,7 @@ export class D4FiscaliComponent extends BaseComponent {
           key: 'flag_detrazioni_21_2020',
           //className: 'custom-switch ps-4 pe-2 pt-1',
           defaultValue: false,
-          templateOptions: {
+          props: {
             formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_detrazioni_21_2020 === false || field.model.flag_detrazioni_21_2020 === 0) {
@@ -311,7 +313,7 @@ export class D4FiscaliComponent extends BaseComponent {
             }
           },
           expressionProperties: {
-            'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_detrazioni_21_2020 == null || model.flag_detrazioni_21_2020 === false || model.flag_detrazioni_21_2020 === 0) {
                 return 'NO '+ this.translateService.instant('d4_intest4');
               } else {
@@ -319,7 +321,7 @@ export class D4FiscaliComponent extends BaseComponent {
               }
             },
             //se flag_detrazioni === false il controllo deve essere disabilitato sul NO
-            // 'templateOptions.disabled': (model: any, formState: any, field: FormlyFieldConfig) => {
+            // 'props.disabled': (model: any, formState: any, field: FormlyFieldConfig) => {
             //   if (model.flag_detrazioni === false || model.flag_detrazioni === 0)
             //     return true;
             //   return false;
@@ -350,7 +352,7 @@ export class D4FiscaliComponent extends BaseComponent {
     //     {
     //       type: 'radio',
     //       key: 'detrazioni_21_2020',
-    //       templateOptions: {
+    //       props: {
     //         options: [
     //           {key: 'TI21', value: this.translateService.instant('d4_txt7_ti21')},
     //           {key: 'D21', value: this.translateService.instant('d4_txt8_d21')}
@@ -361,7 +363,7 @@ export class D4FiscaliComponent extends BaseComponent {
     //         label: this.translateService.instant('d4_txt9_detrazioni_21')
     //       },
     //       expressionProperties: {
-    //         'templateOptions.description': (model: any, formState: any, field: FormlyFieldConfig) => {
+    //         'props.description': (model: any, formState: any, field: FormlyFieldConfig) => {
     //           switch (model.detrazioni_21_2020) {
     //             case 'TI21': {
     //                return this.translateService.instant('d4_nota_ti21');
@@ -388,7 +390,7 @@ export class D4FiscaliComponent extends BaseComponent {
     //       key: 'reddito_21_2020',
     //       type: 'maskcurrency',
     //       className: 'col-md-3',
-    //       templateOptions: {
+    //       props: {
     //         required: true,
     //         translate: true,
     //         label: 'd4_label3_21'
@@ -428,6 +430,12 @@ export class D4FiscaliComponent extends BaseComponent {
                 this.model = this.validationCopyRules(copy); 
               }
               this.idins = +params.get('id');
+
+              const value = this.model?.percentuale_aliquota_irpef;
+              if (value === '35') {
+                this.aliquote.push({ aliquota: '35', name: '35 % (non più selezionabile)' });
+              }
+
             },
             (error) => this.handleError(error),
             () => this.complete()

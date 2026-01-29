@@ -4,13 +4,14 @@ import { RouteMetods } from 'src/app/classes/routeMetods';
 import { InsegnamTools } from 'src/app/classes/insegnamTools';
 
 @Component({
-  selector: 'app-prosegui-button',
-  template: `
+    selector: 'app-prosegui-button',
+    template: `
   <button *ngIf="item && visible() && !annullato()" type="button" class="{{ getClassName() }}" (click)="onClick()" >
     <span title="{{ 'btn_togo' | translate }}">{{ 'btn_prosegui' | translate }}</span>
   </button>
   `,
-  styleUrls: [],
+    styleUrls: [],
+    standalone: false
 })
 
 

@@ -7,7 +7,7 @@ import { NgModule, Component, LOCALE_ID, Injector, APP_INITIALIZER, CUSTOM_ELEME
 
 import { JwtModule } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgbModule, NgbDateParserFormatter, NgbDateAdapter, NgbActiveModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { APP_BASE_HREF } from '@angular/common';
@@ -147,14 +147,7 @@ import { SharedModule, HttpLoaderFactory } from './shared/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ToastrModule } from 'ngx-toastr';
-
-import { NgxLoadingModule } from 'ngx-loading';
-
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
-
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 import { MessageService } from './shared';
 
@@ -169,7 +162,7 @@ import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
 // import { ApplicationService } from './application/application.service';
 
-import { StorageServiceModule } from 'ngx-webstorage-service';
+import {  } from 'ngx-webstorage-service';
 import { TranslateModule, TranslateLoader, TranslateService, MissingTranslationHandler } from '@ngx-translate/core';
 import { PersonaInternaService } from './services/personainterna.service';
 import { StrutturaInternaService } from './services/strutturainterna.service';
@@ -200,7 +193,6 @@ import { ProseguiButtonComponent } from './components/barra-comandi/prosegui-but
 import { LinkEsterniComponent } from './components/link-esterni/link-esterni.component';
 import { EmailListComponent } from './components/email_list/email-list/email-list.component';
 import { EmailListService } from './services/emailList.service';
-import { InputConfirmationDialogComponent } from './shared/input-confirmation-dialog/input-confirmation-dialog.component';
 import { IntestazioneComponent } from './components/intestazione/intestazione.component';
 import { SalvaAnnullaButtonComponent } from './components/barra-comandi/salva-annulla-button/salva-annulla-button.component';
 import { MappingUfficioTitulus } from './components/mapping/mappingufficio.component';
@@ -220,19 +212,17 @@ import { AppConstants } from './app-constants';
 import { FormlyModule } from '@ngx-formly/core';
 import { PrecontrattualeDocenteService } from './services/precontrattualedocente.service';
 import { BreadcrumbService } from './services/breadcrumb.service';
-
-
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true,
-  wheelSpeed: 1,
-  wheelPropagation: true,
-  minScrollbarLength: 20
-};
-
+import { EnableLocalStorageComponent } from './enable-local-storage/enable-local-storage.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 export function tokenGetter() {
-  return localStorage.getItem(AuthService.TOKEN);
+  try{
+    return localStorage.getItem(AuthService.TOKEN);
+  } catch (error) {
+    console.error('Errore di accesso al localStorage tokenGetter:', error);
+    return null;
+  }
+  
 }
 
 registerLocaleData(localeIt);
@@ -255,8 +245,7 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
   });
 }
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppComponent,
         NavbarComponent,
         ListaInsegnComponent,
@@ -335,82 +324,8 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
         MappingUfficioTitulus,
         LogAttivitaComponent,
         WrapperNotificheComponent,
-    ],
-    imports: [
-        SharedModule.forRoot(),
-        NgxLoadingModule.forRoot({}),
-        NgxPermissionsModule.forRoot(),
-        CommonModule,
-        NgbModule,
-        NgbTooltipModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgxDatatableModule,
-        RouterModule,
-        PerfectScrollbarModule,
-        NgSelectModule,
-        BrowserModule,
-        FormsModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        SharedModule,
-        RoutingModuleModule,
-        CoreModule,
-        NgxPermissionsModule.forRoot(),
-        PerfectScrollbarModule,
-        ToastrModule.forRoot(),
-        StorageServiceModule,
-        PdfViewerModule,
-        FormlyModule.forRoot({
-          extras: {
-            checkExpressionOn: 'changeDetectionCheck',
-            resetFieldOnHide: false,
-            lazyRender: true
-          },
-          types: [
-            {
-              name: 'formly-group',
-              defaultOptions: {
-                defaultValue: {}
-              }
-            },
-            {
-              name: 'repeattable',
-              defaultOptions: {
-                defaultValue: []
-              }
-            },
-            {
-              name: 'repeatviewtable',
-              defaultOptions: {
-                defaultValue: []
-              }
-            },
-            {
-              name: 'repeat',
-              defaultOptions: {
-                defaultValue: []
-              }
-            },
-          ],
-    
-        }),
-        JwtModule.forRoot({
-          config: {
-            tokenGetter: tokenGetter,
-            allowedDomains: environment.whitelistedDomains, //PER Bearer 
-            disallowedRoutes: environment.blacklistedRoutes,
-          }
-        }),
-        TranslateModule.forRoot({
-          missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MyMissingTranslationHandler },
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient],
-          },
-        }),
-    ],
+        EnableLocalStorageComponent,    
+],
     exports: [
         HomeComponent,
         UserComponent,
@@ -423,7 +338,77 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
         MappingRuoli,
         LogAttivitaComponent,
     ],
-    providers: [
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    bootstrap: [
+        AppComponent
+    ], imports: [SharedModule.forRoot(),
+        NgxPermissionsModule.forRoot(),
+        CommonModule,
+        NgbModule,
+        NgbTooltipModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxDatatableModule,
+        RouterModule,
+        NgSelectModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SharedModule,
+        RoutingModuleModule,
+        CoreModule,
+        NgxPermissionsModule.forRoot(),
+        ToastrModule.forRoot(),
+        PdfViewerModule,
+        FormlyModule.forRoot({
+            extras: {
+                checkExpressionOn: 'changeDetectionCheck',
+                resetFieldOnHide: false,
+                lazyRender: true
+            },
+            types: [
+                {
+                    name: 'formly-group',
+                    defaultOptions: {
+                        defaultValue: {}
+                    }
+                },
+                {
+                    name: 'repeattable',
+                    defaultOptions: {
+                        defaultValue: []
+                    }
+                },
+                {
+                    name: 'repeatviewtable',
+                    defaultOptions: {
+                        defaultValue: []
+                    }
+                },
+                {
+                    name: 'repeat',
+                    defaultOptions: {
+                        defaultValue: []
+                    }
+                },
+            ],
+        }),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                allowedDomains: environment.whitelistedDomains, //PER Bearer 
+                disallowedRoutes: environment.blacklistedRoutes,
+            }
+        }),
+        TranslateModule.forRoot({
+            missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MyMissingTranslationHandler },
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient],
+            },
+        })], providers: [
         AuthService,
         NgbActiveModal,
         AuthGuard,
@@ -468,7 +453,6 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
         LogAttivitaService,
         HttpInterceptorProviders,
         GlobalErrorHandlerProviders,
-        { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
         { provide: RequestCache, useClass: RequestCacheWithMap },
         // { provide: 'InsegnamentoService', useClass: InsegnamentoService },
         { provide: 'userService', useClass: UserService },
@@ -506,12 +490,8 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
         RouteMetods,
         DatePipe,
         BreadcrumbService,
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    bootstrap: [
-        AppComponent
-    ]
-})
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {
   constructor(router: Router) {
 
@@ -545,3 +525,5 @@ export class AppModule {
 
   }
  }
+
+

@@ -13,9 +13,10 @@ export interface IResultDialog<T> {
 
 
 @Component({
-  selector: 'app-input-confirmation-dialog',
-  templateUrl: './input-confirmation-dialog.component.html',
-  styles: []
+    selector: 'app-input-confirmation-dialog',
+    templateUrl: './input-confirmation-dialog.component.html',
+    styles: [],
+    standalone: false
 })
 // ng g c shared/inputConfirmationDialog -s true --spec false
 export class InputConfirmationDialogComponent implements OnInit {
@@ -53,7 +54,7 @@ export class InputConfirmationDialogComponent implements OnInit {
           key: 'motivazione',
           type: 'textarea',
           className: 'col-md-12',
-          templateOptions: {
+          props: {
             required: true,
             label: 'Motivazione',
             rows: 2,

@@ -50,7 +50,9 @@ class Insegnamenti extends Model {
         'dip_cod',
         'contatore_insegnamenti_manuale',
         'motivazione_contatore',
-        'cds_cod'
+        'cds_cod',
+        'part_stu_des',
+        'part_stu_cod'
     ];
 
     protected $casts = [
@@ -180,6 +182,8 @@ class Insegnamenti extends Model {
         $this->settore = $insegnamentoUgov->sett_des;
         $this->cod_settore = $insegnamentoUgov->sett_cod;
         $this->cds_cod = $insegnamentoUgov->cds_cod;
+        $this->part_stu_cod = $insegnamentoUgov->part_stu_cod;
+        $this->part_stu_des = $insegnamentoUgov->part_stu_des;
 
         // <input type="hidden" name="coper_id" [(ngModel)]="item.coper_id" >
         // <input type="hidden" name="ruolo" [(ngModel)]="item.ruolo_doc_cod">
@@ -454,7 +458,7 @@ class Insegnamenti extends Model {
         if ($this->attributes['data_delibera']){
             $datetime1 = Carbon::createFromFormat('Y-m-d', $this->attributes['data_delibera']);
             $datetime2 = Carbon::now();
-            $diff_in_days  = $datetime1->diffInDays($datetime2);
+            $diff_in_days  = (int) $datetime1->diffInDays($datetime2, true);
             return $diff_in_days;
         }else{
             return '';

@@ -1,4 +1,4 @@
-<!-- ng xi18n --output-path locale/ --out-file messages.it.untranslated.xlf -->
+﻿<!-- ng xi18n --output-path locale/ --out-file messages.it.untranslated.xlf -->
 <!--[ngStyle]="{'background-color': '#DBE5FF'}"-->
 
 <div class="card">
@@ -7,7 +7,7 @@
         <h4 class="card-title">Lista notifiche</h4>
     </div>
     <div>
-        <div class="todo-widget scrollable"  style="height:300px;" [perfectScrollbar]="config">
+        <div class="todo-widget scrollable"  style="height:300px;  overflow-y: auto;">
               <!-- Comment Row -->                    
             <ul *ngIf="model" class="list-task todo-list list-group m-b-0" data-role="notifications" >       
                 <div *ngFor="let notification of model "> <!--| async list-group-item-info colora item-->  
@@ -21,11 +21,11 @@
                         <div class="item-date">{{notification.created_at | toDateObj | date:'d MMMM, yyyy'}}</div>   
                                                 
                             <div class="button-group mt-1 pt-1 ms-4">
-                            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="open(content, notification)" data-toggle="tooltip" title="Apre attività">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="open(content, notification)" data-toggle="tooltip" title="Apre attivitÃ ">
                                 Dettagli
                                 <i class="ti-pencil-alt"></i>
                             </button>                          
-                            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="onOpen(notification)" data-toggle="tooltip"  title="Apre entità">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="onOpen(notification)" data-toggle="tooltip"  title="Apre entitÃ ">
                                 Apri
                                 <i class="ti-arrow-top-right"></i>
                             </button>
@@ -56,3 +56,4 @@
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>
+

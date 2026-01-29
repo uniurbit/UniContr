@@ -27,7 +27,9 @@ sidebar navigation
 ******************/
 .scroll-sidebar {
   height: calc(100% - 20px);
-  position: relative;
+  position: relative;   
+  scrollbar-width: thin;          
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent; 
 }
 
 .sidebar-nav {

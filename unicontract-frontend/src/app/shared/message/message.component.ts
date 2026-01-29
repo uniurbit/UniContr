@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MessageService } from '../message.service';
 import { InfraMessageType, InfraMessage } from './message';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -19,7 +19,8 @@ import { Observable } from 'rxjs';
         color: white;
       }
     `
-    ]
+    ],
+    standalone: false
 })
 export class MessageComponent implements OnInit {
     isCollapsed = false;
@@ -32,7 +33,7 @@ export class MessageComponent implements OnInit {
         {
             type: 'input',
             key: 'name',
-            templateOptions: {
+            props: {
                 label: 'Tipo',
                 disabled: true,
             },
@@ -40,7 +41,7 @@ export class MessageComponent implements OnInit {
         {
             type: 'input',
             key: 'message',
-            templateOptions: {
+            props: {
                 label: 'Messaggio',
                 disabled: true,
             },
@@ -49,7 +50,7 @@ export class MessageComponent implements OnInit {
         {
             type: 'input',
             key: 'error.message',
-            templateOptions: {
+            props: {
                 label: 'Descrizione',
                 disabled: true,
             },
@@ -57,7 +58,7 @@ export class MessageComponent implements OnInit {
         {
             type: 'textarea',
             key: 'errors',
-            templateOptions: {
+            props: {
                 disabled: true,
                 label: 'Contenuto',
                 rows: 5,
@@ -66,7 +67,7 @@ export class MessageComponent implements OnInit {
 
     ];
 
-    constructor(public messageService: MessageService, private modalService: NgbModal, public activeModal: NgbActiveModal) { }
+    constructor(private cdRef: ChangeDetectorRef, public messageService: MessageService, private modalService: NgbModal, public activeModal: NgbActiveModal) { }
 
     messages: Observable<InfraMessage[]>;
     length: number;
@@ -75,6 +76,7 @@ export class MessageComponent implements OnInit {
         this.messages = this.messageService.messages;
         this.messages.subscribe(x => {
             this.length = x.length;
+            this.cdRef.detectChanges();
         });
     }
 

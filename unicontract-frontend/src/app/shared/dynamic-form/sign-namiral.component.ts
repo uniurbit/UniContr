@@ -24,6 +24,7 @@ import { StoryHelperProcessService } from '../storyHelperProcess.service';
         
     </div>
     `,
+    standalone: false
 })
 
 // <label [attr.for]="id" class="form-control-label control-label" *ngIf="to.label">
@@ -198,9 +199,8 @@ export class FormlyFieldSignNamiral extends FieldType implements OnInit, OnDestr
 
     accettazioneFirmaGrafometrica(response: ISignResponse) {
         console.log('--accettazione firma grafometrica--');
-        console.log(response);
         if (!response.success || response.errorMessage) {
-            if (response.errorCode == '17'){
+            if (FormlyFieldSignNamiral.currentFormControl.step == 'dichiarazione_firma_grafometrica' && (response.errorCode == '17' || response.errorCode == '1000')){
                 //registrata la 'dichiarazione_firma_grafometrica'
                 FormlyFieldSignNamiral.currentFormControl.storyProcess("Accettata informativa firma grafometrica da parte del docente");
                 //L'utente per arrivare qui può aver premuto solo il tasto OK
@@ -235,7 +235,7 @@ export class FormlyFieldSignNamiral extends FieldType implements OnInit, OnDestr
             let position = FormlyFieldSignNamiral.currentFormControl.options.formState.widgetPDFSignaturePosition;
             //se position è un array prendi il numero indicato dal bottone di firma 
             if (Array.isArray(position)) {
-                position = FormlyFieldSignNamiral.currentFormControl.options.formState.widgetPDFSignaturePosition[FormlyFieldSignNamiral.currentFormControl.field.templateOptions.ordinefirma];
+                position = FormlyFieldSignNamiral.currentFormControl.options.formState.widgetPDFSignaturePosition[FormlyFieldSignNamiral.currentFormControl.field.props.ordinefirma];
             }
 
             //firma 

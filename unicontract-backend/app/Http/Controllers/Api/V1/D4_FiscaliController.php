@@ -54,6 +54,9 @@ class D4_FiscaliController extends Controller
             
             //va fatta la conversione delle aliquote alle nuove
             if ($copy) {
+                if ($copy->percentuale_aliquota_irpef == '35'){
+                    $copy->percentuale_aliquota_irpef = '33';
+                }
                 if ($copy->percentuale_aliquota_irpef == '38'){
                     $copy->percentuale_aliquota_irpef = '35';
                 }

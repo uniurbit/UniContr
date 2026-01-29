@@ -25,6 +25,7 @@ class InsegnamUgovController extends Controller
                 ['RUOLO_DOC_COD', '<>', 'PA'],
                 ['RUOLO_DOC_COD', '<>', 'PO'],
                 ['RUOLO_DOC_COD', '<>', 'RU'],
+                ['RUOLO_DOC_COD', '<>', 'SC'],
                 ['MOTIVO_ATTO_COD', '<>', null]
             ]);
         $insegn = $queryBuilder->get();
@@ -204,7 +205,7 @@ class InsegnamUgovController extends Controller
         array_push($parameters['rules'],[
             "operator" => "NotIn",
             "field" => "RUOLO_DOC_COD",                
-            "value" => ['PA','PO','RU']
+            "value" => ['PA','PO','RU','SC']
         ]);
         array_push($parameters['rules'],[
             "operator" => "!=",

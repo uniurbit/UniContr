@@ -5,9 +5,11 @@
   <link href="{{ public_path('css\\contratto_styles.css') }}" rel="stylesheet" type="text/css">
 	<style type="text/css">
     @page {                   
-        header: html_myHeader1;
+        header: html_myHeader1;         
         footer: html_myFooter1; 
-        margin-top: 2.54cm;
+        margin-header: 1.25cm;
+        margin-top: 55mm;
+        /*margin-top: 2.54cm;*/
         margin-bottom: 2.54cm;
         margin-left: 3.175cm;
         margin-right: 3.175cm;
@@ -36,7 +38,10 @@
   </htmlpageheader>
 
   <htmlpageheader name="myHeader1">
-    <img src="{{public_path('img\\logo_info.jpg')}}" style="height: 80px; margin-top: 7px;"/>     
+    {{-- <img src="{{public_path('img\\logo_info.jpg')}}" style="height: 80px; margin-top: 7px;"/>      --}}
+    <div style="position: absolute; top:0; right:0;">
+    <img src="file:///{{public_path('img\\logo_uniurb_intestazione_2.jpg')}}" alt="logo uniurb" style="width: 21cm; height: auto;"/>
+    </div>
   </htmlpageheader>
 
   <htmlpagefooter name="myFooter1">

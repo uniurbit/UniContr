@@ -2,8 +2,8 @@ import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { FieldWrapper } from '@ngx-formly/core';
 
 @Component({
-  selector: 'formly-wrapper-rightaddons',
-  template: `  
+    selector: 'formly-wrapper-rightaddons',
+    template: `  
   <div class="input-group">
     <div class="input-addons">
       <ng-container #fieldComponent></ng-container>
@@ -17,7 +17,8 @@ import { FieldWrapper } from '@ngx-formly/core';
     </div>
   </div>
   `,
-  styleUrls: ['./rightaddons-wrapper.component.scss'],
+    styleUrls: ['./rightaddons-wrapper.component.scss'],
+    standalone: false
 })
 //[ngStyle]="{cursor: to.addonRights.onClick ? 'pointer' : 'inherit'}"
 //<span *ngIf="to.addonRight1.text" class="input-group-text">{{ to.addonRight1.text }}</span>

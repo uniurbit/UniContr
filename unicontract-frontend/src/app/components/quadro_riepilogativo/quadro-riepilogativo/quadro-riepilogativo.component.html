@@ -1,15 +1,25 @@
 <ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+
+
+
 <div class="container-fluid" *ngIf="items">
   <app-riquadro-wrapper *ngIf="items">
-    <app-list-item label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ items.nome | uppercase }} {{
-        items.cognome | uppercase }}</span></app-list-item>
+    <app-list-item label="{{ '00_int1' | translate }}">
+      <span style="font-weight: bold;">{{ items.nome | uppercase }} {{items.cognome | uppercase }}</span>
+        <button *ngxPermissionsOnly="['OP_APPROVAZIONE_AMM', 'OP_APPROVAZIONE_ECONOMICA','OP_DIPARTIMENTALE','SUPER-ADMIN']" 
+        class="btn btn-sm btn-link oi oi-external-link text-decoration-none"   
+        title="Dettagli utente"
+        (click)="openUserModal(items.userid)">
+        </button>
+    </app-list-item>
+        
     <app-list-item label="{{ '00_int2' | translate }}" value="{{ items.insegnamento | uppercase }}"></app-list-item>
     <app-list-item label="{{ '00_int3' | translate }}" value="{{ items.aa }} / {{ tools.annoAccademico(items.aa) }}">
     </app-list-item>
     <app-list-item label="{{ '00_int5' | translate }}">DAL GIORNO {{ items.data_ini_contr | date: 'dd-MM-yyyy' }} AL
       GIORNO {{ items.data_fine_contr | toDateObj | date: 'dd-MM-yyyy' }} <span *ngIf="items.ciclo">({{items.ciclo |
         uppercase}})</span></app-list-item>
-    <app-list-item label="{{ '00_int4' | translate }}" value="{{ tools.naturaRapporto(items.natura_rapporto) }}">
+    <app-list-item *ngIf="items?.natura_rapporto" label="{{ '00_int4' | translate }}" value="{{ tools.naturaRapporto(items.natura_rapporto) }}">
     </app-list-item>
     <app-list-item label="{{ '00_int6' | translate }}" value="{{ tools.tipoConferimento(items.motivo_atto) }}">
     </app-list-item> 

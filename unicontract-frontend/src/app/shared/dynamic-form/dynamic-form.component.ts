@@ -4,8 +4,9 @@ import { UntypedFormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-dynamic-form',
-  templateUrl: './dynamic-form.component.html'
+    selector: 'app-dynamic-form',
+    templateUrl: './dynamic-form.component.html',
+    standalone: false
 })
 export class DynamicFormComponent implements OnInit {
 

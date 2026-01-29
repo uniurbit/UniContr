@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { UntypedFormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,13 +10,16 @@ import {Location} from '@angular/common';
 import { ConfirmationDialogService } from '../confirmation-dialog/confirmation-dialog.service';
 
 @Component({
-  template: `NOT UI`
+    template: `NOT UI`,
+    standalone: false
 })
 
 // ng g c submission/components/user -s true --spec false -t true
 
 export class BaseEntityComponent implements OnInit, OnDestroy {
 
+  @Input() idModal?: string;
+  
   protected onDestroy$ = new Subject<void>();
   isLoading = true;
 
@@ -70,9 +73,11 @@ export class BaseEntityComponent implements OnInit, OnDestroy {
     this.sub = this.route.params.subscribe(params => {
       this.service.clearMessage();
 
+      const id = params['id'] ?? this.idModal;
+
       // NB params['id'] ha valore new 
-      if (params['id']){        
-        if (params['id']=='new'){
+      if (id){        
+        if (id=='new'){
           //se sono in nuovo il pulsante nuovo lo disattivo
           this.activeNew = false;
         }
@@ -80,7 +85,7 @@ export class BaseEntityComponent implements OnInit, OnDestroy {
         this.isLoading = true;
         this.options.formState.isLoading = true;
         //params['id'] contiene il parametro letto dalla url, può contenere un id o anche la parola new
-        this.service.getById(params['id']).subscribe({
+        this.service.getById(id).subscribe({
           next: (data) => {    
             setTimeout(()=> {              
               if (this.initObj)

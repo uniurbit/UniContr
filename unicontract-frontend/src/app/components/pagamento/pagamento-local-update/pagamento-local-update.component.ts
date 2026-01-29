@@ -10,9 +10,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { PagamentoDetailsComponent } from '../pagamento-details/pagamento-details.component';
 
 @Component({
-  selector: 'app-pagamento-local-update',
-  templateUrl: './pagamento-local-update.component.html',
-  styleUrls: ['./pagamento-local-update.component.css']
+    selector: 'app-pagamento-local-update',
+    templateUrl: './pagamento-local-update.component.html',
+    styleUrls: ['./pagamento-local-update.component.css'],
+    standalone: false
 })
 export class PagamentoLocalUpdateComponent extends BaseComponent {
 
@@ -32,7 +33,7 @@ export class PagamentoLocalUpdateComponent extends BaseComponent {
     // scelta modalità di pagamento
     {
       wrappers: ['riquadro'],
-      templateOptions: {
+      props: {
         title:  this.translateService.instant('a2_title1')
       },
       fieldGroupClassName: 'row',
@@ -42,18 +43,18 @@ export class PagamentoLocalUpdateComponent extends BaseComponent {
           type: 'radio',
           className: 'col-md-6',
           defaultValue: 'ACIC',
-          templateOptions: {
+          props: {
             required: true,
             options: []
           },
           expressionProperties: {
-            'templateOptions.options': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.options': (model: any, formState: any, field: FormlyFieldConfig) => {
               return [
                 { value: 'AGBM', label: this.translateService.instant('a2_check1') },
                 { value: 'ACIC', label: this.translateService.instant('a2_check2') }
               ];
             },
-            'templateOptions.description': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.description': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.modality === 'AGBM') {
                  return this.translateService.instant('a2_info1');
               } else {
@@ -68,7 +69,7 @@ export class PagamentoLocalUpdateComponent extends BaseComponent {
     {
       wrappers: ['riquadro'],
       hideExpression:  (model: any, formState: any) => model.modality === 'AGBM',
-      templateOptions: {
+      props: {
         title:  this.translateService.instant('a2_title2')
       },
       fieldGroup: [
@@ -80,7 +81,7 @@ export class PagamentoLocalUpdateComponent extends BaseComponent {
             key: 'intestazione',
             type: 'input',
             className: 'col-md-6',
-            templateOptions: {
+            props: {
               translate: true,
               label: 'a2_label1',
               required: true,
@@ -95,7 +96,7 @@ export class PagamentoLocalUpdateComponent extends BaseComponent {
             key: 'iban',
             type: 'input',
             className: 'col-md-6',
-            templateOptions: {
+            props: {
               translate: true,
               label: 'a2_label2',
               required: true,
@@ -117,7 +118,7 @@ export class PagamentoLocalUpdateComponent extends BaseComponent {
               key: 'denominazione',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 translate: true,
                 label: 'a2_label3',
               }
@@ -126,7 +127,7 @@ export class PagamentoLocalUpdateComponent extends BaseComponent {
               key: 'luogo',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 translate: true,
                 label: 'a2_label4',
               }
@@ -141,7 +142,7 @@ export class PagamentoLocalUpdateComponent extends BaseComponent {
               key: 'bic',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 translate: true,
                 label: 'a2_label5',
                 description: this.translateService.instant('a2_info2'),
@@ -152,7 +153,7 @@ export class PagamentoLocalUpdateComponent extends BaseComponent {
               key: 'aba',
               type: 'input',
               className: 'col-md-6',
-              templateOptions: {
+              props: {
                 translate: true,
                 label: 'a2_label6',
                 description: this.translateService.instant('a2_info2'),

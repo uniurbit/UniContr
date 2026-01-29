@@ -10,10 +10,11 @@ import { PrecontrattualeService } from 'src/app/services/precontrattuale.service
 import { encode, decode } from 'base64-arraybuffer';
 
 @Component({
-  selector: 'app-d3-tributari-details',
-  templateUrl: './d3-tributari-details.component.html',
-  styleUrls: ['./d3-tributari-details.component.css'],
-  providers: [DatePipe]
+    selector: 'app-d3-tributari-details',
+    templateUrl: './d3-tributari-details.component.html',
+    styleUrls: ['./d3-tributari-details.component.css'],
+    providers: [DatePipe],
+    standalone: false
 })
 
 export class D3TributariDetailsComponent extends BaseComponent {

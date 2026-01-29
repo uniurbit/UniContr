@@ -6,12 +6,13 @@ import { MessageService } from 'src/app/shared';
 import { ConfirmationDialogService } from 'src/app/shared/confirmation-dialog/confirmation-dialog.service';
 
 @Component({
-  selector: 'app-termina-button',
-  template: `
+    selector: 'app-termina-button',
+    template: `
   <button type="button" class="btn btn-outline-secondary btn-warning rounded me-1 ms-2" (click)="termina(item.insegn_id)" title="{{ 'btn_end_title' | translate }}" >{{ 'btn_end' | translate }}</button>
   `,
-  styleUrls: [],
-  styles: []
+    styleUrls: [],
+    styles: [],
+    standalone: false
 })
 
 

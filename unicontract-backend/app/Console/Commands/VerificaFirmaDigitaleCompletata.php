@@ -109,7 +109,7 @@ class VerificaFirmaDigitaleCompletata extends Command
                                 $createdAt = $firmaUtente->created_at;
                                 $currentDate = Carbon::now();
                                  // Calculate the number of days since the firma was created
-                                $daysDifference = $createdAt->diffInDays($currentDate);
+                                $daysDifference = (int) $createdAt->diffInDays($currentDate, true);
                                 if ($daysDifference > 15) {
                                     $localService = null;
                                     if ($firmaUtente->nomeProvider == 'FIRMAIO'){             

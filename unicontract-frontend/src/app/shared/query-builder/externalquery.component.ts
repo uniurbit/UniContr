@@ -4,11 +4,11 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LookupComponent } from '../lookup/lookup.component';
 
 @Component({
-  selector: 'app-externalquery',
-  template: `
+    selector: 'app-externalquery',
+    template: `
   <div  *ngIf="codeField" class="form-group form-row" style="position: relative">         
   <div class="input-group"> 
-    <input *ngIf="field.templateOptions.type !== 'number' else numberTmp" [type]="field.templateOptions.type" [formControl]="formControl" class="form-control" [formlyAttributes]="field" [class.is-invalid]="showError">
+    <input *ngIf="field.props.type !== 'number' else numberTmp" [type]="field.props.type" [formControl]="formControl" class="form-control" [formlyAttributes]="field" [class.is-invalid]="showError">
     <ng-template #numberTmp>
       <input type="number" [formControl]="formControl" class="form-control" [formlyAttributes]="field" [class.is-invalid]="showError">
     </ng-template>          
@@ -21,7 +21,8 @@ import { LookupComponent } from '../lookup/lookup.component';
   </div>
   </div>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class ExternalqueryComponent extends FieldType implements OnInit {
   codeField: FormlyFieldConfig;
@@ -43,13 +44,13 @@ export class ExternalqueryComponent extends FieldType implements OnInit {
       // descriptionProp: 'name',
 
 
-      tmpfield.templateOptions.keyup = (field, event: KeyboardEvent) => {
+      tmpfield.props.keyup = (field, event: KeyboardEvent) => {
         if (event.key == "F4") {
           this.open();
         }
       };
 
-      tmpfield.templateOptions.addonRight = {
+      tmpfield.props.addonRight = {
         class: 'btn btn-outline-secondary oi oi-eye d-flex align-items-center',
         onClick: (to, fieldType, $event) => this.open(),
       }
@@ -73,9 +74,9 @@ export class ExternalqueryComponent extends FieldType implements OnInit {
   }
 
   setcode(data: any) {
-    if (this.field.templateOptions.codeProp in data){
-      this.codeField.formControl.setValue(data[this.field.templateOptions.codeProp]);    
-      //this.codeField.templateOptions.description = data[this.field.templateOptions.descriptionProp];
+    if (this.field.props.codeProp in data){
+      this.codeField.formControl.setValue(data[this.field.props.codeProp]);    
+      //this.codeField.props.description = data[this.field.props.descriptionProp];
     }
   }
 

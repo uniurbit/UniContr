@@ -11,9 +11,10 @@ import { ContrUgovService } from 'src/app/services/contr-ugov.service';
 import { annoAccademicoCorrente } from 'src/app/shared/dynamic-form/utils';
 
 @Component({
-  selector: 'app-list-contrugov-query',
-  templateUrl: '../../../shared/base-component/base-research.component.html',
-  styles: []
+    selector: 'app-list-contrugov-query',
+    templateUrl: '../../../shared/base-component/base-research.component.html',
+    styles: [],
+    standalone: false
 })
 export class ListaContrugovQueryComponent extends BaseResearchComponent {
   enabledExport = false;
@@ -23,7 +24,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
     {
       key: 'insegnamento.aa',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Anno',
         valueProp: 'value',
         labelProp: 'label',
@@ -33,7 +34,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
     {
       key: 'currentState',
       type: 'selectrelation',
-      templateOptions: {
+      props: {
         label: 'Contratto in contabilità',
         required: true,
         options: [
@@ -47,7 +48,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
     {
       key: 'insegnamento.insegnamento',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Insegnamento',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -56,7 +57,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
     {
       key: 'insegnamento.dip_cod',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Dipartimento',
         options: [
           { value: '005019', label: this.translateService.instant('005019_disb') },
@@ -73,7 +74,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
     {
       key: 'user.name',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Nominativo docente (nome cognome)',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -83,7 +84,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
     {
       key: 'insegnamento.coper_id',
       type: 'input',
-      templateOptions: {
+      props: {
         type: 'number',
         label: 'Copertura',
         required: true,
@@ -93,7 +94,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
     {
       key: 'insegnamento.data_fine_contr',
       type: 'date',
-      templateOptions: {
+      props: {
         label: 'Data fine',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -102,7 +103,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
     {
       key: 'p2naturarapporto.natura_rapporto',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Natura del rapporto',
         options: [
           { value: 'PRPR', label: this.translateService.instant('p3_radio1') },
@@ -118,7 +119,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
     {
       key: 'insegnamento.compenso',
       type: 'number',
-      templateOptions: {
+      props: {
         type: 'number',
         label: 'Compenso',
         required: true,        
@@ -127,7 +128,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
     {
       key: 'flag_no_compenso',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Rinuncia al compenso',
         options: [
           { value: true, label: this.translateService.instant('txt_si') },
@@ -224,7 +225,7 @@ export class ListaContrugovQueryComponent extends BaseResearchComponent {
       key: 'data',
       type: 'datatablelookup',
       wrappers: ['accordion'],
-      templateOptions: {
+      props: {
         headerHeight: 50,
         footerHeight: 50,
         label: 'Risultati Contratti Ugov',

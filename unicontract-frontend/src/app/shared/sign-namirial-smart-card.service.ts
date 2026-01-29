@@ -7,7 +7,7 @@ import { AppConstants } from "../app-constants";
 import { AuthService } from "../core/auth.service";
 import { MessageService } from "./message.service";
 import { BaseService } from "./base-service/base.service";
-import * as saveAs from "file-saver";
+import { saveAs } from 'file-saver';
 
 
 

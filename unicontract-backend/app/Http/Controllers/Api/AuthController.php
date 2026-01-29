@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use JWTAuth;
 use App\User;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -138,5 +139,18 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
+    }
+    
+    public function logError(Request $request)
+    {
+        // You can log the error or store it in the database
+        Log::error('Angular Error:', [
+            'error' => $request->input('error'),
+            'message' => $request->input('message'),
+            'user_agent' => $request->header('User-Agent'),
+            'ip_address' => $request->ip()
+        ]);
+        // Optionally return a success response
+        //return response()->json(['message' => 'Error logged successfully']);
     }
 }

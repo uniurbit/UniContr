@@ -5,9 +5,10 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-blank-layout',
-  templateUrl: './blank.component.html',
-  styleUrls: []
+    selector: 'app-blank-layout',
+    templateUrl: './blank.component.html',
+    styleUrls: [],
+    standalone: false
 })
 export class BlankComponent implements OnDestroy {
 

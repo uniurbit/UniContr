@@ -29,10 +29,14 @@ Route::group(['middleware' => ['cors','auth.api_or_apikey','log','role:super-adm
     Route::delete('mappingruoli/{id}', 'MappingRuoloController@delete');
 
     // USERS
-    Route::get('users/roles','UserController@roles');
-    Route::get('users/permissions','UserController@permissions');
-    Route::resource('users', 'UserController');
-    Route::post('users/query', 'UserController@query'); 
+    //Route::get('users/roles','UserController@roles');//sposto sotto
+    //Route::get('users/permissions','UserController@permissions');//sposto sotto
+    Route::get('users', 'UserController@index');
+    //Route::get('users/{id}', 'UserController@show'); //sposto sotto
+    Route::post('users/query', 'UserController@query'); // Optional: if you have a query method
+    Route::post('users', 'UserController@store');
+    Route::put('users/{id}', 'UserController@update');
+    Route::delete('users/{id}', 'UserController@destroy');
 
     // ROLES
     Route::get('roles', 'RoleController@index');
@@ -62,6 +66,9 @@ Route::group(['middleware' => ['cors','auth.api_or_apikey','log','check'], 'name
 
 Route::group(['middleware' => ['cors','auth:api','log'], 'namespace'=>'Api\V1'], function() {
  
+    Route::get('users/roles','UserController@roles');
+    Route::get('users/permissions','UserController@permissions');
+    Route::get('users/{id}', 'UserController@show'); 
     //mail
     Route::post('mail/sendMail', 'NotificationController@sendMail'); 
 

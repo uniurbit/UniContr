@@ -2,8 +2,8 @@ import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { FieldWrapper } from '@ngx-formly/core';
 
 @Component({
-  selector: 'formly-wrapper-accordion',
-  template: `  
+    selector: 'formly-wrapper-accordion',
+    template: `  
     <div class="card">
       <h4 class="card-header">
         {{ to.label }}
@@ -19,6 +19,7 @@ import { FieldWrapper } from '@ngx-formly/core';
       </div>
     </div>  
   `,
+    standalone: false
 })
 export class AccordionWrapperComponent extends FieldWrapper {
   public isCollapsed = false;

@@ -13,7 +13,8 @@ import ControlUtils from './control-utils';
 @Injectable()
 @Component({
     selector: 'app-grid',
-    templateUrl: './dynamic-table.component.html'
+    templateUrl: './dynamic-table.component.html',
+    standalone: false
 })
 export class DynamicTableComponent<T> implements OnInit, OnDestroy {
     

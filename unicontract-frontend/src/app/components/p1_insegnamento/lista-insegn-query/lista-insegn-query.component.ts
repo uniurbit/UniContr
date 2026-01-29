@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { InsegnamentoService } from 'src/app/services/insegnamento.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BaseResearchComponent } from 'src/app/shared/base-component/base-research.component';
-import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFieldProps } from '@ngx-formly/core';
 import { Page } from 'src/app/shared/lookup/page';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { InsegnUgovService } from 'src/app/services/insegn-ugov.service';
@@ -11,9 +11,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { annoAccademicoCorrente } from 'src/app/shared/dynamic-form/utils';
 
 @Component({
-  selector: 'app-lista-insegn-query',
-  templateUrl: '../../../shared/base-component/base-research.component.html',
-  styles: []
+    selector: 'app-lista-insegn-query',
+    templateUrl: '../../../shared/base-component/base-research.component.html',
+    styles: [],
+    standalone: false
 })
 export class ListaInsegnQueryComponent extends BaseResearchComponent {
 
@@ -51,7 +52,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
     {
       key: 'AA_OFF_ID',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Anno',
         valueProp: 'value',
         labelProp: 'label',
@@ -61,7 +62,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
     {
       key: 'nome',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Nome',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -70,7 +71,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
     {
       key: 'cognome',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Cognome',
         required: true,
         column: { cellTemplate: 'valuecolumn'}
@@ -79,7 +80,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
     {
       key: 'coper_id',
       type: 'input',
-      templateOptions: {
+      props: {
         type: 'number',
         label: 'Copertura',
         required: true,
@@ -89,7 +90,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
     {
       key: 'af_gen_des',
       type: 'string',
-      templateOptions: {
+      props: {
         label: 'Insegnamento',
         required: true,
       }
@@ -97,7 +98,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
     // {
     //   key: 'dip_des',
     //   type: 'string',
-    //   templateOptions: {
+    //   props: {
     //     label: 'Dipartimento',
     //     required: true,
     //   }
@@ -105,7 +106,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
     {
       key: 'dip_cod',
       type: 'select',
-      templateOptions: {
+      props: {
         label: 'Dipartimento',        
         options: [
           { value: '005019', label: this.translateService.instant('005019_disb') },
@@ -121,7 +122,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
     // {
     //   key: 'data_ini_contratto',
     //   type: 'date',
-    //   templateOptions: {
+    //   props: {
     //     label: 'Data inizio',
     //     required: true,
 
@@ -130,7 +131,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
     // {
     //   key: 'data_fine_contratto',
     //   type: 'date',
-    //   templateOptions: {
+    //   props: {
     //     label: 'Data fine',
     //     required: true,
     //   }
@@ -140,7 +141,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
   resultMetadata: FormlyFieldConfig[];
   @ViewChild('tooltip', { static: true }) tooltipCellTemplate: TemplateRef<any>;
 
-  builderoptions: FormlyTemplateOptions = {
+  builderoptions:  FormlyFieldProps = {
     min: 1
   };
 
@@ -178,7 +179,7 @@ export class ListaInsegnQueryComponent extends BaseResearchComponent {
       key: 'data',
       type: 'datatablelookup',
       wrappers: ['accordion'],
-      templateOptions: {
+      props: {
         label: 'Seleziona insegnamento',
         columnMode: 'force',
         scrollbarH: true,

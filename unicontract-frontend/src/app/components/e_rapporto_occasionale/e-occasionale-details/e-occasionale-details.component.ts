@@ -11,10 +11,11 @@ import { DatePipe } from '@angular/common';
 import { PrecontrattualeService } from 'src/app/services/precontrattuale.service';
 
 @Component({
-  selector: 'app-e-occasionale-details',
-  templateUrl: './e-occasionale-details.component.html',
-  styleUrls: ['./e-occasionale-details.component.css'],
-  providers: [DatePipe]
+    selector: 'app-e-occasionale-details',
+    templateUrl: './e-occasionale-details.component.html',
+    styleUrls: ['./e-occasionale-details.component.css'],
+    providers: [DatePipe],
+    standalone: false
 })
 export class EOccasionaleDetailsComponent extends BaseComponent {
 

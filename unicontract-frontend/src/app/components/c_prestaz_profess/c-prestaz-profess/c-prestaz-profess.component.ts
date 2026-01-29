@@ -16,9 +16,10 @@ import { B2IncompatibilitaInterface } from 'src/app/interface/b2incompatibilita.
 
 
 @Component({
-  selector: 'app-c-prestaz-profess',
-  templateUrl: './c-prestaz-profess.component.html',
-  styleUrls: ['./c-prestaz-profess.component.css']
+    selector: 'app-c-prestaz-profess',
+    templateUrl: './c-prestaz-profess.component.html',
+    styleUrls: ['./c-prestaz-profess.component.css'],
+    standalone: false
 })
 
 export class CPrestazProfessComponent extends BaseComponent {
@@ -50,7 +51,7 @@ export class CPrestazProfessComponent extends BaseComponent {
           // validation: {
           //   show: true
           // },
-          templateOptions: {
+          props: {
             minLength: 11,
             maxLength: 11,
             translate: true,
@@ -66,7 +67,7 @@ export class CPrestazProfessComponent extends BaseComponent {
           // validation: {
           //   show: true
           // },
-          templateOptions: {
+          props: {
             translate: true,
             label: 'c_label2',
             required: true,
@@ -84,7 +85,7 @@ export class CPrestazProfessComponent extends BaseComponent {
           // validation: {
           //   show: true
           // },
-          templateOptions: {
+          props: {
             options: [
               {value: 0, label: this.translateService.instant('c_label4')},
               {value: 1, label: this.translateService.instant('c_label5')}
@@ -107,7 +108,7 @@ export class CPrestazProfessComponent extends BaseComponent {
           key: 'flag_albo',
           className: 'col',
           defaultValue: false,
-          templateOptions: {
+          props: {
             formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_albo === false || field.model.flag_albo === 0) {
@@ -119,7 +120,7 @@ export class CPrestazProfessComponent extends BaseComponent {
             }
           },
           expressionProperties: {
-            'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_albo === false || model.flag_albo === 0) {
                 return 'NO';
               } else {
@@ -141,13 +142,13 @@ export class CPrestazProfessComponent extends BaseComponent {
           type: 'input',
           key: 'denominazione_albo',
           className: 'col-md-4',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'c_label6',
             required: true,
           },
           expressionProperties: {
-            'templateOptions.required': (model: any, formState: any) => {
+            'props.required': (model: any, formState: any) => {
               return model.flag_albo;
             }
           }
@@ -156,13 +157,13 @@ export class CPrestazProfessComponent extends BaseComponent {
           type: 'input',
           key: 'provincia_albo',
           className: 'col-md-2',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'c_label7',
             required: true,
           },
           expressionProperties: {
-            'templateOptions.required': (model: any, formState: any) => {
+            'props.required': (model: any, formState: any) => {
               return model.flag_albo;
             }
           }
@@ -171,13 +172,13 @@ export class CPrestazProfessComponent extends BaseComponent {
           type: 'input',
           key: 'num_iscrizione_albo',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'c_label8',
             required: true,
           },
           expressionProperties: {
-            'templateOptions.required': (model: any, formState: any) => {
+            'props.required': (model: any, formState: any) => {
               return model.flag_albo;
             }
           }
@@ -186,13 +187,13 @@ export class CPrestazProfessComponent extends BaseComponent {
           type: 'date',
           key: 'data_iscrizione_albo',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'c_label9',
             required: true,
           },
           expressionProperties: {
-            'templateOptions.required': (model: any, formState: any) => {
+            'props.required': (model: any, formState: any) => {
               return model.flag_albo;
             }
           }
@@ -213,7 +214,7 @@ export class CPrestazProfessComponent extends BaseComponent {
           key: 'flag_cassa',
           className: 'col',
           defaultValue: false,
-          templateOptions: {
+          props: {
             formCheck: 'switch',
             change: (field, $event) => {
               if (field.model.flag_cassa === false || field.model.flag_cassa === 0) {
@@ -223,7 +224,7 @@ export class CPrestazProfessComponent extends BaseComponent {
             }
           },
           expressionProperties: {
-            'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_cassa === false || model.flag_cassa === 0) {
                 return 'NO';
               } else {
@@ -245,13 +246,13 @@ export class CPrestazProfessComponent extends BaseComponent {
           type: 'input',
           key: 'denominazione_cassa',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'c_label10',
             required: true,
           },
           expressionProperties: {
-            'templateOptions.required': (model: any, formState: any) => {
+            'props.required': (model: any, formState: any) => {
               return model.flag_cassa;
             }
           }
@@ -269,7 +270,7 @@ export class CPrestazProfessComponent extends BaseComponent {
           key: 'contributo_cassa',
           //className: 'col-md-6',
           defaultValue: 0,
-          templateOptions: {
+          props: {
             required: true,
             formCheck: 'inline',
             options: [
@@ -296,11 +297,11 @@ export class CPrestazProfessComponent extends BaseComponent {
           key: 'flag_rivalsa',
           className: 'col',
           defaultValue: false,
-          templateOptions: {
+          props: {
             formCheck: 'switch',
           },
           expressionProperties: {
-            'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_rivalsa === false || model.flag_rivalsa === 0) {
                 return 'NO';
               } else {
@@ -337,11 +338,11 @@ export class CPrestazProfessComponent extends BaseComponent {
           key: 'flag_regime_fiscale',
           className: 'col',
           defaultValue: false,
-          templateOptions: {
+          props: {
             formCheck: 'switch',
           },
           expressionProperties: {
-            'templateOptions.label': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.label': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.flag_regime_fiscale === false || model.flag_regime_fiscale === 0) {
                 return 'NO';
               } else {
@@ -380,7 +381,7 @@ export class CPrestazProfessComponent extends BaseComponent {
           type: 'radio',
           key: 'regime_fiscale',          
           className: 'col-md-12',         
-          templateOptions: {             
+          props: {             
             label: 'c_label12',       //Dichiaro di essere professionista rientrante nel
             translate: true,
             required: true,

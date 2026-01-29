@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFieldProps } from '@ngx-formly/core';
 import { FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from 'src/app/shared/lookup/page';
@@ -7,8 +7,9 @@ import { BaseResearchComponent } from 'src/app/shared';
 import { MappingRuoloService } from 'src/app/services/mappingruolo.service';
 
 @Component({
-  selector: 'app-mappingruoli',
-  templateUrl: '../../shared/base-component/base-research.component.html',
+    selector: 'app-mappingruoli',
+    templateUrl: '../../shared/base-component/base-research.component.html',
+    standalone: false
 })
 
 // ng g c application/pages/mappinguffici -s true --spec false -t true
@@ -21,7 +22,7 @@ export class MappingRuoli extends BaseResearchComponent {
             key: 'unitaorganizzativa_uo',
             type: 'string',
             hideExpression: false,
-            templateOptions: {
+            props: {
               label: 'Codice unità organizzativa',
               disabled: true,
               column: { width: 5, cellTemplate: 'valuecolumn'}
@@ -30,7 +31,7 @@ export class MappingRuoli extends BaseResearchComponent {
           {
             key: 'descrizione_uo',
             type: 'string',
-            templateOptions: {
+            props: {
               label: 'Descrizione',
               required: true,
               column: { cellTemplate: 'valuecolumn'}
@@ -39,7 +40,7 @@ export class MappingRuoli extends BaseResearchComponent {
           {
             key: 'role_id',
             type: 'number',
-            templateOptions: {
+            props: {
               label: 'Codice ruolo',
               required: true,
               column: { cellTemplate: 'valuecolumn'}
@@ -51,7 +52,7 @@ export class MappingRuoli extends BaseResearchComponent {
     key: 'data',
     type: 'datatablelookup',
     wrappers: ['accordion'],
-    templateOptions: {
+    props: {
       label: 'Risultati associazione ruoli',
       columnMode: 'force',
       scrollbarH: false,
@@ -66,7 +67,7 @@ export class MappingRuoli extends BaseResearchComponent {
     }
   }];
 
-  builderoptions: FormlyTemplateOptions = {
+  builderoptions:  FormlyFieldProps = {
     min: 0
   };
 

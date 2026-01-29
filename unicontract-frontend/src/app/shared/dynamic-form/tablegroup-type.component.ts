@@ -5,8 +5,8 @@ import { FormlyFieldConfig, FieldArrayType, FormlyFormBuilder } from '@ngx-forml
 
 
 @Component({
-  selector: 'app-tablegroup-type',
-  template: `  
+    selector: 'app-tablegroup-type',
+    template: `  
 
 <ngx-datatable
   #grouptable  class="bootstrap" 
@@ -71,7 +71,8 @@ import { FormlyFieldConfig, FieldArrayType, FormlyFormBuilder } from '@ngx-forml
   </a>
 </ng-template>
 
-`
+`,
+    standalone: false
 })
 
 
@@ -133,10 +134,10 @@ export class TableGroupTypeComponent extends FieldArrayType {
       this.to.columns =   (this.field.fieldArray as FormlyFieldConfig).fieldGroup.map(el => {      
         
         let c = { 
-          name: el.templateOptions.label, 
+          name: el.props.label, 
           prop: el.key,                                          
         }
-        el.templateOptions.label = "";
+        el.props.label = "";
                        
         return c;
       });

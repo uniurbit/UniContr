@@ -17,9 +17,10 @@ import { takeUntil, tap } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-b3-rapp-studio-univ',
-  templateUrl: './b3-rapp-studio-univ.component.html',
-  styleUrls: ['./b3-rapp-studio-univ.component.css']
+    selector: 'app-b3-rapp-studio-univ',
+    templateUrl: './b3-rapp-studio-univ.component.html',
+    styleUrls: ['./b3-rapp-studio-univ.component.css'],
+    standalone: false
 })
 export class B3RappStudioUnivComponent extends BaseComponent {
 
@@ -61,7 +62,7 @@ export class B3RappStudioUnivComponent extends BaseComponent {
           type: 'select',
           defaultValue: 'DDR',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             options: this.rapps,
             valueProp: 'rapp',
             labelProp: 'name',
@@ -78,14 +79,14 @@ export class B3RappStudioUnivComponent extends BaseComponent {
           key: 'universita',
           type: 'input',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             label: '',
             required: true,
             // placeholder: 'UNIVERSITÀ DEGLI STUDI DI . . .',
             // description: 'Inserire la data odierna'
           },
           expressionProperties: {
-            'templateOptions.label': (model: any, formState: any) => {
+            'props.label': (model: any, formState: any) => {
               if (model.tipologia_rapporto === 'DDR') {
                 return this.translateService.instant('b3_txt1');
               } else if (model.tipologia_rapporto === 'ADR') {
@@ -102,13 +103,13 @@ export class B3RappStudioUnivComponent extends BaseComponent {
           key: 'dipartimento',
           type: 'input',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             label: 'Dipartimento di',
             required: true,
             // placeholder: 'DIPARTIMENTO . . .',
           },
           expressionProperties: {
-            'templateOptions.label': (model: any, formState: any) => {
+            'props.label': (model: any, formState: any) => {
               if (model.tipologia_rapporto === 'DDR') {
                 return this.translateService.instant('b3_txt2');
               } else {
@@ -130,7 +131,7 @@ export class B3RappStudioUnivComponent extends BaseComponent {
           key: 'riferimenti_legge',
           type: 'select',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             options: this.leggi,
             valueProp: 'legge',
             labelProp: 'name',
@@ -142,7 +143,7 @@ export class B3RappStudioUnivComponent extends BaseComponent {
           key: 'riferimenti_legge',
           type: 'input',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'b3_txt9',
             required: true,
@@ -156,7 +157,7 @@ export class B3RappStudioUnivComponent extends BaseComponent {
           key: 'dal_giorno',
           type: 'date',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             label: 'dal giorno',
             required: true,          
           },
@@ -168,7 +169,7 @@ export class B3RappStudioUnivComponent extends BaseComponent {
                 tap(val => {      
                   if (field.formControl.valid){
                     let al_giorno = field.parent.fieldGroup.find(x => x.key == 'al_giorno');
-                    al_giorno.templateOptions.datepickerOptions.minDate = this.adapter.fromModel(val);     
+                    al_giorno.props.datepickerOptions.minDate = this.adapter.fromModel(val);     
                     this.cdr.detectChanges();   
                     //console.warn(field,field.formControl.valid, val)
                   }                                       
@@ -181,7 +182,7 @@ export class B3RappStudioUnivComponent extends BaseComponent {
           key: 'al_giorno',
           type: 'date',
           className: 'col-md-3',
-          templateOptions: {
+          props: {
             label: 'al giorno',
             required: true,
           },        
@@ -206,7 +207,7 @@ export class B3RappStudioUnivComponent extends BaseComponent {
           validation: {
             show: true
           },
-          templateOptions: {
+          props: {
             // label: 'Elenco rapporti',
             min: 1,
             max: 4,

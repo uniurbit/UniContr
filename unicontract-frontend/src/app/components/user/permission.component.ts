@@ -6,8 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BaseEntityComponent } from 'src/app/shared';
 import {Location} from '@angular/common';
 @Component({
-  selector: 'app-permission',
-  templateUrl: '../../shared/base-component/base-entity.component.html'
+    selector: 'app-permission',
+    templateUrl: '../../shared/base-component/base-entity.component.html',
+    standalone: false
 })
 
 // ng g c submission/components/user -s true --spec false -t true
@@ -23,7 +24,7 @@ export class PermissionComponent extends BaseEntityComponent {
           key: 'id',
           type: 'input',
           className: 'col-md-2',
-          templateOptions: {
+          props: {
             label: 'Id',
             disabled: true
           }
@@ -32,7 +33,7 @@ export class PermissionComponent extends BaseEntityComponent {
           key: 'name',
           type: 'input',
           className: 'col-md-5',
-          templateOptions: {
+          props: {
             label: 'Permesso',
             required: true
           }
@@ -42,7 +43,7 @@ export class PermissionComponent extends BaseEntityComponent {
           type: 'input',
           className: 'col-md-5',
           defaultValue: 'api',          
-          templateOptions: {
+          props: {
             readonly: true,
             label: 'Guardia',
             required: true
@@ -57,7 +58,7 @@ export class PermissionComponent extends BaseEntityComponent {
           key: 'created_at',
           type: 'input',
           className: 'col-md-5',
-          templateOptions: {
+          props: {
             label: 'Data creazione',
             disabled: true,
           }

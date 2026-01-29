@@ -16,9 +16,10 @@ import { IPrecontrStore } from 'src/app/interface/precontrattuale';
 import { D2InailInterface } from 'src/app/interface/d2Inail.interface';
 
 @Component({
-  selector: 'app-d2-inail',
-  templateUrl: './d2-inail.component.html',
-  styleUrls: ['./d2-inail.component.css']
+    selector: 'app-d2-inail',
+    templateUrl: './d2-inail.component.html',
+    styleUrls: ['./d2-inail.component.css'],
+    standalone: false
 })
 export class D2InailComponent extends BaseComponent {
 
@@ -44,7 +45,7 @@ export class D2InailComponent extends BaseComponent {
         {
           type: 'radio',
           key: 'posizione_previdenziale',
-          templateOptions: {
+          props: {
             options: [
               {value: 'INAIL7',  label: this.translateService.instant('d2_txt2')},
               {value: 'INAIL10', label: this.translateService.instant('d2_txt3')},
@@ -56,7 +57,7 @@ export class D2InailComponent extends BaseComponent {
             label: 'd2_txt1'
           },
           expressionProperties: {
-            'templateOptions.description': (model: any, formState: any, field: FormlyFieldConfig) => {
+            'props.description': (model: any, formState: any, field: FormlyFieldConfig) => {
               if (model.posizione_previdenziale === 'INAIL7') {
                  return this.translateService.instant('d2_sub_txt1');
               } else if (model.posizione_previdenziale === 'INAIL10') {

@@ -122,6 +122,20 @@ export default class ControlUtils {
       if (field.key) 
         field.validation = {show: true};
     }
+  }  
+
+  public static validateWithTouched(field: FormlyFieldConfig) {
+    if (!field) return;
+
+    if (field.fieldGroup) {           
+      field.fieldGroup.forEach((f) => ControlUtils.validateWithTouched(f));
+    }
+    //Nel caso del field type repatable che ha un fieldgroup ma deve essere valutato anche il controllo field.formcontrol.    
+    if (field.key && field.formControl) {
+      field.formControl.markAsTouched();
+      field.formControl.markAsDirty();
+      field.formControl.updateValueAndValidity(); // ensures validation state is refreshed
+    }    
   }
 
   public static getField(key: string, fields: FormlyFieldConfig[]): FormlyFieldConfig {

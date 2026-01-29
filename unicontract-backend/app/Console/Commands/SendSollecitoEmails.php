@@ -94,7 +94,7 @@ class SendSollecitoEmails extends Command
                         $datetime1 =  $pre->insegnamento->created_at != null ?  
                             $pre->insegnamento->created_at : Carbon::createFromFormat('Y-m-d',  $pre->insegnamento->data_delibera); 
                         $datetime2 = Carbon::now();
-                        $gg  = $datetime1->diffInDays($datetime2);
+                        $gg  = (int) $datetime1->diffInDays($datetime2, true);
                     }
                     if ($gg>10){
                         //invio email di sollecito ai docenti
@@ -118,7 +118,7 @@ class SendSollecitoEmails extends Command
                     if ($gg<0){ 
                         $datetime1 = Carbon::createFromFormat(config('unidem.datetime_format'), $pre->validazioni->date_amm);  
                         $datetime2 = Carbon::now();
-                        $gg  = $datetime1->diffInDays($datetime2);
+                        $gg  = (int) $datetime1->diffInDays($datetime2, true);
                     }
                     if ($gg>10){
                         //invio email di sollecito ai docenti

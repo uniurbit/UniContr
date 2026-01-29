@@ -10,9 +10,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { MyTranslatePipe } from 'src/app/shared/pipe/custom.translatepipe';
 
 @Component({
-  selector: 'app-contrattiresult',
-  templateUrl: './contrattiresult.component.html', 
-  styles: []
+    selector: 'app-contrattiresult',
+    templateUrl: './contrattiresult.component.html',
+    styles: [],
+    standalone: false
 })
 export class ConvenzioniresultComponent implements OnInit {
   isLoading: boolean = false;
@@ -68,7 +69,7 @@ export class ConvenzioniresultComponent implements OnInit {
           key: 'data',
           type: 'datatablelookup',
           //wrappers: ['accordion'],      
-          templateOptions: {
+          props: {
             label: 'Risultati',   
             columnMode: 'force',
             headerHeight: 50,
@@ -168,7 +169,7 @@ export class ConvenzioniresultComponent implements OnInit {
     //this.service.clearMessage();
     try{      
       this.service.query(this.querymodel).subscribe((data) => {
-        const to = this.resultMetadata[0].templateOptions;
+        const to = this.resultMetadata[0].props;
         this.isLoading = false;   
         this.model=  {
           data: data.data

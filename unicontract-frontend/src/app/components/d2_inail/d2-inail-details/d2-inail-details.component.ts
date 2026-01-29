@@ -10,10 +10,11 @@ import { PrecontrattualeService } from 'src/app/services/precontrattuale.service
 import { encode, decode } from 'base64-arraybuffer';
 
 @Component({
-  selector: 'app-d2-inail-details',
-  templateUrl: './d2-inail-details.component.html',
-  styleUrls: ['./d2-inail-details.component.css'],
-  providers: [DatePipe]
+    selector: 'app-d2-inail-details',
+    templateUrl: './d2-inail-details.component.html',
+    styleUrls: ['./d2-inail-details.component.css'],
+    providers: [DatePipe],
+    standalone: false
 })
 export class D2InailDetailsComponent extends BaseComponent {
 

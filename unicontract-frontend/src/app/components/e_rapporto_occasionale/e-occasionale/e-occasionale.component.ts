@@ -14,9 +14,10 @@ import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { encode, decode } from 'base64-arraybuffer';
 
 @Component({
-  selector: 'app-e-occasionale',
-  templateUrl: './e-occasionale.component.html',
-  styleUrls: ['./e-occasionale.component.css']
+    selector: 'app-e-occasionale',
+    templateUrl: './e-occasionale.component.html',
+    styleUrls: ['./e-occasionale.component.css'],
+    standalone: false
 })
 export class EOccasionaleComponent extends BaseComponent {
 
@@ -76,7 +77,7 @@ export class EOccasionaleComponent extends BaseComponent {
         {
           type: 'radio',
           key: 'cod_limite_reddito',
-          templateOptions: {
+          props: {
             options: [
               {value: 'NASL', label: this.translateService.instant('e_txt1')},
               {value: 'AGR',  label: this.translateService.instant('e_txt2')},
@@ -94,7 +95,7 @@ export class EOccasionaleComponent extends BaseComponent {
           key: 'importo',
           type: 'maskcurrency',
           className: 'col-md-4',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'e_txt3',
             required: true
@@ -113,7 +114,7 @@ export class EOccasionaleComponent extends BaseComponent {
         {
           type: 'radio',
           key: 'gestione_separata',
-          templateOptions: {
+          props: {
             options: [
               {value: 1, label: this.translateService.instant('e_txt5')},
               {value: 6, label: this.translateService.instant('e_txt6')},
@@ -137,7 +138,7 @@ export class EOccasionaleComponent extends BaseComponent {
           key: 'previdenza',
           type: 'input',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             translate: true,
             label: 'e_label1',
             required: true
@@ -148,7 +149,7 @@ export class EOccasionaleComponent extends BaseComponent {
           key: 'cod_cassa_previdenziale',
           type: 'select',
           className: 'col-md-6',
-          templateOptions: {
+          props: {
             options: this.gestioni,
             valueProp: 'gestione',
             labelProp: 'name',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFieldProps } from '@ngx-formly/core';
 import { FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from 'src/app/shared/lookup/page';
@@ -9,8 +9,9 @@ import { PersonaInternaService } from '../services/personainterna.service';
 
 
 @Component({
-  selector: 'app-personeinterne',
-  templateUrl: '../shared/base-component/base-research.component.html',
+    selector: 'app-personeinterne',
+    templateUrl: '../shared/base-component/base-research.component.html',
+    standalone: false
 })
 
 // ng g c submission/components/permissions -s true --spec false -t true
@@ -22,7 +23,7 @@ export class PersoneinterneTitulus extends BaseResearchComponent {
           {
             key: 'persint_coduff',
             type: 'external',
-            templateOptions: {
+            props: {
               label: 'Codice ufficio',
               type: 'string',
               entityName: 'strutturainterna',
@@ -36,7 +37,7 @@ export class PersoneinterneTitulus extends BaseResearchComponent {
             key: 'persint_matricola',
             type: 'string',
             hideExpression: false,
-            templateOptions: {
+            props: {
               label: 'Matricola',
               disabled: true,
               column: { width: 10, cellTemplate: 'valuecolumn'}
@@ -45,7 +46,7 @@ export class PersoneinterneTitulus extends BaseResearchComponent {
           {
             key: 'persint_nomcogn',
             type: 'string',
-            templateOptions: {
+            props: {
               label: 'Nome e/o cognome',
               required: true,
               column: { cellTemplate: 'valuecolumn'}
@@ -57,7 +58,7 @@ export class PersoneinterneTitulus extends BaseResearchComponent {
     key: 'data',
     type: 'datatablelookup',
     wrappers: ['accordion'],
-    templateOptions: {
+    props: {
       label: 'Risultati persone interne',
       columnMode: 'force',
       scrollbarH: false,
@@ -72,7 +73,7 @@ export class PersoneinterneTitulus extends BaseResearchComponent {
     }
   }];
 
-  builderoptions: FormlyTemplateOptions = {
+  builderoptions:  FormlyFieldProps = {
     min: 1
   };
 

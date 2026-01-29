@@ -9,7 +9,8 @@
       <ng-container #fieldComponent></ng-container>
     </div>
     `,
-    styles: []
-  })
+    styles: [],
+    standalone: false
+})
   export class FormlyRiquadroWrapperComponent extends FieldWrapper {
   }

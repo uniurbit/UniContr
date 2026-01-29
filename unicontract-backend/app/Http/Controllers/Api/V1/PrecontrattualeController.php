@@ -114,6 +114,15 @@ class PrecontrattualeController extends Controller
             return compact('data', 'message', 'success');
         }
         
+        if (
+            $insegnamentoUgov->data_ini_contratto === null ||
+            $insegnamentoUgov->data_fine_contratto === null
+        ) {
+            $message = 'Insegnamento non aggiornabile: data di inizio o fine mancante';
+            $success = false;
+            return compact('data', 'message', 'success');
+        }
+
         //verificare motivo atto non supportato
         if ($insegnamentoUgov->motivo_atto_cod && !in_array($insegnamentoUgov->motivo_atto_cod, ['BAN_INC','APPR_INC','CONF_INC'])){
             $message = 'Insegnamento non aggiornabile: motivo atto non supportato';
@@ -147,6 +156,7 @@ class PrecontrattualeController extends Controller
             $success = false;            
             return compact('data', 'message', 'success');
         }
+        
         
         //verificare i cfu    
         //se c'è la p2 e 
@@ -358,7 +368,7 @@ class PrecontrattualeController extends Controller
         $insegnamentoUgov = InsegnamUgov::where('COPER_ID', $precontr->insegnamento->coper_id)            
             ->first(['coper_id', 'tipo_coper_cod', 'data_ini_contratto', 'data_fine_contratto', 
                 'coper_peso', 'ore', 'compenso', 'motivo_atto_cod', 'tipo_atto_des', 'tipo_emitt_des', 
-                'numero', 'data', 'des_tipo_ciclo', 'sett_des', 'sett_cod','af_radice_id', 'cds_cod']);  
+                'numero', 'data', 'des_tipo_ciclo', 'sett_des', 'sett_cod','af_radice_id', 'cds_cod', 'part_stu_cod', 'part_stu_des']);  
 
 
 
@@ -728,12 +738,13 @@ class PrecontrattualeController extends Controller
             return compact('data', 'message', 'success');       
         }
 
-        if (!$pre->checkCompilazioneModelli()){
+        $result = $pre->checkCompilazioneModelli();
+        if ($result !== true) {
             $data = [];
-            $message = trans('global.validazione_non_consentita');
+            $message = $result; // use the specific error message returned by the function
             $success = false;
-            return compact('data', 'message', 'success');   
-        }        
+            return compact('data', 'message', 'success');
+        }      
     
         $valid = Validazioni::where('insegn_id',$request->insegn_id)->first();
 
@@ -875,12 +886,13 @@ class PrecontrattualeController extends Controller
             return compact('data', 'message', 'success');       
         }
 
-        if (!$pre->checkCompilazioneModelli()){
+        $result = $pre->checkCompilazioneModelli();
+        if ($result !== true) {
             $data = [];
+            $message = $result; // use the specific error message returned by the function
             $success = false;
-            $message = trans('global.validazione_non_consentita');
-            return compact('data', 'message', 'success');   
-        }        
+            return compact('data', 'message', 'success');
+        }  
 
         
         if ($pre->a2modalitapagamento->modality == 'ACIC'){
@@ -1160,12 +1172,13 @@ class PrecontrattualeController extends Controller
             return compact('data', 'message', 'success');   
         }
         
-        if (!$pre->checkCompilazioneModelli()){
+        $result = $pre->checkCompilazioneModelli();
+        if ($result !== true) {
             $data = [];
-            $message = trans('global.validazione_non_consentita');
+            $message = $result; // use the specific error message returned by the function
             $success = false;
-            return compact('data', 'message', 'success');   
-        }      
+            return compact('data', 'message', 'success');
+        }  
 
         $insegnamentoUgov = InsegnamUgov::where('COPER_ID', $pre->insegnamento->coper_id)->first();
         if ($insegnamentoUgov == null){ 

@@ -21,8 +21,6 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=3
-        ports:
-          - 3306:3306
 
     steps:
       - uses: actions/checkout@v3
@@ -57,6 +55,17 @@ jobs:
         working-directory: ./unicontract-backend
         run: php artisan key:generate
 
+      - name: Wait for MySQL
+        run: |
+          echo "Waiting for MySQL to be available..."
+          for i in {1..30}; do
+            if mysqladmin ping -hmysql -uroot -proot --silent; then
+              echo "MySQL is up!"
+              break
+            fi
+            sleep 2
+          done
+          
       - name: Run Database Migrations
         working-directory: ./unicontract-backend
         env:
@@ -124,8 +133,6 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=3
-        ports:
-          - 3306:3306
 
     steps:
       - uses: actions/checkout@v3
@@ -163,7 +170,7 @@ jobs:
       - name: Run Database Migrations
         working-directory: ./unicontract-backend
         env:
-          DB_HOST: 127.0.0.1
+          DB_HOST: mysql
           DB_DATABASE: unicontr_test
           DB_USERNAME: root
           DB_PASSWORD: root

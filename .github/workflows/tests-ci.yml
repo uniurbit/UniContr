@@ -15,6 +15,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_HOST: '%'
           MYSQL_DATABASE: unicontr_test
         options: >-
           --health-cmd="mysqladmin ping"

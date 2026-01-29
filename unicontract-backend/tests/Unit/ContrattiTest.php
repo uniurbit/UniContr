@@ -40,8 +40,11 @@ use App\Service\FirmaUSIGNService;
 
 class ContrattiTest extends TestCase
 {
-
     // ./vendor/bin/phpunit  --testsuite Unit --filter testPrecontrattuale
+    /**
+     * @requires-database
+     * @requires-user enrico.oliva@uniurb.it
+     */
     public function testPrecontrattuale()
     {        
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
@@ -61,6 +64,10 @@ class ContrattiTest extends TestCase
     }
 
     // ./vendor/bin/phpunit  --testsuite Unit --filter testDateInsegnamento
+    /**
+     * @requires-database
+     * @requires-user enrico.oliva@uniurb.it
+     */
     public function testDateInsegnamento()
     {        
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
@@ -100,6 +107,7 @@ class ContrattiTest extends TestCase
      * A basic test example.
      *
      * @return void
+     * @github-executable true
      */
     // ./vendor/bin/phpunit  --testsuite Unit --filter testInsegamentiRelation
     public function testInsegamentiRelation()
@@ -118,6 +126,10 @@ class ContrattiTest extends TestCase
     }
 
     // ./vendor/bin/phpunit  --testsuite Unit --filter testQueryPrecontr
+    /**
+     * @github-executable true
+     * @requires-user enrico.oliva@uniurb.it
+     */
     public function testQueryPrecontr(){
         
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
@@ -157,6 +169,9 @@ class ContrattiTest extends TestCase
     }
 
     //./vendor/bin/phpunit  --testsuite Unit --filter testReadStoreAttachment
+    /**
+     * @github-executable true
+     */
     public function testReadStoreAttachment(){
         $filename = 'filetest.txt';
         Storage::disk('local')->put('filetest.txt', 'Primo contenuto');
@@ -184,6 +199,11 @@ class ContrattiTest extends TestCase
     }
 
      //./vendor/bin/phpunit  --testsuite Unit --filter testGeneraPdfConflitto
+    /**
+     * @requires-database
+     * @requires-user enrico.oliva@uniurb.it
+     * @requires-service PDF
+     */
     public function testGeneraPdfConflitto() {   
              
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
@@ -231,6 +251,11 @@ class ContrattiTest extends TestCase
     }
 
      //./vendor/bin/phpunit  --testsuite Unit --filter testGeneraPdfConflittoTrasparenza
+    /**
+     * @requires-database
+     * @requires-user enrico.oliva@uniurb.it
+     * @requires-service PDF
+     */
     public function testGeneraPdfConflittoTrasparenza() { 
              
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
@@ -278,6 +303,11 @@ class ContrattiTest extends TestCase
     }
 
     //./vendor/bin/phpunit  --testsuite Unit --filter testSendFirstEmail
+    /**
+     * @requires-database
+     * @requires-user enrico.oliva@uniurb.it
+     * @requires-service Email
+     */
     public function testSendFirstEmail() { 
                         
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
@@ -309,6 +339,11 @@ class ContrattiTest extends TestCase
 
     
     //./vendor/bin/phpunit  --testsuite Unit --filter testGenerazioneContratto
+    /**
+     * @requires-database
+     * @requires-user enrico.oliva@uniurb.it
+     * @requires-service PDF
+     */
     public function testGenerazioneContratto() { 
 
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
@@ -340,6 +375,11 @@ class ContrattiTest extends TestCase
     }
 
     //./vendor/bin/phpunit  --testsuite Unit --filter testTitulusContratto
+    /**
+     * @requires-database
+     * @requires-user enrico.oliva@uniurb.it
+     * @requires-service Titulus
+     */
     public function testTitulusContratto() { 
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
         $this->actingAs($user);
@@ -400,6 +440,11 @@ class ContrattiTest extends TestCase
 
 
     //./vendor/bin/phpunit  --testsuite Unit --filter testPosizioneFirmaContratto
+    /**
+     * @requires-database
+     * @requires-user enrico.oliva@uniurb.it
+     * @requires-service FirmaIO
+     */
     public function testPosizioneFirmaContratto() { 
         list($response, $pre, $pdf) = $this->creaPrecontrattuale();
 
@@ -419,6 +464,11 @@ class ContrattiTest extends TestCase
 
 
     //./vendor/bin/phpunit  --testsuite Unit --filter testFirmaContrattoUSIGN
+    /**
+     * @requires-database
+     * @requires-user enrico.oliva@uniurb.it
+     * @requires-service USIGN
+     */
     public function testFirmaContrattoUSIGN() { 
         list($response, $pre, $pdf) = $this->creaPrecontrattuale();
 
@@ -446,6 +496,10 @@ class ContrattiTest extends TestCase
 
 
      // ./vendor/bin/phpunit  --testsuite Unit --filter test_exportCSV
+     /**
+      * @requires-database
+      * @requires-user enrico.oliva@uniurb.it
+      */
      public function test_exportCSV(){
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
         $this->actingAs($user);
@@ -480,6 +534,10 @@ class ContrattiTest extends TestCase
 
 
     // ./vendor/bin/phpunit  --testsuite Unit --filter test_exportXLS
+    /**
+     * @requires-database
+     * @requires-user enrico.oliva@uniurb.it
+     */
     public function test_exportXLS(){
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
         $this->actingAs($user);
@@ -525,6 +583,11 @@ class ContrattiTest extends TestCase
 
 
     //./vendor/bin/phpunit  --testsuite Unit --filter testGenerazioneReport
+    /**
+     * @requires-database
+     * @requires-user enrico.oliva@uniurb.it
+     * @requires-service PDF
+     */
     public function testGenerazioneReport() { 
 
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
@@ -541,6 +604,9 @@ class ContrattiTest extends TestCase
 
          
     //./vendor/bin/phpunit  --testsuite Unit --filter test1CalcoloNumeroRinnovi
+    /**
+     * @requires-database-oracle
+     */
     public function test1CalcoloNumeroRinnovi() {
         //force a true
         $this->assertEquals(1, InsegnamUgovController::contatoreInsegnamenti(126860));
@@ -557,6 +623,9 @@ class ContrattiTest extends TestCase
     }
 
     //./vendor/bin/phpunit  --testsuite Unit --filter testCalcoloNumeroRinnovi
+    /**
+     * @requires-database-oracle
+     */
     public function testCalcoloNumeroRinnovi() {
    
         $datiUgov = DB::connection('oracle')->table('V_IE_DI_COPER V1')->join('V_IE_DI_COPER V2', function($join) {
@@ -599,6 +668,9 @@ class ContrattiTest extends TestCase
 
   
     //./vendor/bin/phpunit  --testsuite Unit --filter testStatoCivile
+    /**
+     * @github-executable true
+     */
     public function testStatoCivile() {
         $list = Anagrafica::statoCivileLista('M');            
         $this->assertEquals("Coniugato",$list[0]['value']);
@@ -608,6 +680,11 @@ class ContrattiTest extends TestCase
     }
 
   //./vendor/bin/phpunit  --testsuite Unit --filter testGenPrecontrattualeReport
+  /**
+   * @requires-database
+   * @requires-user enrico.oliva@uniurb.it
+   * @requires-service PDF
+   */
   public function testGenPrecontrattualeReport() { 
 
     $user = User::where('email','enrico.oliva@uniurb.it')->first();
@@ -641,6 +718,10 @@ class ContrattiTest extends TestCase
   }
 
    //./vendor/bin/phpunit  --testsuite Unit --filter testUgovCompensi
+   /**
+    * @requires-database-oracle
+    * @requires-user enrico.oliva@uniurb.it
+    */
    public function testUgovCompensi() { 
 
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
@@ -684,6 +765,10 @@ class ContrattiTest extends TestCase
    }
 
     //./vendor/bin/phpunit  --testsuite Unit --filter testUgovPagamentoCompensi
+    /**
+     * @requires-database-oracle
+     * @requires-user enrico.oliva@uniurb.it
+     */
     public function testUgovPagamentoCompensi() { 
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
         $this->actingAs($user);
@@ -702,6 +787,10 @@ class ContrattiTest extends TestCase
 
      //vuole la connessione ugov
      // ./vendor/bin/phpunit  --testsuite Unit --filter test_ContrUgovExportCSV
+     /**
+      * @requires-database-oracle
+      * @requires-user enrico.oliva@uniurb.it
+      */
      public function test_ContrUgovExportCSV(){
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
         $this->actingAs($user);
@@ -742,6 +831,10 @@ class ContrattiTest extends TestCase
        
      //vuole la connessione ugov
      // ./vendor/bin/phpunit  --testsuite Unit --filter test_InseganmentiConSegmentiUgov
+    /**
+     * @requires-database-oracle
+     * @requires-user enrico.oliva@uniurb.it
+     */
     public function test_InseganmentiConSegmentiUgov(){
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
         $this->actingAs($user);
@@ -771,6 +864,10 @@ class ContrattiTest extends TestCase
 
     
     //./vendor/bin/phpunit  --testsuite Unit --filter testPrecontrattualeIbanUgovValidazione
+    /**
+     * @requires-database
+     * @requires-user enrico.oliva@uniurb.it
+     */
     public function testPrecontrattualeIbanUgovValidazione() { 
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
         $this->actingAs($user);
@@ -806,7 +903,10 @@ class ContrattiTest extends TestCase
     }
 
     //./vendor/bin/phpunit  --testsuite Unit --filter testValidazioneSamlResponse
-    public function validazioneSamlResponse() { 
+    /**
+     * @github-executable true
+     */
+    public function testValidazioneSamlResponse() { 
         
         $document = new \DOMDocument();
         $xml = Storage::disk('local')->get('response.xml');

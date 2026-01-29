@@ -59,7 +59,7 @@ jobs:
         run: |
           echo "Waiting for MySQL to be available..."
           for i in {1..30}; do
-            if mysqladmin ping -hmysql -uroot -proot --silent; then
+            if mysqladmin ping -h127.0.0.1 -uroot -proot --silent; then
               echo "MySQL is up!"
               break
             fi
@@ -70,18 +70,16 @@ jobs:
         working-directory: ./unicontract-backend
         env:
           DB_CONNECTION: mysql
-          DB_HOST: mysql
+          DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_DATABASE: unicontr_test
           DB_USERNAME: root
           DB_PASSWORD: root
-        run: php artisan migrate --seed --env=testing
-
-      - name: Run GitHub Executable Tests Only
+        run: php artisan migrate --seed --env=testi     - name: Run GitHub Executable Tests Only
         working-directory: ./unicontract-backend
         env:
           DB_CONNECTION: mysql
-          DB_HOST: mysql
+          DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_DATABASE: unicontr_test
           DB_USERNAME: root
@@ -170,7 +168,7 @@ jobs:
       - name: Run Database Migrations
         working-directory: ./unicontract-backend
         env:
-          DB_HOST: mysql
+          DB_HOST: 127.0.0.1
           DB_DATABASE: unicontr_test
           DB_USERNAME: root
           DB_PASSWORD: root

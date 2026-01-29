@@ -1,16 +1,12 @@
-version: '3.4'
-volumes:
-  exclude:
-    
 services:
   app:
     build:
+      context: ./docker-compose/php-fpm
+      dockerfile: Dockerfile
       args:
         user: enrico
         uid: 1000
         basepath: ${BASE_PATH}
-      context: ./
-      dockerfile: ./docker-compose/php-fpm/Dockerfile
     image: unicontr
     container_name: unicontr-backend
     working_dir: ${BASE_PATH}
@@ -18,10 +14,11 @@ services:
       - ../unicontract-backend:${BASE_PATH}
     networks:
       - app-network
+    # ports:
+    #   - "9000:9000"
 
   db:
-    image: mysql:5.7
-
+    image: mariadb:10.11
     container_name: unicontr-db
     restart: unless-stopped
     ports: 
@@ -84,6 +81,9 @@ services:
       - ./docker-compose/nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
+
+volumes:
+  exclude:
 
 networks:
   app-network:

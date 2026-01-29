@@ -76,7 +76,7 @@ jobs:
         run: |
           ./vendor/bin/phpunit \
             --testsuite Unit \
-            --filter "testInsegamentiRelation|testReadStoreAttachment|testStatoCivile|testValidazioneSamlResponse|testQueryPrecontr" \
+            --filter "testInsegamentiRelation|testReadStoreAttachment|testStatoCivile|testValidazioneSamlResponse|testQueryPrecontr|testModelliCreazioneAttrsAndStore|testCreateDossierMocked|testGetDossierMocked|testGetSignerIdMocked|testValidateDocumentRequestMocked|testCreateSignatureRequestMocked|testUploadURLMocked|testUploadFirmaIOMocked|testGetSignatureRequestMocked|testPubblicazioneRichiestaMocked|testSendNotificationMocked|testDownloadSignedDocumentMocked|testUploadUSIGNMocked|testUploadFinishedUSIGNMocked|testOtpTypeUSIGNMocked|testSendOtpUSIGNMocked" \
             --configuration phpunit.xml
 
   test-matrix:
@@ -91,6 +91,23 @@ jobs:
           - "testStatoCivile"
           - "testValidazioneSamlResponse"
           - "testQueryPrecontr"
+          - "testModelliCreazioneAttrsAndStore"
+          - "testModelliCreazioneAttrsAndStore1"
+          - "testCreateDossierMocked"
+          - "testGetDossierMocked"
+          - "testGetSignerIdMocked"
+          - "testValidateDocumentRequestMocked"
+          - "testCreateSignatureRequestMocked"
+          - "testUploadURLMocked"
+          - "testUploadFirmaIOMocked"
+          - "testGetSignatureRequestMocked"
+          - "testPubblicazioneRichiestaMocked"
+          - "testSendNotificationMocked"
+          - "testDownloadSignedDocumentMocked"
+          - "testUploadUSIGNMocked"
+          - "testUploadFinishedUSIGNMocked"
+          - "testOtpTypeUSIGNMocked"
+          - "testSendOtpUSIGNMocked"
 
     services:
       mysql:

@@ -62,13 +62,40 @@ In GitHub Actions vengono eseguiti **solo** i test marcati con `@github-executab
   --testsuite Unit \
   --filter "testInsegamentiRelation|testReadStoreAttachment|testStatoCivile|validazioneSamlResponse"
 ```
+- `Email` - Invio email
+- `Titulus` - Integrazione Titulus
+- `FirmaIO` - Firma digitale FirmaIO (mockato in GitHub)
+- `USIGN` - Firma digitale USIGN (mockato in GitHub)
 
+## Flusso di Esecuzione
+
+### GitHub Actions CI/CD
+In GitHub Actions vengono eseguiti **22 test** marcati con `@github-executable true`:
+
+```bash
+./vendor/bin/phpunit \
+  --testsuite Unit \
+  --filter "testInsegamentiRelation|testReadStoreAttachment|testStatoCivile|testValidazioneSamlResponse|testQueryPrecontr|testModelliCreazioneAttrsAndStore|testCreateDossierMocked|testGetDossierMocked|testGetSignerIdMocked|testValidateDocumentRequestMocked|testCreateSignatureRequestMocked|testUploadURLMocked|testUploadFirmaIOMocked|testGetSignatureRequestMocked|testPubblicazioneRichiestaMocked|testSendNotificationMocked|testDownloadSignedDocumentMocked|testUploadUSIGNMocked|testUploadFinishedUSIGNMocked|testOtpTypeUSIGNMocked|testSendOtpUSIGNMocked"
+```
+
+**Test FirmaIO Mockati** (17 test):
+- Utilizzano `Http::fake()` di Laravel per mockare le risposte HTTP
+- Non richiedono accesso ai servizi esterni
+- Testano la logica dell'applicazione senza dipendenze esterne
 ### Esecuzione Locale
 Per eseguire test specifici localmente:
 
 ```bash
 # Test eseguibili in GitHub
 ./vendor/bin/phpunit --testsuite Unit --filter "testInsegamentiRelation"
+
+# Test con database
+./vendor/bin/phpunit --testsuite Unit --filter "testPrecontrattuale"
+
+# Test con database Oracle
+./vendor/bin/phpunit --testsuite Unit --filter "testCalcoloNumeroRinnovi"
+# Test FirmaIO mockati
+./vendor/bin/phpunit --testsuite Unit --filter "testCreateDossierMocked"
 
 # Test con database
 ./vendor/bin/phpunit --testsuite Unit --filter "testPrecontrattuale"

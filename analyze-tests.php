@@ -12,7 +12,7 @@
 class TestAnalyzer
 {
     private $testFile;
-    private $tests = [];
+    public $tests = [];
 
     public function __construct($testFile)
     {
@@ -219,6 +219,8 @@ class TestAnalyzer
 
 // Main
 $testFile = __DIR__ . '/unicontract-backend/tests/Unit/ContrattiTest.php';
+$firmaTestFile = __DIR__ . '/unicontract-backend/tests/Unit/FirmaTest.php';
+$firmaMockedFile = __DIR__ . '/unicontract-backend/tests/Unit/FirmaTestMocked.php';
 
 if (!file_exists($testFile)) {
     echo "❌ Test file not found: $testFile\n";
@@ -226,6 +228,19 @@ if (!file_exists($testFile)) {
 }
 
 $analyzer = new TestAnalyzer($testFile);
+
+// Se esiste FirmaTest.php, analizzarlo
+if (file_exists($firmaTestFile)) {
+    $firmaAnalyzer = new TestAnalyzer($firmaTestFile);
+    // Merger i test
+    $analyzer->tests = array_merge($analyzer->tests, $firmaAnalyzer->tests);
+}
+
+// Se esiste FirmaTestMocked.php, analizzarlo e unire i test
+if (file_exists($firmaMockedFile)) {
+    $firmaMockAnalyzer = new TestAnalyzer($firmaMockedFile);
+    $analyzer->tests = array_merge($analyzer->tests, $firmaMockAnalyzer->tests);
+}
 
 $filter = isset($argv[1]) ? $argv[1] : null;
 

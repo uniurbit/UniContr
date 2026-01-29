@@ -2,7 +2,7 @@
 # metadata file that makes public software easily discoverable.
 # More info at https://github.com/italia/publiccode.yml
 
-publiccodeYmlVersion: '0.2'
+publiccodeYmlVersion: '0'
 name: UniContr
 releaseDate: '2019-12-20'
 url: 'https://github.com/uniurbit/UniContr'
@@ -43,13 +43,8 @@ localisation:
   localisationReady: false
   availableLanguages:
     - it
-it:
+IT:
   countryExtensionVersion: '0.2'
-  conforme:
-    gdpr: true
-    misureMinimeSicurezza: true
-  riuso:
-    codiceIPA: usucb
 description:
   it:
     features:
@@ -57,8 +52,7 @@ description:
       - SSO SAML2
       - Integrazione con U-Gov
       - Integrazione con Titulus
-    documentation: 'https://github.com/uniurbit/UniContr/tree/master/docs'
-    genericName: applicazione web
+    documentation: 'https://github.com/uniurbit/UniContr/tree/master/docs'  
     shortDescription: >-
       Applicazione web per la proceduralizzazione e la dematerializzazione dei contratti di docenza negli atenei.
     longDescription: >

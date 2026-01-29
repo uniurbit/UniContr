@@ -1,10 +1,12 @@
 name: Validate publiccode.yml
 
 on:
-  push:
+  pull_request:
     paths:
       - publiccode.yml
-  pull_request:
+  push:
+    branches:
+      - master
     paths:
       - publiccode.yml
 

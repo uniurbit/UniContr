@@ -6,6 +6,7 @@ use App\Role;
 use App\Personale;
 use App\Precontrattuale;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\App;
 
 //php artisan db:seed --class=DatiSeeder
 //composer dump-autoload -o 
@@ -37,13 +38,20 @@ class DatiSeeder extends Seeder
         foreach ($offices as $office) {
             $mp = new MappingRuolo();
             $mp->unitaorganizzativa_uo = $office;
-            $uo = $mp->unitaorganizzativa()->get()->first();
-            //se esiste l'unità organizzativa
-            if ($uo){
-                $mp->descrizione_uo = $uo->descr;
+             // Only try to read from Oracle in non-testing environments
+            if (!app()->environment('testing')) {
+                $uo = $mp->unitaorganizzativa()->get()->first();
+                if ($uo) {
+                    $mp->descrizione_uo = $uo->descr;
+                    $mp->role_id = $role->id;
+                    $mp->save();
+                }
+            } else {
+                // Fake description for testing/CI
+                $mp->descrizione_uo = "Fake descr for $office";
                 $mp->role_id = $role->id;
                 $mp->save();
-            }
+            } 
         }       
     }
 
@@ -62,8 +70,7 @@ class DatiSeeder extends Seeder
         $this->insertOffice(['005144'], 'op_approvazione_amm');
         $this->insertOffice(['005343'], 'op_approvazione_economica');
 
-        $this->insertOffice(['005019','004919','004940','004939','004424','004419','004960','004961','005199'], 'op_dipartimentale');
-                        
+        $this->insertOffice(['005019','004919','004940','004939','004424','004419','004960','004961','005199'], 'op_dipartimentale');                    
     }
 
     

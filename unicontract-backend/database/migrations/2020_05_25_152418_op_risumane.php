@@ -38,13 +38,20 @@ class OpRisumane extends Migration
         foreach ($offices as $office) {
             $mp = new MappingRuolo();
             $mp->unitaorganizzativa_uo = $office;
-            $uo = $mp->unitaorganizzativa()->get()->first();
-            //se esiste l'unità organizzativa
-            if ($uo){
-                $mp->descrizione_uo = $uo->descr;
+            // Only try to read from Oracle in non-testing environments
+            if (!app()->environment('testing')) {
+                $uo = $mp->unitaorganizzativa()->get()->first();
+                if ($uo) {
+                    $mp->descrizione_uo = $uo->descr;
+                    $mp->role_id = $role->id;
+                    $mp->save();
+                }
+            } else {
+                // Fake description for testing/CI
+                $mp->descrizione_uo = "Fake descr for $office";
                 $mp->role_id = $role->id;
                 $mp->save();
-            }
+            } 
         }       
     }
 }

@@ -36,6 +36,9 @@ maintenance:
 legal:
   license: AGPL-3.0-only
   mainCopyrightOwner: Università degli Studi di Urbino Carlo Bo
+organisation: 
+  name: Università degli Studi di Urbino Carlo Bo
+  uri: https://uniurb.it
 intendedAudience:
   scope:
     - employment

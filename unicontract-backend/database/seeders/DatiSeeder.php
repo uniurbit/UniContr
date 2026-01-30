@@ -43,7 +43,7 @@ class DatiSeeder extends Seeder
             $mp = new MappingRuolo();
             $mp->unitaorganizzativa_uo = $office;
              // Only try to read from Oracle in non-testing environments
-             if (app()->environment('testing')) {
+             if (!app()->environment('testing')) {
                 $uo = $mp->unitaorganizzativa()->get()->first();
                 if ($uo) {
                     $mp->descrizione_uo = $uo->descr;

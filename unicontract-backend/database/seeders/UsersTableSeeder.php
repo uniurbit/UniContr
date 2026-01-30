@@ -3,6 +3,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\User as User;
+use Hash;
 
 class UsersTableSeeder extends Seeder
 {

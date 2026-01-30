@@ -50,7 +50,7 @@ php artisan migrate --seed
 ./vendor/bin/phpunit --testsuite Unit --filter "testInsegamentiRelation"
 ```
 
-### Eseguire Test che Richiedono Utente Enrico
+### Eseguire Test che Richiedono Utente
 
 ```bash
 # Test che richiedono l'utente enrico.oliva@uniurb.it

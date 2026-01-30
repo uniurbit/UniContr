@@ -186,7 +186,7 @@ jobs:
 
       - name: Install Dependencies
         working-directory: ./unicontract-backend
-        run: composer install --prefer-dist --no-progress --no-suggest
+        run: composer install --ignore-platform-req=ext-oci8 --prefer-dist --no-progress --no-suggest
 
       - name: Create ENV file
         working-directory: ./unicontract-backend
@@ -195,6 +195,10 @@ jobs:
       - name: Generate Key
         working-directory: ./unicontract-backend
         run: php artisan key:generate
+
+      - name: Generate JWT secret
+        working-directory: ./unicontract-backend
+        run: php artisan jwt:secret --force
 
       - name: Run Database Migrations
         working-directory: ./unicontract-backend

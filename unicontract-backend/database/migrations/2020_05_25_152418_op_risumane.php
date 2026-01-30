@@ -40,7 +40,7 @@ class OpRisumane extends Migration
             $mp = new MappingRuolo();
             $mp->unitaorganizzativa_uo = $office;
             // Only try to read from Oracle in non-testing environments
-            if ($this->oracleConnected() || !app()->environment('testing')) {
+            if (app()->environment('testing')) {
                 $uo = $mp->unitaorganizzativa()->get()->first();
                 if ($uo) {
                     $mp->descrizione_uo = $uo->descr;

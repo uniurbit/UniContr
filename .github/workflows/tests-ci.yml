@@ -78,7 +78,7 @@ jobs:
           DB_DATABASE: unicontr_test
           DB_USERNAME: root
           DB_PASSWORD: root
-        run: php artisan migrate --seed    
+        run: php artisan migrate --seed --env=testing   
         
       - name: Run GitHub Executable Tests Only
         working-directory: ./unicontract-backend
@@ -130,9 +130,12 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_HOST: '%'
           MYSQL_DATABASE: unicontr_test
+        ports:
+          - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping"
+          --health-cmd="mysqladmin ping -h localhost -uroot -proot"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=3
@@ -173,7 +176,9 @@ jobs:
       - name: Run Database Migrations
         working-directory: ./unicontract-backend
         env:
+          DB_CONNECTION: mysql
           DB_HOST: 127.0.0.1
+          DB_PORT: 3306
           DB_DATABASE: unicontr_test
           DB_USERNAME: root
           DB_PASSWORD: root
@@ -182,7 +187,9 @@ jobs:
       - name: Run Test ${{ matrix.test }}
         working-directory: ./unicontract-backend
         env:
+          DB_CONNECTION: mysql
           DB_HOST: 127.0.0.1
+          DB_PORT: 3306
           DB_DATABASE: unicontr_test
           DB_USERNAME: root
           DB_PASSWORD: root

@@ -57,6 +57,10 @@ jobs:
       - name: Generate Key
         working-directory: ./unicontract-backend
         run: php artisan key:generate
+        
+      - name: Generate JWT secret
+        working-directory: ./unicontract-backend
+        run: php artisan jwt:secret --force
 
       - name: Wait for MySQL
         run: |

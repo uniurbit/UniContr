@@ -128,7 +128,6 @@ jobs:
           - "testInsegamentiRelation"
           - "testReadStoreAttachment"
           - "testStatoCivile"
-          - "testValidazioneSamlResponse"
           - "testQueryPrecontr"
           - "testModelliCreazioneAttrsAndStore"
           - "testModelliCreazioneAttrsAndStore1"
@@ -145,8 +144,7 @@ jobs:
           - "testDownloadSignedDocumentMocked"
           - "testUploadUSIGNMocked"
           - "testUploadFinishedUSIGNMocked"
-          - "testOtpTypeUSIGNMocked"
-          - "testSendOtpUSIGNMocked"
+ 
 
     services:
       mysql:

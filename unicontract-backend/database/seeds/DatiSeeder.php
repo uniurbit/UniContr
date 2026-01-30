@@ -7,6 +7,7 @@ use App\Personale;
 use App\Precontrattuale;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 //php artisan db:seed --class=DatiSeeder
 //composer dump-autoload -o 
@@ -39,7 +40,7 @@ class DatiSeeder extends Seeder
             $mp = new MappingRuolo();
             $mp->unitaorganizzativa_uo = $office;
              // Only try to read from Oracle in non-testing environments
-            if (!app()->environment('testing')) {
+             if ($this->oracleConnected() || !app()->environment('testing')) {
                 $uo = $mp->unitaorganizzativa()->get()->first();
                 if ($uo) {
                     $mp->descrizione_uo = $uo->descr;
@@ -55,6 +56,19 @@ class DatiSeeder extends Seeder
         }       
     }
 
+    /**
+     * Check if Oracle connection is alive
+     */
+    private function oracleConnected(): bool
+    {
+        try {
+            DB::connection('oracle')->getPdo();
+            return true;
+        } catch (\Exception $e) {
+            // Could not connect
+            return false;
+        }
+    }
     
     /**
      * Tabella di corrispondenza tra unità organizzativa e ruolo

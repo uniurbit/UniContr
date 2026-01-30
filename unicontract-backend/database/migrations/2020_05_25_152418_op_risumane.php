@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use App\MappingRuolo;
 use App\Role;
 use App\Personale;
+use Illuminate\Support\Facades\DB;
 
 class OpRisumane extends Migration
 {
@@ -39,7 +40,7 @@ class OpRisumane extends Migration
             $mp = new MappingRuolo();
             $mp->unitaorganizzativa_uo = $office;
             // Only try to read from Oracle in non-testing environments
-            if (!app()->environment('testing')) {
+            if ($this->oracleConnected() || !app()->environment('testing')) {
                 $uo = $mp->unitaorganizzativa()->get()->first();
                 if ($uo) {
                     $mp->descrizione_uo = $uo->descr;
@@ -53,5 +54,20 @@ class OpRisumane extends Migration
                 $mp->save();
             } 
         }       
+    }
+
+    
+    /**
+     * Check if Oracle connection is alive
+     */
+    private function oracleConnected(): bool
+    {
+        try {
+            DB::connection('oracle')->getPdo();
+            return true;
+        } catch (\Exception $e) {
+            // Could not connect
+            return false;
+        }
     }
 }

@@ -1,5 +1,4 @@
-name: Angular Frontend Tests
-
+name: Tests Frontend CI
 on:
   push:
     branches:

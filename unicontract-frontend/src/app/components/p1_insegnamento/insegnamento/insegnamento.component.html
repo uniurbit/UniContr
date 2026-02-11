@@ -1,0 +1,7 @@
+<td style="width: 5%; text-align: center; vertical-align: middle; padding: 7px;">{{ insegn?.coper_id }}</td>
+<td style="width: 15%; vertical-align: middle; padding: 7px;">{{ formatoPeriodo(insegn?.data_ini_contr) | toDateObj | date: 'dd/MM/yyyy' }} - {{ formatoPeriodo(insegn?.data_fine_contr) | toDateObj | date: 'dd/MM/yyyy' }}</td>
+<td style="width: 15%; vertical-align: middle; padding: 7px;">{{ insegn?.nominativo  | uppercase }}</td>
+<td title="{{ insegn?.dipartimento }}" (click)="showInsegnDetail()" style="cursor: pointer; vertical-align: middle; padding: 7px;">{{ insegn?.insegnamento | uppercase }}</td>
+<td style="width: 5%; text-align: right; vertical-align: middle; padding: 7px;" class="buttons">
+    <button type="button" class="btn btn-outline-secondary" (click)="showInsegnDetail()" >SELEZIONA</button>
+</td> 

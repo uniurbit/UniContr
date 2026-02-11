@@ -1,0 +1,95 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+
+<div class="container-fluid" *ngIf="item" >  
+  <app-intestazione *ngIf="item" [item]="item"></app-intestazione>  
+  
+  <app-riquadro-wrapper> 
+    <app-list-item label="{{ 'a1_ldn' | translate }}" value="{{ item.comune_nascita | uppercase }} ({{ item.provincia_nascita | uppercase }})"></app-list-item>
+    <app-list-item label="{{ 'a1_ddn' | translate }}" value="{{ item.data_nascita }}"></app-list-item>
+    <app-list-item label="{{ 'a1_sc' | translate }}">
+      <div *ngIf="item.stato_civile != 0">{{ tools.statoCivile(item.stato_civile, item.sesso) | uppercase }}</div>
+      <div *ngIf="item.stato_civile == 0" style="color: red">{{ 'a1_nrilevato' | translate | uppercase }}</div>
+    </app-list-item>
+    <app-list-item label="{{ 'a1_cf' | translate }}" value="{{ item.cf }}"></app-list-item>
+        
+    <app-list-item  *ngIf="item.stato_civile === 'C' || item.stato_civile === 'Z'" label="{{ 'a1_cfc' | translate }}">   
+      <div *ngIf="item.cf_coniuge">{{ item.cf_coniuge | uppercase }}</div>
+      <div *ngIf="!item.cf_coniuge" style="color: red">{{ 'a1_nrilevato' | translate | uppercase }}</div>
+    </app-list-item>   
+  
+    <app-list-item label="{{ 'a1_citt' | translate }}" value="{{ item.nazione_residenza | uppercase }}"></app-list-item>
+
+    <app-list-item label="{{ 'a1_tds' | translate }}" >
+      <div *ngIf="item.titolo_studio">{{ "TITOLO."+item.titolo_studio | uppercase | translate: {default: item.titolo_studio } }} <span *ngIf="!checkTitoloStudio(item.titolo_studio)" style="color: red">{{ 'a1_nriconosciuta' | translate }}</span></div>
+      <div *ngIf="!item.titolo_studio" style="color: red">{{ 'a1_nrilevato' | translate | uppercase }}</div>
+    </app-list-item>
+   
+    <app-list-item label="{{ 'a1_res' | translate }}">
+      {{ item.comune_residenza }} ({{ item.provincia_residenza | uppercase}}) - CAP {{ item.cap_residenza }} - {{ item.indirizzo_residenza }}, {{ item.civico_residenza }}
+    </app-list-item>
+    
+    <app-list-item *ngIf="item.data_variazione_residenza" label="{{ 'a1_dvr' | translate }}" value="{{ item.data_variazione_residenza }}"> </app-list-item>  
+   
+    <app-list-item *ngIf="item.comune_fiscale && item.provincia_fiscale" label="{{ 'a1_df' | translate }}" >
+      {{ item.comune_fiscale }} ({{ item.provincia_fiscale | uppercase}}) - CAP {{ item.cap_fiscale }} - {{ item.indirizzo_fiscale }}, {{ item.civico_fiscale }}
+    </app-list-item>
+    
+    <app-list-item *ngIf="item.data_variazione_dom_fiscale" label="{{ 'a1_dvf' | translate }}" value="{{ item.data_variazione_dom_fiscale }}"> </app-list-item>
+
+    <app-list-item *ngIf="item.comune_rif" label="{{ 'a1_dpc' | translate }}" value="{{ item.comune_rif }}"> </app-list-item>
+    <app-list-item *ngIf="item.telefono_cellulare" label="{{ 'a1_rtc' | translate }}" value="{{ item.telefono_cellulare }}"> </app-list-item>
+    <app-list-item *ngIf="item.telefono_abitazione" label="{{ 'a1_rta' | translate }}" value="{{ item.telefono_abitazione }}"> </app-list-item>
+    <app-list-item *ngIf="item.telefono_ufficio" label="{{ 'a1_rtel' | translate }}" value="{{ item.telefono_ufficio }}"> </app-list-item>
+    <app-list-item *ngIf="!item.telefono_cellulare && !item.telefono_abitazione && !item.telefono_ufficio" label="{{ 'a1_rtels' | translate }}">
+      <span style="color: red">{{ 'a1_nrilevati' | translate }}</span>
+    </app-list-item>
+    <app-list-item  *ngIf="item.fax" label="{{ 'a1_fax' | translate }}" value="{{ item.fax }}"> </app-list-item>
+    <app-list-item  *ngIf="item.email" label="{{ 'a1_email' | translate }}" value="{{ item.email }}"> </app-list-item>
+    <app-list-item  *ngIf="item.email_privata" label="{{ 'a1_emailp' | translate }}" value="{{ item.email_privata | lowercase }}"> </app-list-item>  
+    
+    
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="item.flag_lavoratrici_madri != null &&  item.flag_lavoratrici_madri === 1">
+    <h5>{{ 'a1_title8' | translate }}</h5>
+    <div class="row" *ngIf="item.flag_lavoratrici_madri != null &&  item.flag_lavoratrici_madri === 1">
+      <div class="col-md-auto">
+        <span class="oi oi-check iconic ps-1"></span>
+      </div>
+      <div class="col">
+        {{ 'a1_label24' | translate }}, disponibili presso <a href="https://www.uniurb.it/ateneo/utilita/salute-e-sicurezza/informazione-ai-lavoratori" target="_blank">https://www.uniurb.it/ateneo/utilita/salute-e-sicurezza/informazione-ai-lavoratori</a>
+      </div>
+    </div> 
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper>   
+    <h5>{{ 'a1_docum' | translate }}</h5>
+    <table>
+      <tr>
+        <td style="width: 30px; padding-left: 10px;">
+          <span class="oi oi-paperclip iconic"></span>
+        </td>
+        <td>
+          <a href="javascript:void(0)" (click)="download('DOC_CV')" title="">{{ 'a1_cv' | translate }}</a>
+        </td>
+      </tr>
+      <!--commentata visualizzazione CI su richiesta-->
+      <!-- <tr>
+        <td style="width: 30px; padding-left: 10px;">
+          <span class="oi oi-paperclip iconic"></span>
+        </td>
+        <td>
+          <a href="javascript:void(0)" (click)="download('DOC_CI')" title="">{{ 'a1_di' | translate }}</a>
+        </td>
+      </tr> -->
+    </table>  
+  </app-riquadro-wrapper>
+
+  <div class="form-footer text-end">  
+    <app-barra-comandi *ngIf="item" [item]="item" [type]="'A1'"></app-barra-comandi>    
+         
+    <app-termina-button [item]="item" *ngIf="item.validazioni.flag_submit === 0 && tools.termina(item) === true" (update)="isLoadingChange($event)"></app-termina-button>
+  </div>
+</div>
+
+

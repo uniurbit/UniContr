@@ -1,0 +1,20 @@
+  <div *ngIf="field.formControl.value" class="row mb-1">          
+    <div class="col"></div>
+    <div class="col text-center">
+      <button type="button" class="btn btn-outline-primary border-0 rounded-0" (click)="prevPage()" [disabled]="page === 1">Prec</button>
+      <span> {{ page }} / {{ totalPages }} </span>
+      <button type="button" class="btn btn-outline-primary border-0 rounded-0" (click)="nextPage()" [disabled]="page === totalPages">Suc</button>
+    </div>
+    <div *ngIf="originalSize" class="btn-group btn-group col justify-content-end">
+      <button type="button" class="btn btn-outline-primary border-0 rounded-0" [disabled]="!isLoadedPdf" (click)="incrementZoom(+0.1)">
+        <span class="oi oi-zoom-in"></span>
+      </button>
+      <button type="button" class="btn btn-outline-primary border-0 rounded-0" [disabled]="!isLoadedPdf" (click)="incrementZoom(-0.1)">
+        <span class="oi oi-zoom-out"></span>
+      </button>
+    </div>
+  </div>  
+  <div *ngIf="isLoadedPdf" class="shadow p-3 mb-3 bg-white">
+    <pdf-viewer *ngIf="field.formControl.value" [src]="pdfSrc" [show-all]="false" [autoresize]="true" [original-size]="originalSize"
+      [page]="page" (after-load-complete)="afterLoadComplete($event)" [zoom]="zoom"></pdf-viewer>
+  </div>

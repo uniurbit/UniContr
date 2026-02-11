@@ -1,0 +1,22 @@
+
+  <ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+  <div class="btn-toolbar mb-4 text-end"  *ngIf="pdfSrc" role="toolbar">
+    <div class="btn-group">
+        <button  class="btn btn-outline-primary rounded-lg" (click)="onDownload()" >              
+            <span class="oi oi-data-transfer-download"></span>
+            <span class="ms-2">Scarica</span>
+        </button> 
+        <button class="btn btn-outline-primary rounded-lg ms-1" (click)="onOpen()">
+            <span class="oi oi-external-link"></span>
+            <span class="ms-2">Apri</span>
+        </button>
+    </div>
+</div>
+    
+<pdf-viewer *ngIf="pdfSrc" [src]="pdfSrc" 
+        [render-text]="true"
+        (after-load-complete)="loadComplete($event)"
+        style="position: absolute; top: 140px; right: 0; bottom: 0; left: 0"
+        >
+</pdf-viewer>
+

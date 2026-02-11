@@ -1,0 +1,226 @@
+name: Tests CI
+
+on:
+  push:
+    branches: [ master, main, develop ]
+  pull_request:
+    branches: [ master, main, develop ]
+
+jobs:
+  php-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_HOST: '%'
+          MYSQL_DATABASE: unicontr_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: mysql, pdo_mysql, mbstring, xml
+          ini-values: post_max_size=256M
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Dependencies
+        working-directory: ./unicontract-backend
+        run: composer install --ignore-platform-req=ext-oci8 --prefer-dist --no-progress --no-suggest
+
+      - name: Create ENV file
+        working-directory: ./unicontract-backend
+        run: cp .env.example .env
+
+      - name: Generate Key
+        working-directory: ./unicontract-backend
+        run: php artisan key:generate
+        
+      - name: Generate JWT secret
+        working-directory: ./unicontract-backend
+        run: php artisan jwt:secret --force
+
+      - name: Wait for MySQL
+        run: |
+          echo "Waiting for MySQL to be available..."
+          for i in {1..30}; do
+            if mysqladmin ping -h127.0.0.1 -uroot -proot --silent; then
+              echo "MySQL is up!"
+              break
+            fi
+            sleep 2
+          done
+          
+      - name: Run Database Migrations
+        working-directory: ./unicontract-backend
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: unicontr_test
+          DB_USERNAME: root
+          DB_PASSWORD: root
+        run: php artisan migrate --seed --env=testing   
+        
+      - name: Run GitHub Executable Tests Only
+        working-directory: ./unicontract-backend
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: unicontr_test
+          DB_USERNAME: root 
+          DB_PASSWORD: root
+        run: |
+          ./vendor/bin/phpunit \
+            --configuration phpunit.xml \
+            --testsuite Unit \
+            --filter "testInsegamentiRelation\
+                  |testReadStoreAttachment\
+                  |testStatoCivile\                 
+                  |testQueryPrecontr\
+                  |testModelliCreazioneAttrsAndStore\
+                  |testCreateDossierMocked\
+                  |testGetDossierMocked\
+                  |testGetSignerIdMocked\
+                  |testValidateDocumentRequestMocked\
+                  |testCreateSignatureRequestMocked\
+                  |testUploadURLMocked\
+                  |testUploadFirmaIOMocked\
+                  |testGetSignatureRequestMocked\
+                  |testPubblicazioneRichiestaMocked\
+                  |testSendNotificationMocked\
+                  |testDownloadSignedDocumentMocked\
+                  |testUploadUSIGNMocked\
+                  |testUploadFinishedUSIGNMocked\
+                  |testOtpTypeUSIGNMocked\
+                  |testSendOtpUSIGNMocked\                           
+                  |testXML1\
+                  |testXMLFascicolo\
+                  |testXMLDocumento\
+                  |testXMLAddInFascicolo\
+                  |testTitulusFindSignedFile"
+
+  test-matrix:
+    runs-on: ubuntu-latest
+    needs: php-tests
+    
+    strategy:
+      matrix:
+        test:
+          - "testInsegamentiRelation"
+          - "testReadStoreAttachment"
+          - "testStatoCivile"
+          - "testQueryPrecontr"
+          - "testModelliCreazioneAttrsAndStore"
+          - "testModelliCreazioneAttrsAndStore1"
+          - "testCreateDossierMocked"
+          - "testGetDossierMocked"
+          - "testGetSignerIdMocked"
+          - "testValidateDocumentRequestMocked"
+          - "testCreateSignatureRequestMocked"
+          - "testUploadURLMocked"
+          - "testUploadFirmaIOMocked"
+          - "testGetSignatureRequestMocked"
+          - "testPubblicazioneRichiestaMocked"
+          - "testSendNotificationMocked"
+          - "testDownloadSignedDocumentMocked"
+          - "testUploadUSIGNMocked"
+          - "testUploadFinishedUSIGNMocked"
+ 
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_HOST: '%'
+          MYSQL_DATABASE: unicontr_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: mysql, pdo_mysql, mbstring, xml
+          ini-values: post_max_size=256M
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Dependencies
+        working-directory: ./unicontract-backend
+        run: composer install --ignore-platform-req=ext-oci8 --prefer-dist --no-progress --no-suggest
+
+      - name: Create ENV file
+        working-directory: ./unicontract-backend
+        run: cp .env.example .env
+
+      - name: Generate Key
+        working-directory: ./unicontract-backend
+        run: php artisan key:generate
+
+      - name: Generate JWT secret
+        working-directory: ./unicontract-backend
+        run: php artisan jwt:secret --force
+
+      - name: Run Database Migrations
+        working-directory: ./unicontract-backend
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: unicontr_test
+          DB_USERNAME: root
+          DB_PASSWORD: root
+        run: php artisan migrate --seed --env=testing
+
+      - name: Run Test ${{ matrix.test }}
+        working-directory: ./unicontract-backend
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: unicontr_test
+          DB_USERNAME: root
+          DB_PASSWORD: root
+        run: ./vendor/bin/phpunit --testsuite Unit --filter "${{ matrix.test }}" --configuration phpunit.xml

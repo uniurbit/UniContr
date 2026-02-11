@@ -1,0 +1,96 @@
+# This repository adheres to the publiccode.yml standard by including this
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0'
+name: UniContr
+releaseDate: '2019-12-20'
+url: 'https://github.com/uniurbit/UniContr'
+landingURL: 'https://github.com/uniurbit/UniContr'
+logo: docs/img/logo.png
+developmentStatus: stable
+softwareType: standalone/web
+roadmap: 'https://github.com/uniurbit/UniContr/issues'
+platforms:
+  - linux
+  - web
+usedBy:
+  - 'https://www.uniurb.it'
+  - 'https://www.unical.it'
+categories:
+  - employee-management
+dependsOn:
+  open:
+    - name: MariaDB
+    - name: php
+softwareVersion: '2.0'
+maintenance:
+  type: internal
+  contacts:
+    - name: Marco Cappellacci
+      email: marco.cappellacci@uniurb.it
+      affiliation: UniUrb
+    - name: Enrico Oliva
+      email: enrico.oliva@uniurb.it
+      affiliation: UniUrb
+legal:
+  license: AGPL-3.0-only
+  mainCopyrightOwner: Università degli Studi di Urbino Carlo Bo
+organisation: 
+  name: Università degli Studi di Urbino Carlo Bo
+  uri: urn:x-italian-pa:usucb
+intendedAudience:
+  scope:
+    - employment
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - it
+IT:
+  countryExtensionVersion: '0.2'
+description:
+  it:
+    features:
+      - Protocollazione automatizzata
+      - SSO SAML2
+      - Integrazione con U-Gov
+      - Integrazione con Titulus
+    documentation: 'https://github.com/uniurbit/UniContr/tree/master/docs'  
+    shortDescription: >-
+      Applicazione web per la proceduralizzazione e la dematerializzazione dei contratti di docenza negli atenei.
+    longDescription: >
+      Cosa Fa UniContr?
+
+
+      - Permette al docente a contratto di compilare telematicamente la
+      modulistica precontrattuale.
+
+      - Permette agli uffici competenti di validare telematicamente la
+      modulistica precontrattuale.
+
+      - Genera automaticamente il contratto incrociando tipo di didattica:
+
+
+      1. titolarità ufficiale;
+
+      2. didattica integrativa;
+
+      3. supporto alla didattica;
+
+
+      e natura del rapporto:
+
+
+      1. prestazione professionale;
+
+      2. collaborazione di natura autonoma;
+
+      3. prestazione di lavoro autonomo occasionale;
+
+      4. rapporto assimilato a lavoro dipendente;
+
+      5. prestazione a titolo gratuito.
+
+
+      - Permette al docente di accettare telematicamente il contratto.
+

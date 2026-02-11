@@ -1,0 +1,20 @@
+.text_centered_spacing {
+    text-align: center;
+    letter-spacing: 3px;
+}
+
+.text_centered_bold {
+    text-align: center;
+    font-weight: bold;
+    padding: 5px 0 5px 0;
+}
+
+.text_tab {
+    text-align: justify;
+    padding: 0 10px 5px 30px;
+}
+
+.text {
+    text-align: justify;
+    padding: 0 10px 5px 10px;
+}

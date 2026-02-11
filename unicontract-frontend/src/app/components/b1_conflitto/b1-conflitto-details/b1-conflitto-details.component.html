@@ -1,0 +1,125 @@
+
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid"  *ngIf="items" >
+  <app-intestazione *ngIf="items" [item]="items" [dettagli]="true"></app-intestazione>  
+
+  <app-riquadro-wrapper>   
+    <div class="text">{{ 'b1_txt1' | translate }} {{ tools.naturaRapporto(items.natura_rapporto) | titlecase }} {{ 'b1_txt2' | translate }}</div>
+    <div class="text">{{ 'b1_txt3' | translate }}</div>
+    <table>
+      <tr>
+        <td style="width: 30px; padding-left: 10px;"><span class="oi oi-check iconic"></span></td>
+        <td class="text">{{ checkFalse(items.flag_controll) }} {{ 'b1_txt4' | translate }} {{ checkFalse(items.flag_quota) }} {{ 'b1_txt5' | translate }}</td>
+      </tr>
+      <tr>
+        <td style="width: 30px; padding-left: 10px;"><span class="oi oi-check iconic"></span></td>
+        <td class="text">{{ checkFalse(items.flag_rappext) }} {{ 'b1_txt6' | translate }}</td>
+      </tr>
+      <tr>
+        <td style="width: 30px; padding-left: 10px;"><span class="oi oi-check iconic"></span></td>
+        <td class="text">{{ checkFalse(items.flag_contrast) }} {{ 'b1_txt7' | translate }}</td>
+      </tr>
+    </table>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper>   
+    <div class="text">{{ 'b1_txt8' | translate }}</div>
+    <table>
+      <tr>
+        <td style="width: 30px; padding-left: 10px;"><span class="oi oi-check iconic"></span></td>
+        <td class="text">{{ checkFalse(items.flag_cariche) }} {{ 'b1_txt9' | translate }}</td>
+      </tr>   
+    </table>
+    
+    <table class="table table-sm" *ngIf="items.flag_cariche === 1">
+        <thead>
+            <tr class="row ms-1 me-1">
+              <th class="col-sm-2">Denominazione ente</th>
+              <th class="col-sm-2">Tipologia carica</th>
+              <th class="col-sm-4">Oggetto</th>
+              <th class="text-center col-sm-2">Periodo</th>
+              <th class="text-center col-sm-2">Compenso lordo annuo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row ms-1 me-1" *ngFor="let item of items.cariche">
+              <td class="col-sm-2">{{ item.ente }}</td>
+              <td class="col-sm-2">{{ item.carica }}</td>
+              <td class="col-sm-4">{{ item.oggetto }}</td>
+              <td class= "text-center col-sm-2">{{ item.dal_giorno }} - {{ item.al_giorno }}</td>
+              <td class= "text-center col-sm-2">€ {{ item.compenso | mycurrency }}</td>
+            </tr>
+          </tbody>   
+    </table>
+
+    <table>
+      <tr>
+          <td style="width: 30px; padding-left: 10px;"><span class="oi oi-check iconic"></span></td>
+        <td class="text">{{ checkFalse(items.flag_incarichi) }} {{ 'b1_txt10' | translate }}</td> 
+      </tr>
+    </table>
+    <table class="table table-sm" *ngIf="items.flag_incarichi === 1">
+        <thead>
+            <tr class="row ms-1 me-1">
+              <th class="col-sm-2">Denominazione ente</th>
+              <th class="col-sm-2">Tipologia incarico</th>
+              <th class="col-sm-4">Oggetto</th>
+              <th class="text-center col-sm-2">Periodo</th>
+              <th class="text-center col-sm-2">Compenso lordo annuo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row ms-1 me-1" *ngFor="let item of items.incarichi">
+              <td class="col-sm-2">{{ item.ente }}</td>
+              <td class="col-sm-2">{{ item.incarico }}</td>
+              <td class="col-sm-4">{{ item.oggetto }}</td>
+              <td class="text-center col-sm-2">{{ item.dal_giorno }} - {{ item.al_giorno }}</td>
+              <td class="text-center col-sm-2">€ {{ item.compenso | mycurrency}}</td>
+            </tr>
+          </tbody>   
+    </table>
+
+    <table>
+      <tr>
+        <td style="width: 30px; padding-left: 10px;"><span class="oi oi-check iconic"></span></td>
+        <td class="text">{{ checkFalse(items.flag_attivita) }} {{ 'b1_txt11b' | translate }} {{ items.descr_attivita }}</td>
+      </tr>
+    </table>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper>   
+    <div class="text">{{ 'b1_txt12' | translate }}</div>
+    <div class="text">{{ 'b1_txt13' | translate }}</div>
+    <div class="text">{{ 'b1_txt14' | translate }}</div>
+    <div class="text">{{ 'b1_txt15' | translate }}</div>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper>   
+    <h5>{{ 'b1_txt18' | translate }}</h5>
+    <table>
+      <tr>
+        <td style="width: 30px; padding-left: 10px;">
+          <span class="oi oi-paperclip iconic"></span>
+        </td>
+        <td>
+          <a href="javascript:void(0)" (click)="generatePdf(items,'CONFL_INT_TRASP')" title="">{{ 'b1_txt16' | translate }}</a>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 30px; padding-left: 10px;">
+          <span class="oi oi-paperclip iconic"></span>
+        </td>
+        <td>
+          <a href="javascript:void(0)" (click)="generatePdf(items,'CONFL_INT')" title="">{{ 'b1_txt17' | translate }}</a>
+        </td>
+      </tr>
+    </table>  
+  </app-riquadro-wrapper>
+
+  <div class="form-footer text-end">  
+    <app-barra-comandi *ngIf="items" [item]="items" [type]="'B1'"></app-barra-comandi> 
+    
+        
+    <app-termina-button [item]="items" *ngIf="items.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>
+  </div>
+</div>

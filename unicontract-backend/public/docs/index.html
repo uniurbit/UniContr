@@ -1,0 +1,4619 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/all.js"></script>
+
+
+          <script>
+        $(function() {
+            setupLanguages(["bash","javascript"]);
+        });
+      </script>
+      </head>
+
+  <body class="">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+        <img src="images/logo.png" />
+                    <div class="lang-selector">
+                                  <a href="#" data-language-name="bash">bash</a>
+                                  <a href="#" data-language-name="javascript">javascript</a>
+                            </div>
+                            <div class="search">
+              <input type="text" class="search" id="input-search" placeholder="Search">
+            </div>
+            <ul class="search-results"></ul>
+              <div id="toc">
+      </div>
+                    <ul class="toc-footer">
+                                  <li><a href='http://github.com/mpociot/documentarian'>Documentation Powered by Documentarian</a></li>
+                            </ul>
+            </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+          <!-- START_INFO -->
+<h1>Info</h1>
+<p>Welcome to the generated API reference.
+<a href="http://localhost/docs/collection.json">Get Postman Collection</a></p>
+<!-- END_INFO -->
+<h1>general</h1>
+<!-- START_14e72903e7f944d458c9a2bf7e06b3e9 -->
+<h2>Display a listing of the resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/convenzioni" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/convenzioni",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "current_page": 1,
+    "data": [
+        {
+            "id": 3,
+            "created_at": "2018-10-08 15:36:29",
+            "updated_at": "2018-10-08 15:36:29",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 3,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 6,
+            "created_at": "2018-10-08 15:57:54",
+            "updated_at": "2018-10-08 15:57:54",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 11,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 9,
+            "created_at": "2018-10-08 15:58:37",
+            "updated_at": "2018-10-08 15:58:37",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 14,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 12,
+            "created_at": "2018-10-08 15:59:40",
+            "updated_at": "2018-10-08 15:59:40",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 17,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 15,
+            "created_at": "2018-10-08 15:59:58",
+            "updated_at": "2018-10-08 15:59:58",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 20,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 18,
+            "created_at": "2018-10-08 16:02:17",
+            "updated_at": "2018-10-08 16:02:17",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 23,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 21,
+            "created_at": "2018-10-08 16:03:35",
+            "updated_at": "2018-10-08 16:03:35",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 26,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 24,
+            "created_at": "2018-10-08 16:19:25",
+            "updated_at": "2018-10-08 16:19:25",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 29,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 26,
+            "created_at": "2018-10-08 16:20:56",
+            "updated_at": "2018-10-08 16:20:56",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 1,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 1,
+            "stato_avanzamento": "compterm"
+        },
+        {
+            "id": 27,
+            "created_at": "2018-10-08 16:20:56",
+            "updated_at": "2018-10-08 16:20:56",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 32,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 28,
+            "created_at": "2018-10-08 16:23:42",
+            "updated_at": "2018-10-08 16:23:42",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 1,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 29,
+            "created_at": "2018-10-08 16:23:42",
+            "updated_at": "2018-10-08 16:23:42",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 1,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 1,
+            "stato_avanzamento": "compterm"
+        },
+        {
+            "id": 30,
+            "created_at": "2018-10-08 16:23:42",
+            "updated_at": "2018-10-08 16:23:42",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 35,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 31,
+            "created_at": "2018-10-08 16:24:13",
+            "updated_at": "2018-10-08 16:24:13",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 1,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 32,
+            "created_at": "2018-10-08 16:24:14",
+            "updated_at": "2018-10-08 16:24:14",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 1,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 1,
+            "stato_avanzamento": "compterm"
+        },
+        {
+            "id": 33,
+            "created_at": "2018-10-08 16:24:14",
+            "updated_at": "2018-10-08 16:24:14",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 38,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 34,
+            "created_at": "2018-10-08 16:49:49",
+            "updated_at": "2018-10-08 16:49:49",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 1,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 35,
+            "created_at": "2018-10-08 16:49:49",
+            "updated_at": "2018-10-08 16:49:49",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 1,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 1,
+            "stato_avanzamento": "compterm"
+        },
+        {
+            "id": 36,
+            "created_at": "2018-10-08 16:49:50",
+            "updated_at": "2018-10-08 16:49:50",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 46,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 37,
+            "created_at": "2018-10-08 16:51:41",
+            "updated_at": "2018-10-08 16:51:41",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 1,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 38,
+            "created_at": "2018-10-08 16:51:42",
+            "updated_at": "2018-10-08 16:51:42",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 1,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 1,
+            "stato_avanzamento": "compterm"
+        },
+        {
+            "id": 39,
+            "created_at": "2018-10-08 16:51:42",
+            "updated_at": "2018-10-08 16:51:42",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 49,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 40,
+            "created_at": "2018-10-08 16:52:22",
+            "updated_at": "2018-10-08 16:52:22",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 1,
+            "stato_avanzamento": "incomp"
+        },
+        {
+            "id": 41,
+            "created_at": "2018-10-08 16:52:22",
+            "updated_at": "2018-10-08 16:52:22",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 1,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 1,
+            "stato_avanzamento": "compterm"
+        },
+        {
+            "id": 42,
+            "created_at": "2018-10-08 16:52:23",
+            "updated_at": "2018-10-08 16:52:23",
+            "descrizione_titolo": "convezione di esempio",
+            "dipartimemto_cd_dip": null,
+            "nominativo_docente": "docente uno",
+            "emittente": "università",
+            "prestazioni": "elenco delle prestazioni possibili su più righe\r\n            di notazione possibile",
+            "azienda_id": null,
+            "collaborazioni": "elenco delle collaborazioni possibili su più righe\r\n            di notazione possibile",
+            "durata": 12,
+            "tipo_durata": "anni",
+            "referente_uni": "referente uni3",
+            "referente_azienda": "referente az3",
+            "proprieta_risultati": "università",
+            "totale_corrispettivo": "12345.23",
+            "luogo_attivita": "dipartimento",
+            "referenteCC_id": null,
+            "proroga": "se autorizzata una proroga di 10 gg",
+            "numero_borse": 15,
+            "corrispettivo_borse": "1250.00",
+            "user_id": 52,
+            "stato_avanzamento": "incomp"
+        }
+    ],
+    "first_page_url": "http:\/\/localhost\/api\/v1\/convenzioni?page=1",
+    "from": 1,
+    "last_page": 2,
+    "last_page_url": "http:\/\/localhost\/api\/v1\/convenzioni?page=2",
+    "next_page_url": "http:\/\/localhost\/api\/v1\/convenzioni?page=2",
+    "path": "http:\/\/localhost\/api\/v1\/convenzioni",
+    "per_page": 25,
+    "prev_page_url": null,
+    "to": 25,
+    "total": 34
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/convenzioni</code></p>
+<!-- END_14e72903e7f944d458c9a2bf7e06b3e9 -->
+<!-- START_5398ef6b0d40af33d4aa0cc07f09bc4d -->
+<h2>Non implementato -- Crea un oggetto nuova convenzione</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/convenzioni/create" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/convenzioni/create",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/convenzioni/create</code></p>
+<!-- END_5398ef6b0d40af33d4aa0cc07f09bc4d -->
+<!-- START_3a18136d51a2aaf5be7e2d1b9305407c -->
+<h2>Store a newly created resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/convenzioni" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/convenzioni",
+    "method": "POST",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v1/convenzioni</code></p>
+<!-- END_3a18136d51a2aaf5be7e2d1b9305407c -->
+<!-- START_936ac78e1440836b48954889d76c30bd -->
+<h2>Display the specified resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/convenzioni/{convenzioni}" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/convenzioni/{convenzioni}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Undefined variable: Id",
+    "exception": "ErrorException",
+    "file": "C:\\Workspace\\uniconv\\app\\Http\\Controllers\\Api\\V1\\ConvezioneController.php",
+    "line": 95,
+    "trace": [
+        {
+            "file": "C:\\Workspace\\uniconv\\app\\Http\\Controllers\\Api\\V1\\ConvezioneController.php",
+            "line": 95,
+            "function": "handleError",
+            "class": "Illuminate\\Foundation\\Bootstrap\\HandleExceptions",
+            "type": "-&gt;"
+        },
+        {
+            "function": "show",
+            "class": "App\\Http\\Controllers\\Api\\V1\\ConvezioneController",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php",
+            "line": 54,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php",
+            "line": 45,
+            "function": "callAction",
+            "class": "Illuminate\\Routing\\Controller",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 212,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\ControllerDispatcher",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 169,
+            "function": "runController",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 665,
+            "function": "run",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 667,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 642,
+            "function": "runRouteWithinStack",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 608,
+            "function": "runRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 597,
+            "function": "dispatchToRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 176,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Foundation\\Http\\{closure}",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 151,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 116,
+            "function": "sendRequestThroughRouter",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\LaravelGenerator.php",
+            "line": 79,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 222,
+            "function": "callRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\LaravelGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 88,
+            "function": "getRouteResponse",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 292,
+            "function": "processRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 95,
+            "function": "processRoutes",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "function": "handle",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 29,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 87,
+            "function": "Illuminate\\Container\\{closure}",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 31,
+            "function": "callBoundMethod",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+            "line": 564,
+            "function": "call",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 184,
+            "function": "call",
+            "class": "Illuminate\\Container\\Container",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Command\\Command.php",
+            "line": 251,
+            "function": "execute",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 171,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Command\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 886,
+            "function": "run",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 262,
+            "function": "doRunCommand",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 145,
+            "function": "doRun",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
+            "line": 89,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
+            "line": 122,
+            "function": "run",
+            "class": "Illuminate\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\artisan",
+            "line": 37,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Console\\Kernel",
+            "type": "-&gt;"
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/convenzioni/{convenzioni}</code></p>
+<!-- END_936ac78e1440836b48954889d76c30bd -->
+<!-- START_5c4bb53e844ed86fd28756006fcf1288 -->
+<h2>Non implementato</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/convenzioni/{convenzioni}/edit" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/convenzioni/{convenzioni}/edit",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/convenzioni/{convenzioni}/edit</code></p>
+<!-- END_5c4bb53e844ed86fd28756006fcf1288 -->
+<!-- START_1b980236babc0536c45df07c23d174da -->
+<h2>Update the specified resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT "http://localhost/api/v1/convenzioni/{convenzioni}" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/convenzioni/{convenzioni}",
+    "method": "PUT",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PUT api/v1/convenzioni/{convenzioni}</code></p>
+<p><code>PATCH api/v1/convenzioni/{convenzioni}</code></p>
+<!-- END_1b980236babc0536c45df07c23d174da -->
+<!-- START_15974e03b222a607f4843655fc798842 -->
+<h2>Remove the specified resource from storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE "http://localhost/api/v1/convenzioni/{convenzioni}" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/convenzioni/{convenzioni}",
+    "method": "DELETE",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>DELETE api/v1/convenzioni/{convenzioni}</code></p>
+<!-- END_15974e03b222a607f4843655fc798842 -->
+<!-- START_10212dd69c09dfdb7ba9795c72edb991 -->
+<h2>api/v1/convenzioni/query</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/convenzioni/query" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/convenzioni/query",
+    "method": "POST",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v1/convenzioni/query</code></p>
+<!-- END_10212dd69c09dfdb7ba9795c72edb991 -->
+<!-- START_0504afb6f519942ae1c0b7ea71315b2d -->
+<h2>Display a listing of the resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/dipartimenti" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/dipartimenti",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "ORA-01017: invalid username\/password; logon denied",
+    "exception": "Yajra\\Pdo\\Oci8\\Exceptions\\Oci8Exception",
+    "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-pdo-via-oci8\\src\\Pdo\\Oci8.php",
+    "line": 464,
+    "trace": [
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-pdo-via-oci8\\src\\Pdo\\Oci8.php",
+            "line": 78,
+            "function": "connect",
+            "class": "Yajra\\Pdo\\Oci8",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Connectors\\OracleConnector.php",
+            "line": 204,
+            "function": "__construct",
+            "class": "Yajra\\Pdo\\Oci8",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Connectors\\OracleConnector.php",
+            "line": 35,
+            "function": "createConnection",
+            "class": "Yajra\\Oci8\\Connectors\\OracleConnector",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Oci8ServiceProvider.php",
+            "line": 49,
+            "function": "connect",
+            "class": "Yajra\\Oci8\\Connectors\\OracleConnector",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 272,
+            "function": "Yajra\\Oci8\\{closure}",
+            "class": "Yajra\\Oci8\\Oci8ServiceProvider",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 77,
+            "function": "createConnection",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 51,
+            "function": "createSingleConnection",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\DatabaseManager.php",
+            "line": 119,
+            "function": "make",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\DatabaseManager.php",
+            "line": 74,
+            "function": "makeConnection",
+            "class": "Illuminate\\Database\\DatabaseManager",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1146,
+            "function": "connection",
+            "class": "Illuminate\\Database\\DatabaseManager",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1112,
+            "function": "resolveConnection",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 942,
+            "function": "getConnection",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 857,
+            "function": "newBaseQueryBuilder",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 895,
+            "function": "newModelQuery",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 846,
+            "function": "newQueryWithoutScopes",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1515,
+            "function": "newQuery",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1527,
+            "function": "__call",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\app\\Http\\Controllers\\Api\\V1\\DipartimentoController.php",
+            "line": 18,
+            "function": "__callStatic",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "::"
+        },
+        {
+            "function": "index",
+            "class": "App\\Http\\Controllers\\Api\\V1\\DipartimentoController",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php",
+            "line": 54,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php",
+            "line": 45,
+            "function": "callAction",
+            "class": "Illuminate\\Routing\\Controller",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 212,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\ControllerDispatcher",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 169,
+            "function": "runController",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 665,
+            "function": "run",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 667,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 642,
+            "function": "runRouteWithinStack",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 608,
+            "function": "runRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 597,
+            "function": "dispatchToRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 176,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Foundation\\Http\\{closure}",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 151,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 116,
+            "function": "sendRequestThroughRouter",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\LaravelGenerator.php",
+            "line": 79,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 222,
+            "function": "callRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\LaravelGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 88,
+            "function": "getRouteResponse",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 292,
+            "function": "processRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 95,
+            "function": "processRoutes",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "function": "handle",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 29,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 87,
+            "function": "Illuminate\\Container\\{closure}",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 31,
+            "function": "callBoundMethod",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+            "line": 564,
+            "function": "call",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 184,
+            "function": "call",
+            "class": "Illuminate\\Container\\Container",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Command\\Command.php",
+            "line": 251,
+            "function": "execute",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 171,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Command\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 886,
+            "function": "run",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 262,
+            "function": "doRunCommand",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 145,
+            "function": "doRun",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
+            "line": 89,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
+            "line": 122,
+            "function": "run",
+            "class": "Illuminate\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\artisan",
+            "line": 37,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Console\\Kernel",
+            "type": "-&gt;"
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/dipartimenti</code></p>
+<!-- END_0504afb6f519942ae1c0b7ea71315b2d -->
+<!-- START_710668f4e6fe9a36e3f5780ae7946bfc -->
+<h2>Display the specified resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/dipartimenti/{id}" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/dipartimenti/{id}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "ORA-01017: invalid username\/password; logon denied",
+    "exception": "Yajra\\Pdo\\Oci8\\Exceptions\\Oci8Exception",
+    "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-pdo-via-oci8\\src\\Pdo\\Oci8.php",
+    "line": 464,
+    "trace": [
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-pdo-via-oci8\\src\\Pdo\\Oci8.php",
+            "line": 78,
+            "function": "connect",
+            "class": "Yajra\\Pdo\\Oci8",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Connectors\\OracleConnector.php",
+            "line": 204,
+            "function": "__construct",
+            "class": "Yajra\\Pdo\\Oci8",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Connectors\\OracleConnector.php",
+            "line": 35,
+            "function": "createConnection",
+            "class": "Yajra\\Oci8\\Connectors\\OracleConnector",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Oci8ServiceProvider.php",
+            "line": 49,
+            "function": "connect",
+            "class": "Yajra\\Oci8\\Connectors\\OracleConnector",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 272,
+            "function": "Yajra\\Oci8\\{closure}",
+            "class": "Yajra\\Oci8\\Oci8ServiceProvider",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 77,
+            "function": "createConnection",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 51,
+            "function": "createSingleConnection",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\DatabaseManager.php",
+            "line": 119,
+            "function": "make",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\DatabaseManager.php",
+            "line": 74,
+            "function": "makeConnection",
+            "class": "Illuminate\\Database\\DatabaseManager",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1146,
+            "function": "connection",
+            "class": "Illuminate\\Database\\DatabaseManager",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1112,
+            "function": "resolveConnection",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 942,
+            "function": "getConnection",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 857,
+            "function": "newBaseQueryBuilder",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 895,
+            "function": "newModelQuery",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 846,
+            "function": "newQueryWithoutScopes",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1515,
+            "function": "newQuery",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1527,
+            "function": "__call",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\app\\Http\\Controllers\\Api\\V1\\DipartimentoController.php",
+            "line": 29,
+            "function": "__callStatic",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "::"
+        },
+        {
+            "function": "show",
+            "class": "App\\Http\\Controllers\\Api\\V1\\DipartimentoController",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php",
+            "line": 54,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php",
+            "line": 45,
+            "function": "callAction",
+            "class": "Illuminate\\Routing\\Controller",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 212,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\ControllerDispatcher",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 169,
+            "function": "runController",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 665,
+            "function": "run",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 667,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 642,
+            "function": "runRouteWithinStack",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 608,
+            "function": "runRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 597,
+            "function": "dispatchToRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 176,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Foundation\\Http\\{closure}",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 151,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 116,
+            "function": "sendRequestThroughRouter",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\LaravelGenerator.php",
+            "line": 79,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 222,
+            "function": "callRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\LaravelGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 88,
+            "function": "getRouteResponse",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 292,
+            "function": "processRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 95,
+            "function": "processRoutes",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "function": "handle",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 29,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 87,
+            "function": "Illuminate\\Container\\{closure}",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 31,
+            "function": "callBoundMethod",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+            "line": 564,
+            "function": "call",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 184,
+            "function": "call",
+            "class": "Illuminate\\Container\\Container",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Command\\Command.php",
+            "line": 251,
+            "function": "execute",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 171,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Command\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 886,
+            "function": "run",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 262,
+            "function": "doRunCommand",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 145,
+            "function": "doRun",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
+            "line": 89,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
+            "line": 122,
+            "function": "run",
+            "class": "Illuminate\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\artisan",
+            "line": 37,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Console\\Kernel",
+            "type": "-&gt;"
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/dipartimenti/{id}</code></p>
+<!-- END_710668f4e6fe9a36e3f5780ae7946bfc -->
+<!-- START_d2bbcf7006b55a1219138ede16c5839c -->
+<h2>api/v1/dipartimenti/query</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/dipartimenti/query" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/dipartimenti/query",
+    "method": "POST",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v1/dipartimenti/query</code></p>
+<!-- END_d2bbcf7006b55a1219138ede16c5839c -->
+<!-- START_f48e0e8f5d43c0b4aa195783560e49d6 -->
+<h2>api/v1/dipartimenti/docenti/{codice}</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/dipartimenti/docenti/{codice}" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/dipartimenti/docenti/{codice}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "ORA-01017: invalid username\/password; logon denied",
+    "exception": "Yajra\\Pdo\\Oci8\\Exceptions\\Oci8Exception",
+    "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-pdo-via-oci8\\src\\Pdo\\Oci8.php",
+    "line": 464,
+    "trace": [
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-pdo-via-oci8\\src\\Pdo\\Oci8.php",
+            "line": 78,
+            "function": "connect",
+            "class": "Yajra\\Pdo\\Oci8",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Connectors\\OracleConnector.php",
+            "line": 204,
+            "function": "__construct",
+            "class": "Yajra\\Pdo\\Oci8",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Connectors\\OracleConnector.php",
+            "line": 35,
+            "function": "createConnection",
+            "class": "Yajra\\Oci8\\Connectors\\OracleConnector",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Oci8ServiceProvider.php",
+            "line": 49,
+            "function": "connect",
+            "class": "Yajra\\Oci8\\Connectors\\OracleConnector",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 272,
+            "function": "Yajra\\Oci8\\{closure}",
+            "class": "Yajra\\Oci8\\Oci8ServiceProvider",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 77,
+            "function": "createConnection",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 51,
+            "function": "createSingleConnection",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\DatabaseManager.php",
+            "line": 119,
+            "function": "make",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\DatabaseManager.php",
+            "line": 74,
+            "function": "makeConnection",
+            "class": "Illuminate\\Database\\DatabaseManager",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1146,
+            "function": "connection",
+            "class": "Illuminate\\Database\\DatabaseManager",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1112,
+            "function": "resolveConnection",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 942,
+            "function": "getConnection",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 857,
+            "function": "newBaseQueryBuilder",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 895,
+            "function": "newModelQuery",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 846,
+            "function": "newQueryWithoutScopes",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1515,
+            "function": "newQuery",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1527,
+            "function": "__call",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\app\\Http\\Controllers\\Api\\V1\\DipartimentoController.php",
+            "line": 51,
+            "function": "__callStatic",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "::"
+        },
+        {
+            "function": "getDocentiByDipartimento",
+            "class": "App\\Http\\Controllers\\Api\\V1\\DipartimentoController",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php",
+            "line": 54,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php",
+            "line": 45,
+            "function": "callAction",
+            "class": "Illuminate\\Routing\\Controller",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 212,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\ControllerDispatcher",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 169,
+            "function": "runController",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 665,
+            "function": "run",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 667,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 642,
+            "function": "runRouteWithinStack",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 608,
+            "function": "runRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 597,
+            "function": "dispatchToRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 176,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Foundation\\Http\\{closure}",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 151,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 116,
+            "function": "sendRequestThroughRouter",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\LaravelGenerator.php",
+            "line": 79,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 222,
+            "function": "callRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\LaravelGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 88,
+            "function": "getRouteResponse",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 292,
+            "function": "processRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 95,
+            "function": "processRoutes",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "function": "handle",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 29,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 87,
+            "function": "Illuminate\\Container\\{closure}",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 31,
+            "function": "callBoundMethod",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+            "line": 564,
+            "function": "call",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 184,
+            "function": "call",
+            "class": "Illuminate\\Container\\Container",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Command\\Command.php",
+            "line": 251,
+            "function": "execute",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 171,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Command\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 886,
+            "function": "run",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 262,
+            "function": "doRunCommand",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 145,
+            "function": "doRun",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
+            "line": 89,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
+            "line": 122,
+            "function": "run",
+            "class": "Illuminate\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\artisan",
+            "line": 37,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Console\\Kernel",
+            "type": "-&gt;"
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/dipartimenti/docenti/{codice}</code></p>
+<!-- END_f48e0e8f5d43c0b4aa195783560e49d6 -->
+<!-- START_92e9be9a2087544b1b09646760c7c256 -->
+<h2>api/v1/comuni/{codice}</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/comuni/{codice}" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/comuni/{codice}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "ORA-01017: invalid username\/password; logon denied",
+    "exception": "Yajra\\Pdo\\Oci8\\Exceptions\\Oci8Exception",
+    "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-pdo-via-oci8\\src\\Pdo\\Oci8.php",
+    "line": 464,
+    "trace": [
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-pdo-via-oci8\\src\\Pdo\\Oci8.php",
+            "line": 78,
+            "function": "connect",
+            "class": "Yajra\\Pdo\\Oci8",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Connectors\\OracleConnector.php",
+            "line": 204,
+            "function": "__construct",
+            "class": "Yajra\\Pdo\\Oci8",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Connectors\\OracleConnector.php",
+            "line": 35,
+            "function": "createConnection",
+            "class": "Yajra\\Oci8\\Connectors\\OracleConnector",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Oci8ServiceProvider.php",
+            "line": 49,
+            "function": "connect",
+            "class": "Yajra\\Oci8\\Connectors\\OracleConnector",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 272,
+            "function": "Yajra\\Oci8\\{closure}",
+            "class": "Yajra\\Oci8\\Oci8ServiceProvider",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 77,
+            "function": "createConnection",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 51,
+            "function": "createSingleConnection",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\DatabaseManager.php",
+            "line": 119,
+            "function": "make",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\DatabaseManager.php",
+            "line": 74,
+            "function": "makeConnection",
+            "class": "Illuminate\\Database\\DatabaseManager",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1146,
+            "function": "connection",
+            "class": "Illuminate\\Database\\DatabaseManager",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1112,
+            "function": "resolveConnection",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 942,
+            "function": "getConnection",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 857,
+            "function": "newBaseQueryBuilder",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 895,
+            "function": "newModelQuery",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 846,
+            "function": "newQueryWithoutScopes",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1515,
+            "function": "newQuery",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\app\\Http\\Controllers\\Api\\V1\\LocalitaController.php",
+            "line": 20,
+            "function": "__call",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "function": "getComuneById",
+            "class": "App\\Http\\Controllers\\Api\\V1\\LocalitaController",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php",
+            "line": 54,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php",
+            "line": 45,
+            "function": "callAction",
+            "class": "Illuminate\\Routing\\Controller",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 212,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\ControllerDispatcher",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 169,
+            "function": "runController",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 665,
+            "function": "run",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 667,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 642,
+            "function": "runRouteWithinStack",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 608,
+            "function": "runRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 597,
+            "function": "dispatchToRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 176,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Foundation\\Http\\{closure}",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 151,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 116,
+            "function": "sendRequestThroughRouter",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\LaravelGenerator.php",
+            "line": 79,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 222,
+            "function": "callRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\LaravelGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 88,
+            "function": "getRouteResponse",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 292,
+            "function": "processRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 95,
+            "function": "processRoutes",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "function": "handle",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 29,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 87,
+            "function": "Illuminate\\Container\\{closure}",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 31,
+            "function": "callBoundMethod",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+            "line": 564,
+            "function": "call",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 184,
+            "function": "call",
+            "class": "Illuminate\\Container\\Container",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Command\\Command.php",
+            "line": 251,
+            "function": "execute",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 171,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Command\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 886,
+            "function": "run",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 262,
+            "function": "doRunCommand",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 145,
+            "function": "doRun",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
+            "line": 89,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
+            "line": 122,
+            "function": "run",
+            "class": "Illuminate\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\artisan",
+            "line": 37,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Console\\Kernel",
+            "type": "-&gt;"
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/comuni/{codice}</code></p>
+<!-- END_92e9be9a2087544b1b09646760c7c256 -->
+<!-- START_a0d65a5416cc5bb9298a33960bc7a009 -->
+<h2>api/v1/comuni</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/comuni" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/comuni",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "ORA-01017: invalid username\/password; logon denied",
+    "exception": "Yajra\\Pdo\\Oci8\\Exceptions\\Oci8Exception",
+    "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-pdo-via-oci8\\src\\Pdo\\Oci8.php",
+    "line": 464,
+    "trace": [
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-pdo-via-oci8\\src\\Pdo\\Oci8.php",
+            "line": 78,
+            "function": "connect",
+            "class": "Yajra\\Pdo\\Oci8",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Connectors\\OracleConnector.php",
+            "line": 204,
+            "function": "__construct",
+            "class": "Yajra\\Pdo\\Oci8",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Connectors\\OracleConnector.php",
+            "line": 35,
+            "function": "createConnection",
+            "class": "Yajra\\Oci8\\Connectors\\OracleConnector",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\yajra\\laravel-oci8\\src\\Oci8\\Oci8ServiceProvider.php",
+            "line": 49,
+            "function": "connect",
+            "class": "Yajra\\Oci8\\Connectors\\OracleConnector",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 272,
+            "function": "Yajra\\Oci8\\{closure}",
+            "class": "Yajra\\Oci8\\Oci8ServiceProvider",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 77,
+            "function": "createConnection",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php",
+            "line": 51,
+            "function": "createSingleConnection",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\DatabaseManager.php",
+            "line": 119,
+            "function": "make",
+            "class": "Illuminate\\Database\\Connectors\\ConnectionFactory",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\DatabaseManager.php",
+            "line": 74,
+            "function": "makeConnection",
+            "class": "Illuminate\\Database\\DatabaseManager",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1146,
+            "function": "connection",
+            "class": "Illuminate\\Database\\DatabaseManager",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1112,
+            "function": "resolveConnection",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 942,
+            "function": "getConnection",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 857,
+            "function": "newBaseQueryBuilder",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 895,
+            "function": "newModelQuery",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 846,
+            "function": "newQueryWithoutScopes",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php",
+            "line": 1515,
+            "function": "newQuery",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\app\\Http\\Controllers\\Api\\V1\\LocalitaController.php",
+            "line": 30,
+            "function": "__call",
+            "class": "Illuminate\\Database\\Eloquent\\Model",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\app\\Http\\Controllers\\Api\\V1\\LocalitaController.php",
+            "line": 37,
+            "function": "getComuniByCodiceProvincia",
+            "class": "App\\Http\\Controllers\\Api\\V1\\LocalitaController",
+            "type": "-&gt;"
+        },
+        {
+            "function": "getComuni",
+            "class": "App\\Http\\Controllers\\Api\\V1\\LocalitaController",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php",
+            "line": 54,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php",
+            "line": 45,
+            "function": "callAction",
+            "class": "Illuminate\\Routing\\Controller",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 212,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\ControllerDispatcher",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 169,
+            "function": "runController",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 665,
+            "function": "run",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 667,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 642,
+            "function": "runRouteWithinStack",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 608,
+            "function": "runRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 597,
+            "function": "dispatchToRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 176,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Foundation\\Http\\{closure}",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 151,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 116,
+            "function": "sendRequestThroughRouter",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\LaravelGenerator.php",
+            "line": 79,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 222,
+            "function": "callRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\LaravelGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 88,
+            "function": "getRouteResponse",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 292,
+            "function": "processRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 95,
+            "function": "processRoutes",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "function": "handle",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 29,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 87,
+            "function": "Illuminate\\Container\\{closure}",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 31,
+            "function": "callBoundMethod",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+            "line": 564,
+            "function": "call",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 184,
+            "function": "call",
+            "class": "Illuminate\\Container\\Container",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Command\\Command.php",
+            "line": 251,
+            "function": "execute",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 171,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Command\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 886,
+            "function": "run",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 262,
+            "function": "doRunCommand",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 145,
+            "function": "doRun",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
+            "line": 89,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
+            "line": 122,
+            "function": "run",
+            "class": "Illuminate\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\artisan",
+            "line": 37,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Console\\Kernel",
+            "type": "-&gt;"
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/comuni</code></p>
+<!-- END_a0d65a5416cc5bb9298a33960bc7a009 -->
+<!-- START_2f5d712d074d23184d53ddb2647e33f9 -->
+<h2>api/v1/provincie</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/provincie" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/provincie",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "error": "ORA-01017: invalid username\/password; logon denied"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/provincie</code></p>
+<!-- END_2f5d712d074d23184d53ddb2647e33f9 -->
+<!-- START_a633892d9f780e045b1aa3de9890440e -->
+<h2>api/v1/provincie/{codice}</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/provincie/{codice}" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/provincie/{codice}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "error": "ORA-01017: invalid username\/password; logon denied"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/provincie/{codice}</code></p>
+<!-- END_a633892d9f780e045b1aa3de9890440e -->
+<!-- START_1aff981da377ba9a1bbc56ff8efaec0d -->
+<h2>Display a listing of the resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/users" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/users",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">[
+    {
+        "id": 1,
+        "name": "test admin",
+        "email": "test.admin@uniurb.it",
+        "created_at": "2018-10-08 15:03:31",
+        "updated_at": "2018-10-08 15:03:31"
+    },
+    {
+        "id": 2,
+        "name": "test user",
+        "email": "test.user@uniurb.it",
+        "created_at": "2018-10-08 15:03:34",
+        "updated_at": "2018-10-08 15:03:34"
+    },
+    {
+        "id": 3,
+        "name": "Marcelo Reichert",
+        "email": "fjohns@example.org",
+        "created_at": "2018-10-08 15:36:29",
+        "updated_at": "2018-10-08 15:36:29"
+    },
+    {
+        "id": 4,
+        "name": "Prof. Martine Kunze",
+        "email": "finn.runolfsdottir@example.org",
+        "created_at": "2018-10-08 15:36:29",
+        "updated_at": "2018-10-08 15:36:29"
+    },
+    {
+        "id": 5,
+        "name": "Bette Sanford",
+        "email": "tyrel.mcglynn@example.net",
+        "created_at": "2018-10-08 15:36:34",
+        "updated_at": "2018-10-08 15:36:34"
+    },
+    {
+        "id": 6,
+        "name": "Kathlyn Stamm",
+        "email": "egoodwin@example.com",
+        "created_at": "2018-10-08 15:39:39",
+        "updated_at": "2018-10-08 15:39:39"
+    },
+    {
+        "id": 7,
+        "name": "Mr. Kenyon Mante",
+        "email": "lkozey@example.org",
+        "created_at": "2018-10-08 15:40:10",
+        "updated_at": "2018-10-08 15:40:10"
+    },
+    {
+        "id": 8,
+        "name": "Nels Oberbrunner",
+        "email": "evan.osinski@example.net",
+        "created_at": "2018-10-08 15:40:29",
+        "updated_at": "2018-10-08 15:40:29"
+    },
+    {
+        "id": 9,
+        "name": "Easter Purdy",
+        "email": "audrey71@example.org",
+        "created_at": "2018-10-08 15:44:55",
+        "updated_at": "2018-10-08 15:44:55"
+    },
+    {
+        "id": 10,
+        "name": "Zoila Fisher I",
+        "email": "itzel13@example.com",
+        "created_at": "2018-10-08 15:57:05",
+        "updated_at": "2018-10-08 15:57:05"
+    },
+    {
+        "id": 11,
+        "name": "Prof. Dangelo Boehm Sr.",
+        "email": "nelson.aufderhar@example.com",
+        "created_at": "2018-10-08 15:57:54",
+        "updated_at": "2018-10-08 15:57:54"
+    },
+    {
+        "id": 12,
+        "name": "Raheem Hilpert",
+        "email": "nschowalter@example.net",
+        "created_at": "2018-10-08 15:57:55",
+        "updated_at": "2018-10-08 15:57:55"
+    },
+    {
+        "id": 13,
+        "name": "Mrs. Noemi Pacocha",
+        "email": "myrtle05@example.org",
+        "created_at": "2018-10-08 15:57:59",
+        "updated_at": "2018-10-08 15:57:59"
+    },
+    {
+        "id": 14,
+        "name": "Mrs. Veda Durgan",
+        "email": "lucas29@example.org",
+        "created_at": "2018-10-08 15:58:37",
+        "updated_at": "2018-10-08 15:58:37"
+    },
+    {
+        "id": 15,
+        "name": "Mr. Khalid Bogan",
+        "email": "gertrude.halvorson@example.org",
+        "created_at": "2018-10-08 15:58:37",
+        "updated_at": "2018-10-08 15:58:37"
+    },
+    {
+        "id": 16,
+        "name": "Elmo O'Reilly",
+        "email": "lang.kathlyn@example.net",
+        "created_at": "2018-10-08 15:58:44",
+        "updated_at": "2018-10-08 15:58:44"
+    },
+    {
+        "id": 17,
+        "name": "Mrs. Shemar Jaskolski MD",
+        "email": "theo27@example.org",
+        "created_at": "2018-10-08 15:59:40",
+        "updated_at": "2018-10-08 15:59:40"
+    },
+    {
+        "id": 18,
+        "name": "Prof. Lorine Langosh MD",
+        "email": "ethel51@example.org",
+        "created_at": "2018-10-08 15:59:40",
+        "updated_at": "2018-10-08 15:59:40"
+    },
+    {
+        "id": 19,
+        "name": "Art Schulist",
+        "email": "nhills@example.org",
+        "created_at": "2018-10-08 15:59:41",
+        "updated_at": "2018-10-08 15:59:41"
+    },
+    {
+        "id": 20,
+        "name": "Shannon Hodkiewicz",
+        "email": "bradly.stamm@example.net",
+        "created_at": "2018-10-08 15:59:58",
+        "updated_at": "2018-10-08 15:59:58"
+    },
+    {
+        "id": 21,
+        "name": "Prof. Tyree Kerluke II",
+        "email": "gbergnaum@example.net",
+        "created_at": "2018-10-08 15:59:58",
+        "updated_at": "2018-10-08 15:59:58"
+    },
+    {
+        "id": 22,
+        "name": "Mr. Elias Moore",
+        "email": "deron.jast@example.com",
+        "created_at": "2018-10-08 15:59:59",
+        "updated_at": "2018-10-08 15:59:59"
+    },
+    {
+        "id": 23,
+        "name": "Enrico Shanahan",
+        "email": "dolores07@example.com",
+        "created_at": "2018-10-08 16:02:17",
+        "updated_at": "2018-10-08 16:02:17"
+    },
+    {
+        "id": 24,
+        "name": "Edward Reilly",
+        "email": "eheaney@example.net",
+        "created_at": "2018-10-08 16:02:17",
+        "updated_at": "2018-10-08 16:02:17"
+    },
+    {
+        "id": 25,
+        "name": "Arne Graham",
+        "email": "trent68@example.org",
+        "created_at": "2018-10-08 16:02:19",
+        "updated_at": "2018-10-08 16:02:19"
+    },
+    {
+        "id": 26,
+        "name": "Ardella Smith",
+        "email": "torp.stephan@example.org",
+        "created_at": "2018-10-08 16:03:35",
+        "updated_at": "2018-10-08 16:03:35"
+    },
+    {
+        "id": 27,
+        "name": "Mrs. Chasity Kuhn",
+        "email": "leta.metz@example.net",
+        "created_at": "2018-10-08 16:03:35",
+        "updated_at": "2018-10-08 16:03:35"
+    },
+    {
+        "id": 28,
+        "name": "Kenny Bashirian",
+        "email": "ukuhic@example.com",
+        "created_at": "2018-10-08 16:03:36",
+        "updated_at": "2018-10-08 16:03:36"
+    },
+    {
+        "id": 29,
+        "name": "Dr. Cheyenne Bosco",
+        "email": "fabian.schaden@example.net",
+        "created_at": "2018-10-08 16:19:25",
+        "updated_at": "2018-10-08 16:19:25"
+    },
+    {
+        "id": 30,
+        "name": "Enos Olson I",
+        "email": "fae64@example.net",
+        "created_at": "2018-10-08 16:19:25",
+        "updated_at": "2018-10-08 16:19:25"
+    },
+    {
+        "id": 31,
+        "name": "Dr. Zoie Stehr",
+        "email": "renner.vivien@example.net",
+        "created_at": "2018-10-08 16:19:26",
+        "updated_at": "2018-10-08 16:19:26"
+    },
+    {
+        "id": 32,
+        "name": "Ottis Rutherford",
+        "email": "eudora59@example.net",
+        "created_at": "2018-10-08 16:20:56",
+        "updated_at": "2018-10-08 16:20:56"
+    },
+    {
+        "id": 33,
+        "name": "Faustino Schroeder",
+        "email": "jmarks@example.net",
+        "created_at": "2018-10-08 16:20:57",
+        "updated_at": "2018-10-08 16:20:57"
+    },
+    {
+        "id": 34,
+        "name": "Mrs. Alicia Buckridge III",
+        "email": "dare.skylar@example.com",
+        "created_at": "2018-10-08 16:20:58",
+        "updated_at": "2018-10-08 16:20:58"
+    },
+    {
+        "id": 35,
+        "name": "Vernice Raynor",
+        "email": "reagan.glover@example.org",
+        "created_at": "2018-10-08 16:23:42",
+        "updated_at": "2018-10-08 16:23:42"
+    },
+    {
+        "id": 36,
+        "name": "Twila O'Hara",
+        "email": "mireya54@example.org",
+        "created_at": "2018-10-08 16:23:43",
+        "updated_at": "2018-10-08 16:23:43"
+    },
+    {
+        "id": 37,
+        "name": "Erich Bailey DDS",
+        "email": "rebekah.kulas@example.com",
+        "created_at": "2018-10-08 16:23:43",
+        "updated_at": "2018-10-08 16:23:43"
+    },
+    {
+        "id": 38,
+        "name": "Marcelina Turner II",
+        "email": "blick.dawn@example.com",
+        "created_at": "2018-10-08 16:24:14",
+        "updated_at": "2018-10-08 16:24:14"
+    },
+    {
+        "id": 39,
+        "name": "Dr. Alison McClure",
+        "email": "zpagac@example.com",
+        "created_at": "2018-10-08 16:24:14",
+        "updated_at": "2018-10-08 16:24:14"
+    },
+    {
+        "id": 40,
+        "name": "Minerva Botsford",
+        "email": "mara.nolan@example.org",
+        "created_at": "2018-10-08 16:24:15",
+        "updated_at": "2018-10-08 16:24:15"
+    },
+    {
+        "id": 41,
+        "name": "Hattie Friesen",
+        "email": "carlotta.rolfson@example.net",
+        "created_at": "2018-10-08 16:25:37",
+        "updated_at": "2018-10-08 16:25:37"
+    },
+    {
+        "id": 42,
+        "name": "Miss Kiana DuBuque",
+        "email": "wlindgren@example.com",
+        "created_at": "2018-10-08 16:25:48",
+        "updated_at": "2018-10-08 16:25:48"
+    },
+    {
+        "id": 43,
+        "name": "Prof. Deborah Weimann",
+        "email": "kmacejkovic@example.org",
+        "created_at": "2018-10-08 16:26:42",
+        "updated_at": "2018-10-08 16:26:42"
+    },
+    {
+        "id": 44,
+        "name": "Duncan Smitham",
+        "email": "pmcdermott@example.com",
+        "created_at": "2018-10-08 16:26:55",
+        "updated_at": "2018-10-08 16:26:55"
+    },
+    {
+        "id": 45,
+        "name": "Elva Murray V",
+        "email": "gaylord.elenora@example.org",
+        "created_at": "2018-10-08 16:27:30",
+        "updated_at": "2018-10-08 16:27:30"
+    },
+    {
+        "id": 46,
+        "name": "Cordelia Kerluke",
+        "email": "ewitting@example.org",
+        "created_at": "2018-10-08 16:49:50",
+        "updated_at": "2018-10-08 16:49:50"
+    },
+    {
+        "id": 47,
+        "name": "Miss Maxie Mayer III",
+        "email": "seth86@example.com",
+        "created_at": "2018-10-08 16:49:50",
+        "updated_at": "2018-10-08 16:49:50"
+    },
+    {
+        "id": 48,
+        "name": "Teresa Botsford",
+        "email": "noelia.leannon@example.net",
+        "created_at": "2018-10-08 16:49:51",
+        "updated_at": "2018-10-08 16:49:51"
+    },
+    {
+        "id": 49,
+        "name": "Napoleon Reinger",
+        "email": "mccullough.robyn@example.org",
+        "created_at": "2018-10-08 16:51:42",
+        "updated_at": "2018-10-08 16:51:42"
+    },
+    {
+        "id": 50,
+        "name": "Prof. Phyllis Reichel",
+        "email": "turcotte.misty@example.net",
+        "created_at": "2018-10-08 16:51:42",
+        "updated_at": "2018-10-08 16:51:42"
+    },
+    {
+        "id": 51,
+        "name": "Mrs. Pat Keebler",
+        "email": "lenore01@example.net",
+        "created_at": "2018-10-08 16:51:43",
+        "updated_at": "2018-10-08 16:51:43"
+    },
+    {
+        "id": 52,
+        "name": "Paolo Krajcik",
+        "email": "vallie80@example.com",
+        "created_at": "2018-10-08 16:52:23",
+        "updated_at": "2018-10-08 16:52:23"
+    },
+    {
+        "id": 53,
+        "name": "Fannie Gleichner DDS",
+        "email": "rosenbaum.salvatore@example.com",
+        "created_at": "2018-10-08 16:52:23",
+        "updated_at": "2018-10-08 16:52:23"
+    },
+    {
+        "id": 54,
+        "name": "Sharon O'Keefe",
+        "email": "trantow.freddie@example.net",
+        "created_at": "2018-10-08 16:52:24",
+        "updated_at": "2018-10-08 16:52:24"
+    },
+    {
+        "id": 55,
+        "name": "Dr. Leda Runolfsson IV",
+        "email": "ashtyn45@example.com",
+        "created_at": "2018-10-11 15:53:25",
+        "updated_at": "2018-10-11 15:53:25"
+    },
+    {
+        "id": 56,
+        "name": "Keyon Hermiston",
+        "email": "dtorphy@example.net",
+        "created_at": "2018-10-11 15:53:26",
+        "updated_at": "2018-10-11 15:53:26"
+    },
+    {
+        "id": 57,
+        "name": "Garett Hills",
+        "email": "graham.bertha@example.com",
+        "created_at": "2018-10-11 15:53:26",
+        "updated_at": "2018-10-11 15:53:26"
+    },
+    {
+        "id": 58,
+        "name": "Moriah Carter",
+        "email": "wiza.amir@example.com",
+        "created_at": "2018-10-12 12:04:52",
+        "updated_at": "2018-10-12 12:04:52"
+    },
+    {
+        "id": 59,
+        "name": "Gia Mann",
+        "email": "roman52@example.net",
+        "created_at": "2018-10-12 12:05:05",
+        "updated_at": "2018-10-12 12:05:05"
+    },
+    {
+        "id": 60,
+        "name": "Prof. Selena Schuppe DVM",
+        "email": "dubuque.althea@example.org",
+        "created_at": "2018-10-12 12:05:50",
+        "updated_at": "2018-10-12 12:05:50"
+    },
+    {
+        "id": 61,
+        "name": "Shanny Johnston",
+        "email": "wilson.russel@example.com",
+        "created_at": "2018-10-12 12:07:39",
+        "updated_at": "2018-10-12 12:07:39"
+    },
+    {
+        "id": 62,
+        "name": "Prof. Mikel Medhurst II",
+        "email": "ashly69@example.org",
+        "created_at": "2018-10-12 12:08:23",
+        "updated_at": "2018-10-12 12:08:23"
+    },
+    {
+        "id": 63,
+        "name": "Adolfo Cartwright",
+        "email": "asia74@example.com",
+        "created_at": "2018-10-12 12:09:01",
+        "updated_at": "2018-10-12 12:09:01"
+    },
+    {
+        "id": 64,
+        "name": "Maxime Bins",
+        "email": "macejkovic.ava@example.net",
+        "created_at": "2018-10-12 12:19:11",
+        "updated_at": "2018-10-12 12:19:11"
+    },
+    {
+        "id": 65,
+        "name": "Tatyana Ankunding",
+        "email": "vraynor@example.org",
+        "created_at": "2018-10-12 12:20:45",
+        "updated_at": "2018-10-12 12:20:45"
+    },
+    {
+        "id": 66,
+        "name": "Bennett Doyle",
+        "email": "lexi97@example.com",
+        "created_at": "2018-10-12 12:23:22",
+        "updated_at": "2018-10-12 12:23:22"
+    },
+    {
+        "id": 67,
+        "name": "Shanelle Heaney",
+        "email": "okey.sanford@example.org",
+        "created_at": "2018-10-12 12:26:01",
+        "updated_at": "2018-10-12 12:26:01"
+    },
+    {
+        "id": 68,
+        "name": "Dr. Bobbie Reinger I",
+        "email": "jschmidt@example.net",
+        "created_at": "2018-10-12 12:27:24",
+        "updated_at": "2018-10-12 12:27:24"
+    },
+    {
+        "id": 69,
+        "name": "Mr. Clifton Turcotte",
+        "email": "thad13@example.com",
+        "created_at": "2018-10-12 12:27:55",
+        "updated_at": "2018-10-12 12:27:55"
+    },
+    {
+        "id": 70,
+        "name": "River Jacobs",
+        "email": "barton.waino@example.net",
+        "created_at": "2018-10-12 12:31:05",
+        "updated_at": "2018-10-12 12:31:05"
+    },
+    {
+        "id": 71,
+        "name": "Reed Zieme",
+        "email": "bridget.pagac@example.com",
+        "created_at": "2018-10-12 12:32:31",
+        "updated_at": "2018-10-12 12:32:31"
+    },
+    {
+        "id": 72,
+        "name": "Dr. Christ Hahn Sr.",
+        "email": "aufderhar.holly@example.org",
+        "created_at": "2018-10-12 12:33:49",
+        "updated_at": "2018-10-12 12:33:49"
+    },
+    {
+        "id": 73,
+        "name": "Cristina Senger",
+        "email": "rdare@example.net",
+        "created_at": "2018-10-12 12:34:04",
+        "updated_at": "2018-10-12 12:34:04"
+    },
+    {
+        "id": 75,
+        "name": "Greyson Hintz",
+        "email": "pcasper@example.net",
+        "created_at": "2018-10-12 12:36:03",
+        "updated_at": "2018-10-12 12:36:03"
+    },
+    {
+        "id": 76,
+        "name": "Murl Adams I",
+        "email": "johnathon.baumbach@example.net",
+        "created_at": "2018-10-12 12:36:37",
+        "updated_at": "2018-10-12 12:36:37"
+    },
+    {
+        "id": 77,
+        "name": "Prof. Jennifer Howe II",
+        "email": "eudora.kunde@example.org",
+        "created_at": "2018-10-12 12:36:50",
+        "updated_at": "2018-10-12 12:36:50"
+    },
+    {
+        "id": 78,
+        "name": "Mckenzie Davis",
+        "email": "urban.kutch@example.org",
+        "created_at": "2018-10-12 12:37:48",
+        "updated_at": "2018-10-12 12:37:48"
+    },
+    {
+        "id": 79,
+        "name": "Aubree Nader",
+        "email": "dgaylord@example.com",
+        "created_at": "2018-10-12 12:38:09",
+        "updated_at": "2018-10-12 12:38:09"
+    },
+    {
+        "id": 80,
+        "name": "Jennyfer Rath",
+        "email": "margot56@example.net",
+        "created_at": "2018-10-12 12:39:31",
+        "updated_at": "2018-10-12 12:39:31"
+    },
+    {
+        "id": 81,
+        "name": "Nathanial Mraz",
+        "email": "camron38@example.com",
+        "created_at": "2018-10-12 12:40:17",
+        "updated_at": "2018-10-12 12:40:17"
+    },
+    {
+        "id": 82,
+        "name": "Mr. Sammie Wilderman",
+        "email": "jryan@example.net",
+        "created_at": "2018-10-12 12:41:32",
+        "updated_at": "2018-10-12 12:41:32"
+    },
+    {
+        "id": 83,
+        "name": "Myah Stoltenberg DVM",
+        "email": "lucinda39@example.com",
+        "created_at": "2018-10-12 12:49:02",
+        "updated_at": "2018-10-12 12:49:02"
+    },
+    {
+        "id": 84,
+        "name": "Kevon Pagac",
+        "email": "schimmel.mohamed@example.com",
+        "created_at": "2018-10-12 12:50:53",
+        "updated_at": "2018-10-12 12:50:53"
+    },
+    {
+        "id": 87,
+        "name": "Prof. Jennifer Borer",
+        "email": "mmurphy@example.org",
+        "created_at": "2018-10-12 12:56:18",
+        "updated_at": "2018-10-12 12:56:18"
+    },
+    {
+        "id": 89,
+        "name": "Eleonore Stehr",
+        "email": "vincent.franecki@example.net",
+        "created_at": "2018-10-15 09:57:06",
+        "updated_at": "2018-10-15 09:57:06"
+    },
+    {
+        "id": 93,
+        "name": "Enrico Oliva",
+        "email": "enrico.oliva@uniurb.it",
+        "created_at": "2018-10-15 11:42:42",
+        "updated_at": "2018-10-15 11:42:42"
+    },
+    {
+        "id": 94,
+        "name": "Bernice Wilkinson",
+        "email": "swift.ernestine@example.net",
+        "created_at": "2018-10-15 14:39:49",
+        "updated_at": "2018-10-15 14:39:49"
+    },
+    {
+        "id": 95,
+        "name": "Dr. Mandy Heller IV",
+        "email": "jonathan46@example.com",
+        "created_at": "2018-10-15 14:39:50",
+        "updated_at": "2018-10-15 14:39:50"
+    },
+    {
+        "id": 96,
+        "name": "Esther Moore III",
+        "email": "vernice.connelly@example.org",
+        "created_at": "2018-10-15 14:39:51",
+        "updated_at": "2018-10-15 14:39:51"
+    }
+]</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/users</code></p>
+<!-- END_1aff981da377ba9a1bbc56ff8efaec0d -->
+<!-- START_38e9efcdde0a72cdc99661de5af0f30b -->
+<h2>Show the form for creating a new resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/users/create" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/users/create",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/users/create</code></p>
+<!-- END_38e9efcdde0a72cdc99661de5af0f30b -->
+<!-- START_4194ceb9a20b7f80b61d14d44df366b4 -->
+<h2>Store a newly created resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/users" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/users",
+    "method": "POST",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v1/users</code></p>
+<!-- END_4194ceb9a20b7f80b61d14d44df366b4 -->
+<!-- START_cedc85e856362e0e3b46f5dcd9f8f5d0 -->
+<h2>Display the specified resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/users/{user}" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/users/{user}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Use of undefined constant id - assumed 'id' (this will throw an Error in a future version of PHP)",
+    "exception": "ErrorException",
+    "file": "C:\\Workspace\\uniconv\\app\\Http\\Controllers\\Api\\V1\\UserController.php",
+    "line": 88,
+    "trace": [
+        {
+            "file": "C:\\Workspace\\uniconv\\app\\Http\\Controllers\\Api\\V1\\UserController.php",
+            "line": 88,
+            "function": "handleError",
+            "class": "Illuminate\\Foundation\\Bootstrap\\HandleExceptions",
+            "type": "-&gt;"
+        },
+        {
+            "function": "show",
+            "class": "App\\Http\\Controllers\\Api\\V1\\UserController",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php",
+            "line": 54,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php",
+            "line": 45,
+            "function": "callAction",
+            "class": "Illuminate\\Routing\\Controller",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 212,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\ControllerDispatcher",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 169,
+            "function": "runController",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 665,
+            "function": "run",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 667,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 642,
+            "function": "runRouteWithinStack",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 608,
+            "function": "runRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 597,
+            "function": "dispatchToRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 176,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Foundation\\Http\\{closure}",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 151,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 116,
+            "function": "sendRequestThroughRouter",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\LaravelGenerator.php",
+            "line": 79,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 222,
+            "function": "callRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\LaravelGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 88,
+            "function": "getRouteResponse",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 292,
+            "function": "processRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 95,
+            "function": "processRoutes",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "function": "handle",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 29,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 87,
+            "function": "Illuminate\\Container\\{closure}",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 31,
+            "function": "callBoundMethod",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+            "line": 564,
+            "function": "call",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 184,
+            "function": "call",
+            "class": "Illuminate\\Container\\Container",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Command\\Command.php",
+            "line": 251,
+            "function": "execute",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 171,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Command\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 886,
+            "function": "run",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 262,
+            "function": "doRunCommand",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 145,
+            "function": "doRun",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
+            "line": 89,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
+            "line": 122,
+            "function": "run",
+            "class": "Illuminate\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\artisan",
+            "line": 37,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Console\\Kernel",
+            "type": "-&gt;"
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/users/{user}</code></p>
+<!-- END_cedc85e856362e0e3b46f5dcd9f8f5d0 -->
+<!-- START_09c888507d2a2bf7037f630d6de0caf0 -->
+<h2>Show the form for editing the specified resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/api/v1/users/{user}/edit" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/users/{user}/edit",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Undefined variable: errors (View: C:\\Workspace\\uniconv\\resources\\views\\commons\\errors.blade.php) (View: C:\\Workspace\\uniconv\\resources\\views\\commons\\errors.blade.php)",
+    "exception": "ErrorException",
+    "file": "C:\\Workspace\\uniconv\\storage\\framework\\views\\80f94966014d4ac1e31c215a695bf7a7f01d2e57.php",
+    "line": 1,
+    "trace": [
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php",
+            "line": 45,
+            "function": "handleViewException",
+            "class": "Illuminate\\View\\Engines\\CompilerEngine",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php",
+            "line": 59,
+            "function": "evaluatePath",
+            "class": "Illuminate\\View\\Engines\\PhpEngine",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php",
+            "line": 142,
+            "function": "get",
+            "class": "Illuminate\\View\\Engines\\CompilerEngine",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php",
+            "line": 125,
+            "function": "getContents",
+            "class": "Illuminate\\View\\View",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php",
+            "line": 90,
+            "function": "renderContents",
+            "class": "Illuminate\\View\\View",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php",
+            "line": 42,
+            "function": "render",
+            "class": "Illuminate\\View\\View",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\http-foundation\\Response.php",
+            "line": 197,
+            "function": "setContent",
+            "class": "Illuminate\\Http\\Response",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 733,
+            "function": "__construct",
+            "class": "Symfony\\Component\\HttpFoundation\\Response",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 705,
+            "function": "toResponse",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 665,
+            "function": "prepareResponse",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 667,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 642,
+            "function": "runRouteWithinStack",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 608,
+            "function": "runRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 597,
+            "function": "dispatchToRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 176,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 30,
+            "function": "Illuminate\\Foundation\\Http\\{closure}",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 104,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 151,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 116,
+            "function": "sendRequestThroughRouter",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\LaravelGenerator.php",
+            "line": 79,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 222,
+            "function": "callRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\LaravelGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Generators\\AbstractGenerator.php",
+            "line": 88,
+            "function": "getRouteResponse",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 292,
+            "function": "processRoute",
+            "class": "Mpociot\\ApiDoc\\Generators\\AbstractGenerator",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\mpociot\\laravel-apidoc-generator\\src\\Mpociot\\ApiDoc\\Commands\\GenerateDocumentation.php",
+            "line": 95,
+            "function": "processRoutes",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "function": "handle",
+            "class": "Mpociot\\ApiDoc\\Commands\\GenerateDocumentation",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 29,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 87,
+            "function": "Illuminate\\Container\\{closure}",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 31,
+            "function": "callBoundMethod",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+            "line": 564,
+            "function": "call",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 184,
+            "function": "call",
+            "class": "Illuminate\\Container\\Container",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Command\\Command.php",
+            "line": 251,
+            "function": "execute",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
+            "line": 171,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Command\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 886,
+            "function": "run",
+            "class": "Illuminate\\Console\\Command",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 262,
+            "function": "doRunCommand",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\symfony\\console\\Application.php",
+            "line": 145,
+            "function": "doRun",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
+            "line": 89,
+            "function": "run",
+            "class": "Symfony\\Component\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
+            "line": 122,
+            "function": "run",
+            "class": "Illuminate\\Console\\Application",
+            "type": "-&gt;"
+        },
+        {
+            "file": "C:\\Workspace\\uniconv\\artisan",
+            "line": 37,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Console\\Kernel",
+            "type": "-&gt;"
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/users/{user}/edit</code></p>
+<!-- END_09c888507d2a2bf7037f630d6de0caf0 -->
+<!-- START_296fac4bf818c99f6dd42a4a0eb56b58 -->
+<h2>Update the specified resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT "http://localhost/api/v1/users/{user}" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/users/{user}",
+    "method": "PUT",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PUT api/v1/users/{user}</code></p>
+<p><code>PATCH api/v1/users/{user}</code></p>
+<!-- END_296fac4bf818c99f6dd42a4a0eb56b58 -->
+<!-- START_22354fc95c42d81a744eece68f5b9b9a -->
+<h2>Remove the specified resource from storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE "http://localhost/api/v1/users/{user}" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/users/{user}",
+    "method": "DELETE",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>DELETE api/v1/users/{user}</code></p>
+<!-- END_22354fc95c42d81a744eece68f5b9b9a -->
+<!-- START_75c312e43310991c62d7cc0625f3e7d4 -->
+<h2>api/v1/users/query</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/users/query" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/users/query",
+    "method": "POST",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v1/users/query</code></p>
+<!-- END_75c312e43310991c62d7cc0625f3e7d4 -->
+      </div>
+      <div class="dark-box">
+                        <div class="lang-selector">
+                                    <a href="#" data-language-name="bash">bash</a>
+                                    <a href="#" data-language-name="javascript">javascript</a>
+                              </div>
+                </div>
+    </div>
+  </body>
+</html>

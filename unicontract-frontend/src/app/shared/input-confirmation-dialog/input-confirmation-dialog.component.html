@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ title }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="dismiss()">
+       
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="message">
+      {{ message }}
+    </div>
+    <div *ngIf="messageHtml">  
+      <div [innerHTML]="messageHtml">                           
+      </div>    
+    </div> 
+    <div *ngIf="options.formState.pdfSrc" style="height: 70vh;" class="ms-3 me-3">       
+      <ng-container *ngIf="options.formState.pdfSrc | async as _pdfFilevalue; else loading">           
+        <app-pdf-view [pdfSrc]="_pdfFilevalue"></app-pdf-view>       
+      </ng-container>
+      <ng-template #loading>
+        <!--visibile solo quando non c'è quello principale e l'async non è ancora risolta-->
+         <ngx-loading [show]="true" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>               
+      </ng-template> 
+    </div>
+    <form [formGroup]="form" *ngIf="model">        
+      <formly-form [model]="model" [fields]="fields" [form]="form" [options]="options"></formly-form>
+    </form>  
+  </div>
+  <div class="modal-footer">   
+    <button *ngIf="btnOkText" type="button" class="btn btn-primary"  [disabled]="form.invalid || form.pristine" (click)="accept()">{{ btnOkText }}</button>
+    <button *ngIf="btnCancelText" type="button" class="btn btn-danger" (click)="decline()">{{ btnCancelText }}</button>
+  </div>

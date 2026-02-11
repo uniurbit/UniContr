@@ -1,0 +1,26 @@
+<!-- nav-justified  -->
+<form [formGroup]="form">
+    <nav ngbNav #tabs="ngbNav" class="nav-pills" (navChange)="onTabChange($event)">
+        <ng-container *ngFor="let step of steps; let index = index; let last = last;">
+            <button ngbNavItem id="tab-{{index}}">
+                <ng-template ngbNavContent>
+                    <span class="h6">{{ index }}</span>
+                    <span class="h6">{{ getStepTitle(index) }}</span>
+                </ng-template>
+            </button>
+            <ng-template ngbNavContent>
+                <formly-form [form]="form.at(index)" [model]="model" [fields]="steps[index].fields" [options]="options[index]">
+                </formly-form>
+            </ng-template>
+        </ng-container>
+    </nav>
+<!-- [disabled]="!form.at(activedStep).valid"
+    [disabled]="!form.valid"-->
+<div>
+    <button *ngIf="selectedTab !== 'tab-0'" class="btn btn-primary me-2" type="button" (click)="prevStep(activedStep)">Indietro</button>
+    <button *ngIf="!last" class="btn btn-primary" type="button" [disabled]="nextState"  (click)="nextStep(activedStep)">Avanti</button>     
+</div>
+
+</form>
+
+<p>Form value: {{ form.value | json }}</p>

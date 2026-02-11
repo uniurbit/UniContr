@@ -1,0 +1,20 @@
+table th, td {
+    padding: 3px 10px 3px 10px;
+    vertical-align: middle;
+}
+
+/* .btn-outline-secondary {
+    background-color: #f7f7f7;
+    border-color: #af8cbf;
+    border-radius: 5px;   
+    width: 40px;
+    height: 40px; 
+}
+
+.btn-outline-secondary:hover {
+    background-color: #af8cbf;
+    color: #fff; 
+} */
+
+
+dt:after { content:":"; }

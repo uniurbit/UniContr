@@ -1,0 +1,13 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items"></app-intestazione>  
+
+  <form [formGroup]="formAttch"  *ngIf="model">
+    <app-riquadro-wrapper>
+      <formly-form [model]="model" [fields]="fields" [form]="formAttch" [options]="options"></formly-form>
+    </app-riquadro-wrapper>
+  </form>
+
+  <app-salva-annulla-button [isNew]="!update" [fields]="fields" [formRef]="formAttch" (valid)="saveData(items.d2_inail_id)"></app-salva-annulla-button>  
+  
+</div>

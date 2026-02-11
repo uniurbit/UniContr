@@ -1,0 +1,33 @@
+/*
+  ::ng-deep .nav-fill .nav-link.active {
+      margin-top: -1px;
+      border-top: 2px solid #20a8d8;
+      color: yellow;    
+  }
+  
+  ::ng-deep a {
+    color: purple;
+  }
+  
+  ::ng-deep a:hover {
+    color: red;
+  }   */
+  
+  ::ng-deep .nav-pills a.nav-link.active, 
+  ::ng-deep .nav-pills .show > a.nav-link {                        
+      border-radius: 0%;
+      background: transparent; 
+      color: black;         
+      
+      /* border-bottom: 2px solid #20a8d8; */
+  }
+  
+  .btn-circle {
+    width: 40px;
+    height: 40px;
+    padding: 4px 0px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.42857;
+}

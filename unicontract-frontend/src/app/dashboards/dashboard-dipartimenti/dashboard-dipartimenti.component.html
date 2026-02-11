@@ -1,0 +1,23 @@
+
+<div class="mb-2"> 
+  <span>{{ 'dip_afferenza' | translate : {'s': service?.dips?.length > 1 ? 'i' : 'o'} }}: </span>
+  <span *ngFor="let dip of service.dips; let last = last;">
+    {{ dip | translate }}
+    <span *ngIf="!last">, </span>
+  </span> 
+</div>
+
+<app-collapse-wrapper [options]="{title:'Precontrattuali da completare', type:'warning'}">
+  <app-contrattiresult [columns]="columnsCompletare" [querymodel]="querycontrattidacompletare"></app-contrattiresult>
+</app-collapse-wrapper>
+
+<app-collapse-wrapper [options]="{title:'Precontrattuali in attesa della presa visione', type:'warning'}">
+  <app-contrattiresult [querymodel]="querycontrattiDaPrendereVisione"></app-contrattiresult>
+</app-collapse-wrapper>
+
+<app-dashboard-uff-docenti></app-dashboard-uff-docenti>
+<app-dashboard-uff-trattamenti></app-dashboard-uff-trattamenti>
+
+<!-- <app-collapse-wrapper [options]="{title:'Precontrattuali da validare', type:'warning'}">
+  <app-contrattiresult [columns]="columnsValidare" [querymodel]="querycontrattidavalidare"></app-contrattiresult>
+</app-collapse-wrapper> -->

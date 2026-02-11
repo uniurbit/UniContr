@@ -1,0 +1,37 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid">
+  <app-riquadro-wrapper>
+    <div class="form-group">
+      <label for="anno">Anno Accademico Offerta Formativa</label>
+      <select class="form-control" style="width: 50%" name="anno" id="anno" required [(ngModel)]="anno" (ngModelChange)="onChange($event)">    
+        <option *ngFor="let year of years" [ngValue]="year.year">{{year.name}}</option>    
+      </select>
+    </div>
+      
+    <div class="form-group">
+      <label style="margin-top: 10px;" for="nominativo">Nominativo docente</label>
+      <select class="form-control" style="width: 50%" name="nominativo" id="nominativo" [(ngModel)]="searchTermTutor" required >
+        <option value=""></option>
+        <option *ngFor="let item of insegnUgov | unique_name" value="{{ item.cod_fis }}" >{{ item.cognome }} {{ item.nome }}</option>
+      </select>
+    </div>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="searchTermTutor">
+    <h5 *ngFor="let item of filteredInsegn | unique_name">{{ numRecord() }} a {{ item.cognome }} {{ item.nome }} nell'A.A. {{ anno }} / {{ aa(anno) }}</h5>      
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col" style="vertical-align: middle; padding: 7px;">Codice UGOV</th>
+          <th scope="col" style="vertical-align: middle; padding: 7px;">{{ '00_int16' | translate }}</th>       
+          <th scope="col" style="vertical-align: middle; padding: 7px;">{{ '00_int2' | translate }}</th>
+          <th scope="col" style="vertical-align: middle; padding: 7px;">{{ '00_int14' | translate }}</th>
+          <th scope="col" style="width: 10%; text-align: center; padding: 7px;">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr app-insegnamento-ugov *ngFor="let items of filteredInsegn" [insegn-ugov] = "items" ></tr>
+      </tbody>
+    </table>
+  </app-riquadro-wrapper>
+</div>

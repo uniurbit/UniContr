@@ -1,0 +1,7 @@
+*
+!import/
+!import/**
+!documents/
+!documents/**
+!public/
+!.gitignore

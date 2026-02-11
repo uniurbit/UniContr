@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ title }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="dismiss()">
+       
+    </button>
+</div>
+<div class="modal-body">
+  <div *ngIf="message">
+    {{ message }}
+  </div>
+  <div *ngIf="messageHtml" class="m-3">  
+    <div [innerHTML]="messageHtml">                           
+    </div>    
+  </div>  
+  <div *ngIf="pdfFilevalue" style="height: 45vh;" class="ms-3 me-3">       
+    <ng-container *ngIf="pdfFilevalue | async as _pdfFilevalue; else loading">           
+      <app-pdf-view [pdfSrc]="_pdfFilevalue"></app-pdf-view>       
+    </ng-container>
+    <ng-template #loading>
+      <!--visibile solo quando non c'è quello principale e l'async non è ancora risolta-->
+       <ngx-loading [show]="true" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>               
+    </ng-template> 
+  </div>
+</div>
+<div class="modal-footer">   
+  <button  *ngIf="btnOkText" type="button" class="btn btn-primary" (click)="accept()">{{ btnOkText }}</button>
+  <button *ngIf="btnCancelText" type="button" class="btn btn-danger" (click)="decline()">{{ btnCancelText }}</button>
+</div>

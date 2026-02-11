@@ -1,0 +1,35 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items" >
+  <app-intestazione *ngIf="items" [item]="items" [dettagli]="true"></app-intestazione>  
+
+  <app-riquadro-wrapper>
+    <p class="mb-0">{{ 'b3_txt0' | translate }}:</p>
+    <table style="width: 100%;">
+      <tr *ngFor="let item of items.rapporti">
+        <td style="width: 20px; vertical-align: top;">
+          <span style="padding: 3px 0px 0 10px;" class="oi oi-check iconic"></span>
+        </td>
+        <td *ngIf="item.tipologia_rapporto === 'DDR'">
+          <div class="text">{{ 'b3_txt1b' | translate }} {{ item.universita }}, {{ 'b3_txt2' | translate }} {{ item.dipartimento }} {{ 'b3_txt6' | translate }} {{ item.dal_giorno }} {{ 'b3_txt7' | translate }} {{ item.al_giorno }}</div>
+        </td>
+        <td *ngIf="item.tipologia_rapporto === 'BDS'">
+          <div class="text">{{ 'b3_txt5b' | translate }} {{ item.universita }}, {{ 'b3_txt8' | translate }} {{ item.dipartimento }} {{ 'b3_txt6' | translate }} {{ item.dal_giorno }} {{ 'b3_txt7' | translate }} {{ item.al_giorno }}</div>
+        </td>
+        <td *ngIf="item.tipologia_rapporto === 'BPD'">
+          <div class="text">{{ 'b3_txt4b' | translate }} {{ item.universita }}, {{ 'b3_txt8' | translate }} {{ item.dipartimento }} {{ 'b3_txt6' | translate }} {{ item.dal_giorno }} {{ 'b3_txt7' | translate }} {{ item.al_giorno }}</div>
+        </td>
+        <td *ngIf="item.tipologia_rapporto === 'ADR'">
+          <div class="text">{{ 'b3_txt3b' | translate }} {{ item.universita }}, {{ 'b3_txt8' | translate }} {{ item.dipartimento }}, {{ 'b3_txt9' | translate }} {{ item.riferimenti_legge }} {{ 'b3_txt6' | translate }} {{ item.dal_giorno }} {{ 'b3_txt7' | translate }} {{ item.al_giorno }}</div>
+        </td>
+      </tr>
+    </table>   
+  </app-riquadro-wrapper>
+
+  <div class="form-footer text-end" *ngIf="items">
+    <app-barra-comandi *ngIf="items" [item]="items" [type]="'B3'"></app-barra-comandi>
+  
+    
+    <app-termina-button [item]="items" *ngIf="items.validazioni.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>
+  </div>
+
+</div>

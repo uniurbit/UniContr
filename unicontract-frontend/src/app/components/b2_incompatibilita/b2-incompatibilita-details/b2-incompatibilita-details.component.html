@@ -1,0 +1,25 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" >
+    <app-intestazione *ngIf="items" [item]="items" [dettagli]="true"></app-intestazione>  
+    
+    <app-riquadro-wrapper *ngIf="items">
+      <div class="text">{{ 'b2_txt1' | translate }} {{ checkFalse(items.flag_incompatibilita) }} {{ 'b2_txt2' | translate }}</div>        
+      <div class="text_centered_bold">{{ 'b2_txt3' | translate }}</div>
+      <div class="text_centered_spacing">{{ 'b2_txt4' | translate }}</div>
+      <div class="text_centered_bold">{{ 'b2_txt5' | translate }}</div>
+      <div class="text">{{ 'b2_txt6' | translate }}</div>
+      <div class="text_tab">{{ 'b2_txt7' | translate }}</div>
+      <div class="text_tab">{{ 'b2_txt8' | translate }}</div>
+      <div class="text_tab">{{ 'b2_txt9' | translate }}</div>
+      <div class="text_tab">{{ 'b2_txt10' | translate }}</div>
+      <div class="text">{{ 'b2_txt11' | translate }}</div>
+      <div class="text_centered_spacing">{{ 'b2_txt4' | translate }}</div>
+    </app-riquadro-wrapper>
+    
+    <div class="form-footer text-end" *ngIf="items">  
+      <app-barra-comandi *ngIf="items" [item]="items" [type]="'B2'"></app-barra-comandi>
+     
+      
+      <app-termina-button [item]="items" *ngIf="items.validazioni.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>
+    </div>
+  </div>

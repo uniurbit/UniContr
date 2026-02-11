@@ -1,0 +1,27 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items"></app-intestazione>  
+  <app-riquadro-wrapper>
+    <p class="mb-0 text-justify">{{ 'e_premessa1' | translate }}</p>
+  </app-riquadro-wrapper>
+
+  <form [formGroup]="formAttch"  *ngIf="items">
+    <app-riquadro-wrapper>
+      <h5>{{ 'e_int1' | translate }}</h5>
+      <formly-form [model]="model" [fields]="fields1" [form]="formAttch" [options]="options"></formly-form>
+    </app-riquadro-wrapper>
+
+    <app-riquadro-wrapper *ngIf="model.cod_limite_reddito === 'ASLR'">
+      <h5>{{ 'e_int2' | translate }}</h5>
+      <formly-form [model]="model" [fields]="fields2" [form]="formAttch" [options]="options"></formly-form>
+    </app-riquadro-wrapper>
+
+    <app-riquadro-wrapper>
+      <h5>{{ 'e_int3' | translate }}</h5>
+      <p class="mb-0 text-justify">{{ 'e_note' | translate }}</p>
+    </app-riquadro-wrapper>
+  </form>
+  
+  <app-salva-annulla-button [isNew]="!update" [formRef]="formAttch" (valid)="saveData(items.e_autonomo_occasionale_id)"></app-salva-annulla-button>  
+
+</div>

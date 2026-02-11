@@ -1,0 +1,40 @@
+@import '../../variable';
+/*******************
+ Campaign
+*******************/
+
+@keyframes dasharray-craziness {
+  0% {
+    stroke-dasharray: 5px;
+  }
+  50% {
+    stroke-dasharray: 6px;
+  }
+  100% {
+    stroke-dasharray: 7px;
+  }
+}
+
+#ct-weather {
+  .ct-series-a .ct-line,
+  .ct-series-a .ct-point {
+    stroke: rgba(0, 0, 0, 0.4);
+    stroke-width: 2;
+  }
+
+  .ct-series-a .ct-area {
+    fill: none;
+  }
+  .ct-grid {
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-dasharray: 0px;
+  }
+  .ct-series-a .ct-line {
+    animation: dasharray-craziness 2s infinite;
+  }
+}
+#weeksales-bar {
+  .ct-series-a .ct-bar {
+    stroke: rgba(0, 0, 0, 0.15);
+  }
+}

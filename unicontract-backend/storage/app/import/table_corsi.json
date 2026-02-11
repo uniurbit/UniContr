@@ -1,0 +1,3323 @@
+[
+	{
+		"id" : 1755609,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Biomolecular and Health Sciences",
+		"app_dip" : 6,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755610,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Research Methods in Science and Technology",
+		"app_dip" : 9,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755611,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Global Studies. Economy, Society and Law",
+		"app_dip" : 8,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755818,
+		"id_ugov" : 6045,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Geologia Ambientale e Gestione del Territorio",
+		"app_dip" : 9,
+		"app_scuola" : 20,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1755612,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Studi Umanistici",
+		"app_dip" : 10,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755819,
+		"id_ugov" : 6001,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Giurisprudenza",
+		"app_dip" : 3,
+		"app_scuola" : 6,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1755820,
+		"id_ugov" : 6003,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Marketing e Comunicazione per le Aziende",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755821,
+		"id_ugov" : 6101,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Lingue e Culture Straniere",
+		"app_dip" : 10,
+		"app_scuola" : 14,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1755822,
+		"id_ugov" : 6103,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze e Tecniche Psicologiche",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755823,
+		"id_ugov" : 6104,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze Biologiche",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1755824,
+		"id_ugov" : 6107,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze Motorie, Sportive e della Salute",
+		"app_dip" : 6,
+		"app_scuola" : 13,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1755825,
+		"id_ugov" : 6132,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Sociologia e Servizio Sociale",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755827,
+		"id_ugov" : 6113,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Biotecnologie",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1755828,
+		"id_ugov" : 6012,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze Motorie per la Prevenzione e la Salute",
+		"app_dip" : 6,
+		"app_scuola" : 13,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1755907,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze Religiose",
+		"app_dip" : 12,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755829,
+		"id_ugov" : 6013,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze dello Sport",
+		"app_dip" : 6,
+		"app_scuola" : 13,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1755830,
+		"id_ugov" : 6011,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Comunicazione e Pubblicità per le Organizzazioni",
+		"app_dip" : 10,
+		"app_scuola" : 5,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1755831,
+		"id_ugov" : 6118,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienza della Nutrizione",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1755832,
+		"id_ugov" : 6021,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Chimica e Tecnologia Farmaceutiche",
+		"app_dip" : 6,
+		"app_scuola" : 11,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1755833,
+		"id_ugov" : 6022,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Farmacia",
+		"app_dip" : 6,
+		"app_scuola" : 11,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1755834,
+		"id_ugov" : 6026,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Storia dell'Arte",
+		"app_dip" : 11,
+		"app_scuola" : 24,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755835,
+		"id_ugov" : 6131,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Informatica Applicata",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1755836,
+		"id_ugov" : 6117,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze Giuridiche per la Consulenza del Lavoro e la Sicurezza dei Lavoratori",
+		"app_dip" : 3,
+		"app_scuola" : 6,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1755922,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Inglese A1/A2",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755923,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Inglese A2/B1",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755924,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Inglese A2/B1",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755925,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Inglese B1/B2",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755926,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Inglese B1/B2",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755927,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Inglese B2/C1",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755928,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "General Conversation A2/B1",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755929,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "General Conversation B1/B2",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755930,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "General Conversation B2/C1",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755931,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Cambridge B2 FIRST FCE",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755932,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Francese A1/A2",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755933,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Francese A2/B1",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755934,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Spagnolo A2",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755935,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Spagnolo B1",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755936,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Tedesco A1",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755937,
+		"id_ugov" : 999999,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Corsi di lingua e certificazioni",
+		"app_dip" : 14,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755895,
+		"id_ugov" : 6049,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Gestione delle politiche dei servizi sociali e multiculturalità",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755837,
+		"id_ugov" : 6123,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze Umanistiche. Discipline Letterarie, Artistiche e Filosofiche",
+		"app_dip" : 11,
+		"app_scuola" : 21,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755838,
+		"id_ugov" : 6044,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Lingue Straniere e Studi Interculturali",
+		"app_dip" : 10,
+		"app_scuola" : 14,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1755839,
+		"id_ugov" : 6124,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze dell'Educazione",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755840,
+		"id_ugov" : 6006,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Psicologia Clinica",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755894,
+		"id_ugov" : 6136,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze Giuridiche per la Consulenza del Lavoro e la Sicurezza Pubblica e Privata",
+		"app_dip" : 3,
+		"app_scuola" : 6,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1755841,
+		"id_ugov" : 6126,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze Politiche, Economiche e del Governo",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755842,
+		"id_ugov" : 6128,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Informazione, Media, Pubblicità",
+		"app_dip" : 10,
+		"app_scuola" : 5,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1755843,
+		"id_ugov" : 6030,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze della Formazione Primaria",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755893,
+		"id_ugov" : 6048,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Lingue Moderne e Interculturalità ",
+		"app_dip" : 10,
+		"app_scuola" : 14,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1755844,
+		"id_ugov" : 6038,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Gestione delle Politiche, dei Servizi Sociali e della Mediazione Interculturale",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755845,
+		"id_ugov" : 6034,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Conservazione e Restauro dei Beni Culturali",
+		"app_dip" : 9,
+		"app_scuola" : 2,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1755846,
+		"id_ugov" : 6035,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Lettere Classiche e Moderne",
+		"app_dip" : 11,
+		"app_scuola" : 21,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755892,
+		"id_ugov" : 6135,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Lingue e Culture Moderne",
+		"app_dip" : 10,
+		"app_scuola" : 14,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1755847,
+		"id_ugov" : 6043,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Filosofia dell'Informazione. Teoria e Gestione della Conoscenza",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1755849,
+		"id_ugov" : 6133,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Economia e Management",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755850,
+		"id_ugov" : 6039,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Economia e Management",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755891,
+		"id_ugov" : 6046,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Pedagogia",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755851,
+		"id_ugov" : 6042,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Biologia Molecolare, Sanitaria e della Nutrizione",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1755852,
+		"id_ugov" : 6040,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Politica Società Economia Internazionali",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1755856,
+		"id_ugov" : 6134,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze Geologiche e Pianificazione Territoriale",
+		"app_dip" : 9,
+		"app_scuola" : 20,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1755890,
+		"id_ugov" : 6047,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Informatica Applicata",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1755889,
+		"id_ugov" : 6130,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze Geologiche",
+		"app_dip" : 9,
+		"app_scuola" : 20,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1755898,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Insegnare italiano a stranieri",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755899,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Rieducazione funzionale e posturologia",
+		"app_dip" : 6,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755900,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Competenze digitali complementari",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755901,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Pedagogia e educazione dell’attività grafica infantile",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755902,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "DSA (Disturbi Specifici di Apprendimento), BES (Bisogni Educativi Speciali) e Disturbi dello Sviluppo. Psicopedagogia, Metodologie Didattiche, Pensiero Computazionale (coding) e Didattica dell’inclusione",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755903,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Counseling and coaching skills. percorso formativo ed esperienziale di comunicazione efficace nei contesti professionali ed organizzativi",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755904,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Mediazione dei conflitti in ambito psico-pedagogico, familiare, comunitario, aziendale, socio-sanitario e delle attività formative",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755905,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Sistema di gestione del post incidente aereo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755906,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Metrica e Ritmica greca",
+		"app_dip" : 10,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755909,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Metodologie e tecnologie didattiche, comunicative e inclusive per disturbi specifici di apprendimento, bisogni educativi speciali e disturbi dello sviluppo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755910,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Attività operativa nel post incidente aereo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755911,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Attività di tutela ambientale nel post incidente aereo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755912,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Consulenza giuridica nel post incidente aereo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755913,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Antinfortunistica e sicurezza sul lavoro nel post incidente aereo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755914,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Comunicazione e media nel post incidente aereo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755915,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Cultura Aziendale nel Contesto Italiano",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755916,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Comunicazione, Società e Marketing nel contesto italiano (COSMIC)",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755917,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Cambiamento climatico e adattamento agricoltura. Agroecologia e strategie di gestione del rischio",
+		"app_dip" : 8,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755918,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Seminario di diritto comparato ed europeo",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755919,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Data protection, imprese e innovazione tecnologica",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755920,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Rinascimento Italiano. Arte, letteratura, cultura",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755938,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Aspetti psicosociali e pedagogici nella trauma-care",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755939,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Trauma-care: valutazione e clinica del trauma e contesti",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755940,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Storia di genere, globalizzazione e democrazia della cura",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755942,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Studi Umanistici — L’impatto dei social media sulla semplificazione del linguaggio istituzionale: analisi dei contenuti generati dalla PA nelle piattaforme di social networking",
+		"app_dip" : 10,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755943,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Inglese e didattica CLIL per bambini (ICLILBA) E-Learning per la scuola primaria",
+		"app_dip" : 10,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755944,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Progetto Eureka - Research Methods in Science and Technology",
+		"app_dip" : 9,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755945,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Progetto Dottorato Innovativo - Research Methods in Science and Technology",
+		"app_dip" : 9,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755946,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Progetto Dottorato Innovativo - Studi Umanistici",
+		"app_dip" : 10,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755947,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Progetto Dottorato Innovativo - Biomolecular and Health Sciences",
+		"app_dip" : 6,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755948,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scuola di Specializzazione per le Professioni Legali",
+		"app_dip" : 3,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755949,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Psicologia Giuridica, Penitenziaria e Criminologia",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755950,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Competenze Filologiche per la Scuola",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755951,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Scienze Amministrative e Innovazione nella Pubblica Amministrazione ­— Masterpa",
+		"app_dip" : 8,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755952,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Evoluzione della disciplina degli appalti pubblici",
+		"app_dip" : 8,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755953,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Psicodiagnostica Clinica",
+		"app_dip" : 10,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755954,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Idee in Azione: Competenze Trasversali per lo Sviluppo dell'Imprenditorialità ",
+		"app_dip" : 8,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755955,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Studi Culturali Britannici e Angloamericani Sergio Guerra —  Translating Cultures: Chinamerica",
+		"app_dip" : 10,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755956,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Impact design — Progettare la nuova responsabilità sociale per la comunicazione delle imprese",
+		"app_dip" : 10,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755957,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Archeologia per il turismo nelle terre dell’antico Ducato di Urbino",
+		"app_dip" : 10,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755958,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Coding e intelligenza artificiale a scuola",
+		"app_dip" : 9,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755959,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Movimento e salute oltre la cura, MoviS: percorso di educazione all’esercizio fisico associato ad un programma nutrizionale e motivazionale in ambito oncologico",
+		"app_dip" : 6,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755960,
+		"id_ugov" : 0,
+		"aa" : "2020/2021",
+		"nome_specifico" : "Corso di rivalidazione del Certificato di Formazione Manageriale",
+		"app_dip" : 3,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756818,
+		"id_ugov" : 6045,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Geologia Ambientale e Gestione del Territorio",
+		"app_dip" : 9,
+		"app_scuola" : 20,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1755971,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Inglese e didattica clil per bambini (ICLILBA) e-learning per la scuola primaria",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755972,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Counseling and coaching skills. percorso formativo ed esperienziale di comunicazione efficace nei contesti professionali ed organizzativi",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755973,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "DSA (disturbi specifici di apprendimento), BES (bisogni educativi speciali) e disturbi dello sviluppo. psicopedagogia, metodologie didattiche, pensiero computazionale (coding) e didattica dell'inclusione",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755974,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Pedagogia e educazione della scrittura a mano e del disegno infantile",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755975,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Competenze digitali complementari",
+		"app_dip" : 9,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755976,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Mediazione dei conflitti in ambito psico-pedagogico, familiare, comunitario, aziendale, socio-sanitario e delle attività formative",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755977,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Psicologia giuridica, penitenziaria e criminologia",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755978,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Sistema di gestione del post incidente aereo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755979,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Sviluppo sostenibile e cambiamento climatico nell area mediterranea",
+		"app_dip" : 9,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755980,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Cultura aziendale nel contesto italiano",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755981,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Metodologie e tecnologie didattiche, comunicative e inclusive per disturbi specifici di apprendimento, bisogni educativi speciali e disturbi dello sviluppo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755982,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Storia di genere, globalizzazione e democrazia della cura",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755983,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Comunicazione, Società e Marketing nel contesto italiano – COSMIC",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755984,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Attività di tutela ambientale nel post incidente aereo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755985,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Attività operativa nel post incidente aereo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755986,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Consulenza giuridica nel post incidente aereo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755987,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Antinfortunistica e sicurezza sul lavoro nel post incidente aereo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755988,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Comunicazione e media nel post incidente aereo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755989,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Corso di Alta Formazione Manageriale per i Direttori di Struttura Complessa",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755990,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Corso di Alta Formazione Manageriale per la Direzione di Azienda Sanitaria/Ospedaliera",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755991,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Corso Integrativo di Alta Formazione Manageriale per la Direzione di Azienda Sanitaria/Ospedaliera",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755992,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Educare alle emozioni",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755993,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Strategie e tecnologie didattiche, comunicative e inclusive efficaci per disturbi specifici di apprendimento, bisogni educativi speciali e disturbi dello sviluppo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755994,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Metrica e ritmica greca",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755995,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Seminario di Diritto comparato e europeo",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755996,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "L'educatore Socio-Pedagogico: Strumenti e Metodi per la Prassi Educativa",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755997,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Rinascimento Italiano. Arte, Letteratura, Cultura",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755965,
+		"id_ugov" : 9230,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Biomolecular and Health Sciences",
+		"app_dip" : 6,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755966,
+		"id_ugov" : 9231,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Research Methods in Science and Technology",
+		"app_dip" : 9,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755967,
+		"id_ugov" : 9226,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Global Studies. Economy, Society and Law",
+		"app_dip" : 8,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755968,
+		"id_ugov" : 9227,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Studi Umanistici",
+		"app_dip" : 10,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755969,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Rieducazione funzionale e posturologia",
+		"app_dip" : 6,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1755970,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Insegnare italiano a stranieri",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756819,
+		"id_ugov" : 6001,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Giurisprudenza",
+		"app_dip" : 3,
+		"app_scuola" : 6,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1756820,
+		"id_ugov" : 6003,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Marketing e Comunicazione per le Aziende",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756821,
+		"id_ugov" : 6101,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Lingue e Culture Straniere",
+		"app_dip" : 10,
+		"app_scuola" : 14,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1756822,
+		"id_ugov" : 6103,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienze e Tecniche Psicologiche",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756823,
+		"id_ugov" : 6104,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienze Biologiche",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756897,
+		"id_ugov" : 6137,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Economia e Management",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756824,
+		"id_ugov" : 6107,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienze Motorie, Sportive e della Salute",
+		"app_dip" : 6,
+		"app_scuola" : 13,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756825,
+		"id_ugov" : 6132,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Sociologia e Servizio Sociale",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756827,
+		"id_ugov" : 6113,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Biotecnologie",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756828,
+		"id_ugov" : 6012,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienze Motorie per la Prevenzione e la Salute",
+		"app_dip" : 6,
+		"app_scuola" : 13,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756829,
+		"id_ugov" : 6013,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienze dello Sport",
+		"app_dip" : 6,
+		"app_scuola" : 13,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756830,
+		"id_ugov" : 6011,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Comunicazione e Pubblicità per le Organizzazioni",
+		"app_dip" : 10,
+		"app_scuola" : 5,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1756831,
+		"id_ugov" : 6118,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienza della Nutrizione",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756832,
+		"id_ugov" : 6021,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Chimica e Tecnologia Farmaceutiche",
+		"app_dip" : 6,
+		"app_scuola" : 11,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756833,
+		"id_ugov" : 6022,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Farmacia",
+		"app_dip" : 6,
+		"app_scuola" : 11,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756834,
+		"id_ugov" : 6026,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Storia dell'Arte",
+		"app_dip" : 11,
+		"app_scuola" : 21,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756835,
+		"id_ugov" : 6131,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Informatica Applicata",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1756836,
+		"id_ugov" : 6117,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienze Giuridiche per la Consulenza del Lavoro e la Sicurezza dei Lavoratori",
+		"app_dip" : 3,
+		"app_scuola" : 6,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1756895,
+		"id_ugov" : 6049,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Gestione delle politiche dei servizi sociali e multiculturalità",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756837,
+		"id_ugov" : 6123,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienze Umanistiche. Discipline Letterarie, Artistiche e Filosofiche",
+		"app_dip" : 11,
+		"app_scuola" : 21,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756839,
+		"id_ugov" : 6124,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienze dell'Educazione",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756840,
+		"id_ugov" : 6006,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Psicologia Clinica",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756894,
+		"id_ugov" : 6136,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienze Giuridiche per la Consulenza del Lavoro e la Sicurezza Pubblica e Privata",
+		"app_dip" : 3,
+		"app_scuola" : 6,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1756841,
+		"id_ugov" : 6126,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienze Politiche, Economiche e del Governo",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756842,
+		"id_ugov" : 6128,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Informazione, Media, Pubblicità",
+		"app_dip" : 10,
+		"app_scuola" : 5,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1756843,
+		"id_ugov" : 6030,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienze della Formazione Primaria",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756893,
+		"id_ugov" : 6048,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Lingue Moderne e Interculturalità ",
+		"app_dip" : 10,
+		"app_scuola" : 14,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1756845,
+		"id_ugov" : 6034,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Conservazione e Restauro dei Beni Culturali",
+		"app_dip" : 9,
+		"app_scuola" : 2,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1756846,
+		"id_ugov" : 6035,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Lettere Classiche e Moderne",
+		"app_dip" : 11,
+		"app_scuola" : 21,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756892,
+		"id_ugov" : 6135,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Lingue e Culture Moderne",
+		"app_dip" : 10,
+		"app_scuola" : 14,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1756847,
+		"id_ugov" : 6043,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Filosofia dell'Informazione. Teoria e Gestione della Conoscenza",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1756849,
+		"id_ugov" : 6133,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Economia e Management",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756850,
+		"id_ugov" : 6039,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Economia e Management",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756891,
+		"id_ugov" : 6046,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Pedagogia",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756851,
+		"id_ugov" : 6042,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Biologia Molecolare, Sanitaria e della Nutrizione",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756896,
+		"id_ugov" : 6050,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Biotecnologie mediche per la diagnostica e la terapia",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756852,
+		"id_ugov" : 6040,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Politica Società Economia Internazionali",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756856,
+		"id_ugov" : 6134,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienze Geologiche e Pianificazione Territoriale",
+		"app_dip" : 9,
+		"app_scuola" : 20,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1756890,
+		"id_ugov" : 6047,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Informatica Applicata",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1756899,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienze Religiose",
+		"app_dip" : 12,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756900,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Resistenza dopo la tempesta: con MoviS, movimento e salute oltre la cura, per ridare un giusto impiego e qualità alla vita delle donne affette da tumore al seno",
+		"app_dip" : 6,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756901,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scuola di Specializzazione per le Professioni Legali",
+		"app_dip" : 3,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756902,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "PON - Biomolecular and Health Sciences",
+		"app_dip" : 6,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756903,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "PON - Research Methods in Science and Technology",
+		"app_dip" : 9,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756904,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "PON - Global Studies. Economy, Society and Law",
+		"app_dip" : 8,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756905,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "PON - Studi Umanistici",
+		"app_dip" : 10,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756906,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "INPS - Global Studies. Economy, Society and Law — Modelli per la diffusione di pacchetti innovativi per filiere agroalimentari biologiche resilienti e sostenibili",
+		"app_dip" : 8,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756907,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scienze Amministrative e Innovazione nella Pubblica Amministrazione ­— Masterpa",
+		"app_dip" : 8,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756908,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Studi Culturali Britannici e Angloamericani Sergio Guerra – ChinAmerica sullo schermo (DISCUI)",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756909,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Vitruvio, il de architectura e Fanum fortunae",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756910,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Impact design. Progettare la nuova responsabilità sociale per la comunicazione delle imprese",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756911,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Coding e pensiero computazionale in biblioteca",
+		"app_dip" : 9,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756912,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Trauma-care: valutazione e clinica del trauma e contesti",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756913,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Archeologia dell’architettura nella Massa Trabaria: il territorio di Mercatello sul Metauro nel Medioevo",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756914,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Scuola estiva di Epistemologia (IV edizione)",
+		"app_dip" : 9,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756915,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Movimento e salute oltre la cura, MoviS: percorso di educazione all’esercizio fisico associato ad un programma nutrizionale e motivazionale in ambito oncologico",
+		"app_dip" : 6,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756978,
+		"id_ugov" : 0,
+		"aa" : "2021/2022",
+		"nome_specifico" : "Corso di rivalidazione del Certificato di Formazione Manageriale",
+		"app_dip" : 3,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756917,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Coordinare nidi e scuole dell'infanzia nel sistema educativo integrato",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756918,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Counseling and coaching skills. percorso formativo ed esperienziale di comunicazione efficace nei contesti professionali ed organizzativi",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756916,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Inglese e didattica CLIL per bambini (ICLILBA)",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756919,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "DSA (disturbi specifici di apprendimento), BES (bisogni educativi speciali) e disturbi dello sviluppo. psicopedagogia, metodologie didattiche, pensiero computazionale (coding) e didattica dell'inclusione",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756920,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Editing. Come un testo diventa un libro",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756921,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Game based learning e gamification nei contesti educativi",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756922,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Insegnare italiano a stranieri",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756994,
+		"id_ugov" : 888888,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Sviluppo Sostenibile e Cambiamento Climatico",
+		"app_dip" : 8888,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756923,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Pedagogia e educazione del gesto grafico",
+		"app_dip" : 11,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756924,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Rieducazione funzionale e posturologia",
+		"app_dip" : 6,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756925,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Sviluppo organizzato in team di progetti software",
+		"app_dip" : 9,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756926,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Mediazione dei conflitti in ambito psico-pedagogico, familiare, comunitario, aziendale, socio-sanitario e delle attività formative",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756927,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Psicologia giuridica, penitenziaria e criminologia",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756928,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Cultura aziendale nel contesto italiano",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756929,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Comunicazione, Società e Marketing nel contesto italiano – COSMIC",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756930,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Metodologie e tecnologie didattiche, comunicative e inclusive per disturbi specifici di apprendimento, bisogni educativi speciali e disturbi dello sviluppo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756931,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Storia di genere, globalizzazione e democrazia della cura",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756932,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Didattica delle Lingue Moderne",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756933,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Strategie e tecnologie didattiche, comunicative e inclusive efficaci per disturbi specifici di apprendimento, bisogni educativi speciali e disturbi dello sviluppo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756934,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Lavorare con il bambino. Osservazione psicoanalitica del bambino nei diversi contesti professionali",
+		"app_dip" : 8,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756935,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Metrica e ritmica greca",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756936,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Seminario di Diritto comparato e europeo",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756937,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Rinascimento Italiano. Arte, Letteratura, Cultura",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756938,
+		"id_ugov" : 6045,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Geologia Ambientale e Gestione del Territorio",
+		"app_dip" : 9,
+		"app_scuola" : 20,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1756939,
+		"id_ugov" : 6001,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Giurisprudenza",
+		"app_dip" : 3,
+		"app_scuola" : 6,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1756984,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Corso Integrativo di Alta Formazione Manageriale per la Direzione di Azienda Sanitaria/Ospedaliera",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756940,
+		"id_ugov" : 6003,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Marketing e Comunicazione per le Aziende",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756941,
+		"id_ugov" : 6103,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scienze e Tecniche Psicologiche",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756942,
+		"id_ugov" : 6104,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scienze Biologiche",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756943,
+		"id_ugov" : 6137,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Economia e Management",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756944,
+		"id_ugov" : 6107,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scienze Motorie, Sportive e della Salute",
+		"app_dip" : 6,
+		"app_scuola" : 13,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756945,
+		"id_ugov" : 6132,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Sociologia e Servizio Sociale",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756946,
+		"id_ugov" : 6113,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Biotecnologie",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756947,
+		"id_ugov" : 6012,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scienze Motorie per la Prevenzione e la Salute",
+		"app_dip" : 6,
+		"app_scuola" : 13,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756948,
+		"id_ugov" : 6013,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scienze dello Sport",
+		"app_dip" : 6,
+		"app_scuola" : 13,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756949,
+		"id_ugov" : 6011,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Comunicazione e Pubblicità per le Organizzazioni",
+		"app_dip" : 10,
+		"app_scuola" : 5,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1756950,
+		"id_ugov" : 6118,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scienza della Nutrizione",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756985,
+		"id_ugov" : 9999,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Ingegneria per la Sostenibilità Industriale",
+		"app_dip" : 9999,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756986,
+		"id_ugov" : 9999,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Green Industrial Engineering",
+		"app_dip" : 9999,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756951,
+		"id_ugov" : 6021,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Chimica e Tecnologia Farmaceutiche",
+		"app_dip" : 6,
+		"app_scuola" : 11,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756952,
+		"id_ugov" : 6022,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Farmacia",
+		"app_dip" : 6,
+		"app_scuola" : 11,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756983,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Corso di Alta Formazione Manageriale per la Direzione di Azienda Sanitaria/Ospedaliera",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756953,
+		"id_ugov" : 6026,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Storia dell'Arte",
+		"app_dip" : 11,
+		"app_scuola" : 21,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756954,
+		"id_ugov" : 6131,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Informatica Applicata",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1756982,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Corso di Alta Formazione Manageriale per i Direttori di Struttura Complessa",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756955,
+		"id_ugov" : 6049,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Gestione delle politiche dei servizi sociali e multiculturalità",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756956,
+		"id_ugov" : 6123,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scienze Umanistiche. Discipline Letterarie, Artistiche e Filosofiche",
+		"app_dip" : 11,
+		"app_scuola" : 21,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756957,
+		"id_ugov" : 6124,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scienze dell'Educazione",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756958,
+		"id_ugov" : 6006,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Psicologia Clinica",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756959,
+		"id_ugov" : 6136,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scienze Giuridiche per la Consulenza del Lavoro e la Sicurezza Pubblica e Privata",
+		"app_dip" : 3,
+		"app_scuola" : 6,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1756960,
+		"id_ugov" : 6126,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scienze Politiche, Economiche e del Governo",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756961,
+		"id_ugov" : 6128,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Informazione, Media, Pubblicità",
+		"app_dip" : 10,
+		"app_scuola" : 5,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1756962,
+		"id_ugov" : 6030,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scienze della Formazione Primaria",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756963,
+		"id_ugov" : 6048,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Lingue Moderne e Interculturalità ",
+		"app_dip" : 10,
+		"app_scuola" : 14,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1756964,
+		"id_ugov" : 6034,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Conservazione e Restauro dei Beni Culturali",
+		"app_dip" : 9,
+		"app_scuola" : 2,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1756965,
+		"id_ugov" : 6035,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Lettere Classiche e Moderne",
+		"app_dip" : 11,
+		"app_scuola" : 21,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756966,
+		"id_ugov" : 6135,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Lingue e Culture Moderne",
+		"app_dip" : 10,
+		"app_scuola" : 14,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1756967,
+		"id_ugov" : 6043,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Filosofia dell'Informazione. Teoria e Gestione della Conoscenza",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1756968,
+		"id_ugov" : 6133,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Economia e Management",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756969,
+		"id_ugov" : 6039,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Economia e Management",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756970,
+		"id_ugov" : 6046,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Pedagogia",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756971,
+		"id_ugov" : 6042,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Biologia Molecolare, Sanitaria e della Nutrizione",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756972,
+		"id_ugov" : 6050,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Biotecnologie mediche per la diagnostica e la terapia",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756973,
+		"id_ugov" : 6040,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Politica Società Economia Internazionali",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1756996,
+		"id_ugov" : 888888,
+		"aa" : "2022/2023",
+		"nome_specifico" : "HERITAGE SCIENCE",
+		"app_dip" : 8888,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756974,
+		"id_ugov" : 6134,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scienze Geologiche e Pianificazione Territoriale",
+		"app_dip" : 9,
+		"app_scuola" : 20,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1756975,
+		"id_ugov" : 6047,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Informatica Applicata",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1756976,
+		"id_ugov" : 6051,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Biologia della nutrizione",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1756977,
+		"id_ugov" : 9233,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Global Studies. Economy, Society and Law",
+		"app_dip" : 8,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756979,
+		"id_ugov" : 9232,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Biomolecular and Health Sciences",
+		"app_dip" : 6,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756980,
+		"id_ugov" : 9234,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Research Methods in Science and Technology",
+		"app_dip" : 9,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756981,
+		"id_ugov" : 9235,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Studi Umanistici",
+		"app_dip" : 10,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756988,
+		"id_ugov" : 9232,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Biomolecular and Health Sciences",
+		"app_dip" : 6,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756989,
+		"id_ugov" : 9233,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Global Studies. Economy, Society and Law",
+		"app_dip" : 8,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756990,
+		"id_ugov" : 9234,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Research Methods in Science and Technology",
+		"app_dip" : 9,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756991,
+		"id_ugov" : 9235,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Studi Umanistici",
+		"app_dip" : 10,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756992,
+		"id_ugov" : 9233,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Global Studies. Economy, Society and Law",
+		"app_dip" : 8,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756993,
+		"id_ugov" : 9234,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Research Methods in Science and Technology",
+		"app_dip" : 9,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756995,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scienze Religiose",
+		"app_dip" : 12,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756997,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scuola di Specializzazione per le Professioni Legali",
+		"app_dip" : 3,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756998,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Social media per la polizia locale",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1756999,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Lavorare con il bambino. osservazione psicoanalitica del bambino nei diversi contesti professionali. Autismo, ADHD e altre etichette: di che si tratta?",
+		"app_dip" : 8,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757000,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Chief Financial Officer - Direzione, Amministrazione, Finanza e Controllo",
+		"app_dip" : 8,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757001,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Studi culturali britannici e angloamericani Sergio Guerra: Stati (Uniti) dell'Arte nella traduzione e nell'insegnamento",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757002,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Impact design. La svolta civile",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757076,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Corso di rivalidazione del Certificato di Formazione Manageriale",
+		"app_dip" : 3,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757077,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Scuola estiva di Epistemologia (V edizione)",
+		"app_dip" : 9,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757078,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Movimento e salute oltre la cura, MoviS: percorso di educazione all’esercizio fisico associato ad un programma nutrizionale e motivazionale in ambito oncologico",
+		"app_dip" : 6,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757079,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Disturbo da trauma nello sviluppo: dal bambino alla famiglia",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757080,
+		"id_ugov" : 0,
+		"aa" : "2022/2023",
+		"nome_specifico" : "Archeologia e comunicazione dei Beni Culturali nel Ducato di Urbino - I Edizione",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757054,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Counseling and coaching skills. percorso formativo ed esperienziale di comunicazione efficace nei contesti professionali ed organizzativi",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757055,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "DSA (disturbi specifici di apprendimento), BES (bisogni educativi speciali) e disturbi dello sviluppo. psicopedagogia, metodologie didattiche, pensiero computazionale (coding) e didattica dell'inclusione",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757003,
+		"id_ugov" : 6045,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Geologia Ambientale e Gestione del Territorio",
+		"app_dip" : 9,
+		"app_scuola" : 20,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1757004,
+		"id_ugov" : 6001,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Giurisprudenza",
+		"app_dip" : 3,
+		"app_scuola" : 6,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1757005,
+		"id_ugov" : 6003,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Marketing e Comunicazione per le Aziende",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757056,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Pedagogia e educazione del gesto grafico",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757057,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Game Based Learning e Gamification nei contesti educativi",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757058,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Coordinare nidi e scuole dell'infanzia nel sistema educativo integrato",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757059,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Insegnare italiano a stranieri (IIS)",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757060,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Inglese e didattica CLIL per bambini (ICLILBA)",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757061,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Citometria Clinica e Sperimentale",
+		"app_dip" : 6,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757062,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Rieducazione funzionale e posturologia",
+		"app_dip" : 6,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757063,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienze e tecnologie Cosmetiche",
+		"app_dip" : 6,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757064,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Europrogettazione per la sostenibilità ambientale",
+		"app_dip" : 9,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757065,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "MEDIAZIONE DEI CONFLITTI in ambito psico-pedagogico, familiare, comunitario, aziendale, socio-sanitario e delle attività formative",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757066,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Psicopedagogia dei disturbi dell'età evolutiva: apprendimento, bisogni, relazioni, emozioni nei contesti educativi e scolastici",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757067,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Psicologia giuridica, penitenziaria e criminologia",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757068,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Comunicazione, Società e Marketing nel contesto italiano - COSMIC",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757069,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Cultura Aziendale nel Contesto Italiano (BCIC)",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757070,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Storia di genere, globalizzazione e democrazia della cura",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757071,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Didattica delle Lingue Moderne",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757072,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scuole trauma-informed: strategie e strumenti per dirigenti, docenti e psicologi scolastici",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757073,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Strategie e tecnologie didattiche, comunicative e inclusive efficaci per disturbi specifici di apprendimento, bisogni educativi speciali e disturbi dello sviluppo",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757007,
+		"id_ugov" : 6104,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienze Biologiche",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1757008,
+		"id_ugov" : 6137,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Economia e Management",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757009,
+		"id_ugov" : 6107,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienze Motorie, Sportive e della Salute",
+		"app_dip" : 6,
+		"app_scuola" : 13,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1757010,
+		"id_ugov" : 6132,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Sociologia e Servizio Sociale",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757011,
+		"id_ugov" : 6113,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Biotecnologie",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1757012,
+		"id_ugov" : 6012,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienze Motorie per la Prevenzione e la Salute",
+		"app_dip" : 6,
+		"app_scuola" : 13,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1757013,
+		"id_ugov" : 6013,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienze dello Sport",
+		"app_dip" : 6,
+		"app_scuola" : 13,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1757074,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Metrica e ritmica greca",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757081,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Rinascimento Italiano. Arte, Letteratura, Cultura",
+		"app_dip" : 11,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757015,
+		"id_ugov" : 6118,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienza della Nutrizione",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1757016,
+		"id_ugov" : 9999,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Ingegneria per la Sostenibilità Industriale",
+		"app_dip" : 9999,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757017,
+		"id_ugov" : 9999,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Green Industrial Engineering",
+		"app_dip" : 9999,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757018,
+		"id_ugov" : 6021,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Chimica e Tecnologia Farmaceutiche",
+		"app_dip" : 6,
+		"app_scuola" : 11,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1757019,
+		"id_ugov" : 6022,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Farmacia",
+		"app_dip" : 6,
+		"app_scuola" : 11,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1757020,
+		"id_ugov" : 6026,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Storia dell'Arte",
+		"app_dip" : 11,
+		"app_scuola" : 21,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757021,
+		"id_ugov" : 6131,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Informatica Applicata",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1757022,
+		"id_ugov" : 6049,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Gestione delle politiche dei servizi sociali e multiculturalità",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757023,
+		"id_ugov" : 6123,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienze Umanistiche. Discipline Letterarie, Artistiche e Filosofiche",
+		"app_dip" : 11,
+		"app_scuola" : 21,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757024,
+		"id_ugov" : 6124,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienze dell'Educazione",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757025,
+		"id_ugov" : 6006,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Psicologia Clinica",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757026,
+		"id_ugov" : 6136,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienze Giuridiche per la Consulenza del Lavoro e la Sicurezza Pubblica e Privata",
+		"app_dip" : 3,
+		"app_scuola" : 6,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1757027,
+		"id_ugov" : 6126,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienze Politiche, Economiche e del Governo",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757029,
+		"id_ugov" : 6030,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienze della Formazione Primaria",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757030,
+		"id_ugov" : 6048,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Lingue Moderne e Interculturalità ",
+		"app_dip" : 10,
+		"app_scuola" : 14,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1757031,
+		"id_ugov" : 6034,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Conservazione e Restauro dei Beni Culturali",
+		"app_dip" : 9,
+		"app_scuola" : 2,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1757032,
+		"id_ugov" : 6035,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Lettere Classiche e Moderne",
+		"app_dip" : 11,
+		"app_scuola" : 21,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757033,
+		"id_ugov" : 6135,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Lingue e Culture Moderne",
+		"app_dip" : 10,
+		"app_scuola" : 14,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1757034,
+		"id_ugov" : 6043,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Filosofia dell'Informazione. Teoria e Gestione della Conoscenza",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1757035,
+		"id_ugov" : 6133,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Economia e Management",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757036,
+		"id_ugov" : 6039,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Economia e Management",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757037,
+		"id_ugov" : 6046,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Pedagogia",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757038,
+		"id_ugov" : 6042,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Biologia Molecolare, Sanitaria e della Nutrizione",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1757039,
+		"id_ugov" : 6050,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Biotecnologie mediche per la diagnostica e la terapia",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1757040,
+		"id_ugov" : 6040,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Politica Società Economia Internazionali",
+		"app_dip" : 8,
+		"app_scuola" : 18,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757041,
+		"id_ugov" : 6134,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienze Geologiche e Pianificazione Territoriale",
+		"app_dip" : 9,
+		"app_scuola" : 20,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1757042,
+		"id_ugov" : 6047,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Informatica Applicata",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1757043,
+		"id_ugov" : 6051,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Biologia della nutrizione",
+		"app_dip" : 6,
+		"app_scuola" : 19,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1757044,
+		"id_ugov" : 6056,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Economia, Management e Finanza",
+		"app_dip" : 8,
+		"app_scuola" : 15,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757045,
+		"id_ugov" : 6053,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Farmacia",
+		"app_dip" : 6,
+		"app_scuola" : 11,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1757046,
+		"id_ugov" : 6052,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Chimica e Tecnologia Farmaceutiche",
+		"app_dip" : 6,
+		"app_scuola" : 11,
+		"app_plesso" : 4
+	},
+	{
+		"id" : 1757047,
+		"id_ugov" : 6128,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Informazione, Media, Pubblicità",
+		"app_dip" : 10,
+		"app_scuola" : 5,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1757048,
+		"id_ugov" : 6011,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Comunicazione e Pubblicità per le Organizzazioni",
+		"app_dip" : 10,
+		"app_scuola" : 5,
+		"app_plesso" : 2
+	},
+	{
+		"id" : 1757049,
+		"id_ugov" : 6138,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Informatica – Scienza e Tecnologia",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1757050,
+		"id_ugov" : 6054,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Informatica e Innovazione Digitale",
+		"app_dip" : 9,
+		"app_scuola" : 23,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1757051,
+		"id_ugov" : 6139,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Geologia per la Sostenibilità ambientale",
+		"app_dip" : 9,
+		"app_scuola" : 20,
+		"app_plesso" : 3
+	},
+	{
+		"id" : 1757052,
+		"id_ugov" : 6055,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Psicologia Clinica",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757053,
+		"id_ugov" : 6103,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienze e Tecniche Psicologiche",
+		"app_dip" : 11,
+		"app_scuola" : 22,
+		"app_plesso" : 1
+	},
+	{
+		"id" : 1757082,
+		"id_ugov" : 9233,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Global Studies. Economy, Society and Law",
+		"app_dip" : 8,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757083,
+		"id_ugov" : 9232,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Biomolecular and Health Sciences",
+		"app_dip" : 6,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757084,
+		"id_ugov" : 9234,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Research Methods in Science and Technology",
+		"app_dip" : 9,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757085,
+		"id_ugov" : 9235,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Studi Umanistici",
+		"app_dip" : 10,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757090,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Disturbo da trauma nello sviluppo: dal bambino alla famiglia",
+		"app_dip" : 10,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757086,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienze Religiose",
+		"app_dip" : 12,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757087,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Scienze Amministrative e Innovazione nella Pubblica Amministrazione ­— Masterpa",
+		"app_dip" : 8,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757088,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Responsabile dei servizi di prevenzione e protezione (RSPP) e addetto dei servizi di prevenzione e protezione (ASPP) - Modulo A ",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757089,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Responsabile dei servizi di prevenzione e protezione (RSPP) e addetto dei servizi di prevenzione e protezione (ASPP) - Modulo C",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757091,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Direttori di Struttura Complessa",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757092,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Direzione di Azienda Sanitaria/Ospedaliera",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757093,
+		"id_ugov" : 0,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Direzione di Azienda Sanitaria/Ospedaliera",
+		"app_dip" : 3,
+		"app_scuola" : null,
+		"app_plesso" : null
+	},
+	{
+		"id" : 1757094,
+		"id_ugov" : 9234,
+		"aa" : "2023/2024",
+		"nome_specifico" : "Research Methods in Science and Technology",
+		"app_dip" : 9,
+		"app_scuola" : 0,
+		"app_plesso" : null
+	}
+]

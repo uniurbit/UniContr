@@ -1,0 +1,56 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items" [dettagli]="true"></app-intestazione>  
+
+  <app-riquadro-wrapper *ngIf="items">
+    <div class="row">
+      <div class="col">
+        <div *ngIf="items.flag1 === 1; then thenBlock1 else elseBlock1"></div>
+        <ng-template #thenBlock1>
+          <span class="oi oi-check iconic ps-1 pe-2"></span>
+          {{ 'b6_txt1' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }}
+        </ng-template>
+        <ng-template #elseBlock1>
+          <span class="oi oi-minus iconic ps-1 pe-2"></span>
+          {{ 'b6_txt1b' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }}
+        </ng-template>        
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div *ngIf="items.flag2 === 1; then thenBlock2 else elseBlock2"></div>
+        <ng-template #thenBlock2>
+          <span class="oi oi-check iconic ps-1 pe-2"></span>
+          {{ 'b6_txt2' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }}
+        </ng-template>
+        <ng-template #elseBlock2>
+          <span class="oi oi-minus iconic ps-1 pe-2"></span>
+          {{ 'b6_txt2b' | translate : {'s': items.sesso=='M' ? 'o' : 'a'} }}
+        </ng-template>
+      </div>
+    </div>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper>
+    <h5 style="text-align: center;">{{ 'b6_txt3' | translate }}</h5>
+    <div class="row">
+      <div class="col" style="text-align: justify;">
+        {{ 'b6_txt4' | translate }}
+      </div>
+    </div>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="(items.natura_rapporto === 'PTG' || items.natura_rapporto === 'ALD') && items.flag_submit === 0">
+    <p class="mb-0 text-center text-info" >{{ 'end1' | translate }} <br> {{ 'end2' | translate }} <br> {{ 'end3' | translate }}</p>
+  </app-riquadro-wrapper>
+
+  <div class="form-footer text-end"> 
+    <app-barra-comandi *ngIf="items" [item]="items" [type]="'B6'"></app-barra-comandi>
+    
+    
+    <app-termina-button [item]="items" *ngIf="items.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>      
+    
+  </div>
+
+</div>
+

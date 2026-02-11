@@ -1,0 +1,24 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items"></app-intestazione>   
+
+  <form [formGroup]="formAttch"  *ngIf="items">
+    <app-riquadro-wrapper>
+      <formly-form [model]="model" [fields]="fields" [form]="formAttch" [options]="options"></formly-form>
+      <p *ngIf="(!model.flag1 || !model.flag2)" style="color: red; font-size: 12px;" class="mb-1">{{ 'b6_nota' | translate }}</p>
+    </app-riquadro-wrapper>
+  </form>
+
+  <app-riquadro-wrapper>
+    <h5 style="text-align: center;">{{ 'b6_txt3' | translate }}</h5>
+    <div class="row">
+      <div class="col" style="text-align: justify;">
+        {{ 'b6_txt4' | translate }}
+      </div>
+    </div>
+  </app-riquadro-wrapper>
+
+  <app-salva-annulla-button *ngIf="(model.flag1 === true && model.flag2 === true) || (model.flag1 === 1 && model.flag2 === 1); disabled" 
+    [isNew]="!update" [formRef]="formAttch" (valid)="saveData(items.b6_trattamento_dati_id)" caption="btn_acpt"></app-salva-annulla-button>  
+    
+</div>

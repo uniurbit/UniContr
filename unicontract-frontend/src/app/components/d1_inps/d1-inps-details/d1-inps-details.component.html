@@ -1,0 +1,91 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items" [dettagli]="true"></app-intestazione> 
+
+  <app-riquadro-wrapper *ngIf="items">
+    <p class="mb-0 text-justify">{{ 'd1_premessa' | translate }}</p>
+    <div class="row">
+      <div class="col">
+        <div *ngIf="items.flag_obbligo_contributivo === 0; then block1 else block2"></div>
+        <ng-template #block1>
+          <span class="oi oi-minus iconic ps-1 pe-2"></span>
+          {{ 'd1_txt1not' | translate }}
+        </ng-template>
+        <ng-template #block2>
+          <span class="oi oi-check iconic ps-1 pe-2"></span>
+          {{ 'd1_txt1' | translate }}
+          <span *ngIf="items.specif_obbligo_contributivo === 'D1A'">{{ 'd1_txt2' | translate }}</span>
+          <span *ngIf="items.specif_obbligo_contributivo === 'D1B'">{{ 'd1_txt3' | translate }}</span>
+          <span *ngIf="items.specif_obbligo_contributivo === 'D1C'">{{ 'd1_txt4' | translate }}</span>
+        </ng-template>                  
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div *ngIf="items.flag_gestione_separata === 0; then block3 else block4"></div>
+        <ng-template #block3>
+          <span class="oi oi-minus iconic ps-1 pe-2"></span>
+          {{ 'd1_txt5not' | translate }}
+        </ng-template>
+        <ng-template #block4>
+          <span class="oi oi-check iconic ps-1 pe-2"></span>
+          {{ 'd1_txt5' | translate }}
+          <span *ngIf="items.specif_gestione_separata === 'D2A'">{{ 'd1_txt6' | translate }}</span>
+          <span *ngIf="items.specif_gestione_separata === 'D2B'">{{ 'd1_txt7' | translate }}</span>
+        </ng-template>                  
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div *ngIf="items.flag_misura_ridotta === 0; then block5 else block6"></div>
+        <ng-template #block5>
+          <span class="oi oi-minus iconic ps-1 pe-2"></span>
+          {{ 'd1_txt8not' | translate }}
+        </ng-template>
+        <ng-template #block6>
+          <span class="oi oi-check iconic ps-1 pe-2"></span>
+          {{ 'd1_txt8' | translate }}
+          <span *ngIf="items.specif_misura_ridotta === 'D3A'">{{ 'd1_txt9' | translate }} {{ 'd1_txt16' | translate}} {{ items.data_pensione }} {{ 'd1_txt10' | translate}}</span>
+          <span *ngIf="items.specif_misura_ridotta === 'D3B'">{{ 'd1_txt11' | translate }} {{ 'd1_txt16' | translate}} {{ items.data_pensione }} {{ 'd1_txt12' | translate}}</span>
+          <span *ngIf="items.specif_misura_ridotta === 'D3C'">{{ 'd1_txt13' | translate }} {{ 'cassa'+items.cassa_gestioni_previdenziali | translate }}</span>
+        </ng-template>                  
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div *ngIf="items.flag_partita_iva === 0; then block7 else block8"></div>
+        <ng-template #block7>
+          <span class="oi oi-minus iconic ps-1 pe-2"></span>
+          {{ 'd1_txt14not' | translate }}
+        </ng-template>
+        <ng-template #block8>
+          <span class="oi oi-check iconic ps-1 pe-2"></span>
+          {{ 'd1_txt14' | translate }}
+        </ng-template>                  
+      </div>
+    </div>
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="items && items.attachments && items.attachments.length > 0">
+      <h5>{{ 'b4_txt26' | translate }}</h5>            
+        <table class="row" *ngFor="let attach of items.attachments; first as isFirst" >          
+          <tr>
+            <td style="width: 30px; padding-left: 10px;">
+              <span class="oi oi-paperclip iconic"></span>
+            </td>
+            <td>
+              <a href="javascript:void(0)" (click)="download(attach.id)" title="">{{ 'd1_download_autorizzazione' | translate }}</a>
+            </td>
+          </tr>
+        </table>                 
+    </app-riquadro-wrapper>
+
+  <div class="form-footer text-end"> 
+    <app-barra-comandi *ngIf="items" [item]="items" [type]="'D1'"></app-barra-comandi>  
+    
+    <app-termina-button [item]="items" *ngIf="items.validazioni.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>
+  </div>
+</div>

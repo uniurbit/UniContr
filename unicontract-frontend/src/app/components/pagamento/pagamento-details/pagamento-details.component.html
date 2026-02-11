@@ -1,0 +1,16 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="pagamento" >  
+  <app-riquadro-wrapper>    
+    <app-list-item  label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ pagamento.nome | uppercase }} {{ pagamento.cognome | uppercase }}</span></app-list-item>            
+  </app-riquadro-wrapper>
+
+  
+  <form [formGroup]="form" >      
+    <formly-form  [model]="pagamento" [fields]="fields" [form]="form" [options]="options">      
+    </formly-form> 
+  </form>
+
+  <app-salva-annulla-button [isNew]="!update" [fields]="fields" [formRef]="form" (valid)="saveData(form.value)"></app-salva-annulla-button>  
+
+
+</div>

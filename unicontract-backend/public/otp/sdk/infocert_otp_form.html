@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+        integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div id="message" class="hidden"></div>
+
+    <div class="container">
+        <form id="otpForm" class="form" action="#">
+            <div class="row">
+                <div class="form-group col-md-5">
+                    <label id="pin_label" for="pin">PIN</label>
+                    <input id="pin" type="password" autocomplete="off" class="form-control" name="pin"
+                        placeholder="Pin required" required="required">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-5">
+                    <label for="otp">OTP</label>
+                    <input id="otp" type="text" autocomplete="off" class="form-control" name="otp"
+                        placeholder="OTP required" required="required">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-5">
+                    <!-- <input id="submitBtn" type="submit" class="btn btn-primary" value="Send" > -->
+                    <button id="submitBtn" class="btn btn-primary" value="send">
+                        <span id="send">Send</span>
+                        <div class="lds-facebook" id="submitting" style="display:none">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </button>
+                    <input type="button" id="request_otp" class="btn btn-default" value="Request OTP"
+                        onclick="requestOTP()"></input>
+                    <span id="request_otp_wait">
+                        <span id="request_otp_wait_message">Please wait</span>&nbsp;<span
+                            id="request_otp_wait_val">30</span>&nbsp;<span id="request_otp_wait_time">seconds to request
+                            new OTP</span>
+                    </span>
+                </div>
+            </div>
+        </form>
+
+        <div id="submitError" style="display:none;color:red;font-weight:bold;">
+            &nbsp;
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+
+
+    <style type="text/css">
+        .lds-facebook {
+            display: inline-block;
+            position: relative;
+            width: 36px;
+            height: 16px;
+        }
+
+        .lds-facebook div {
+            display: inline-block;
+            position: absolute;
+            left: 2px;
+            width: 10px;
+            background: #fff;
+            animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+        }
+
+        .lds-facebook div:nth-child(1) {
+            left: 0px;
+            animation-delay: -0.24s;
+        }
+
+        .lds-facebook div:nth-child(2) {
+            left: 12px;
+            animation-delay: -0.12s;
+        }
+
+        .lds-facebook div:nth-child(3) {
+            left: 24px;
+            animation-delay: 0;
+        }
+
+        @keyframes lds-facebook {
+            0% {
+                top: 1px;
+                height: 12px;
+            }
+
+            50%,
+            100% {
+                top: 10px;
+                height: 4px;
+            }
+        }
+    </style>
+
+    <script>
+
+        (
+            function () {
+                $(window).load(function () {
+                    console.log("OK");
+                    initButtons();
+                    $("#otpForm").bind("submit", function (event) {
+                        console.log('submit called');
+                        event.target.checkValidity();
+                        event.preventDefault(); // Prevent form submission and contact with server
+                        event.stopPropagation();
+                        submitForm();
+                    });
+                });
+            }()
+        );
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "api-client-lib.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'api-client-lib'));
+
+        <!-- init callback function called by SDK after loading completion -->
+        window.initAsync = function () {
+            var CURRENT_SERVER_URL = getServerURL();
+            console.log("CURRENT_SERVER_URL: " + CURRENT_SERVER_URL);
+
+            CURRENT_SERVER_URL = CURRENT_SERVER_URL+"/api/v1"
+            var API_URL = "/sdk/";
+            var OTP_API_URL = '/firma/sendOtp/'; //"http://localhost:8080/firma/sendOtp/";
+            var OTP_API_FEA_URL = '/firma/sendFilesToFEA/'; //"http://localhost:8080/firma/sendOtp/";
+            var OTP_API_ARUBA_URL = '/firma/sendArubaOtp';
+            var SIGN_API_URL = '/firma/signProcess/'; //"http://localhost:8080/firma/signProcess/";
+            var CERT_OTP_URL = '/firma/certificato/otpType/';
+
+            SDK.init(
+                {
+                    'BASE_URL': CURRENT_SERVER_URL,
+                    'SIGN_API_URL': CURRENT_SERVER_URL + SIGN_API_URL,
+                    'debug_mode': true,
+                    'event_listener': 'OTP'
+                });
+
+            // PLACE HERE CONFIGURATION CODE (eg. API keys, tokens, etc..)
+            //  SDK.init(
+            //   {
+            //       'BASE_URL' : CURRENT_SERVER_URL, //'http://localhost:8080', //,
+            //       'debug_mode' : true,
+            //       'event_listener': 'OTP'
+            //   }
+            //  );
+
+
+        };
+
+        function showRequestOtp() {
+            $("#request_otp").show();
+        }
+
+        function initButtons() {
+            initDelay("request_otp_wait", "request_otp_wait_val", "request_otp", 15);
+            enableElement("submitBtn");
+        }
+
+        function submitForm() {
+            $('#submitError').html("");
+            $('#submitError').hide();
+            if (SDK.OTP.commandArgs.process_token !== undefined && SDK.OTP.commandArgs.process_token !== null) {
+
+                // $('#submitBtn').attr("value","Processing...").attr("disabled","disabled");
+                disableElement("request_otp");
+                disableElement("submitBtn");
+                // $('#request_otp').attr("disabled","disabled");
+                // $('#submitBtn').attr("disabled","disabled");
+                $('#submitting').show();
+                $('#send').hide();
+                $('#requestingOTPBtn').hide();
+                var otp = $('#otp').val();
+                var pin = $('#pin').val();
+
+                // TODO: passare callback per gestire token/pin errato e poter rifare submit della form
+                SDK.OTP.processOTP(otp, pin);
+            }
+        }
+
+        function requestOTP() {
+            console.log('requestOTP called');
+            $('#submitError').html("");
+            $('#submitError').hide();
+            if (SDK.OTP.commandArgs.process_token !== undefined && SDK.OTP.commandArgs.process_token !== null) {
+                // $('#request_otp').attr("disabled","disabled");
+                // $('#submitBtn').attr("disabled","disabled");
+                disableElement("request_otp");
+                disableElement("submitBtn");
+
+                $('#requestingOTPBtn').show();
+                $('#requestOTP').hide();
+                SDK.OTP.commandArgs.provider = 'infocert';
+                SDK.OTP.requestOTP('infocert', SDK.OTP.otpType);
+            }
+        }
+
+        function getServerURL() {
+            var serverUrl = null;
+            if (!window.location.origin) {
+                serverUrl = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+            }
+            else {
+                serverUrl = window.location.origin;
+            }
+            return serverUrl;
+        }
+        function submitError(message) {
+            if (message && message !== '') {
+                $('#submitError').show();
+                $('#submitError').html(message);
+            }
+            $('#submitting').hide();
+            // $('#submitBtn').attr("value","Send").removeAttr("disabled");
+            // $('#submitBtn').removeAttr("disabled");
+            // $('#request_otp').removeAttr("disabled");
+            enableElement("request_otp");
+            enableElement("submitBtn");
+
+            $('#send').show();
+        }
+    </script>
+
+    <!--script src="otp_final.js"></script-->
+
+
+
+</body>
+
+</html>

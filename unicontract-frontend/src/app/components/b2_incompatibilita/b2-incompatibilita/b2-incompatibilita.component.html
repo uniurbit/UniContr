@@ -1,0 +1,34 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" >
+  <app-intestazione *ngIf="items" [item]="items"></app-intestazione>  
+
+  <form #f = "ngForm"  *ngIf="items">
+    <app-riquadro-wrapper>
+      <div class="text">{{ 'b2_txt1' | translate }}</div>      
+      <table>
+        <tr>
+          <td class="text" >
+            <div class="form-check form-check">
+              <input type="checkbox" class="form-check-input" id="inc" name="flag_incompatibilita" [(ngModel)]="items.flag_incompatibilita" >
+              <label class="form-check-label" for="inc">non {{ 'b2_txt2' | translate }}</label>
+            </div>    
+          </td>                    
+        </tr>           
+      </table>      
+      <div class="text_centered_bold">{{ 'b2_txt3' | translate }}</div>
+      <div class="text_centered_spacing">{{ 'b2_txt4' | translate }}</div>
+      <div class="text_centered_bold">{{ 'b2_txt5' | translate }}</div>
+      <div class="text">{{ 'b2_txt6' | translate }}</div>
+      <div class="text_tab">{{ 'b2_txt7' | translate }}</div>
+      <div class="text_tab">{{ 'b2_txt8' | translate }}</div>
+      <div class="text_tab">{{ 'b2_txt9' | translate }}</div>
+      <div class="text_tab">{{ 'b2_txt10' | translate }}</div>
+      <div class="text">{{ 'b2_txt11' | translate }}</div>
+      <div class="text_centered_spacing">{{ 'b2_txt4' | translate }}</div>
+      <p *ngIf="(items.flag_incompatibilita !== true && items.flag_incompatibilita !== 1)" style="color: red; font-size: 12px;" class="mb-1 mt-3">{{ 'b2_nota' | translate }}</p>
+    </app-riquadro-wrapper>
+
+    <app-salva-annulla-button *ngIf="(items.flag_incompatibilita === true || items.flag_incompatibilita === 1); disabled" [isNew]="!update" [formRef]="f" (valid)="saveData(f.value, items.b2_incompatibilita_id)"></app-salva-annulla-button>
+   
+  </form>
+</div>

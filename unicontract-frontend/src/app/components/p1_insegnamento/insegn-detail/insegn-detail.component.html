@@ -1,0 +1,119 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+
+<ng-template #apri ngx-datatable-cell-template let-row="row" let-rowIndex="rowIndex" let-value="value">
+  <button type="button" class="btn btn-sm btn-outline-secondary oi oi-external-link d-flex align-items-center"
+    title="{{ prefix ? (prefix+'_apri' | translate) : 'Apri' }}" (click)="rowSelection(row)"></button>
+</ng-template>
+
+<div class="container-fluid" *ngIf="item">
+  <app-riquadro-wrapper> 
+    <button type="button" class="btn icon_info" popoverTitle="Dettagli" ngbPopover="Insegnamento caricato in data {{item.createdDate | toDateObj | date: 'dd-MM-yyyy'}} alle ore {{item.createdDate | toDateObj | date: 'HH:mm'}}">
+      <span class="oi oi-info iconic icon-top"></span>
+    </button>
+    <div class="row">
+        <h5>{{ 'p1_title1' | translate }}</h5>         
+    </div>   
+    <app-list-item label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ item.nome | uppercase }} {{ item.cognome | uppercase }}</span></app-list-item>    
+    <app-list-item label="{{ '00_int2' | translate }}" value="{{ item.insegnamento | uppercase }} ({{ item.cod_insegnamento }})"></app-list-item>
+    <app-list-item label="{{ '00_int7' | translate }}" value="{{ item.settore | replace:';':',' | uppercase }} ({{ item.cod_settore | replace:';':',' | uppercase }})"></app-list-item>
+    <app-list-item label="{{ '00_int8' | translate }}" value="{{ item.cfu }} CFU / {{ item.ore }} ORE"></app-list-item>
+    <app-list-item label="{{ '00_int9' | translate }}" value="{{ item.dipartimento | uppercase}}"></app-list-item>
+    <app-list-item label="{{ '00_int10' | translate }}" value="{{ item.cdl | uppercase }}"></app-list-item>
+    <app-list-item label="{{ '00_int3' | translate }}" value="{{ item.aa }} / {{ tools.annoAccademico(item.aa) }}"></app-list-item>
+    <app-list-item label="{{ '00_int5' | translate }}">DAL GIORNO {{ item.data_ini_contr  }} AL GIORNO {{ item.data_fine_contr }} <span *ngIf="item.ciclo">({{ item.ciclo | uppercase }})</span></app-list-item>
+    <app-list-item label="{{ '00_int11' | translate }}" value="{{ item.compenso | currency: '€' }}"></app-list-item>    
+    <div *ngxPermissionsOnly="['OP_APPROVAZIONE_AMM', 'OP_APPROVAZIONE_ECONOMICA', 'SUPER-ADMIN']">      
+        <app-list-item label="Copertura" value="{{ item.coper_id }}"></app-list-item> 
+    </div>
+    <hr>
+        
+    <app-list-item label="{{ '00_int12' | translate }}" value="{{ item.tipo_atto | uppercase }} NUM. {{ item.num_delibera }} DEL {{ item.data_delibera | toDateObj | date: 'dd-MM-yyyy' }}"></app-list-item>    
+    <app-list-item label="{{ '00_int13' | translate }}" value="{{ item.emittente | uppercase }}"></app-list-item>    
+    <app-list-item label="{{ '00_int6' | translate }}" value="{{ tools.tipoConferimento(item.motivo_atto) }}"></app-list-item>    
+    
+    <app-list-item *ngIf="item.part_stu_des" label="Partizione" value="{{ item.part_stu_des }} "></app-list-item>   
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper>
+      <h5>{{ 'p1_title2' | translate }}</h5>
+      <app-list-item label="{{ '00_int15' | translate }}" value="{{ tools.tipoContratto(item.tipo_contratto) }}"></app-list-item>      
+  </app-riquadro-wrapper>
+
+  <ng-container *ngxPermissionsOnly="['OP_APPROVAZIONE_ECONOMICA','OP_APPROVAZIONE_AMM','OP_DIPARTIMENTALE','SUPER-ADMIN']">
+    <app-riquadro-wrapper *ngIf="item.motivo_atto == 'CONF_INC'">
+      
+      <h5>Storico</h5>
+      <ng-container *ngIf="item?.contatore_insegnamenti_manuale == null">
+        <ng-container *ngIf="item?.contatore_insegnamenti as contatore">
+          <p>
+            Il presente insegnamento è stato già precedentemente attribuito a {{ item.nome }} {{ item.cognome }} 
+            {{ contatore.counter }} volte.
+            <span *ngIf="contatore.method === 'complete_chain'; else incompleteChain" class="text-success">
+              (Questo conteggio si basa su una catena di rinnovi completa.)
+            </span>
+            <ng-template #incompleteChain>
+              <span class="text-danger">
+                (Catena dei rinnovi incompleta o dati incoerenti su tipologia o codice attività formativa. Calcolo basato sui dati di insegnamento)
+              </span>
+            </ng-template>
+          </p>
+        </ng-container>
+      </ng-container>      
+      <ng-container *ngIf="item?.contatore_insegnamenti_manuale != null">
+        <p>
+          È stato inserito manualmente il numero delle precedenti attribuzioni dell'insegnamento a {{ item.nome }} {{ item.cognome }} {{ item.contatore_insegnamenti_manuale }} volte.
+        </p>
+        <p>Motivazione: {{ item.motivazione_contatore }}</p>
+      </ng-container>
+   
+      <ng-container  *ngxPermissionsOnly="['SUPER-ADMIN','OP_DIPARTIMENTALE']">
+        <div class="d-inline-flex" >
+        <button type="button" class="btn btn-outline-secondary rounded me-1" (click)="inserisciManualmente()">
+          <span class="oi oi-pencil iconic"></span>
+          <span class="ms-1">Inserisci manualmente numero attribuzioni</span>
+        </button>
+        <button type="button" class="btn btn-outline-secondary rounded" [disabled]="!!!item.contatore_insegnamenti_manuale" (click)="cancellaContatoreManualmente()">
+          <span class="oi oi-trash"></span>     
+        </button>
+        </div>
+      </ng-container>
+  
+    </app-riquadro-wrapper>
+  </ng-container>
+  <ng-container  *ngxPermissionsOnly="['SUPER-ADMIN','OP_DIPARTIMENTALE','OP_APPROVAZIONE_AMM']">
+    <app-riquadro-wrapper *ngIf="shouldDisplayRinnovo()" >
+      <h5>Precontrattuale di riferimento per il rinnovo</h5>
+      <form *ngIf="shouldDisplayRinnovo()" [formGroup]="formRinnovo" >
+        <formly-form [model]="item" [fields]="fieldRinnovo" [form]="formRinnovo" [options]="options">  
+        </formly-form> 
+      </form>
+      <button type="button" class="btn btn-outline-secondary rounded me-auto" (click)="modificaRinnovo()">
+        <span class="oi oi-pencil iconic"></span>
+        <span class="ms-1">Modifica</span>
+      </button>
+    </app-riquadro-wrapper>
+  </ng-container>
+
+  <app-riquadro-wrapper *ngIf="item.sendemailsrcp && item.sendemailsrcp.length > 0">
+    <h5>{{ 'p1_title3' | translate }}</h5>
+    <div class="row" *ngFor="let email of item.sendemailsrcp; first as isFirst" >
+      <div *ngIf="isFirst" class="col-md-10">{{ 'P1_RICHIESTA_EMAIL_FIRST' | translate }} {{ email.created_at }}</div> 
+      <div *ngIf="!isFirst" class="col-md-10">{{ 'P1_RICHIESTA_EMAIL' | translate }} {{ email.created_at }}</div>      
+    </div>
+  </app-riquadro-wrapper>
+  
+  <app-riquadro-wrapper *ngIf="item.sendemailsrcp && item.sendemailsrcp.length == 0">
+    <h5>Altri dati</h5>
+    <div class="row col-md-10">Nessuna richiesta di compilazione precontrattuale inviata</div>           
+  </app-riquadro-wrapper>
+
+  <div class="form-footer text-end">   
+    <app-barra-comandi *ngIf="item" [item]="item" [type]="'P1'" (sendEmail)="sendEmail()" (updateInsegnamento)="updateInsegnamento($event)" (changeCopertura)="changeCopertura($event)" ></app-barra-comandi>  
+       
+    <app-termina-button [item]="item" *ngIf="item.validazioni.flag_submit === 0 && tools.termina(item) === true" (update)="isLoadingChange($event)"></app-termina-button>    
+  </div>
+</div>
+
+
+
+

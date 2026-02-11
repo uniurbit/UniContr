@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+             schemaLocation="xml.xsd"/>
+  <xs:element name="doc">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="visibilita" minOccurs="0"/>
+        <xs:element ref="prot_differito" minOccurs="0"/>
+        <xs:element ref="repertorio" minOccurs="0"/>
+        <xs:element ref="autore" minOccurs="0"/>
+        <xs:element ref="minuta" minOccurs="0"/>
+        <xs:element ref="oggetto"/>
+        <xs:element ref="tipologia" minOccurs="0"/>
+        <xs:element ref="conservazione" minOccurs="0"/>
+        <xs:element ref="mezzo_trasmissione" minOccurs="0"/>
+        <xs:element ref="classif" minOccurs="0"/>
+        <xs:element ref="note" minOccurs="0"/>
+        <xs:element ref="riferimenti" minOccurs="0"/>
+        <xs:element ref="xlink" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="keywords" minOccurs="0"/>
+        <xs:element ref="allegato" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="voce_indice" minOccurs="0"/>
+        <xs:element ref="rif_interni" minOccurs="0"/>
+        <xs:element ref="rif_esterni" minOccurs="0"/>
+        <xs:element ref="originale" minOccurs="0"/>
+        <xs:element ref="extra" minOccurs="0"/>
+        <xs:element ref="link_interno" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="info_conservazione" minOccurs="0"/>
+        <xs:element ref="postit" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="tipo" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="arrivo"/>
+            <xs:enumeration value="partenza"/>
+            <xs:enumeration value="interno"/>
+            <xs:enumeration value="varie"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="nrecord" type="xs:string" fixed="."/>
+      <xs:attribute name="agli_atti" type="xs:string"/>
+      <xs:attribute name="sensibile">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="personale">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="si"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="annullato" default="no">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="si"/>
+            <xs:enumeration value="no"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="scarto" default="99">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="01"/>
+            <xs:enumeration value="05"/>
+            <xs:enumeration value="10"/>
+            <xs:enumeration value="99"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="data_valutazione_scarto" type="xs:string"/>
+      <xs:attribute name="bozza">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="si"/>
+            <xs:enumeration value="no"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="data_seduta" type="xs:string"/>
+      <xs:attribute name="applicativo_produttore_docid" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="visibilita">
+    <xs:complexType>
+      <xs:attribute name="cod">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="R"/>
+            <xs:enumeration value="A"/>
+            <xs:enumeration value="P"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="tipo" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="Riservato"/>
+            <xs:enumeration value="Altamente_confidenziale"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="fino_al" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="prot_differito">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="data_arrivo" type="xs:string" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="repertorio">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cod" type="xs:string" use="required"/>
+          <xs:attribute name="numero" type="xs:string"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="autore">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="xml:space" default="preserve"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="minuta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="classif"/>
+        <xs:element ref="mittente" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="scarto" default="99">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="01"/>
+            <xs:enumeration value="05"/>
+            <xs:enumeration value="10"/>
+            <xs:enumeration value="99"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="classif">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="xml:space" default="preserve"/>
+          <xs:attribute name="cod" type="xs:string" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mittente">
+    <xs:complexType>
+      <xs:attribute name="nome_uff" type="xs:string" use="required"/>
+      <xs:attribute name="nome_persona" type="xs:string" use="required"/>
+      <xs:attribute name="cod_uff" type="xs:string"/>
+      <xs:attribute name="cod_persona" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="oggetto">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="xml:space" default="preserve"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tipologia">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cod" type="xs:string" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="conservazione">
+    <xs:complexType>
+      <xs:attribute name="tipo" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="oriuni"/>
+            <xs:enumeration value="orinon"/>
+            <xs:enumeration value="docinf"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mezzo_trasmissione">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cod" type="xs:string" use="required"/>
+          <xs:attribute name="costo" type="xs:string"/>
+          <xs:attribute name="valuta" type="xs:string"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="note">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="xml:space" default="preserve"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="riferimenti">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="xml:space" default="preserve"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="xlink">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="href" type="xs:string" use="required"/>
+          <xs:attribute ref="xml:space" default="preserve"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="keywords">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="xml:space" default="preserve"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="allegato">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="xml:space" default="preserve"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="voce_indice">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="xml:space" default="preserve"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rif_interni">
+    <xs:complexType>
+      <xs:sequence maxOccurs="unbounded">
+        <xs:element ref="rif_interno"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rif_interno">
+    <xs:complexType>
+      <xs:attribute name="diritto" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="RPA"/>
+            <xs:enumeration value="RPAM"/>
+            <xs:enumeration value="CC"/>
+            <xs:enumeration value="CDS"/>
+            <xs:enumeration value="CDSM"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="nome_persona" type="xs:string" use="required"/>
+      <xs:attribute name="nome_uff" type="xs:string" use="required"/>
+      <xs:attribute name="cod_persona" type="xs:string"/>
+      <xs:attribute name="cod_uff" type="xs:string"/>
+      <xs:attribute name="tipo_uff" type="xs:string"/>
+      <xs:attribute name="scartato">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="intervento">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="si"/>
+            <xs:enumeration value="no"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rif_esterni">
+    <xs:complexType>
+      <xs:sequence maxOccurs="unbounded">
+        <xs:element ref="rif_esterno"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rif_esterno">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="nome"/>
+        <xs:element ref="indirizzo" minOccurs="0"/>
+        <xs:element ref="referente" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="n_prot" type="xs:string"/>
+      <xs:attribute name="data_prot" type="xs:string"/>
+      <xs:attribute name="copia_conoscenza" type="xs:string"/>
+      <xs:attribute name="codice_fiscale" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="nome">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cod" type="xs:string"/>
+          <xs:attribute ref="xml:space" default="preserve"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="indirizzo">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="xml:space" default="preserve"/>
+          <xs:attribute name="email" type="xs:string"/>
+          <xs:attribute name="email_certificata" type="xs:string"/>
+          <xs:attribute name="tel" type="xs:string"/>
+          <xs:attribute name="fax" type="xs:string"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="referente">
+    <xs:complexType>
+      <xs:attribute name="nominativo" type="xs:string" use="required"/>
+      <xs:attribute name="ruolo" type="xs:string"/>
+      <xs:attribute name="cod" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="originale">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="xml:space" default="preserve"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="extra">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:any namespace="##any" processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="link_interno">
+    <xs:complexType>
+      <xs:attribute name="href" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="info_conservazione">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="origine" type="xs:string" use="required"/>
+          <xs:attribute name="termine_invio" type="xs:integer" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="postit">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="xml:space" default="preserve"/>
+          <xs:attribute name="cod_operatore" type="xs:string"/>
+          <xs:attribute name="operatore" type="xs:string" use="required"/>
+          <xs:attribute name="data" type="xs:string" use="required"/>
+          <xs:attribute name="ora" type="xs:string"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

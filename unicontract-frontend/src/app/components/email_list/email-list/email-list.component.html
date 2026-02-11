@@ -1,0 +1,45 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" >
+  <app-riquadro-wrapper *ngIf="precontr">
+    <app-list-item label="{{ '00_int1' | translate }}"><span style="font-weight: bold;">{{ precontr.nome | uppercase }} {{ precontr.cognome | uppercase }}</span></app-list-item>            
+    <app-list-item label="{{ '00_int2' | translate }}" value="{{ precontr.insegnamento | uppercase }}"></app-list-item>
+    <app-list-item label="{{ '00_int3' | translate }}" value="{{ precontr.aa }} / {{ tools.annoAccademico(precontr.aa) }}"></app-list-item>    
+  </app-riquadro-wrapper>  
+
+  <app-riquadro-wrapper *ngIf="items">
+    <h5>{{ 'email_title' | translate }}</h5>
+    <table class="table table-sm">
+      <thead>
+        <tr class="row ms-1 me-1">
+          <th class="col-sm-2">MITTENTE</th>
+          <th class="col-sm-2">DESTINATARIO</th>
+          <th class="col-sm-4">OGGETTO</th>
+          <th class="col-sm-2 text-center">DATA</th>
+          <th class="col-sm-1 text-center">ORA</th>
+          <th class="col-sm-1 text-center">INFO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row ms-1 me-1" *ngFor="let item of items | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+          <td class="col-sm-2">{{ item?.user?.name }}</td>
+          <td class="col-sm-2">{{ receiver(item.codifica) }}</td>
+          <td class="col-sm-4">{{ item.oggetto }}</td>
+          <td class="col-sm-2 text-center">{{ item.created_at }}</td>
+          <td class="col-sm-1 text-center">{{ item.time }}</td>
+          <td class="col-sm-1 text-center">
+            <span *ngIf="item.corpo_testo !== null" container="body" placement="left" popoverTitle="Informazioni richieste" ngbPopover="{{item.corpo_testo}}" title="Visualizza il testo della richiesta" style="color: #2aa6db; cursor: pointer;">Info</span>
+          </td>
+        </tr>
+      </tbody> 
+    </table>
+    <div *ngIf="totalItems > pageSize">
+      <ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalItems" [(page)]="page" [pageSize]="pageSize" ></ngb-pagination>
+    </div>
+
+  </app-riquadro-wrapper>
+  <div class="form-footer text-end">
+    <button class="btn btn-outline-secondary rounded me-2" (click)="summary()" title="TORNA AL QUADRO RIEPILOGATIVO">Torna al sommario</button>
+
+  </div>
+</div>
+

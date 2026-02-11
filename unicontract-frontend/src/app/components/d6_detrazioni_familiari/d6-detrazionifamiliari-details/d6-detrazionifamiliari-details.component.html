@@ -1,0 +1,61 @@
+<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
+<div class="container-fluid" *ngIf="items">
+  <app-intestazione *ngIf="items" [item]="items" [dettagli]="true"></app-intestazione>  
+
+  <app-riquadro-wrapper *ngIf="items">
+    <h5>{{ 'd6_intest' | translate }}</h5>
+    <p class="mb-0" *ngIf="items.flag_richiesta_detrazioni == 0">{{ 'd6_txt2' | translate }}</p>
+    <div *ngIf="items.flag_richiesta_detrazioni == 1">
+        <div class="row">
+            <div class="col">
+                {{ 'd6_premessa1' | translate }}{{ 'd6_premessa2' | translate }}
+            </div>
+        </div>
+
+        <div class="row" *ngIf="items.flag_coniuge_carico === 1">
+            <div class="col">
+                <span class="oi oi-check iconic ps-1 pe-2"></span>
+                {{ 'd6_txt1' | translate }} {{ 'd6_label1' | translate }} {{ items.dal_giorno }}
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <table class="table table-sm" *ngIf="items.flag_richiesta_detrazioni == 1 && items.familiari.length !== 0">
+      <thead>
+        <tr>
+          <th>Cognome</th>
+          <th>Nome</th>
+          <th>Relazione di parentela</th>          
+          <th class="text-center">Codice fiscale</th>
+          <th class="text-center">Data di nascita</th>
+          <th class="text-center">Detrazione fiscale</th>
+          <th class="text-center">Disabilità</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items.familiari">
+          <td>{{ item.cognome | titlecase }}</td>
+          <td>{{ item.nome | titlecase }}</td>
+          <td>{{ relazione(item.parentela) }}</td>          
+          <td class="text-center">{{ item.cod_fiscale }}</td>
+          <td class="text-center">{{ item.data_nascita }}</td>
+          <td class="text-center">{{ item.percentuale_detrazione }} %</td>
+          <td class="text-center">{{ disabilita(item.flag_disabilita) }}</td>
+        </tr>
+      </tbody>          
+    </table>    
+  </app-riquadro-wrapper>
+
+  <app-riquadro-wrapper *ngIf="items.flag_submit === 0">
+    <p class="mb-0 text-center text-info" >{{ 'end1' | translate }} <br> {{ 'end2' | translate }} <br> {{ 'end3' | translate }}</p>
+  </app-riquadro-wrapper>
+
+  <div class="form-footer text-end"> 
+    <app-barra-comandi *ngIf="items" [item]="items" [type]="'D6'"></app-barra-comandi>  
+        
+    <app-termina-button [item]="items" *ngIf="items.flag_submit === 0 && tools.termina(items) === true" (update)="isLoadingChange($event)"></app-termina-button>
+    <!-- <button type="button" class="btn btn-outline-secondary rounded me-1" *ngIf="items.flag_submit === 0" (click)="termina(items.insegn_id)" title="{{ 'btn_end_title' | translate }}" >{{ 'btn_end' | translate }}</button> -->
+  </div>
+
+</div>

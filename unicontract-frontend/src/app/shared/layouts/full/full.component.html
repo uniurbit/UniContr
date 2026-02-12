@@ -11,8 +11,11 @@
         <nav class="navbar top-navbar navbar-expand-md" [ngClass]="(options.navbarbg=='skin6')?'navbar-light':'navbar-dark'">
             <div class="navbar-header" [ngClass]="(expandLogo)?'expand-logo':''" [attr.data-logobg]="options.logobg" [class.bg-success]="isDebug()" >
                 <!-- This is for the sidebar toggle which is visible on mobile only -->
-                <a (click)="showMobileMenu = !showMobileMenu" class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
-                    <i [ngClass]="(showMobileMenu)?'ti-close':'ti-menu'"></i>
+                <a (click)="showMobileMenu = !showMobileMenu" 
+                    class="nav-toggler waves-effect waves-light d-block d-md-none" 
+                    href="javascript:void(0)"
+                    [attr.aria-label]="showMobileMenu ? 'Chiudi menu mobile' : 'Apri menu mobile'">
+                        <i [ngClass]="(showMobileMenu)?'ti-close':'ti-menu'"></i>
                 </a>
                 <!-- ============================================================== -->
                 <!-- Logo -->
@@ -42,7 +45,11 @@
                 <!-- ============================================================== -->
                 <!-- Toggle which is visible on mobile only -->
                 <!-- ============================================================== -->
-                <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
+                <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" (click)="isCollapsed = !isCollapsed" 
+                    [attr.aria-expanded]="!isCollapsed" 
+                    data-target="#navbarSupportedContent" 
+                    aria-controls="navbarSupportedContent"
+                    [attr.aria-label]="!isCollapsed ? 'Apri menu' : 'Chiudi menu'">
                     <i class="ti-more"></i>
                 </a>
             </div>
@@ -70,7 +77,7 @@
     <!-- ============================================================== -->
     <!-- Page wrapper  -->
     <!-- ============================================================== -->
-    <div class="page-wrapper">
+    <main class="page-wrapper">
         <app-view-notifiche riferimento="generale"></app-view-notifiche>
         <app-breadcrumb></app-breadcrumb>
         <app-toasts aria-live="polite" aria-atomic="true"></app-toasts>
@@ -98,7 +105,7 @@
         <!-- ============================================================== -->
         <!-- End footer -->
         <!-- ============================================================== -->
-    </div>
+    </main>
     <!-- ============================================================== -->
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->

@@ -25,7 +25,7 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: process.env.CI ? ['ChromeHeadlessCI'] : ['Chrome'],    
+    browsers: process.env.CI ? ['ChromeHeadlessCI'] : ['Chrome'],
     singleRun: false,
     reporters: ['progress'], // <-- shows test names and results
     customLaunchers: {
@@ -36,3 +36,6 @@ module.exports = function (config) {
     }
   });
 };
+
+//per generare la coverage 
+//npx ng test --watch=false --browsers=ChromeHeadlessCI --code-coverage

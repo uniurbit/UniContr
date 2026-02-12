@@ -1,7 +1,8 @@
 <ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '0px' }"></ngx-loading>
 <div class="container-fluid" *ngIf="item">
     <app-riquadro-wrapper>
-      <button type="button" class="btn icon_info" popoverTitle="Dettagli" ngbPopover="Dichiarazione resa da {{ item.nome }} {{ item.cognome }} in data {{item.createdDate | toDateObj | date: 'dd-MM-yyyy'}} alle ore {{item.createdDate | toDateObj | date: 'HH:mm'}}">
+      <button type="button" class="btn icon_info" popoverTitle="Dettagli" ngbPopover="Dichiarazione resa da {{ item.nome }} {{ item.cognome }} in data {{item.createdDate | toDateObj | date: 'dd-MM-yyyy'}} alle ore {{item.createdDate | toDateObj | date: 'HH:mm'}}"
+        aria-label="Dettagli dichiarazione">
         <span class="oi oi-info iconic icon-top"></span>
       </button>
 

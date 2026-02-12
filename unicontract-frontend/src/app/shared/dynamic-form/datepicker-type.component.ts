@@ -25,7 +25,7 @@ import { DatePipe } from '@angular/common';
         [class.is-invalid]="showError"    
        >
      
-        <button class="btn btn-outline-secondary input-group-text oi oi-calendar" (click)="d.toggle()" type="button">
+        <button class="btn btn-outline-secondary input-group-text oi oi-calendar" (click)="d.toggle()" type="button" aria-label="Apri selettore data">
          
         </button>
 

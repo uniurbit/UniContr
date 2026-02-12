@@ -7,7 +7,8 @@
 
 <div class="container-fluid" *ngIf="item">
   <app-riquadro-wrapper> 
-    <button type="button" class="btn icon_info" popoverTitle="Dettagli" ngbPopover="Insegnamento caricato in data {{item.createdDate | toDateObj | date: 'dd-MM-yyyy'}} alle ore {{item.createdDate | toDateObj | date: 'HH:mm'}}">
+    <button type="button" class="btn icon_info" popoverTitle="Dettagli" ngbPopover="Insegnamento caricato in data {{item.createdDate | toDateObj | date: 'dd-MM-yyyy'}} alle ore {{item.createdDate | toDateObj | date: 'HH:mm'}}"
+      aria-label="Dettagli dichiarazione">
       <span class="oi oi-info iconic icon-top"></span>
     </button>
     <div class="row">
@@ -72,7 +73,8 @@
           <span class="oi oi-pencil iconic"></span>
           <span class="ms-1">Inserisci manualmente numero attribuzioni</span>
         </button>
-        <button type="button" class="btn btn-outline-secondary rounded" [disabled]="!!!item.contatore_insegnamenti_manuale" (click)="cancellaContatoreManualmente()">
+        <button type="button" class="btn btn-outline-secondary rounded" [disabled]="!!!item.contatore_insegnamenti_manuale" (click)="cancellaContatoreManualmente()"
+          aria-label="Cancella contatore insegnamenti manuale">
           <span class="oi oi-trash"></span>     
         </button>
         </div>

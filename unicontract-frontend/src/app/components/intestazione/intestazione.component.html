@@ -1,6 +1,7 @@
 <app-riquadro-wrapper *ngIf="item">    
   
-  <button type="button" class="btn icon_info" popoverTitle="Dettagli" ngbPopover="Dichiarazione resa da {{ item.nome }} {{ item.cognome }} in data {{dateInfo | toDateObj | date: 'dd-MM-yyyy'}} alle ore {{dateInfo | toDateObj | date: 'HH:mm'}}">
+  <button type="button" class="btn icon_info" popoverTitle="Dettagli" ngbPopover="Dichiarazione resa da {{ item.nome }} {{ item.cognome }} in data {{dateInfo | toDateObj | date: 'dd-MM-yyyy'}} alle ore {{dateInfo | toDateObj | date: 'HH:mm'}}"
+    aria-label="Dettagli dichiarazione">
     <span class="oi oi-info iconic icon-top"></span>
   </button>
 

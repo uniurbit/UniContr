@@ -1,17 +1,23 @@
 <div class="card" style="margin-bottom: 0px; padding: 0px">
         <!-- *ngIf="messageService.messages.length" -->
         <h5 class="card-header">
-                Area messaggi <span *ngIf="length > 0" class="badge badge-primary badge-pill">{{length}}</span>
+                Area messaggi 
+                <span *ngIf="length > 0" class="badge badge-primary badge-pill">{{length}}</span>
+                
                 <button class="btn btn-sm btn-link float-end" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
-                        aria-controls="collapseMessage">
+                        aria-controls="collapseMessage"
+                        [attr.aria-label]="isCollapsed ? 'Apri area messaggi' : 'Chiudi area messaggi'">
                         <span *ngIf="isCollapsed" class="oi oi-chevron-top"></span>
                         <span *ngIf="!isCollapsed" class="oi oi-chevron-bottom"></span>
                 </button>
         </h5>
-        <div id="collapseMessage" [ngbCollapse]="isCollapsed">
+        <div id="collapseMessage" 
+                [ngbCollapse]="isCollapsed"
+                role="region"
+                aria-labelledby="collapseBtn">
                 <div class="card-body">
-                        <ul class="list-group list-group-flush" style="max-height: 100px;overflow-y: auto;">
-                                <li *ngFor="let inframessage of messages | async" (click)="onSelect(inframessage, content)" class="list-group-item {{ cssClass(inframessage) }}" style="height: 30px; padding: 3px 10px;">
+                        <ul class="list-group list-group-flush" role="list" style="max-height: 100px;overflow-y: auto;">
+                                <li *ngFor="let inframessage of messages | async" (click)="onSelect(inframessage, content)" role="listitem" class="list-group-item {{ cssClass(inframessage) }}" style="height: 30px; padding: 3px 10px;">
                                 <span>{{inframessage.message}}</span>
                                 </li>
                         </ul>

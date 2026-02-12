@@ -5,9 +5,9 @@ import { FieldType, FormlyFieldConfig, FormlyConfig, FieldTypeConfig } from '@ng
     selector: 'app-input-file',
     template: `
   <div class="input-group" *ngIf="field" placement="top" ngbTooltip="{{ to.tooltip ? to.tooltip.content : null }}">
-  <button class="btn btn-outline-secondary oi oi-folder  d-flex align-items-center" type="button" (click)="openDialogSelectFile()"></button>
-  <input type="input" class="form-control" [formControl]="formControl" [formlyAttributes]="field">
-  <button class="btn btn-outline-secondary oi oi-delete" type="button" (click)="reset()"></button>
+  <button class="btn btn-outline-secondary oi oi-folder  d-flex align-items-center" type="button" (click)="openDialogSelectFile()" aria-label="Seleziona file"></button>
+  <input type="input" class="form-control" [formControl]="formControl" [formlyAttributes]="field" aria-describedby="fileHelp">
+  <button class="btn btn-outline-secondary oi oi-delete" type="button" (click)="reset()" aria-label="Rimuovi file selezionato"></button>
   </div>
   <input #fileInput type="file" [accept]="props.accept" (change)="onFileChanged($event)" style="display: none">
   `,

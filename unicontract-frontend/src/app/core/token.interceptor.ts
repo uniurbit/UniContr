@@ -5,14 +5,13 @@ import { tap, catchError, switchMap, filter, take, flatMap } from 'rxjs/operator
 import { AuthService } from './auth.service';
 import { AppConstants } from '../app-constants';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { throwError } from 'rxjs';
 
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private injector: Injector, public auth: AuthService, private toastr: ToastrService) { }
+  constructor(private injector: Injector, public auth: AuthService) { }
 
   private refreshTokenInProgress = false;
   // Refresh Token Subject tracks the current token, or is null if no token is currently

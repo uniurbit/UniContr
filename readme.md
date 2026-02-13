@@ -74,6 +74,53 @@ L'applicazione è basata su **Web API**, sviluppata con **Laravel** per il backe
 
 ---
 
+# Testing
+
+Il progetto include un sistema di test separato per:
+
+- **Backend** – PHPUnit (Laravel)
+- **Frontend** – Karma + Jasmine (Angular)
+
+Documentazione completa disponibile nella cartella `docs/`:
+
+- [Panoramica Test](docs/test-overview.md)
+- [Esecuzione Test Backend](docs/test-execution-backend.md)
+- [Esecuzione Test Frontend](docs/test-execution-frontend.md)
+- [Marker Test Backend](docs/test-markers-backend.md)
+- [Test Firma (Mocked)](docs/test-firma.md)
+
+---
+
+
+## Test Backend (Laravel)
+
+Entrare nella cartella:
+
+```bash
+cd .\unicontr-backend\
+./vendor/bin/phpunit
+./vendor/bin/phpunit --filter testNomeMetodo
+```
+
+Nota: alcuni test richiedono configurazioni specifiche (Oracle o servizi esterni).
+Consultare docs/test-markers-backend.md.
+
+## Test Frontend (Angular)
+
+Entrare nella cartella:
+
+```bash
+cd .\unicontr-frontend\
+npm install
+```
+
+Eseguire test unitari:
+
+```bash
+ng test --watch=false --browsers=ChromeHeadless
+```
+
+
 ## Configurazione e Avvio
 
 ### Creazione di una applicazione

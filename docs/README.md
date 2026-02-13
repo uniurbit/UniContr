@@ -28,7 +28,22 @@ L'applicazione utilizza **Web API**, con **Laravel** per il backend, **Angular**
 - [Documentazione API](api.md)  
 
 ---
+## 🧪 Testing
 
+- [Panoramica del sistema di test](test-overview.md)  
+- [Esecuzione test Backend (Laravel / PHPUnit)](test-execution-backend.md)  
+- [Esecuzione test Frontend (Angular)](test-execution-frontend.md)  
+- [Marker test Backend (CI e dipendenze)](test-markers-backend.md)  
+- [Test FirmaIO / USIGN (Mocked)](test-firma.md)  
+
+La sezione descrive:
+
+- classificazione dei test (CI-safe, integration, external)
+- modalità di esecuzione locale e in CI
+- sistema di marker per il backend
+- test mockati per servizi di firma digitale
+
+---
 ## ⚡ Funzionalità Applicative
 
 - 🔥 **Gestione delle precontrattuali:** inserimento, modifica e validazione  

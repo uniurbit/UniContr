@@ -13,12 +13,13 @@ import { AuthService } from './auth.service';
 describe('TokenInterceptor', () => {
   let http: HttpClient;
   let httpMock: HttpTestingController;
-
-  const authServiceMock = {
-    getToken: jasmine.createSpy('getToken').and.returnValue('TEST_JWT'),
-  };
+  let authServiceMock: { getToken: jasmine.Spy };
 
   beforeEach(() => {
+    authServiceMock = {
+      getToken: jasmine.createSpy('getToken').and.returnValue('TEST_JWT'),
+    };
+
     TestBed.configureTestingModule({
       providers: [
         provideHttpClient(withInterceptorsFromDi()), // <- no params

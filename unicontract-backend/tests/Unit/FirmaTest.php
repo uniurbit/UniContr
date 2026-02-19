@@ -49,7 +49,6 @@ class FirmaTest extends TestCase
     {       
         $client = new FirmaIOClient();
         $response = $client->getSigner("LVONRC76C29L500F");
-        dump($response->body());
         $this->assertTrue($response->successful());
         $this->assertEquals($response->object()->id,"791199f7-52bd-4693-9a5b-6818df39c6b4");      
     }
@@ -154,7 +153,6 @@ class FirmaTest extends TestCase
        $position = PdfSignService::getSignPosition($file)[0];
 
        $response = $client->createSignatureRequest($signature_id, $position, $dossier_id);
-       dump( $response->json());
        $this->assertTrue($response->successful());
        $this->assertEquals($response->object()->id,"01H7J1JNFJCRXD0DCYG18P1DY3");
        $this->assertEquals($response->json()['documents'][0]['id'],"01H7J1JNFJCRXD0DCYG18P1DY3");
@@ -177,7 +175,6 @@ class FirmaTest extends TestCase
 
         $response = $client->uploadURL($signature_request_id, $document_id);
         $this->assertTrue($response->successful());
-        dump( $response->json());
         $uploadUrl = $response->json();
         
        // "https://iopsignst.blob.core.windows.net/uploaded-documents/01H7J2B6QA5XTD6P69FBKY43A9?sv=2021-10-04&spr=https%2Chttp&st=2023-08-11T10%3A30%3A17Z&se=2023-08-11T10%3A45%3A17Z&sr=b&sp=racw&sig=M38C0Si7wCw7RtAo0O9KhCgEjC65n64%2BD7bdKnnA1T4%3D&rsct=application%2Fpdf"
@@ -185,7 +182,6 @@ class FirmaTest extends TestCase
         $fileContent = Storage::disk('local')->get('test.pdf');
         //$fileContent = $pdf->output();
         $response = $client->upload($uploadUrl, $fileContent);
-        dump($response->body());
         $this->assertTrue($response->successful());
     }
 
@@ -199,8 +195,6 @@ class FirmaTest extends TestCase
          $fileContent = Storage::disk('local')->get('test.pdf');
          //$fileContent = $pdf->output();
          $response = $client->upload($uploadUrl, $fileContent);
-         dump($response->headers());
-         dump($response->body());
          $this->assertTrue($response->successful());
     }
 
@@ -228,7 +222,6 @@ class FirmaTest extends TestCase
       $signature_request_id ="01H7J1JNFJCRXD0DCYG18P1DY3";
 
       $response = $client->pubblicazioneRichiesta($signature_request_id);
-      dump( $response->json());
       $this->assertTrue($response->successful());
    }
 
@@ -243,7 +236,6 @@ class FirmaTest extends TestCase
       $signature_request_id ="01H7J1JNFJCRXD0DCYG18P1DY3";
 
       $response = $client->sendNotification($signature_request_id);
-      dump( $response->json());
       $this->assertTrue($response->successful());
       
       //risposta ricevuta
@@ -332,7 +324,6 @@ class FirmaTest extends TestCase
        $service = new FirmaUSIGNService();
        $response = $service->client->sendOtp("68CC066C17F0DE992F5DFF89AA4D74D5946821127386756E8896498C1EA8BFBE");      
        $this->assertNotNull($response); 
-       dump($response->json()); 
        $this->assertTrue($response->successful());  
     }
 }

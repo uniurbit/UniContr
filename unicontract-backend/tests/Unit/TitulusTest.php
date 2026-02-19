@@ -33,7 +33,7 @@ class TitulusTest extends TestCase
     use WithoutMiddleware;
       
     const NOME_RPA = 'cappellacci marco';
-    const UFF = 'Ufficio Protocollo e Archivio';
+    const UFF = 'Settore ICT';
       
     // ./vendor/bin/phpunit  --testsuite Unit --filter testLoadDocumentTitulus    
     public function testBasicLoadDocumentTitulus()
@@ -256,7 +256,7 @@ class TitulusTest extends TestCase
         //var_dump($fasc->toXml());
         //<voce_indice>UNIPEO - Domanda di progressione economica orizzontale</voce_indice>
         $this->assertEquals(str_replace(array("\n", "\r"), '',$fasc->toXml()),
-        '<?xml version="1.0" encoding="UTF-8"?><fascicolo><oggetto>convenzione di prova creato mediante ws</oggetto><classif cod="03/13"/><rif_interni><rif diritto="RPA" nome_persona="cappellacci marco" nome_uff="Ufficio Protocollo e Archivio"/></rif_interni></fascicolo>');
+        '<?xml version="1.0" encoding="UTF-8"?><fascicolo><oggetto>convenzione di prova creato mediante ws</oggetto><classif cod="03/13"/><rif_interni><rif diritto="RPA" nome_persona="cappellacci marco" nome_uff="Settore ICT"/></rif_interni></fascicolo>');
         
         $this->markTestSkipped('Test non eseguito per mancanza autorizzazione');
 
@@ -269,7 +269,6 @@ class TitulusTest extends TestCase
         $this->assertEquals($obj->Document->fascicolo['anno'],$year);
         $this->assertNotNull($obj->Document->fascicolo['nrecord']);
         $this->assertNotNull($obj->Document->fascicolo['numero']);
-        var_dump($obj->Document->fascicolo['numero']);
         
 //     <Response xmlns:xw="http://www.kion.it/ns/xw" canSee="true" canEdit="true" canAddRPA="true">
 //     <url>http://localhost:8080/xway/application/xdocway/engine/xdocway.jsp?verbo=queryplain&amp;query=%5B//@physdoc%5D%3D718437&amp;wfActive=false&amp;codammaoo=UNURTST</url>
@@ -314,7 +313,6 @@ class TitulusTest extends TestCase
             $persone->push(new PersonaInterna($attrArray));
         }
 
-        var_dump($persone->toJson());
         $this->assertEquals(
             $persone->toJson(),
             '[{"matricola":"PI000203","nome":"Riccardo","cognome":"Righi","cod_amm":"UNUR","cod_aoo":"TST","cod_uff":"SI000103","descrizione":"Riccardo Righi"}]');
@@ -326,7 +324,6 @@ class TitulusTest extends TestCase
     {
         $sc = new SoapControllerTitulus(new SoapWrapper);
         $response = $sc->search('([/doc/@tipo]=arrivo)',null,null,2);
-        var_dump($response);
         $this->assertNotNull($response);
         $sessionId = implode(';', $sc->getSessionId());  
 
@@ -338,7 +335,6 @@ class TitulusTest extends TestCase
         $sc = new SoapControllerTitulus(new SoapWrapper);
 
         $response = $sc->nextTitlePage($sessionId);
-        var_dump($response);
     }   
 
         // ./vendor/bin/phpunit  --testsuite Unit --filter testTitulusQuery
@@ -471,7 +467,6 @@ class TitulusTest extends TestCase
         $doc->rif_esterni = array($rif_esterno);
 
         $newDoc = $doc->toXml();
-        var_dump($newDoc);
 
         $attachment1 = new AttachmentBean();
         $attachment1->setFileName('test.pdf');
@@ -494,7 +489,6 @@ class TitulusTest extends TestCase
         $resp = $sc->getDocumentURL('2019-UNURCLE-0008773');        
         $this->assertNotNull($resp);
 
-        var_dump($resp);  
         $parse = parse_url($resp);        
 
         //nrecord 000845300-UNURCLE-bccc7094-9d91-4dba-9cd2-f110c3f7726d
@@ -516,7 +510,7 @@ class TitulusTest extends TestCase
         $ctr = new StrutturaInternaController();        
         $strint = $ctr->getminimal('SI000084');
 
-        $this->assertEquals('PI000083',$strint->cod_responsabile);
+        $this->assertEquals('PI000324',$strint->cod_responsabile);
         $this->assertEquals('Dipartimento di Scienze Pure e Applicate - DISPeA',$strint->nome);
 
         $ctr = new PersonaInternaController();
@@ -544,7 +538,6 @@ class TitulusTest extends TestCase
         $sessionId = $sc->getSessionId();
 
         $response = $sc->search('([/doc/@tipo]=arrivo)',null,null,2,$sessionId);
-        var_dump($response);
         $this->assertNotNull($response);
     }
 
@@ -581,7 +574,6 @@ class TitulusTest extends TestCase
 
         $obj = simplexml_load_string($result);
         $this->assertNotNull($obj);             
-        var_dump((string) $obj['result']);
         $this->assertTrue(isset($obj['result']));        
         $this->assertEquals((string) $obj['result'],'error');
 
@@ -596,7 +588,7 @@ class TitulusTest extends TestCase
 // </Response>
         $sc = new SoapControllerTitulusAcl(new SoapWrapper); 
 
-        $result = $sc->lookup('Servizio Sistema Informatico di Ateneo',null);
+        $result = $sc->lookup('Settore ICT',null);
 
         $obj = simplexml_load_string($result);
         $this->assertNotNull($obj);                
@@ -617,7 +609,7 @@ class TitulusTest extends TestCase
     public function testgetResponsabile(){
         $ctr = new StrutturaInternaController();      
         //Attenzione ai testi con le parentesi 
-        $persint = $ctr->getResponsabile('Servizio Sistema Informatico di Ateneo');
+        $persint = $ctr->getResponsabile('Settore ICT');
         $this->assertNotNull($persint->matricola); 
     }
  

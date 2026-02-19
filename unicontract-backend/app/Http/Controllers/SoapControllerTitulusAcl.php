@@ -29,7 +29,7 @@ class SoapControllerTitulusAcl implements iSearch
   {
     $this->soapWrapper->add('titulusAcl', function ($service) {
       $service
-        ->wsdl('https://'.config('titulus.username').':'.config('titulus.password').'@'.config('titulus.host').'/titulus_ws/services/Acl4?wsdl')
+        ->wsdl('https://'.config('titulus.host').'/titulus_ws/services/Acl4?wsdl')
         ->trace(true)
         ->options([
           'soap_version' => 1,

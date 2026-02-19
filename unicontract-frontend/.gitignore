@@ -40,3 +40,4 @@ testem.log
 Thumbs.db
 
 /test-results
+src/coverage/

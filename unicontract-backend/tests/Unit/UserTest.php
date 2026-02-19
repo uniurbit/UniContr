@@ -28,7 +28,6 @@ class UserTest extends TestCase
         $response = $this->json('GET', 'api/v1/users/roles', [], $headers)
             ->assertStatus(200);  
             
-        echo($response->getContent());
     }
 
      //./vendor/bin/phpunit  --testsuite Unit --filter testApiPermssions_All
@@ -41,7 +40,6 @@ class UserTest extends TestCase
         $response = $this->json('GET', 'api/v1/users/permissions', [], $headers)
             ->assertStatus(200);  
             
-        echo($response->getContent());
     }
 
     //./vendor/bin/phpunit  --testsuite Unit --filter testApiRoles
@@ -90,7 +88,6 @@ class UserTest extends TestCase
         $response = $this->json('DELETE', 'api/v1/roles/'.$data['id'], $data, $headers)
             ->assertStatus(200);
 
-        echo($response->getContent());
     }
 
    //./vendor/bin/phpunit  --testsuite Unit --filter testApiPermissions
@@ -123,7 +120,6 @@ class UserTest extends TestCase
             ->assertJson([
                 'name' => $permission->name,        
             ]);             
-        echo($response->getContent());
 
         //aggiorna
         $data['id'] = $response->original->id;
@@ -133,12 +129,10 @@ class UserTest extends TestCase
             ->assertJson([
                 'name' =>  $data['name'],        
             ]);  
-        echo($response->getContent());
 
         //cancella
         $response = $this->json('DELETE', 'api/v1/permissions/'.$data['id'], $data, $headers)
             ->assertStatus(200);
-        echo($response->getContent());
     }
 
      //./vendor/bin/phpunit  --testsuite Unit --filter testReadEmailFromRespons
@@ -196,6 +190,7 @@ class UserTest extends TestCase
 
     // ./vendor/bin/phpunit  --testsuite Unit --filter testChiamaAPIMappingUfficio
     public function testChiamaAPIMappingUfficio(){
+        $this->markTestSkipped('Invalid API Key');
         // Arrange
         $userIdAb = 'enrico.oliva@uniurb.it'; // Set a valid user ID for testing
         $serviceName = 'uniric'; // The service you are calling

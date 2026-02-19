@@ -5,6 +5,7 @@
 /storage/tempdir
 /storage/backups
 /vendor
+/coverage
 .env
 .phpunit.result.cache
 Homestead.json

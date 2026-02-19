@@ -115,25 +115,19 @@ class DatiSeeder extends Seeder
         if (App::environment('local') || App::environment('preprod')) {
             DB::table('mappinguffici')->insert([                          
                 'unitaorganizzativa_uo' => '005400',
-                'descrizione_uo' => 'Attività Sistemistiche  e Software Gestionali e Documentali - S.S.I.A.',                     
-                'strutturainterna_cod_uff' => 'Uf1_51',
-                'descrizione_uff' => 'Ufficio Protocollo e Archivio',                     
+                'descrizione_uo' => 'Servizi Sistemi e Software Gestionali e Documentali - Settore ICT - Area ICT e Comunicazione',                     
+                'strutturainterna_cod_uff' => 'SI000099',
+                'descrizione_uff' => 'Servizi Sistemi e Software Gestionali e Documentali',                     
             ]);
         }else{
             DB::table('mappinguffici')->insert([                          
-                'unitaorganizzativa_uo' => '005400',
-                'descrizione_uo' => 'Attività Sistemistiche  e Software Gestionali e Documentali - S.S.I.A.',                     
+                'unitaorganizzativa_uo' => '006305',
+                'descrizione_uo' => 'Servizi Sistemi e Software Gestionali e Documentali - Settore ICT - Area ICT e Comunicazione',                     
                 'strutturainterna_cod_uff' => 'SI000099',
-                'descrizione_uff' => 'Attività sistemistiche e software Gestionali e Documentali',                     
+                'descrizione_uff' => 'Servizi Sistemi e Software Gestionali e Documentali',                     
             ]);
         }
 
-        DB::table('mappinguffici')->insert([                          
-            'unitaorganizzativa_uo' => '005479',
-            'descrizione_uo' => 'Rete Dati e Voce, Servizi Telematici e Assistenza Informatica - S.S.I.A.',                     
-            'strutturainterna_cod_uff' => 'SI000100',
-            'descrizione_uff' => 'Rete Dati e Voce, Servizi Telematici e Assistenza Informatica',                     
-        ]);
 
         //004939	Dipartimento di Studi Umanistici (DISTUM) Dipartimento di Studi Umanistici (DISTUM) SI000089 PI000073
         DB::table('mappinguffici')->insert([                          

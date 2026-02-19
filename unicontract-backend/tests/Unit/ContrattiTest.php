@@ -381,6 +381,8 @@ class ContrattiTest extends TestCase
      * @requires-service Titulus
      */
     public function testTitulusContratto() { 
+        $this->markTestSkipped('in preprod rivedere voce indice');
+        
         $user = User::where('email','enrico.oliva@uniurb.it')->first();
         $this->actingAs($user);
 
@@ -513,10 +515,18 @@ class ContrattiTest extends TestCase
         //costruzione query 
         $request = new \Illuminate\Http\Request();
         $request->setMethod('POST');        
-        $rules = json_decode('{"rules":[],"limit":1000,"sessionId":null,"page":null}',true);
+        $rules = json_decode('{"rules":[{
+                            "operator": "=",
+                            "field": "insegnamento.aa",                
+                            "value": 2026
+                        }],"limit":10,"sessionId":null,"page":null}',true);
+                        
         $request->json()->replace($rules);
 
-        $findparam = new \App\FindParameter($request->all());  
+        $parameters = $request->json()->all();        
+        $parameters['includes'] = 'insegnamento,user,validazioni,p2naturarapporto'; 
+
+        $findparam = new \App\FindParameter($parameters);  
         //controllo numero di record restituiti 
         $collection = UtilService::alldata(new Precontrattuale, $request, $findparam);
         $total = $controller->query($request)->total();

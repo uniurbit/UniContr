@@ -1,5 +1,5 @@
 services:
-  app:
+  backend:
     build:
       context: ./docker-compose/php-fpm
       dockerfile: Dockerfile
@@ -14,6 +14,8 @@ services:
       - ../unicontract-backend:${BASE_PATH}
     networks:
       - app-network
+    depends_on:
+      - db
     # ports:
     #   - "9000:9000"
 
@@ -21,20 +23,15 @@ services:
     image: mariadb:10.11
     container_name: unicontr-db
     restart: unless-stopped
-    ports: 
-      - "${DB_PORT}:3306"
+    ports:
+      - "3308:3306"   # only if you want host access
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
-    env_file: 
-      - ../unicontract-backend/.env
+      MYSQL_DATABASE: unicontr
+      MYSQL_ROOT_PASSWORD: rootsecret
+      MYSQL_USER: unicontr
+      MYSQL_PASSWORD: secret    
     volumes:
-      - ./docker-compose/mysql/my.cnf:/etc/mysql/my.cnf
-      - ./docker-compose/mysql/dbdata:/var/lib/mysql/
+      - ./docker-compose/mysql/my.cnf:/etc/mysql/my.cnf 
     networks:
       - app-network
 
@@ -42,7 +39,7 @@ services:
     build:
       context: ../unicontract-mock-idp
       dockerfile: ../unicontract-docker/docker-compose/mock-idp/Dockerfile 
-    container_name: idp
+    container_name: unicontr-idp
     ports:
       - "7000:7000"
     volumes:
@@ -50,11 +47,11 @@ services:
     command: 
         bash -c "node start.js"
   
-  dev:
+  frontend:
     build: 
       context: ../unicontract-frontend
       dockerfile: ../unicontract-docker/docker-compose/angular/Dockerfile 
-    container_name: dev
+    container_name: unicontract-frontend
     ports:
       - "4200:4200"
     environment:
@@ -66,7 +63,7 @@ services:
       - exclude:/usr/src/app/node_modules/
 
     command: 
-        bash -c "npm rebuild node-sass && ng serve --host 0.0.0.0 --port 4200 --poll 500"
+        bash -c "ng serve --host 0.0.0.0 --port 4200 --poll 500"
 
   nginx:
     image: nginx:alpine

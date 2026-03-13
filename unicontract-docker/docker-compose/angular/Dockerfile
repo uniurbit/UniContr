@@ -7,10 +7,10 @@ RUN npm install -g @angular/cli@19
 WORKDIR /usr/src/app
 
 # Copy and install local npm packages
-#COPY package.json* package-lock.json* ./
-#RUN npm install
+COPY package.json* package-lock.json* ./
+RUN npm install
 
-#ENV PATH=/usr/src/app/node_modules/.bin:$PATH
+ENV PATH=/usr/src/app/node_modules/.bin:$PATH
 
 # Copy the remaining source code
 #COPY . .
